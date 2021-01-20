@@ -102,7 +102,7 @@ class CartPops_Public
             'all'
         );
         if ( $styles ) {
-            $this->style_options = ":root {\n\t\t\t--color-cpops-text-primary: {$styles['color_typography_primary']};\n\t\t\t--color-cpops-text-secondary: {$styles['color_typography_secondary']};\n\t\t\t--color-cpops-text-tertiary: {$styles['color_typography_tertiary']};\n\t\t\t--color-cpops-accent-color: {$styles['color_accent']};\n\t\t\t--color-cpops-overlay-background: {$styles['color_overlay']};\n\t\t\t--color-cpops-background-primary: {$styles['color_background_primary']};\n\t\t\t--color-cpops-background-secondary: {$styles['color_background_secondary']};\n\t\t\t--color-cpops-button-primary-background: {$styles['color_button_primary_background']};\n\t\t\t--color-cpops-button-primary-text: {$styles['color_button_primary_text']};\n\t\t\t--color-cpops-button-secondary-background: {$styles['color_button_secondary_background']};\n\t\t\t--color-cpops-button-secondary-text: {$styles['color_button_secondary_text']};\n\t\t\t--color-cpops-input-field-background: {$styles['color_input_background']};\n\t\t\t--color-cpops-input-field-text: {$styles['color_input_text']};\n\t\t\t--color-cpops-border-color: {$styles['color_border']};\n\t\t\t--color-cpops-recommendations-plus-btn-background: {$styles['color_background_secondary']};\n\t\t\t--color-cpops-recommendations-plus-btn-text: {$styles['color_accent']};\n\t\t\t--color-cpops-drawer-recommendations-background: {$styles['color_recommendations_drawer_background']};\n\t\t\t--color-cpops-drawer-recommendations-text: {$styles['color_recommendations_drawer_text']};\n\t\t\t--color-cpops-popup-recommendations-background: {$styles['color_recommendations_popup_background']};\n\t\t\t--color-cpops-popup-recommendations-text: {$styles['color_recommendations_popup_text']};\n\t\t\t--color-cpops-slider-pagination-bullet-active: {$styles['color_accent']};\n\t\t\t--color-cpops-slider-pagination-bullet: {$styles['color_accent']};\n\t\t\t--color-cpops-floating-cart-launcher-color: {$styles['color_floating_cart_laucher_icon']};\n\t\t\t--color-cpops-floating-cart-launcher-background: {$styles['color_floating_cart_laucher_background']};\n\t\t\t--color-cpops-cart-launcher-background: {$styles['color_cart_laucher_background']};\n\t\t\t--color-cpops-cart-launcher-text: {$styles['color_cart_laucher_text']};\n\t\t\t--color-cpops-cart-launcher-bubble-background: {$styles['color_cart_laucher_bubble_background']};\n\t\t\t--color-cpops-cart-launcher-bubble-text: {$styles['color_cart_laucher_bubble_text']};\n\t\t\t--color-cpops-close-color: {$styles['color_typography_secondary']};\n\t\t\t--color-cpops-remove-color: {$styles['color_typography_secondary']};\n\t\t\t--color-cpops-state-success: #24a317;\n\t\t\t--color-cpops-state-warning: #ffdd57;\n\t\t\t--color-cpops-state-danger: #f14668;\n\t\t\t}";
+            $this->style_options = ":root {\n\t\t\t--color-cpops-text-primary: {$styles['color_typography_primary']};\n\t\t\t--color-cpops-text-secondary: {$styles['color_typography_secondary']};\n\t\t\t--color-cpops-text-tertiary: {$styles['color_typography_tertiary']};\n\t\t\t--color-cpops-accent-color: {$styles['color_accent']};\n\t\t\t--color-cpops-overlay-background: {$styles['color_overlay']};\n\t\t\t--color-cpops-background-primary: {$styles['color_background_primary']};\n\t\t\t--color-cpops-background-secondary: {$styles['color_background_secondary']};\n\t\t\t--color-cpops-button-primary-background: {$styles['color_button_primary_background']};\n\t\t\t--color-cpops-button-primary-text: {$styles['color_button_primary_text']};\n\t\t\t--color-cpops-button-secondary-background: {$styles['color_button_secondary_background']};\n\t\t\t--color-cpops-button-secondary-text: {$styles['color_button_secondary_text']};\n\t\t\t--color-cpops-input-field-background: {$styles['color_input_background']};\n\t\t\t--color-cpops-input-field-text: {$styles['color_input_text']};\n\t\t\t--color-cpops-border-color: {$styles['color_border']};\n\t\t\t--color-cpops-free-shipping-meter-background: {$styles['color_free_shipping_meter_background']};\n\t\t\t--color-cpops-free-shipping-meter-background-active: {$styles['color_free_shipping_meter_background_active']};\n\t\t\t--color-cpops-recommendations-plus-btn-background: {$styles['color_background_secondary']};\n\t\t\t--color-cpops-recommendations-plus-btn-text: {$styles['color_accent']};\n\t\t\t--color-cpops-drawer-recommendations-background: {$styles['color_recommendations_drawer_background']};\n\t\t\t--color-cpops-drawer-recommendations-text: {$styles['color_recommendations_drawer_text']};\n\t\t\t--color-cpops-popup-recommendations-background: {$styles['color_recommendations_popup_background']};\n\t\t\t--color-cpops-popup-recommendations-text: {$styles['color_recommendations_popup_text']};\n\t\t\t--color-cpops-slider-pagination-bullet-active: {$styles['color_accent']};\n\t\t\t--color-cpops-slider-pagination-bullet: {$styles['color_accent']};\n\t\t\t--color-cpops-floating-cart-launcher-color: {$styles['color_floating_cart_laucher_icon']};\n\t\t\t--color-cpops-floating-cart-launcher-background: {$styles['color_floating_cart_laucher_background']};\n\t\t\t--color-cpops-cart-launcher-background: {$styles['color_cart_laucher_background']};\n\t\t\t--color-cpops-cart-launcher-text: {$styles['color_cart_laucher_text']};\n\t\t\t--color-cpops-cart-launcher-bubble-background: {$styles['color_cart_laucher_bubble_background']};\n\t\t\t--color-cpops-cart-launcher-bubble-text: {$styles['color_cart_laucher_bubble_text']};\n\t\t\t--color-cpops-close-color: {$styles['color_typography_secondary']};\n\t\t\t--color-cpops-remove-color: {$styles['color_typography_secondary']};\n\t\t\t--color-cpops-state-success: #24a317;\n\t\t\t--color-cpops-state-warning: #ffdd57;\n\t\t\t--color-cpops-state-danger: #f14668;\n\t\t\t}";
         }
         
         if ( $border_radius ) {
@@ -492,10 +492,10 @@ class CartPops_Public
         $applied_coupons = WC()->cart->get_applied_coupons();
         $data = array(
             'classes'     => apply_filters( 'cpops_drawer_cart_totals_classes', array( 'cpops-cart-total' ) ),
-            'subtotal'    => $this->get_cart_subtotal_order_total_html(),
-            'discount'    => $this->get_cart_discount_order_total_html(),
-            'total'       => $this->get_cart_totals_order_total_html(),
-            'tax'         => $this->get_cart_tax_order_total_html(),
+            'subtotal'    => WC()->cart->get_cart_subtotal(),
+            'coupon'      => WC()->cart->get_coupons(),
+            'discount'    => '-' . wc_price( WC()->cart->get_discount_total() + WC()->cart->get_discount_tax() ),
+            'total'       => ( empty($applied_coupons) ? WC()->cart->get_cart_subtotal() : WC()->cart->get_cart_total() ),
             'button_text' => ( empty($cart) ? sprintf( __( 'Your cart is empty. Shop now %s', 'cartpops' ), '&#8594;' ) : sprintf( __( 'Checkout now %s', 'cartpops' ), '&#8594;' ) ),
             'url'         => ( empty($cart) ? get_permalink( wc_get_page_id( 'shop' ) ) : wc_get_checkout_url() ),
         );
@@ -511,189 +511,6 @@ class CartPops_Public
     }
     
     /**
-     * Get the cart discount.
-     *
-     * @author Chris Jayden <chris@chrisjayden.com>
-     */
-    private function get_cart_subtotal_order_total_html()
-    {
-        $html = '';
-        $label = __( 'Subtotal', 'cartpops' );
-        $has_coupons = WC()->cart->get_cart_discount_total();
-        $value = WC()->cart->get_cart_subtotal();
-        if ( wc_tax_enabled() || $has_coupons ) {
-            $html = $this->get_cart_total_item_html(
-                $label,
-                apply_filters( 'cartpops_cart_totals_subtotal_total_html', $value ),
-                'subtotal',
-                ''
-            );
-        }
-        return $html;
-    }
-    
-    /**
-     * Get the cart total without shipping.
-     *
-     * @author Chris Jayden <chris@chrisjayden.com>
-     */
-    private function get_cart_totals_order_total_html()
-    {
-        $tooltip = '';
-        $label = __( 'Total', 'cartpops' );
-        $cart = WC()->cart;
-        $shipping = $this->get_shipping_totals();
-        $shipping_total = $shipping->total;
-        $shipping_tax_total = $shipping->tax_total;
-        $total_without_shipping = $cart->get_total( 'number' ) - $shipping_total - $shipping_tax_total;
-        $value = '<strong>' . wc_price( $total_without_shipping ) . '</strong> ';
-        
-        if ( wc_tax_enabled() && $cart->display_prices_including_tax() ) {
-            $tax_string_array = array();
-            $cart_tax_totals = $cart->get_tax_totals();
-            
-            if ( get_option( 'woocommerce_tax_total_display' ) === 'itemized' ) {
-                foreach ( $cart_tax_totals as $code => $tax ) {
-                    $tax_excluding_shipping = $tax->amount - $shipping_tax_total;
-                    $tax_string_array[] = sprintf( '%s %s', wc_price( $tax_excluding_shipping ), $tax->label );
-                }
-            } elseif ( !empty($cart_tax_totals) ) {
-                $tax_string_array[] = sprintf( '%s %s', wc_price( $cart->get_taxes_total( true, true ) ), WC()->countries->tax_or_vat() );
-            }
-            
-            
-            if ( !empty($tax_string_array) ) {
-                $taxable_address = WC()->customer->get_taxable_address();
-                $estimated_text = ( WC()->customer->is_customer_outside_base() && !WC()->customer->has_calculated_shipping() ? sprintf( ' ' . __( 'estimated for %s', 'cartpops' ), WC()->countries->estimated_for_prefix( $taxable_address[0] ) . WC()->countries->countries[$taxable_address[0]] ) : '' );
-                $value .= '<small class="includes_tax">' . sprintf( __( '(includes %s)', 'cartpops' ), implode( ', ', $tax_string_array ) . $estimated_text ) . '</small>';
-            }
-        
-        }
-        
-        if ( WC()->cart->needs_shipping() && WC()->cart->show_shipping() ) {
-            $tooltip = __( 'Shipping calculated at checkout', 'cartpops' );
-        }
-        $html = $this->get_cart_total_item_html(
-            $label,
-            apply_filters( 'cartpops_cart_totals_order_total_html', $value ),
-            'total',
-            $tooltip
-        );
-        return $html;
-    }
-    
-    /**
-     * Get the cart vat without shipping.
-     *
-     * @author Chris Jayden <chris@chrisjayden.com>
-     */
-    private function get_cart_tax_order_total_html()
-    {
-        $label = '';
-        $value = '';
-        
-        if ( wc_tax_enabled() && !WC()->cart->display_prices_including_tax() ) {
-            $shipping = $this->get_shipping_totals();
-            $shipping_total = $shipping->total;
-            $shipping_tax_total = $shipping->tax_total;
-            
-            if ( 'itemized' === get_option( 'woocommerce_tax_total_display' ) ) {
-                foreach ( WC()->cart->get_tax_totals() as $code => $tax ) {
-                    $tax_excluding_shipping = $tax->amount - $shipping_tax_total;
-                    $label .= $tax->label;
-                    $value .= wp_kses_post( wc_price( $tax_excluding_shipping ) );
-                }
-            } else {
-                $label .= esc_html( WC()->countries->tax_or_vat() );
-                $value .= wc_price( WC()->cart->get_taxes_total( false, false ) - $shipping_tax_total );
-            }
-        
-        }
-        
-        $html = $this->get_cart_total_item_html(
-            $label,
-            apply_filters( 'cartpops_cart_totals_vat_total_html', $value ),
-            'tax',
-            ''
-        );
-        return $html;
-    }
-    
-    /**
-     * Get the cart discount.
-     *
-     * @author Chris Jayden <chris@chrisjayden.com>
-     */
-    private function get_cart_discount_order_total_html()
-    {
-        $html = '';
-        $label = __( 'Discount', 'cartpops' );
-        $discount_excl_tax_total = WC()->cart->get_cart_discount_total();
-        $discount_tax_total = WC()->cart->get_cart_discount_tax_total();
-        $discount_total = $discount_excl_tax_total + $discount_tax_total;
-        $value = wc_price( $discount_total );
-        if ( $discount_total > 0 ) {
-            $html = $this->get_cart_total_item_html(
-                $label,
-                apply_filters( 'cartpops_cart_totals_discount_total_html', $value ),
-                'discount',
-                ''
-            );
-        }
-        return $html;
-    }
-    
-    /**
-     * Get shipping information.
-     *
-     * @author Chris Jayden <chris@chrisjayden.com>
-     */
-    private function get_shipping_totals()
-    {
-        $cart = WC()->cart;
-        $shipping = array(
-            'total'     => (double) $cart->get_shipping_total(),
-            'tax_total' => (double) $cart->shipping_tax_total,
-        );
-        return (object) $shipping;
-    }
-    
-    /**
-     * Creates a single line item.
-     *
-     * @param string $label A html string for the label.
-     * @param string $value A html string for the value.
-     * @author Chris Jayden <chris@chrisjayden.com>
-     */
-    private function get_cart_total_item_html(
-        $label,
-        $value,
-        $type = 'item',
-        $tooltip
-    )
-    {
-        $html = '';
-        $classes = apply_filters( 'cpops_line_item_classes', array( 'cpops-cart-line-items__' . $type ) );
-        $html .= '<div class="' . esc_html( implode( ' ', array_filter( $classes ) ) ) . '">';
-        $html .= '<span>' . $label;
-        
-        if ( $tooltip ) {
-            $html .= '<div class="cpops-tooltip">';
-            $html .= '<i class="cpops-tooltip__icon">?</i>';
-            $html .= '<div class="cpops-tooltip__info">';
-            $html .= '<span>' . $tooltip . '</span>';
-            $html .= '</div>';
-            $html .= '</div>';
-            $html .= '<span class="cpops-sr-only">' . $tooltip . '</span>';
-        }
-        
-        $html .= '</span>';
-        $html .= '<span>' . $value . '</span>';
-        $html .= '</div>';
-        return $html;
-    }
-    
-    /**
      * Renders the powered by partial.
      *
      * @author Chris Jayden <support@cartpops.com>
@@ -705,12 +522,7 @@ class CartPops_Public
             return;
         }
         $affiliate_url = cartpops_get_option( 'support_us_partner_code' );
-        $url = cartpops_outbound_url(
-            '',
-            'Add To Cart Trigger',
-            'Powered By',
-            'Site'
-        );
+        $url = cartpops_outbound_url( '', 'Add To Cart Trigger', 'Powered By' );
         if ( $affiliate_url ) {
             $url = "https://r.freemius.com/7061/{$affiliate_url}/";
         }
@@ -1157,7 +969,7 @@ class CartPops_Public
         ?></span>
 				</span>
 				<span class="cartpops-cart__container-text"><?php 
-        echo  wp_kses_post( $sub_total ) ;
+        echo  esc_attr( $sub_total ) ;
         ?></span>
 			</div>
 		</div>

@@ -23,6 +23,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="cpops-drawer-footer">
 	<?php do_action( 'cartpops_drawer_coupon_form' ); ?>
 	<?php do_action( 'cartpops_drawer_recommendations' ); ?>
-	<?php do_action( 'cartpops_drawer_totals' ); ?>
+
+	<div class="cpops-cart-actions">
+		<?php do_action( 'cartpops_drawer_totals' ); ?>
+	</div>
+
 	<?php do_action( 'cartpops_powered_by' ); ?>
 </div>

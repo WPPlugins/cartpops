@@ -1,0 +1,1060 @@
+# Copyright (C) 2021 CartPops
+# This file is distributed under the same license as the CartPops package.
+msgid ""
+msgstr ""
+"Project-Id-Version: CartPops\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language-Team: CartPops <hello@cartpops.com>\n"
+"Report-Msgid-Bugs-To: https://cartpops.com\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;"
+"_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;"
+"esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"X-Generator: Poedit 2.4.2\n"
+"Last-Translator: \n"
+"Language: nl_NL\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: ../admin/class-cartpops-onboarding.php:322
+msgid "Introduction"
+msgstr "Introductie"
+
+#: ../admin/class-cartpops-onboarding.php:341
+msgid "Styling"
+msgstr "Opmaak"
+
+#: ../admin/class-cartpops-onboarding.php:364
+msgid "Ready!"
+msgstr "Klaar!"
+
+#: ../admin/class-cartpops-settings.php:79
+msgid "CartPops Options"
+msgstr "CartPops opties"
+
+#: ../admin/class-cartpops-settings.php:80,
+#: ../templates/partials/cartpops-powered-by.php:29
+msgid "CartPops"
+msgstr "CartPops"
+
+#: ../admin/class-cartpops-settings.php:159
+msgid "Configure"
+msgstr "Instellingen"
+
+#: ../admin/class-cartpops-settings.php:173
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: ../admin/class-cartpops-settings.php:174,
+#: ../admin/class-cartpops-settings.php:178,
+#: ../admin/class-cartpops-settings.php:182,
+#: ../admin/class-cartpops-settings.php:186,
+#: ../admin/class-cartpops-settings.php:190
+msgid "These are fairly standard form input fields."
+msgstr "Dit zijn vrij standaard formulier invoervelden."
+
+#: ../admin/class-cartpops-settings.php:177
+msgid "Appearance"
+msgstr "Uiterlijk"
+
+#: ../admin/class-cartpops-settings.php:181
+msgid "Settings"
+msgstr "Instellingen"
+
+#: ../admin/class-cartpops-settings.php:185
+msgid "Power-ups"
+msgstr "Power-ups"
+
+#: ../admin/class-cartpops-settings.php:189
+msgid "Advanced"
+msgstr "Geavanceerd"
+
+#: ../admin/class-cartpops-settings.php:206,
+#: ../admin/class-cartpops-settings.php:1199
+msgid "Quick actions"
+msgstr "Snelle acties"
+
+#: ../admin/class-cartpops-settings.php:207
+msgid "All quick action options."
+msgstr "Alle snelle actieopties."
+
+#: ../admin/class-cartpops-settings.php:211
+msgid "Enable CartPops"
+msgstr "CartPops inschakelen"
+
+#: ../admin/class-cartpops-settings.php:212
+msgid ""
+"If you disable this, the plugin will stop working on the front-end of your "
+"website. This is useful if you temporarily want to disable CartPops without "
+"deactivating the plugin."
+msgstr ""
+"Als u dit uitschakelt, werkt de plug-in niet meer aan de front-end van uw "
+"website. Dit is handig als u CartPops tijdelijk wilt uitschakelen zonder de "
+"plug-in te deactiveren."
+
+#: ../admin/class-cartpops-settings.php:218
+msgid "Delete Plugin Options on deactivation"
+msgstr "Plug-in-opties verwijderen bij deactivering"
+
+#: ../admin/class-cartpops-settings.php:219
+msgid "This wlll delete all plugins options on deactivations. Use with caution"
+msgstr ""
+"Deze wlll verwijderen van alle plugins opties op deactivering. Voorzichtig "
+"gebruiken"
+
+#: ../admin/class-cartpops-settings.php:229,
+#: ../admin/class-cartpops-settings.php:1207
+msgid "Pro benefits"
+msgstr "Pro voordelen"
+
+#: ../admin/class-cartpops-settings.php:230
+msgid "All Pro Benefits options."
+msgstr "Alle Pro Benefits opties."
+
+#: ../admin/class-cartpops-settings.php:234
+msgid "Enable chat support"
+msgstr "Chatondersteuning inschakelen"
+
+#: ../admin/class-cartpops-settings.php:241
+msgid "Add to cart trigger"
+msgstr "Toevoegen aan winkelwagentrigger"
+
+#: ../admin/class-cartpops-settings.php:242
+msgid "All add to cart trigger options"
+msgstr "Alle toevoegen aan winkelwagentje trigger opties"
+
+#: ../admin/class-cartpops-settings.php:246
+msgid "Select an add to cart trigger"
+msgstr "Een add-to-cart trigger selecteren"
+
+#. translators: %s will be replaced with a link to the plugin documentation
+#: ../admin/class-cartpops-settings.php:248
+msgid ""
+"The Add To Cart trigger option allows you to choose which Add To Cart "
+"Trigger shows up on your customer's screen after they add something to their "
+"cart. By default, the Drawer will always be available for your customers and "
+"this can be used as a replacement for your default WooCommerce cart page. "
+"Customers can access it by clicking either the Floating Cart Launcher icon "
+"or by using the shortcode [cartpops]. You can read more about how this works "
+"in the %s."
+msgstr ""
+"Met de triggeroptie Toevoegen aan winkelwagentje u kiezen welke Add To Cart "
+"Trigger op het scherm van uw klant wordt weergegeven nadat deze iets aan hun "
+"winkelwagentje heeft toegevoegd. Standaard is de lade altijd beschikbaar "
+"voor uw klanten en dit kan worden gebruikt als vervanging voor uw standaard "
+"WooCommerce-winkelwagenpagina. Klanten kunnen er toegang toe krijgen door op "
+"het pictogram Floating Cart Launcher te klikken of door de shortcode "
+"[cartpops] te gebruiken. Meer informatie over hoe dit werkt in de %s."
+
+#: ../admin/class-cartpops-settings.php:272
+msgid "Coupon form"
+msgstr "Couponformulier"
+
+#: ../admin/class-cartpops-settings.php:273
+msgid "All coupon form options."
+msgstr "Alle coupon formulier opties."
+
+#: ../admin/class-cartpops-settings.php:277
+msgid "Enable coupon form"
+msgstr "Couponformulier inschakelen"
+
+#: ../admin/class-cartpops-settings.php:278
+msgid ""
+"This will enable a coupon form on the CartPops Drawer that allows customers "
+"to claim discount codes."
+msgstr ""
+"Dit zal een couponformulier op de CartPops-lade inschakelen waarmee klanten "
+"kortingscodes kunnen claimen."
+
+#: ../admin/class-cartpops-settings.php:285
+msgid "Product Recommendation Engine"
+msgstr "Productaanbevelingsengine"
+
+#: ../admin/class-cartpops-settings.php:286
+msgid "All Product Recommendation Engine options."
+msgstr "Alle Product Aanbeveling Engine opties."
+
+#: ../admin/class-cartpops-settings.php:290
+msgid "Enable Product Recommendation Engine"
+msgstr "Productaanbevelingsengine inschakelen"
+
+#: ../admin/class-cartpops-settings.php:291
+msgid "This will enable the Product Recommendation Engine."
+msgstr "Dit maakt de Product Recommendation Engine mogelijk."
+
+#: ../admin/class-cartpops-settings.php:297
+msgid "Enter a call to action"
+msgstr "Voer een call-to-action in"
+
+#: ../admin/class-cartpops-settings.php:298,
+#: ../admin/class-cartpops-settings.php:310,
+#: ../admin/class-cartpops-settings.php:370,
+#: ../admin/class-cartpops-settings.php:384
+msgid ""
+"Select a group of products that you want to recommend (currently only shows "
+"simple products). If a product is already in the cart it will be excluded "
+"from recommendations."
+msgstr ""
+"Selecteer een groep producten die u wilt aanbevelen (toont momenteel alleen "
+"eenvoudige producten). Als een product al in de winkelwagen zit, wordt het "
+"uitgesloten van aanbevelingen."
+
+#: ../admin/class-cartpops-settings.php:300
+msgid "You might also like these items."
+msgstr "Misschien vind je deze items ook leuk."
+
+#: ../admin/class-cartpops-settings.php:301
+msgid "Enter call to action text"
+msgstr "Oproep tot actietekst invoeren"
+
+#: ../admin/class-cartpops-settings.php:309
+msgid "Select a Recommendation type"
+msgstr "Een aanbevelingstype selecteren"
+
+#: ../admin/class-cartpops-settings.php:313
+msgid "Upsells"
+msgstr "Bijverkoop"
+
+#: ../admin/class-cartpops-settings.php:314
+msgid "Cross-sells"
+msgstr "Cross-sells"
+
+#: ../admin/class-cartpops-settings.php:315
+msgid "Custom products (Pro)"
+msgstr "Aangepaste producten (Pro)"
+
+#: ../admin/class-cartpops-settings.php:321
+msgid "Select a fallback"
+msgstr "Een terugval selecteren"
+
+#: ../admin/class-cartpops-settings.php:322
+msgid ""
+"Here you can select what to do in case there are no products to recommend."
+msgstr ""
+"Hier u selecteren wat u moet doen voor het geval er geen producten zijn om "
+"aan te bevelen."
+
+#: ../admin/class-cartpops-settings.php:325
+msgid "Hide"
+msgstr "Verberg"
+
+#: ../admin/class-cartpops-settings.php:326
+msgid "Random products"
+msgstr "Willekeurige producten"
+
+#: ../admin/class-cartpops-settings.php:335
+msgid "Select custom products"
+msgstr "Aangepaste producten selecteren"
+
+#: ../admin/class-cartpops-settings.php:336
+msgid ""
+"Select up to 3 custom products to recommend your customers. Only simple "
+"products are supported."
+msgstr ""
+"Selecteer maximaal 3 aangepaste producten om uw klanten aan te bevelen. "
+"Alleen eenvoudige producten worden ondersteund."
+
+#: ../admin/class-cartpops-settings.php:351
+msgid "Free Shipping Meter"
+msgstr "Gratis verzendmeter"
+
+#: ../admin/class-cartpops-settings.php:352,
+#: ../admin/class-cartpops-settings.php:455
+msgid "All Free Shipping Meter options"
+msgstr "Alle opties voor gratis verzendmeter"
+
+#: ../admin/class-cartpops-settings.php:356
+msgid "Enable Free Shipping Meter"
+msgstr "Gratis verzendmeter inschakelen"
+
+#: ../admin/class-cartpops-settings.php:357,
+#: ../admin/class-cartpops-settings.php:358
+msgid ""
+"This will enable the Free Shipping Meter on the CartPops Drawer and selected "
+"Add To Cart Trigger."
+msgstr ""
+"Hiermee wordt de gratis verzendmeter op de CartPops-lade ingeschakeld en "
+"wordt de optie Toevoegen aan winkelwagentrigger ingeschakeld."
+
+#: ../admin/class-cartpops-settings.php:369
+msgid "Free Shipping Meter Text"
+msgstr "Gratis verzendmetertekst"
+
+#. translators: %1$s and %2$s are replaced with specific placeholders that will be dynamically populated
+#. translators: %1$s and %2$s are replaced with specific placeholders that will be dynamically populated
+#: ../admin/class-cartpops-settings.php:373,
+#: ../admin/class-cartpops-settings.php:375
+msgid "🎁 Only %1$s away from free shipping to %2$s %3$s"
+msgstr "🎁 Alleen %1$s weg van gratis verzending naar %2$s %3$s"
+
+#: ../admin/class-cartpops-settings.php:383
+msgid "Free Shipping Meter Achieved Text"
+msgstr "Gratis verzendmeter bereikt tekst"
+
+#. translators: %1$s will be replaced with a specific placeholder that will be dynamically populated
+#. translators: %1$s will be replaced with a specific placeholder that will be dynamically populated
+#: ../admin/class-cartpops-settings.php:387,
+#: ../admin/class-cartpops-settings.php:389
+msgid "Congrats 🎉! You have earned free shipping to %1$s %2$s"
+msgstr "Gefeliciteerd 🎉! Je hebt gratis verzending verdiend naar %1$s %2$s"
+
+#: ../admin/class-cartpops-settings.php:397
+msgid "Free Shipping Meter trigger"
+msgstr "Gratis verzendmetertrigger"
+
+#: ../admin/class-cartpops-settings.php:398,
+#: ../admin/class-cartpops-settings.php:460
+msgid ""
+"Choose when the Free Shipping Meter should trigger. CartPops can "
+"automatically look up the free shipping amount from your WooCommerce "
+"Settings > Shipping > Edit Zone > Shipipng Method > Free Shipping."
+msgstr ""
+"Kies wanneer de gratis verzendmeter moet worden geactiveerd. CartPops kan "
+"automatisch het gratis verzendbedrag opzoeken via uw WooCommerce-"
+"instellingen > Shipping > Edit Zone > Shipipng-methode > gratis verzending."
+
+#: ../admin/class-cartpops-settings.php:401
+msgid "WooCommerce settings"
+msgstr "WooCommerce instellingen"
+
+#: ../admin/class-cartpops-settings.php:402
+msgid "Custom number"
+msgstr "Aangepast nummer"
+
+#: ../admin/class-cartpops-settings.php:408
+msgid "Specify a free shipping amount"
+msgstr "Een gratis verzendbedrag opgeven"
+
+#: ../admin/class-cartpops-settings.php:409
+msgid "Select a custom value for when the Free Shipping Meter should trigger."
+msgstr ""
+"Selecteer een aangepaste waarde voor wanneer de gratis verzendmeter moet "
+"worden geactiveerd."
+
+#: ../admin/class-cartpops-settings.php:412
+msgid "50"
+msgstr "50"
+
+#: ../admin/class-cartpops-settings.php:425
+msgid "Floating Cart Launcher"
+msgstr "Drijvende karlanceerinrichting"
+
+#: ../admin/class-cartpops-settings.php:426
+msgid "All Floating Cart Launcher options."
+msgstr "Alle opties voor de launcher voor drijvende winkelwagen."
+
+#: ../admin/class-cartpops-settings.php:430
+msgid "Enable Floating Cart Launcher"
+msgstr "Startprogramma voor drijvende winkelwagen inschakelen"
+
+#: ../admin/class-cartpops-settings.php:431
+msgid ""
+"This will enable a floating icon at the bottom right of your website on "
+"which customers can quickly activate the CartPops Drawer and view their cart "
+"items."
+msgstr ""
+"Hierdoor kan een zwevend pictogram rechtsonder op uw website worden "
+"geplaatst waarop klanten snel de CartPops-lade kunnen activeren en hun "
+"winkelwagenitems kunnen bekijken."
+
+#: ../admin/class-cartpops-settings.php:437
+msgid "Select a position"
+msgstr "Selecteer een positie"
+
+#: ../admin/class-cartpops-settings.php:438
+msgid ""
+"Change how the Floating Cart Launcher is positioned. Useful if you have any "
+"live chat integrations for example."
+msgstr ""
+"Wijzig de positie van de floating cart launcher. Handig als je bijvoorbeeld "
+"live chat-integraties hebt."
+
+#: ../admin/class-cartpops-settings.php:441
+msgid "Bottom right"
+msgstr "Rechtsonder"
+
+#: ../admin/class-cartpops-settings.php:442
+msgid "Bottom left"
+msgstr "Linksonder"
+
+#: ../admin/class-cartpops-settings.php:454
+msgid "Cart Launcher"
+msgstr "Cartlanceerinrichting"
+
+#: ../admin/class-cartpops-settings.php:459
+msgid "Menu Cart Launcher icon"
+msgstr "Pictogram Startpictogram Menukar"
+
+#: ../admin/class-cartpops-settings.php:463,
+#: ../admin/class-cartpops-settings.php:464,
+#: ../admin/class-cartpops-settings.php:465,
+#: ../admin/class-cartpops-settings.php:466,
+#: ../admin/class-cartpops-settings.php:467,
+#: ../admin/class-cartpops-settings.php:468,
+#: ../includes/integrations/elementor/class-cartpops-cart-widget.php:94,
+#: ../includes/integrations/elementor/class-cartpops-cart-widget.php:95,
+#: ../includes/integrations/elementor/class-cartpops-cart-widget.php:96,
+#: ../includes/integrations/elementor/class-cartpops-cart-widget.php:97,
+#: ../includes/integrations/elementor/class-cartpops-cart-widget.php:98,
+#: ../includes/integrations/elementor/class-cartpops-cart-widget.php:99,
+#: ../public/class-cartpops-public.php:1410
+msgid "Cart"
+msgstr "Winkelwagen"
+
+#: ../admin/class-cartpops-settings.php:469,
+#: ../admin/class-cartpops-settings.php:470,
+#: ../admin/class-cartpops-settings.php:471,
+#: ../admin/class-cartpops-settings.php:472,
+#: ../admin/class-cartpops-settings.php:473,
+#: ../admin/class-cartpops-settings.php:474,
+#: ../admin/class-cartpops-settings.php:475,
+#: ../includes/integrations/elementor/class-cartpops-cart-widget.php:100,
+#: ../includes/integrations/elementor/class-cartpops-cart-widget.php:101,
+#: ../includes/integrations/elementor/class-cartpops-cart-widget.php:102,
+#: ../includes/integrations/elementor/class-cartpops-cart-widget.php:103,
+#: ../includes/integrations/elementor/class-cartpops-cart-widget.php:104,
+#: ../includes/integrations/elementor/class-cartpops-cart-widget.php:105,
+#: ../includes/integrations/elementor/class-cartpops-cart-widget.php:106
+msgid "Bag"
+msgstr "Zak"
+
+#: ../admin/class-cartpops-settings.php:481
+msgid "Menu Cart Launcher Indicator"
+msgstr "Indicator voor startprogramma's voor menukar"
+
+#: ../admin/class-cartpops-settings.php:482
+msgid "Choose if you wnat to show an indicator with the item total."
+msgstr "Kies of u een indicator met het objecttotaal wilt weergeven."
+
+#: ../admin/class-cartpops-settings.php:485,
+#: ../admin/class-cartpops-settings.php:582
+msgid "None"
+msgstr "Geen"
+
+#: ../admin/class-cartpops-settings.php:486
+msgid "Bubble"
+msgstr "Bel"
+
+#: ../admin/class-cartpops-settings.php:487
+msgid "Plain"
+msgstr "Zonder opmaak"
+
+#: ../admin/class-cartpops-settings.php:493
+msgid "Hide indicator when cart is empty"
+msgstr "Indicator verbergen wanneer de winkelwagen leeg is"
+
+#: ../admin/class-cartpops-settings.php:494
+msgid "This will hide the indicator on the cart icon if the cart is empty."
+msgstr ""
+"Hierdoor wordt de indicator op het winkelwagentje verborgen als de "
+"winkelwagen leeg is."
+
+#: ../admin/class-cartpops-settings.php:500
+msgid "Show subtotal"
+msgstr "Subtotaal weergeven"
+
+#: ../admin/class-cartpops-settings.php:501
+msgid "This will show the subtotal next to the cart icon."
+msgstr "Hiermee wordt het subtotaal naast het winkelwagentje weergegeven."
+
+#: ../admin/class-cartpops-settings.php:508
+msgid "Primary color schemes"
+msgstr "Primaire kleurenschema's"
+
+#: ../admin/class-cartpops-settings.php:509
+msgid "All primary color options."
+msgstr "Alle primaire kleuropties."
+
+#: ../admin/class-cartpops-settings.php:513
+msgid "Primary background color"
+msgstr "Primaire achtergrondkleur"
+
+#: ../admin/class-cartpops-settings.php:519
+msgid "Secondary background color"
+msgstr "Secundaire achtergrondkleur"
+
+#: ../admin/class-cartpops-settings.php:525
+msgid "Primary text color"
+msgstr "Primaire tekstkleur"
+
+#: ../admin/class-cartpops-settings.php:531
+msgid "Secondary text color"
+msgstr "Secundaire tekstkleur"
+
+#: ../admin/class-cartpops-settings.php:537
+msgid "Tertiary text color"
+msgstr "Tertiaire tekstkleur"
+
+#: ../admin/class-cartpops-settings.php:543
+msgid "Border color"
+msgstr "Randkleur"
+
+#: ../admin/class-cartpops-settings.php:549
+msgid "Accent color"
+msgstr "Accent kleur"
+
+#: ../admin/class-cartpops-settings.php:555
+msgid "Overlay color"
+msgstr "Overlay kleur"
+
+#: ../admin/class-cartpops-settings.php:561
+msgid "Input field background color"
+msgstr "Invoerveld achtergrondkleur"
+
+#: ../admin/class-cartpops-settings.php:567
+msgid "Input field text color"
+msgstr "Tekstkleur invoerveld"
+
+#: ../admin/class-cartpops-settings.php:573
+msgid "Enable rounded style"
+msgstr "Afgeronde stijl inschakelen"
+
+#: ../admin/class-cartpops-settings.php:579
+msgid "Animation Type"
+msgstr "Animatie type"
+
+#: ../admin/class-cartpops-settings.php:583
+msgid "Slide In Right"
+msgstr "Schuif in Rechts"
+
+#: ../admin/class-cartpops-settings.php:584
+msgid "Slide In Right & Slick"
+msgstr "Slide In Right & Slick"
+
+#: ../admin/class-cartpops-settings.php:591
+msgid "Button color scheme"
+msgstr "Knopkleurschema"
+
+#: ../admin/class-cartpops-settings.php:592
+msgid "All button color options."
+msgstr "Alle opties voor knopkleur."
+
+#: ../admin/class-cartpops-settings.php:596,
+#: ../admin/views/wizard/step-appearance.php:28
+msgid "Primary Button Background Color"
+msgstr "Achtergrondkleur primaire knop"
+
+#: ../admin/class-cartpops-settings.php:602
+msgid "Primary Button Text Color"
+msgstr "Hoofdknop tekstkleur"
+
+#: ../admin/class-cartpops-settings.php:608
+msgid "Secondary Button Secondary Background"
+msgstr "Secundaire knop Secundaire achtergrond"
+
+#: ../admin/class-cartpops-settings.php:614
+msgid "Secondary Button Secondary Text"
+msgstr "Secundaire knop Secundaire tekst"
+
+#: ../admin/class-cartpops-settings.php:621,
+#: ../admin/class-cartpops-settings.php:1240
+msgid "Recommendations color scheme"
+msgstr "Kleurenschema Aanbevelingen"
+
+#: ../admin/class-cartpops-settings.php:622
+msgid "All Product Recommendation Engine color options."
+msgstr "Alle productaanbevelingsmotoropties."
+
+#: ../admin/class-cartpops-settings.php:626
+msgid "Drawer Recommendations background color"
+msgstr "Achtergrondkleur Ladeaanbevelingen"
+
+#: ../admin/class-cartpops-settings.php:632
+msgid "Drawer Recommendations text color"
+msgstr "Tekstkleur ladeaanbevelingen"
+
+#: ../admin/class-cartpops-settings.php:638
+msgid "Popup Recommendations background color"
+msgstr "Achtergrondkleur Pop-upaanbevelingen"
+
+#: ../admin/class-cartpops-settings.php:644
+msgid "Popup Recommendations text color"
+msgstr "Tekstkleur pop-upaanbevelingen"
+
+#: ../admin/class-cartpops-settings.php:651,
+#: ../admin/class-cartpops-settings.php:1262
+msgid "Free Shipping Meter color scheme"
+msgstr "Kleurenschema Voor gratis verzendmeter"
+
+#: ../admin/class-cartpops-settings.php:652
+msgid "All Free Shipping Meter color options."
+msgstr "Alle kleuropties voor gratis verzendmeter."
+
+#: ../admin/class-cartpops-settings.php:656
+msgid "Free Shipping Meter background color"
+msgstr "Achtergrondkleur gratis verzendmeter"
+
+#: ../admin/class-cartpops-settings.php:662
+msgid "Free Shipping Meter active background color"
+msgstr "Actieve achtergrondkleur voor gratis verzendmeter"
+
+#: ../admin/class-cartpops-settings.php:670
+msgid "Floating Cart Launcher Color Scheme"
+msgstr "Kleurenschema voor drijvende winkelwagentjes"
+
+#: ../admin/class-cartpops-settings.php:671
+msgid "All Floating Cart Launcher color options."
+msgstr "Alle opties voor de kleur van de drijvende winkelwagen."
+
+#: ../admin/class-cartpops-settings.php:675
+msgid "Floating Cart Launcher background color"
+msgstr "Achtergrondkleur drijvende winkelwagentje"
+
+#: ../admin/class-cartpops-settings.php:681
+msgid "Floating Cart Launcher icon color"
+msgstr "Pictogramkleur zwevende winkelwagentje"
+
+#: ../admin/class-cartpops-settings.php:689
+msgid "Cart Launcher Color Scheme"
+msgstr "Kleurenschema voor winkelwagentje"
+
+#: ../admin/class-cartpops-settings.php:690
+msgid "All Cart Launcher color options."
+msgstr "Alle winkelwagenlanceerkleuropties."
+
+#: ../admin/class-cartpops-settings.php:694
+msgid "Cart Launcher background color"
+msgstr "Achtergrondkleur winkelwagentje"
+
+#: ../admin/class-cartpops-settings.php:700
+msgid "Cart Launcher text color"
+msgstr "Tekstkleur winkelwagentje"
+
+#: ../admin/class-cartpops-settings.php:706
+msgid "Cart Launcher bubble background"
+msgstr "De achtergrond van de luchtbel van de karlaner"
+
+#: ../admin/class-cartpops-settings.php:712
+msgid "Cart Launcher bubble text"
+msgstr "De tekst van de berichtpje van de startlijst van de kar"
+
+#: ../admin/class-cartpops-settings.php:719
+msgid "Support Us"
+msgstr "Steun ons"
+
+#: ../admin/class-cartpops-settings.php:720
+msgid "All support us options."
+msgstr "Alle ondersteunen ons opties."
+
+#: ../admin/class-cartpops-settings.php:724
+msgid "Display Powered by CartPops"
+msgstr "Display Powered by CartPops"
+
+#: ../admin/class-cartpops-settings.php:725
+msgid ""
+"The core functionality of CartPops is free forever. You can support ongoing "
+"development and new updates by showing Powered by CartPops on your Add To "
+"Cart Triggers"
+msgstr ""
+"De kernfunctionaliteit van CartPops is voor altijd gratis. Je continue "
+"ontwikkeling en nieuwe updates ondersteunen door Powered by CartPops weer te "
+"geven op je Add To Cart Triggers"
+
+#: ../admin/class-cartpops-settings.php:731
+msgid "Partner code"
+msgstr "Partnercode"
+
+#: ../admin/class-cartpops-settings.php:732
+msgid ""
+"Replace the default Powered by CartPops branding link with your referral link."
+msgstr ""
+"Vervang de standaard brandlink van Powered by CartPops door uw "
+"verwijzingslink."
+
+#: ../admin/class-cartpops-settings.php:740
+msgid "e.g. 93494"
+msgstr "b.v. 93494"
+
+#: ../admin/class-cartpops-settings.php:745
+msgid "Custom code"
+msgstr "Aangepaste code"
+
+#: ../admin/class-cartpops-settings.php:746
+msgid "All custom code options."
+msgstr "Alle aangepaste codeopties."
+
+#: ../admin/class-cartpops-settings.php:750
+msgid "Custom CSS"
+msgstr "Aangepaste CSS"
+
+#: ../admin/class-cartpops-settings.php:751
+msgid ""
+"Add custom CSS, this will fire after any CartPops CSS. This is for more "
+"advanced users! You know what to do ʕ •ᴥ•ʔ "
+msgstr ""
+"Voeg aangepaste CSS, zal dit vuur na een CartPops CSS. Dit is voor meer "
+"gevorderde gebruikers! Je weet wat je moet doen ᴥ. "
+
+#: ../admin/class-cartpops-settings.php:758
+msgid "Custom Javascript"
+msgstr "Aangepast Javascript"
+
+#: ../admin/class-cartpops-settings.php:759
+msgid ""
+"Add custom JS, this will fire after any CartPops JS. This is for more "
+"advanced users! You know what to do ʕ •ᴥ•ʔ "
+msgstr ""
+"Voeg aangepaste JS, zal dit vuur na een CartPops JS. Dit is voor meer "
+"gevorderde gebruikers! Je weet wat je moet doen ᴥ. "
+
+#: ../admin/class-cartpops-settings.php:865
+msgid "View Documentation"
+msgstr "Bekijk documentatie"
+
+#. translators: %1$s  and %2$s are replaced with a plugin option name and %3$s with an emoji.
+#: ../admin/class-cartpops-settings.php:1026
+msgid "%1$s %2$s Requires upgrade %3$s"
+msgstr "%1$s %2$s Vereist upgrade %3$s"
+
+#: ../admin/class-cartpops-settings.php:1065
+msgid "Upload an image"
+msgstr "Upload een afbeelding"
+
+#: ../admin/class-cartpops-settings.php:1065
+msgid "Use image"
+msgstr "Gebruik afbeelding"
+
+#: ../admin/class-cartpops-settings.php:1065
+msgid "Upload new image"
+msgstr "Upload nieuwe afbeelding"
+
+#: ../admin/class-cartpops-settings.php:1066
+msgid "Remove image"
+msgstr "Verwijder afbeelding"
+
+#: ../admin/class-cartpops-settings.php:1095
+msgid "Click [?] to learn more"
+msgstr "Klik op [?] voor meer informatie"
+
+#: ../admin/class-cartpops-settings.php:1226
+msgid "Primary color scheme"
+msgstr "Primair kleurenschema"
+
+#: ../admin/class-cartpops-settings.php:1233
+msgid "Buttons color scheme"
+msgstr "Kleurenschema knoppen"
+
+#: ../admin/class-cartpops-settings.php:1247
+msgid "Floating Cart launcher color scheme"
+msgstr "Het kleurenschema van de drijvende kartrekker"
+
+#: ../admin/class-cartpops-settings.php:1254
+msgid "Cart launcher color scheme"
+msgstr "Kleurenschema voor de cartlanceerinrichting"
+
+#: ../admin/class-cartpops-settings.php:1279
+msgid "Add To Cart Trigger settings"
+msgstr "Instellingen voor winkelwagentje trigger toevoegen"
+
+#: ../admin/class-cartpops-settings.php:1286
+msgid "Coupon form settings"
+msgstr "Instellingen voor couponformulieren"
+
+#: ../admin/class-cartpops-settings.php:1293
+msgid "Floating Cart Launcher settings"
+msgstr "Instellingen voor startprogramma voor drijvende winkelwagen"
+
+#: ../admin/class-cartpops-settings.php:1300
+msgid "Menu Cart launcher settings"
+msgstr "Menuwagenstarterinstellingen"
+
+#: ../admin/class-cartpops-settings.php:1314
+msgid "Product Recommendation Engine settings"
+msgstr "Productaanbevelingsengine-instellingen"
+
+#: ../admin/class-cartpops-settings.php:1321
+msgid "Free Shipping Meter settings"
+msgstr "Instellingen voor gratis verzendmeter"
+
+#: ../admin/class-cartpops-settings.php:1335
+msgid "Support on-going development"
+msgstr "Ondersteuning van de lopende ontwikkeling"
+
+#: ../admin/class-cartpops-settings.php:1342
+msgid "Custom code settings"
+msgstr "Aangepaste code-instellingen"
+
+#: ../admin/class-cartpops-settings.php:1437
+msgid "Save Settings"
+msgstr "Instellingen Opslaan"
+
+#: ../admin/views/upgrade-card.php:8
+msgid "Popup & Bar Add To Cart Triggers"
+msgstr "Pop-up & balk toevoegen aan winkelwagentriggers"
+
+#: ../admin/views/upgrade-card.php:9
+msgid "Recommend Custom Products"
+msgstr "Aangepaste producten aanbevelen"
+
+#: ../admin/views/upgrade-card.php:10
+msgid "Add To Cart Triggers"
+msgstr "Toevoegen aan winkelwagentriggers"
+
+#: ../admin/views/wizard/finish.php:15
+msgid "Congratulations"
+msgstr "Gefeliciteerd"
+
+#: ../admin/views/wizard/finish.php:16
+msgid "Only one thing left to do!"
+msgstr "Er is nog maar één ding te doen!"
+
+#: ../admin/views/wizard/finish.php:40
+msgid ""
+"Great you're all set, CartPops is now active on your store! Go take a look! "
+"Add something to your cart and see it in action"
+msgstr ""
+"Geweldig dat je helemaal klaar bent, CartPops is nu actief in je winkel! Ga "
+"eens kijken! Voeg iets toe aan je winkelwagentje en zie het in actie"
+
+#: ../admin/views/wizard/finish.php:42
+msgid ""
+"We know you're busy, so we kept this short but we have plenty more settings "
+"that can you can discover %s."
+msgstr ""
+"We weten dat je het druk hebt, dus we hebben dit kort gehouden, maar we "
+"hebben nog veel meer instellingen die je ontdekken %s."
+
+#: ../admin/views/wizard/finish.php:42
+msgid "here"
+msgstr "hier"
+
+#: ../admin/views/wizard/finish.php:46
+msgid ""
+"If you need help, or want to dive deeper into customizing CartPops, don't "
+"hesitate to peek inside our %s."
+msgstr ""
+"Als je hulp nodig hebt, of dieper wilt duiken in het aanpassen van CartPops, "
+"aarzel dan niet om in onze %s te gluren."
+
+#: ../admin/views/wizard/finish.php:46
+msgid "online documentation"
+msgstr "online documentatie"
+
+#: ../admin/views/wizard/finish.php:54
+msgid "Go to CartPops Settings"
+msgstr "Ga naar CartPops-instellingen"
+
+#: ../admin/views/wizard/header.php:19
+msgid "👋 CartPops &rsaquo; %s"
+msgstr "👋 CartPops › %s"
+
+#: ../admin/views/wizard/intro.php:15
+msgid "You made it"
+msgstr "Je hebt het gehaald."
+
+#: ../admin/views/wizard/intro.php:16
+msgid "Welcome 🎉!"
+msgstr "Welkom 🎉!"
+
+#: ../admin/views/wizard/intro.php:22
+msgid ""
+"Congrats! You made a huge leap forward in increasing your WooCommerce revenue"
+msgstr ""
+"Congrats! Je hebt een enorme sprong voorwaarts gemaakt in het verhogen van "
+"je WooCommerce-inkomsten"
+
+#: ../admin/views/wizard/intro.php:23
+msgid "This setup will take 2 minutes of your time."
+msgstr "Deze setup duurt 2 minuten van uw tijd."
+
+#: ../admin/views/wizard/intro.php:26
+msgid "Let’s go"
+msgstr "We gaan"
+
+#: ../admin/views/wizard/intro.php:28
+msgid "Not Right Now"
+msgstr "Niet op dit moment"
+
+#: ../admin/views/wizard/step-appearance.php:16
+msgid "Make it your own"
+msgstr "Maak het je eigen"
+
+#: ../admin/views/wizard/step-appearance.php:18
+msgid "Let's design CartPops to fit well with your brand"
+msgstr "Laten we CartPops ontwerpen om goed bij je merk te passen"
+
+#: ../admin/views/wizard/step-appearance.php:45
+msgid "Primary Button Background Text"
+msgstr "Achtergrondtekst primaire knop"
+
+#: ../admin/views/wizard/step-appearance.php:64
+msgid ""
+"Don't worry you can always change these later. And we even have more colors "
+"available that you can change"
+msgstr ""
+"Maak je geen zorgen je kan deze later altijd veranderen. En we hebben zelfs "
+"meer kleuren beschikbaar die je veranderen"
+
+#: ../admin/views/wizard/step-appearance.php:72
+msgid "Skip this step"
+msgstr "Sla deze stap over"
+
+#: ../admin/views/wizard/step-appearance.php:79
+msgid "Continue"
+msgstr "Doorgaan"
+
+#: ../admin/views/wizard/step-page-field.php:42
+msgid ""
+"Page with name “%s” aready exist! Please choose another page or create a new "
+"one"
+msgstr ""
+"Pagina met de naam \"%s\" aready bestaan! Kies een andere pagina of maak een "
+"nieuwe pagina"
+
+#: ../admin/views/wizard/steps.php:21
+msgid "Return to WP Dashboard"
+msgstr "Terug naar WP-dashboard"
+
+#: ../includes/class-cartpops-forms.php:512
+msgid "Preview"
+msgstr "Voorbeeld"
+
+#: ../includes/class-cartpops-view.php:162
+msgid "Attention!"
+msgstr "Let op!"
+
+#: ../includes/class-cartpops-view.php:178
+msgid "Errors(%s)"
+msgstr "Fouten(%s)"
+
+#: ../includes/class-cartpops-view.php:194
+msgid "Useful Tip"
+msgstr "Handige tip"
+
+#: ../includes/class-cartpops-view.php:341
+msgid "View documentation"
+msgstr "Bekijk documentatie"
+
+#: ../includes/integrations/elementor/class-cartpops-cart-widget.php:40
+msgid "CartPops Cart"
+msgstr "CartPops Winkelwagen"
+
+#. translators: 1: Plugin name 2: Elementor
+#: ../includes/integrations/elementor/class-cartpops-elementor-widgets.php:155
+msgid "\"%1$s\" requires \"%2$s\" to be installed and activated."
+msgstr "\"%1$s\" vereist dat \"%2$s\" worden geïnstalleerd en geactiveerd."
+
+#: ../includes/integrations/elementor/class-cartpops-elementor-widgets.php:156,
+#: ../includes/integrations/elementor/class-cartpops-elementor-widgets.php:182,
+#: ../includes/integrations/elementor/class-cartpops-elementor-widgets.php:209
+msgid "CartPops Elementor Widgets"
+msgstr "CartPops Elementor Widgets"
+
+#: ../includes/integrations/elementor/class-cartpops-elementor-widgets.php:157,
+#: ../includes/integrations/elementor/class-cartpops-elementor-widgets.php:183
+msgid "Elementor"
+msgstr "Elementor"
+
+#. translators: 1: Plugin name 2: Elementor 3: Required Elementor version
+#. translators: 1: Plugin name 2: PHP 3: Required PHP version
+#: ../includes/integrations/elementor/class-cartpops-elementor-widgets.php:181,
+#: ../includes/integrations/elementor/class-cartpops-elementor-widgets.php:208
+msgid "\"%1$s\" requires \"%2$s\" version %3$s or greater."
+msgstr "\"%1$s\" vereist \"%2$s\" versie %3$s of meer."
+
+#: ../includes/integrations/elementor/class-cartpops-elementor-widgets.php:210
+msgid "PHP"
+msgstr "PHP"
+
+#. translators: %s will become an emoji
+#: ../public/class-cartpops-public.php:426
+msgid "%s Your cart is empty."
+msgstr "%s Je winkelwagen is leeg."
+
+#: ../public/class-cartpops-public.php:427
+msgid "Looks like you haven't made a choice yet."
+msgstr "Het lijkt erop dat je nog geen keuze hebt gemaakt."
+
+#. translators: %1$s is replaced with the coupon name and %2$s with the coupon amount
+#: ../public/class-cartpops-public.php:540
+msgid "Coupon \"%1$s\" (%2$s)"
+msgstr "Coupon \"%1$s\" (%2$s)"
+
+#: ../public/class-cartpops-public.php:542
+msgid "Removes coupon code"
+msgstr "Verwijdert coupon code"
+
+#: ../public/class-cartpops-public.php:633,
+#: ../public/class-cartpops-public.php:733
+msgid "You might also like these items!"
+msgstr "Misschien vind je deze items ook leuk!"
+
+#. translators: %s is replaced with an arrow
+#: ../public/class-cartpops-public.php:768
+msgid "Your cart is empty. Shop now %s"
+msgstr "Je winkelwagen is leeg. Shop nu %s"
+
+#: ../public/class-cartpops-public.php:768
+msgid "Checkout now %s"
+msgstr "Nu afrekenen %s"
+
+#: ../public/class-cartpops-public.php:921
+msgid "Congrats 🎉! You have earned free shipping!"
+msgstr "Gefeliciteerd 🎉! Je hebt gratis verzending!"
+
+#: ../public/class-cartpops-public.php:919
+msgid "🎁 Only %1$s away from free shipping!"
+msgstr "🎁 Slechts %1$s verwijderd van gratis verzending!"
+
+#: ../public/class-cartpops-public.php:1092
+msgid "Something went wrong"
+msgstr "Er ging iets mis"
+
+#: ../public/class-cartpops-public.php:1175
+msgid "Coupon has been removed."
+msgstr "Kortingscode is verwijderd."
+
+#: ../public/class-cartpops-public.php:1172
+msgid "Sorry there was a problem removing this coupon."
+msgstr "Sorry, er was een probleem met het verwijderen van deze kortingscode."
+
+#: ../public/class-cartpops-public.php:1266
+msgid "Available on backorder"
+msgstr "Beschikbaar via nabestelling"
+
+#: ../templates/drawer/cartpops-drawer-cart-totals.php:25
+msgid "Subtotal"
+msgstr "Subtotaal"
+
+#: ../templates/drawer/cartpops-drawer-cart-totals.php:29
+msgid "Discount"
+msgstr "Korting"
+
+#: ../templates/drawer/cartpops-drawer-cart-totals.php:33
+msgid "Total"
+msgstr "Totaal"
+
+#: ../templates/drawer/cartpops-drawer-coupon-form.php:3
+msgid "Got a discount code?"
+msgstr "Heb je een kortingscode?"
+
+#: ../templates/drawer/cartpops-drawer-coupon-form.php:6
+msgid "Enter discount code"
+msgstr "Voer kortingscode in"
+
+#: ../templates/drawer/cartpops-drawer-coupon-form.php:7
+msgid "Apply"
+msgstr "Toepassen"
+
+#: ../templates/drawer/cartpops-drawer-header.php:25
+msgid "My cart"
+msgstr "Winkelwagen"
+
+#: ../templates/partials/cartpops-powered-by.php:28
+msgid "Powered by"
+msgstr "Mogelijk gemaakt door"
+
+#. translators: Accessibility text.
+#: ../templates/partials/cartpops-powered-by.php:31
+msgid "(opens in a new tab)"
+msgstr "(opent in een nieuw tabblad)"
+
+#: ../templates/premium/cartpops-popup-recommendations.php:10
+msgid "Or continue shopping"
+msgstr "verder winkelen."

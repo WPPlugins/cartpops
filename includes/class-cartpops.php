@@ -179,7 +179,6 @@ class CartPops
             'my_register_menu_metabox',
             10
         );
-        $this->loader->add_action( 'admin_init', $plugin_admin, 'watch_potential_issues' );
     }
     
     /**
@@ -193,10 +192,6 @@ class CartPops
     {
         $plugin_settings = new CartPops_Settings( $this->plugin_name, $this->version );
         $plugin_public = new CartPops_Public( $this->get_plugin_name(), $this->get_version(), $plugin_settings );
-        $enabled = cartpops_get_option( 'plugin_enable' );
-        if ( !$enabled ) {
-            return;
-        }
         /* Assets */
         $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
         $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
