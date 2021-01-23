@@ -15,11 +15,11 @@ Add a beautiful, responsive, and conversion optimized add to cart popup to your 
 
 ### 🚀 Your WooCommerce Store Is Only As Good As Your Cart Experience
 
-**CartPops is a <a href="[https://cartpops.com](https://cartpops.com/)" target="_blank">WooCommerce Add To Cart Popup</a>, that helps every shop owner improve their user experience, increase conversions & maximize profits.**
+**CartPops is a [WooCommerce Add To Cart Popup](https://cartpops.com/?utm_source=Link&utm_campaign=Readme&utm_medium=WP%20Repo&utm_term=Homepage), that helps every shop owner improve their user experience, increase conversions & maximize profits.**
 
 This plugin allows you to show an elegant drawer/side cart each time a new product is added to the cart.
 
-<a href="[https://cartpops.com](https://cartpops.com/)" target="_blank">Homepage</a> | <a href="[https://cartpops.com](https://cartpops.com/docs/)" target="_blank">Docs</a>
+[Homepage](https://cartpops.com/?utm_source=Link&utm_campaign=Readme&utm_medium=WP%20Repo&utm_term=Homepage) | [Live Demo](https://cartpops.com/?utm_source=Link&utm_campaign=Readme&utm_medium=WP%20Repo&utm_term=Live%20Demo)
 
 ---
 
@@ -27,7 +27,7 @@ This plugin allows you to show an elegant drawer/side cart each time a new produ
 
 Here's why CartPops beats your "standard" WooCommerce add to cart functionality.
 
-<a href="[https://cartpops.com](https://cartpops.com/docs/)" target="_blank">Learn more about CartPops features</a>
+[Learn more about CartPops features](https://cartpops.com/?utm_source=Link&utm_campaign=Readme&utm_medium=WP%20Repo&utm_term=Learn%20more%20about%20CartPops%20features)
 
 ### ✨ Simple One-Click Install
 
@@ -81,7 +81,7 @@ Squeeze more revenue out of your customers by recommending products directly in 
 
 ## Pro Features
 
-<a href="[https://cartpops.com](https://cartpops.com/docs/)" target="_blank">Explore CartPops Pro features</a>
+[Explore CartPops features](https://cartpops.com/?utm_source=Link&utm_campaign=Readme&utm_medium=WP%20Repo&utm_term=Explore%20CartPops%20features)
 
 ### 🛒 Choose From Different Add To Cart Triggers
 
@@ -95,7 +95,7 @@ Motivate customers to add more products to their cart by showing a progress bar.
 
 With this widget, you can easily style the Cart Launcher and show it anywhere you'd like. Take control of all the styling elements like text color, background color, hover effect, shadow, border, and much more!
 
-<a href="[https://cartpops.com](https://cartpops.com/docs/)" target="_blank">**👉 Get CartPops Pro today**</a>
+**[👉 Get CartPops Pro today](https://cartpops.com/?utm_source=Link&utm_campaign=Readme&utm_medium=WP%20Repo&utm_term=👉%20Get%20CartPops%20Pro%20today)**
 
 ---
 
@@ -105,9 +105,28 @@ With this widget, you can easily style the Cart Launcher and show it anywhere yo
 2. Activate the plugin through the 'Plugins' menu in WordPress
 3. Make sure to disable caching on your checkout and thank you steps
 
+== Screenshots ==
+
+1. 🚀 CartPops in action!
+2. 🎨 Over 24 individual color settings
+3. ⚡️ Choose from multiple triggers (pro)
+4. 👋 Recommend products to your customers inside the cart
+
+== Upgrade Notice ==
+
+= Updating in general =
+
+If you have a caching plugin installed, or use any sort of caching in your site (DNS caching, object caching, etc), please clear those caches to make sure your browser loads the updated scripts.
+
 == Changelog ==
 
-#### Version: 1.0.0 - 19 January 2021
+#### Version :1.0.6 - 23 January 2021
+- **new**: Add an issue panel in the Dashboard tab to highlight potential issues preventing CartPops from working properly.
+- **upgrade**: Fix an issue with the Cart Launcher shortocde where the subtotal got escaped too aggressively.
+- **upgrade**: Fix an issue where Popup recommendations wouldn't show up.
+- **upgrade**: Improve readme file by using actual Markdown links rather than HTML. Yes, sometimes I confuse the two.
+
+#### Version: 1.0.5 - 19 January 2021
 - We have a first release 🔥
 
 #### Version: 0.9.0 - 4 January 2021

@@ -746,6 +746,25 @@ class CartPops_Settings
     }
     
     /**
+     * Returns potential issues that may hinder the plugin from working as expected.
+     *
+     * @author Chris Jayden <chris@chrisjayden.com>
+     */
+    public function get_potential_issues()
+    {
+        $issues = array();
+        
+        if ( 'yes' === get_option( 'woocommerce_cart_redirect_after_add' ) ) {
+            $issues['wc_cart_redirect']['category'] = array( 'general' );
+            $issues['wc_cart_redirect']['error'] = __( 'An option in WooCommerce is turned on which will immediately redirect customers to the /cart/ page preventing CartPops to open.', 'cartpops' );
+            /* translators: 1. Link */
+            $issues['wc_cart_redirect']['fix'] = sprintf( __( 'Turn off "Redirect to the cart page after successful addition" in the WooCommerce plugin settings. %s.', 'cartpops' ), sprintf( '<a href="%s" rel="noopener nofollower" target="_blank">%s</a>', admin_url( 'admin.php?page=wc-settings&tab=products' ), __( 'Take me there', 'cartpops' ) ) );
+        }
+        
+        return apply_filters( 'cartpops_plugin_issues_list', $issues );
+    }
+    
+    /**
      * Generate HTML for displaying fields.
      *
      * @param  array $args Field data.
@@ -933,7 +952,7 @@ class CartPops_Settings
             $html .= '<div class="wc_free_prod_samples-tooltip-text-wrapper">';
             $html .= '<div class="wc_free_prod_samples-text-container">';
             $html .= '<span class="wc_free_prod_samples-text">';
-            $html .= sprintf( esc_html( $field['tooltip'] ) . ' %s', '<span style="text-decoration:underline">' . __( 'Click [?] to learn more', 'cartpops' ) . '</span>' );
+            $html .= sprintf( esc_html( $field['tooltip'] ) . ' %s', '<span style="text-decoration:underline">' . __( 'Click [?] to go to the documentation', 'cartpops' ) . '</span>' );
             $html .= '</span>';
             $html .= '</div>';
             $html .= '</div>';
@@ -974,7 +993,9 @@ class CartPops_Settings
 				<div class="menu">
 					<div class="head">
 						<div class="logo">
-							<span>CartPops</span>
+							<img src="<?php 
+        echo  esc_url( $this->get_admin_asset( 'logo.png' ) ) ;
+        ?>" alt="CartPops logo" />
 						</div>
 						<div class="title">
 							<?php 
@@ -1063,8 +1084,16 @@ class CartPops_Settings
 												<div class="cartpops-col settings-col">
 													<?php 
                 $this->render_section_fields(
+                    '',
+                    '',
+                    'content-issues',
+                    __( 'Issues', 'cartpops' ),
+                    'alert-circle'
+                );
+                $this->render_section_fields(
                     $this->settings_option_group,
                     'quick_actions',
+                    '',
                     __( 'Quick actions', 'cartpops' ),
                     'navigation'
                 );
@@ -1096,30 +1125,35 @@ class CartPops_Settings
                 $this->render_section_fields(
                     $this->settings_option_group,
                     'appearance_primary',
+                    '',
                     __( 'Primary color scheme', 'cartpops' ),
                     'sliders'
                 );
                 $this->render_section_fields(
                     $this->settings_option_group,
                     'appearance_buttons',
+                    '',
                     __( 'Buttons color scheme', 'cartpops' ),
                     'sliders'
                 );
                 $this->render_section_fields(
                     $this->settings_option_group,
                     'appearance_recommendations',
+                    '',
                     __( 'Recommendations color scheme', 'cartpops' ),
                     'sliders'
                 );
                 $this->render_section_fields(
                     $this->settings_option_group,
                     'appearance_floating_cart_launcher',
+                    '',
                     __( 'Floating Cart launcher color scheme', 'cartpops' ),
                     'sliders'
                 );
                 $this->render_section_fields(
                     $this->settings_option_group,
                     'appearance_cart_launcher',
+                    '',
                     __( 'Cart launcher color scheme', 'cartpops' ),
                     'sliders'
                 );
@@ -1150,6 +1184,7 @@ class CartPops_Settings
                 $this->render_section_fields(
                     $this->settings_option_group,
                     'cart_trigger',
+                    '',
                     __( 'Add To Cart Trigger settings', 'cartpops' ),
                     'zap',
                     true
@@ -1157,18 +1192,21 @@ class CartPops_Settings
                 $this->render_section_fields(
                     $this->settings_option_group,
                     'coupon_form',
+                    '',
                     __( 'Coupon form settings', 'cartpops' ),
                     'percent'
                 );
                 $this->render_section_fields(
                     $this->settings_option_group,
                     'floating_cart_launcher',
+                    '',
                     __( 'Floating Cart Launcher settings', 'cartpops' ),
                     'shopping-cart'
                 );
                 $this->render_section_fields(
                     $this->settings_option_group,
                     'menu_cart_launcher',
+                    '',
                     __( 'Menu Cart launcher settings', 'cartpops' ),
                     'truck'
                 );
@@ -1194,12 +1232,14 @@ class CartPops_Settings
                 $this->render_section_fields(
                     $this->settings_option_group,
                     'product_recommendation_engine',
+                    '',
                     __( 'Product Recommendation Engine settings', 'cartpops' ),
                     'shopping-bag'
                 );
                 $this->render_section_fields(
                     $this->settings_option_group,
                     'free_shipping_meter',
+                    '',
                     __( 'Free Shipping Meter settings', 'cartpops' ),
                     'truck',
                     true
@@ -1226,12 +1266,14 @@ class CartPops_Settings
                 $this->render_section_fields(
                     $this->settings_option_group,
                     'support_us',
+                    '',
                     __( 'Support on-going development', 'cartpops' ),
                     'coffee'
                 );
                 $this->render_section_fields(
                     $this->settings_option_group,
                     'custom_code',
+                    '',
                     __( 'Custom code settings', 'cartpops' ),
                     'code'
                 );
@@ -1319,7 +1361,8 @@ class CartPops_Settings
      * Render settings field
      *
      * @param string  $option_group Option groop to be printed.
-     * @param string  $section Section to which it belongs.
+     * @param string  $section_options Section to which it belongs.
+     * @param string  $partial Content of the card. Must match partial.
      * @param string  $title Title of the section.
      * @param string  $icon Any icon to be included.
      * @param boolean $paid Whether it's a paid feature or not.
@@ -1327,45 +1370,28 @@ class CartPops_Settings
      */
     private function render_section_fields(
         $option_group,
-        $section,
+        $section_options,
+        $partial,
         $title,
         $icon,
         $paid = false
     )
     {
         global  $wp_settings_sections, $wp_settings_fields ;
-        if ( !$option_group || !$section ) {
-            return;
+        $card_classes = array( 'cartpops-card' );
+        
+        if ( !empty($partial) ) {
+            $partial_class = 'partial-' . strtolower( $partial );
+            $card_classes[] = $partial_class;
         }
-        ?>
-		<div class="cartpops-card">
-			<div class="card-content">
-				<div class="card-head">
-					<h2><i data-feather="<?php 
-        echo  esc_attr( $icon ) ;
-        ?>"></i> <?php 
-        echo  esc_attr( $title ) ;
-        ?>
-						<?php 
-        if ( true === $paid && fs_cartpops()->is_not_paying() ) {
-            echo  '<span class="cpops-tag is-dark">Pro</span>' ;
+        
+        
+        if ( !empty($section_options) ) {
+            $section_option_class = 'settings-' . str_replace( '_', '-', strtolower( $section_options ) );
+            $card_classes[] = $section_option_class;
         }
-        ?>
-					</h2>
-					<button name="submit" type="submit" class="cpops-button primary-button small-button"><?php 
-        echo  esc_attr( __( 'Save Settings', 'cartpops' ) ) ;
-        ?></button>
-				</div>
-				<div class="card-inside">
-					<table class="form-table" role="presentation">
-						<?php 
-        do_settings_fields( $option_group, $section );
-        ?>
-					</table>
-				</div>
-			</div>
-		</div>
-		<?php 
+        
+        require 'views/card.php';
     }
     
     /**
@@ -1465,6 +1491,21 @@ class CartPops_Settings
 			</p>
 		</div>
 		<?php 
+    }
+    
+    public function helpscout_beacon__preemium_only()
+    {
+        $enabled = cartpops_get_option( 'support_chat_enable' );
+        
+        if ( $enabled ) {
+            $data = array(
+                'form_id'  => 'f1495164-3ac9-4e0c-ac46-20c0a6f6749b',
+                'identify' => wp_json_encode( $this->identify_data__premium_only() ),
+                'session'  => wp_json_encode( $this->get_support_data__premium_only() ),
+            );
+            require_once 'views/beacon.php';
+        }
+    
     }
 
 }

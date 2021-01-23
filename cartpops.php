@@ -16,7 +16,7 @@
  * Plugin Name:       CartPops
  * Plugin URI:        https://cartpops.com
  * Description:       Beautiful, responsive, and conversion optimized add to cart popup templates for WooCommerce.
- * Version:           1.0.5
+ * Version:           1.0.6
  * Author:            CartPops
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
@@ -32,7 +32,7 @@ if ( !defined( 'WPINC' ) ) {
     die;
 }
 if ( !defined( 'CARTPOPS_VERSION' ) ) {
-    define( 'CARTPOPS_VERSION', '1.0.5' );
+    define( 'CARTPOPS_VERSION', '1.0.6' );
 }
 if ( !defined( 'CARTPOPS_PREFIX' ) ) {
     define( 'CARTPOPS_PREFIX', 'cartpops' );

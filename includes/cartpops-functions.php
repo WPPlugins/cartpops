@@ -467,4 +467,27 @@ class CartPops_Globals {
 		return;
 	}
 
+	/**
+	 * Explode earray
+	 *
+	 * @param strinig $glue A seperator.
+	 * @param array $array An array to be exploded.
+	 * @param string $symbol A symbol betweeen the key values.
+	 * @author Chris Jayden <chris@chrisjayden.com>
+	 */
+	public static function mapped_implode( $glue, $array, $symbol = '=' ) {
+		return implode(
+			$glue,
+			array_map(
+				function( $k, $v ) use ( $symbol ) {
+					if ( ! is_array( $v ) ) {
+						return $k . $symbol . $v;
+					}
+				},
+				array_keys( $array ),
+				array_values( $array )
+			)
+		);
+	}
+
 } // class

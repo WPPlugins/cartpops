@@ -969,7 +969,7 @@ class CartPops_Public
         ?></span>
 				</span>
 				<span class="cartpops-cart__container-text"><?php 
-        echo  esc_attr( $sub_total ) ;
+        echo  wp_kses_post( $sub_total ) ;
         ?></span>
 			</div>
 		</div>
