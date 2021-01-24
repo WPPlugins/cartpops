@@ -5,7 +5,7 @@ Tags: add to cart popup, added to cart, cart, shop, shopping cart, cart drawer, 
 Requires at least: 5.1
 Tested up to: 5.6
 Requires PHP: 7.0
-Stable tag: 1.0.5
+Stable tag: 1.0.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -120,7 +120,15 @@ If you have a caching plugin installed, or use any sort of caching in your site 
 
 == Changelog ==
 
-#### Version :1.0.6 - 23 January 2021
+#### Version: 1.0.8 - 24 January 2021
+- **upgrade**: Fix an issue with certain Pro colors being included in the free plugin.
+
+#### Version: 1.0.7 - 24 January 2021
+- We're trying to ship and fix bugs as fast as possible. Thanks for the support and feedback ❤️
+- **upgrade**: Fix an issue with the Elementor cart widget not firing.
+- **upgrade**: Improved translations. Made a translation? Get in touch with our team and we'll add it to the plugin.
+
+#### Version: 1.0.6 - 23 January 2021
 - **new**: Add an issue panel in the Dashboard tab to highlight potential issues preventing CartPops from working properly.
 - **upgrade**: Fix an issue with the Cart Launcher shortocde where the subtotal got escaped too aggressively.
 - **upgrade**: Fix an issue where Popup recommendations wouldn't show up.

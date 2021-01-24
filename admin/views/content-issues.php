@@ -10,8 +10,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$issue_list = $this->get_potential_issues();
-
 ?>
 
 
@@ -23,9 +21,8 @@ $issue_list = $this->get_potential_issues();
 		</tr>
 	</thead>
 	<tbody>
-		<?php if( is_array( $issue_list ) ) : ?>
-
-			<?php foreach ( $issue_list as $key => $issue ) : ?>
+		<?php if ( true === $this->has_issues ) : ?>
+			<?php foreach ( $this->issue_list as $cpops_key => $cpops_issue ) : ?>
 				<tr>
 					<td class="cpops-issues-error">
 						<div class="status-indicator status-indicator--danger status-indicator--sm  status-indicator--infinite">
@@ -34,13 +31,13 @@ $issue_list = $this->get_potential_issues();
 							<div class="circle circle--animated circle-tertiary"></div>
 						</div>
 						<div class="cpops-issues-error__description">
-							<p><?php echo wp_kses_post( $issue['error'] ); ?></p>
+							<p><?php echo wp_kses_post( $cpops_issue['error'] ); ?></p>
 						</div>
 					</td>
-					<td><?php echo wp_kses_post( $issue['fix'] ); ?></td>
+					<td><?php echo wp_kses_post( $cpops_issue['fix'] ); ?></td>
 				</tr>
 			<?php endforeach; ?>
-		<php else : ?>
+		<?php elseif ( false === $this->has_issues ) : ?>
 			<tr>
 				<td class="cpops-issues-error">
 					<div class="status-indicator status-indicator--sm js-status-indicator status-indicator--success">

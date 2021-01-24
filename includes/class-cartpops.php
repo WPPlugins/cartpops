@@ -179,6 +179,7 @@ class CartPops
             'my_register_menu_metabox',
             10
         );
+        $this->loader->add_action( 'admin_init', $plugin_admin, 'watch_potential_issues' );
     }
     
     /**

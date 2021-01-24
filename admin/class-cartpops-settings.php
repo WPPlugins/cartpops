@@ -33,6 +33,8 @@ class CartPops_Settings
     private  $settings_base ;
     public  $settings ;
     private  $menu_slug ;
+    private  $issue_list = array() ;
+    private  $has_issues ;
     /**
      * Create a construct
      *
@@ -47,6 +49,7 @@ class CartPops_Settings
         $this->settings_base = 'cartpops_';
         $this->settings_option_group = 'cartpops-settings';
         $this->menu_slug = 'cartpops';
+        $this->has_issues = false;
     }
     
     /**
@@ -232,7 +235,7 @@ class CartPops_Settings
             'fields'      => array( array(
             'id'          => 'add_to_cart_trigger',
             'label'       => __( 'Select an add to cart trigger', 'cartpops' ),
-            'description' => sprintf( __( 'The Add To Cart trigger option allows you to choose which Add To Cart Trigger shows up on your customer\'s screen after they add something to their cart. By default, the Drawer will always be available for your customers and this can be used as a replacement for your default WooCommerce cart page. Customers can access it by clicking either the Floating Cart Launcher icon or by using the shortcode [cartpops]. You can read more about how this works in the %s.', 'cartpops' ), sprintf( '<a href="%s" rel="noopener nofollower" target="_blank">documentation</a>', cartpops_outbound_url( 'docs/add-to-cart-trigger', 'Message', 'Documentation' ) ) ),
+            'description' => sprintf( __( 'The Add To Cart trigger option allows you to choose which Add To Cart Trigger shows up on your customer\'s screen after they add something to their cart. By default, the Drawer will always be available for your customers and this can be used as a replacement for your default WooCommerce cart page. You can allow customers to access the Drawer by activating the Floating Cart Launcher icon or by using the shortcode [cartpops_cart_launcher]. You can read more about Add To Cart Triggers in the %s.', 'cartpops' ), sprintf( '<a href="%s" rel="noopener nofollower" target="_blank">documentation</a>', cartpops_outbound_url( 'docs/features/add-to-cart-trigger/', 'Message', 'Documentation' ) ) ),
             'type'        => 'radio-images',
             'options'     => array(
             'drawer' => array(
@@ -259,7 +262,7 @@ class CartPops_Settings
             'description' => __( 'All coupon form options.', 'cartpops' ),
             'fields'      => array( array(
             'id'      => 'coupon_form_enable',
-            'label'   => __( 'Enable coupon form', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/coupons', 'Tooltip', 'Documentation' ) ),
+            'label'   => __( 'Enable coupon form', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/coupon-form/', 'Tooltip', 'Documentation' ) ),
             'tooltip' => __( 'This will enable a coupon form on the CartPops Drawer that allows customers to claim discount codes.', 'cartpops' ),
             'type'    => 'checkbox',
             'default' => '',
@@ -271,14 +274,14 @@ class CartPops_Settings
             'fields'      => array(
             array(
             'id'      => 'product_recommendation_engine_enable',
-            'label'   => __( 'Enable Product Recommendation Engine', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/product-recommendation-engine', 'Tooltip', 'Documentation' ) ),
+            'label'   => __( 'Enable Product Recommendation Engine', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/product-recommendation-engine/', 'Tooltip', 'Documentation' ) ),
             'tooltip' => __( 'This will enable the Product Recommendation Engine.', 'cartpops' ),
             'type'    => 'checkbox',
             'default' => '',
         ),
             array(
             'id'          => 'product_recommendation_engine_text',
-            'label'       => __( 'Enter a call to action', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/product-recommendation-engine', 'Tooltip', 'Documentation' ) ),
+            'label'       => __( 'Enter a call to action', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/product-recommendation-engine/', 'Tooltip', 'Documentation' ) ),
             'tooltip'     => __( 'Select a group of products that you want to recommend (currently only shows simple products). If a product is already in the cart it will be excluded from recommendations.', 'cartpops' ),
             'type'        => 'text',
             'default'     => __( 'You might also like these items.', 'cartpops' ),
@@ -290,7 +293,7 @@ class CartPops_Settings
         ),
             array(
             'id'      => 'product_recommendation_engine_type',
-            'label'   => __( 'Select a Recommendation type', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/product-recommendation-engine', 'Tooltip', 'Documentation' ) ),
+            'label'   => __( 'Select a Recommendation type', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/product-recommendation-engine/', 'Tooltip', 'Documentation' ) ),
             'tooltip' => __( 'Select a group of products that you want to recommend (currently only shows simple products). If a product is already in the cart it will be excluded from recommendations.', 'cartpops' ),
             'type'    => 'select',
             'options' => array(
@@ -302,7 +305,7 @@ class CartPops_Settings
         ),
             array(
             'id'      => 'product_recommendation_engine_fallback',
-            'label'   => __( 'Select a fallback', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/product-recommendation-engine', 'Tooltip', 'Documentation' ) ),
+            'label'   => __( 'Select a fallback', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/product-recommendation-engine/', 'Tooltip', 'Documentation' ) ),
             'tooltip' => __( 'Here you can select what to do in case there are no products to recommend.', 'cartpops' ),
             'type'    => 'select',
             'options' => array(
@@ -318,7 +321,7 @@ class CartPops_Settings
             'description' => __( 'All Free Shipping Meter options', 'cartpops' ),
             'fields'      => array( array(
             'id'          => 'free_shipping_meter_enable',
-            'label'       => __( 'Enable Free Shipping Meter', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/free-shipping-meter', 'Tooltip', 'Documentation' ) ),
+            'label'       => __( 'Enable Free Shipping Meter', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/free-shipping-progress-meter/', 'Tooltip', 'Documentation' ) ),
             'tooltip'     => __( 'This will enable the Free Shipping Meter on the CartPops Drawer and selected Add To Cart Trigger.', 'cartpops' ),
             'description' => __( 'This will enable the Free Shipping Meter on the CartPops Drawer and selected Add To Cart Trigger.', 'cartpops' ),
             'type'        => 'checkbox',
@@ -331,14 +334,14 @@ class CartPops_Settings
             'description' => __( 'All Floating Cart Launcher options.', 'cartpops' ),
             'fields'      => array( array(
             'id'      => 'floating_cart_launcher_enable',
-            'label'   => __( 'Enable Floating Cart Launcher', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/floating-cart-launcher', 'Tooltip', 'Documentation' ) ),
-            'tooltip' => __( 'This will enable a floating icon at the bottom right of your website on which customers can quickly activate the CartPops Drawer and view their cart items.', 'cartpops' ),
+            'label'   => __( 'Enable Floating Cart Launcher', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/cart-launcher/#floating-cart-launcher', 'Tooltip', 'Documentation' ) ),
+            'tooltip' => __( 'This will enable a floating icon on your website on which customers can quickly activate the CartPops Drawer and view their cart items.', 'cartpops' ),
             'type'    => 'checkbox',
             'default' => '',
         ), array(
             'id'        => 'floating_cart_launcher_position',
-            'label'     => __( 'Select a position', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/product-recommendation-engine', 'Tooltip', 'Documentation' ) ),
-            'tooltip'   => __( 'Change how the Floating Cart Launcher is positioned. Useful if you have any live chat integrations for example.', 'cartpops' ),
+            'label'     => __( 'Select a position', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/cart-launcher/#floating-cart-launcher', 'Tooltip', 'Documentation' ) ),
+            'tooltip'   => __( 'Change how the Floating Cart Launcher is positioned. Useful if you\'re using live chat on your store.', 'cartpops' ),
             'type'      => 'select',
             'options'   => array(
             'bottom_right' => __( 'Bottom right', 'cartpops' ),
@@ -354,14 +357,15 @@ class CartPops_Settings
         );
         $settings['menu_cart_launcher'] = array(
             'title'       => __( 'Cart Launcher', 'cartpops' ),
-            'description' => __( 'All Free Shipping Meter options', 'cartpops' ),
+            'description' => __( 'All Menu Cart Launcher options', 'cartpops' ),
             'fields'      => array(
             array(
-            'id'      => 'menu_cart_launcher_icon',
-            'label'   => __( 'Menu Cart Launcher icon', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/menu-cart-launcher', 'Tooltip', 'Documentation' ) ),
-            'tooltip' => __( 'Choose when the Free Shipping Meter should trigger. CartPops can automatically look up the free shipping amount from your WooCommerce Settings > Shipping > Edit Zone > Shipipng Method > Free Shipping.', 'cartpops' ),
-            'type'    => 'select',
-            'options' => array(
+            'id'          => 'menu_cart_launcher_icon',
+            'label'       => __( 'Menu Cart Launcher icon', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/cart-launcher/#menu-cart-launcher', 'Tooltip', 'Documentation' ) ),
+            'tooltip'     => __( 'Choose an icon to display', 'cartpops' ),
+            'description' => __( 'Head over to Appearance -> Menu -> CartPops to activate this feature in your WordPress menu', 'cartpops' ),
+            'type'        => 'select',
+            'options'     => array(
             'cpops-icon-shopping-cart-outline' => __( 'Cart', 'cartpops' ) . ' 1',
             'cpops-icon-shopping-cart-line'    => __( 'Cart', 'cartpops' ) . ' 2',
             'cpops-icon-shopping-cart-fill'    => __( 'Cart', 'cartpops' ) . ' 3',
@@ -376,11 +380,11 @@ class CartPops_Settings
             'cpops-icon-handbag-line'          => __( 'Bag', 'cartpops' ) . ' 7',
             'cpops-icon-cpops-handbag-fill'    => __( 'Bag', 'cartpops' ) . ' 8',
         ),
-            'default' => array( 'cpops-icon-shopping-bag-line' ),
+            'default'     => array( 'cpops-icon-shopping-bag-line' ),
         ),
             array(
             'id'      => 'menu_cart_launcher_indicator',
-            'label'   => __( 'Menu Cart Launcher Indicator', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/menu-cart-launcher', 'Tooltip', 'Documentation' ) ),
+            'label'   => __( 'Menu Cart Launcher Indicator', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/cart-launcher/#menu-cart-launcher', 'Tooltip', 'Documentation' ) ),
             'tooltip' => __( 'Choose if you wnat to show an indicator with the item total.', 'cartpops' ),
             'type'    => 'select',
             'options' => array(
@@ -392,14 +396,14 @@ class CartPops_Settings
         ),
             array(
             'id'      => 'menu_cart_launcher_indicator_empty',
-            'label'   => __( 'Hide indicator when cart is empty', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/menu-cart-launcher', 'Tooltip', 'Documentation' ) ),
+            'label'   => __( 'Hide indicator when cart is empty', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/cart-launcher/#menu-cart-launcher', 'Tooltip', 'Documentation' ) ),
             'tooltip' => __( 'This will hide the indicator on the cart icon if the cart is empty.', 'cartpops' ),
             'type'    => 'checkbox',
             'default' => '',
         ),
             array(
             'id'      => 'menu_cart_launcher_subtotal',
-            'label'   => __( 'Show subtotal', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/menu-cart-launcher', 'Tooltip', 'Documentation' ) ),
+            'label'   => __( 'Show subtotal', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/cart-launcher/#menu-cart-launcher', 'Tooltip', 'Documentation' ) ),
             'tooltip' => __( 'This will show the subtotal next to the cart icon.', 'cartpops' ),
             'type'    => 'checkbox',
             'default' => 'on',
@@ -549,21 +553,6 @@ class CartPops_Settings
         )
         ),
         );
-        $settings['appearance_free_shipping_meter'] = array(
-            'title'       => __( 'Free Shipping Meter color scheme', 'cartpops' ),
-            'description' => __( 'All Free Shipping Meter color options.', 'cartpops' ),
-            'fields'      => array( array(
-            'id'      => 'color_free_shipping_meter_background',
-            'label'   => __( 'Free Shipping Meter background color', 'cartpops' ),
-            'type'    => 'color',
-            'default' => '#dbdbe0',
-        ), array(
-            'id'      => 'color_free_shipping_meter_background_active',
-            'label'   => __( 'Free Shipping Meter active background color', 'cartpops' ),
-            'type'    => 'color',
-            'default' => '#705aef',
-        ) ),
-        );
         $settings['appearance_floating_cart_launcher'] = array(
             'title'       => __( 'Floating Cart Launcher Color Scheme', 'cartpops' ),
             'description' => __( 'All Floating Cart Launcher color options.', 'cartpops' ),
@@ -614,13 +603,13 @@ class CartPops_Settings
             'description' => __( 'All support us options.', 'cartpops' ),
             'fields'      => array( array(
             'id'      => 'support_us_enable',
-            'label'   => __( 'Display Powered by CartPops', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/support-us', 'Tooltip', 'Documentation' ) ),
+            'label'   => __( 'Display Powered by CartPops', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/powered-by/', 'Tooltip', 'Documentation' ) ),
             'tooltip' => __( 'The core functionality of CartPops is free forever. You can support ongoing development and new updates by showing Powered by CartPops on your Add To Cart Triggers', 'cartpops' ),
             'type'    => 'checkbox',
             'default' => '',
         ), array(
             'id'          => 'support_us_partner_code',
-            'label'       => __( 'Partner code', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'affiliates', 'Tooltip', 'Affiliate Program' ) ),
+            'label'       => __( 'Partner code', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/powered-by/', 'Tooltip', 'Affiliate Program' ) ),
             'tooltip'     => __( 'Replace the default Powered by CartPops branding link with your referral link.', 'cartpops' ),
             'type'        => 'number',
             'default'     => '',
@@ -637,14 +626,14 @@ class CartPops_Settings
             'description' => __( 'All custom code options.', 'cartpops' ),
             'fields'      => array( array(
             'id'          => 'custom_css',
-            'label'       => __( 'Custom CSS', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/custom-code', 'Tooltip', 'Documentation' ) ),
+            'label'       => __( 'Custom CSS', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/custom-code/', 'Tooltip', 'Documentation' ) ),
             'tooltip'     => __( 'Add custom CSS, this will fire after any CartPops CSS. This is for more advanced users! You know what to do ʕ •ᴥ•ʔ ', 'cartpops' ),
             'type'        => 'textarea',
             'default'     => '',
             'placeholder' => esc_html( '#cpops-drawer { text: uppercase; }' ),
         ), array(
             'id'          => 'custom_js',
-            'label'       => __( 'Custom Javascript', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/custom-code', 'Tooltip', 'Documentation' ) ),
+            'label'       => __( 'Custom Javascript', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/custom-code/', 'Tooltip', 'Documentation' ) ),
             'tooltip'     => __( 'Add custom JS, this will fire after any CartPops JS. This is for more advanced users! You know what to do ʕ •ᴥ•ʔ ', 'cartpops' ),
             'type'        => 'textarea',
             'default'     => '',
@@ -750,7 +739,7 @@ class CartPops_Settings
      *
      * @author Chris Jayden <chris@chrisjayden.com>
      */
-    public function get_potential_issues()
+    public function watch_potential_issues()
     {
         $issues = array();
         
@@ -761,7 +750,11 @@ class CartPops_Settings
             $issues['wc_cart_redirect']['fix'] = sprintf( __( 'Turn off "Redirect to the cart page after successful addition" in the WooCommerce plugin settings. %s.', 'cartpops' ), sprintf( '<a href="%s" rel="noopener nofollower" target="_blank">%s</a>', admin_url( 'admin.php?page=wc-settings&tab=products' ), __( 'Take me there', 'cartpops' ) ) );
         }
         
-        return apply_filters( 'cartpops_plugin_issues_list', $issues );
+        if ( $issues ) {
+            $this->has_issues = true;
+        }
+        $this->issue_list = $issues;
+        return apply_filters( 'cartpops_plugin_issues_list', $this->issue_list );
     }
     
     /**
@@ -1022,10 +1015,11 @@ class CartPops_Settings
             ) ),
                 $menu_id,
                 sprintf(
-                '<li class="%1$s"><img src="%2$s" />%3$s</li>',
+                '<li class="%1$s"><img src="%2$s" />%3$s %4$s</li>',
                 ( $current_tab === $menu_id ? 'active' : '' ),
                 esc_attr( $this->get_admin_asset( 'menu-item-' . $menu_id . '.svg' ) ),
-                esc_attr( $menu_item['title'] )
+                esc_attr( $menu_item['title'] ),
+                ( true === $this->has_issues && 'dashboard' === $menu_id ? '<i class="cartpops-has-margin-left-sm" style="color:red" data-feather="alert-circle"></i>' : '' )
             )
             );
         }
@@ -1491,21 +1485,6 @@ class CartPops_Settings
 			</p>
 		</div>
 		<?php 
-    }
-    
-    public function helpscout_beacon__preemium_only()
-    {
-        $enabled = cartpops_get_option( 'support_chat_enable' );
-        
-        if ( $enabled ) {
-            $data = array(
-                'form_id'  => 'f1495164-3ac9-4e0c-ac46-20c0a6f6749b',
-                'identify' => wp_json_encode( $this->identify_data__premium_only() ),
-                'session'  => wp_json_encode( $this->get_support_data__premium_only() ),
-            );
-            require_once 'views/beacon.php';
-        }
-    
     }
 
 }
