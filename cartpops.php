@@ -1,30 +1,28 @@
 <?php
 
 /**
- * The plugin bootstrap file
+ * Plugin Name: CartPops
+ * Description: Beautiful, responsive, and conversion optimized add to cart popup templates for WooCommerce.
+ * Plugin URI: https://cartpops.com
+ * Author: CartPops.com
+ * Version: 1.2.8
+ * Author URI: https://cartpops.com/?utm_source=wp-plugins&utm_campaign=author-uri&utm_medium=wp-dash
  *
- * This file is read by WordPress to generate the plugin information in the plugin
- * admin area. This file also includes all of the dependencies used by the plugin,
- * registers the activation and deactivation functions, and defines a function
- * that starts the plugin.
- *
- * @link              https://cartpops.com
- * @since             1.0.0
- * @package           CartPops
- *
- * @wordpress-plugin
- * Plugin Name:       CartPops
- * Plugin URI:        https://cartpops.com
- * Description:       Beautiful, responsive, and conversion optimized add to cart popup templates for WooCommerce.
- * Version:           1.0.8
- * Author:            CartPops
- * License:           GPL-2.0+
- * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
- * Text Domain:       cartpops
- * Domain Path:       /languages
+ * Text Domain: cartpops
+ * Domain Path: /languages
  *
  * WC requires at least: 3.0
- * WC tested up to: 4.8.0
+ * WC tested up to: 4.9.2
+ *
+ * CartPops is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * any later version.
+ *
+ * CartPops is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
  *
  */
 // If this file is called directly, abort.
@@ -32,7 +30,7 @@ if ( !defined( 'WPINC' ) ) {
     die;
 }
 if ( !defined( 'CARTPOPS_VERSION' ) ) {
-    define( 'CARTPOPS_VERSION', '1.0.8' );
+    define( 'CARTPOPS_VERSION', '1.2.8' );
 }
 if ( !defined( 'CARTPOPS_PREFIX' ) ) {
     define( 'CARTPOPS_PREFIX', 'cartpops' );
@@ -59,11 +57,11 @@ function cartpops_cant_activate_msg()
     ?>
 		<div class="notice notice-error is-dismissible checkout-wc">
 			<?php 
-    echo  sprintf( __( '<h3><strong>%s</strong>! WooCommerce is required to use CartPops.</h3>', CARTPOPS_PREFIX ), 'Oh no 😳' ) ;
+    echo  sprintf( __( '<h3><strong>%s</strong>! WooCommerce is required to use CartPops.</h3>', 'cartpops' ), 'Oh no 😳' ) ;
     ?>
 			<p>
 			<?php 
-    echo  sprintf( __( 'To prevent fatal errors, we have loaded %1$s into <strong>%2$s</strong>, which disables all features and functionality.', CARTPOPS_PREFIX ), 'CartPops', __( 'safe mode', CARTPOPS_PREFIX ) ) ;
+    echo  sprintf( __( 'To prevent fatal errors, we have loaded %1$s into <strong>%2$s</strong>, which disables all features and functionality.', 'cartpops' ), 'CartPops', __( 'safe mode', 'cartpops' ) ) ;
     ?>
 				</p>
 				<p class="button-container">
@@ -71,9 +69,9 @@ function cartpops_cant_activate_msg()
     printf(
         '<a class="button button-primary" href="%1$s" target="_blank" rel="noopener noreferrer">%2$s <span class="screen-reader-text">%3$s</span><span aria-hidden="true" class="dashicons dashicons-external"></span></a>',
         esc_url( CARTPOPS_DOCS ),
-        __( 'View troubleshooting docs' ),
+        __( 'View troubleshooting docs', 'cartpops' ),
         /* translators: Accessibility text. */
-        __( '(opens in a new tab)' )
+        __( '(opens in a new tab)', 'cartpops' )
     );
     ?>
 			</p>

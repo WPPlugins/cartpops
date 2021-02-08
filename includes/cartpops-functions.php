@@ -61,7 +61,7 @@ function cartpops_implode_html_attributes( $raw_attributes ) {
  * @param string $campaign Supply the utm_campaign, defaults to upgrade to pro.
  * @return string
  */
-function cartpops_outbound_url( $slug = '', $source = 'Plugin Dashboard', $campaign = 'Upgrade to Pro' ) {
+function cartpops_outbound_url( $slug = '', $source = 'Plugin Dashboard', $campaign = 'Upgrade to Pro', $medium = 'CartPops Plugin Dashboard' ) {
 	$url        = 'https://cartpops.com/';
 	$parameters = array();
 
@@ -72,8 +72,10 @@ function cartpops_outbound_url( $slug = '', $source = 'Plugin Dashboard', $campa
 	$args = array(
 		'utm_source'   => esc_attr( $source ),
 		'utm_campaign' => esc_attr( $campaign ),
-		'utm_medium'   => esc_attr( 'CartPops Plugin Dashboard' ),
+		'utm_medium'   => esc_attr( $medium ),
 	);
+
+	$args = urlencode_deep( $args );
 
 	$url = add_query_arg( $args, $url );
 
@@ -471,8 +473,8 @@ class CartPops_Globals {
 	 * Explode earray
 	 *
 	 * @param strinig $glue A seperator.
-	 * @param array $array An array to be exploded.
-	 * @param string $symbol A symbol betweeen the key values.
+	 * @param array   $array An array to be exploded.
+	 * @param string  $symbol A symbol betweeen the key values.
 	 * @author Chris Jayden <chris@chrisjayden.com>
 	 */
 	public static function mapped_implode( $glue, $array, $symbol = '=' ) {

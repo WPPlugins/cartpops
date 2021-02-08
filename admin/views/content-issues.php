@@ -54,3 +54,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php endif; ?>
 	</tbody>
 </table>
+
+
+<a href="#" id="reset-issues" style="margin:30px 20px 0;" class="cpops-button secondary-button small-button">Refresh issues</a>
+

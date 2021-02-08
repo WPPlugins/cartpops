@@ -84,6 +84,7 @@ class CartPops
         $this->set_locale();
         $this->define_admin_hooks();
         $this->define_public_hooks();
+        $this->define_styles_hooks();
     }
     
     /**
@@ -133,6 +134,11 @@ class CartPops
          * side of the site.
          */
         include_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-cartpops-public.php';
+        /**
+         * The class responsible for generating and loading dynanmic styles.
+         * side of the site.
+         */
+        include_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-cartpops-styles.php';
         $this->loader = new CartPops_Loader();
     }
     
@@ -160,8 +166,9 @@ class CartPops
      */
     private function define_admin_hooks()
     {
-        // $plugin_admin = new CartPops_Admin( $this->get_plugin_name(), $this->get_version() );
         $plugin_admin = new CartPops_Settings( $this->get_plugin_name(), $this->get_version() );
+        $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
+        $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
         $this->loader->add_action( 'admin_init', $plugin_admin, 'init_settings' );
         $this->loader->add_filter( 'plugin_action_links_' . CARTPOPS_FILE, $plugin_admin, 'link_settings' );
         $this->loader->add_action( 'admin_menu', $plugin_admin, 'add_menu' );
@@ -171,15 +178,14 @@ class CartPops
             'register_settings',
             10
         );
-        $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-        $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
         $this->loader->add_action(
             'admin_head-nav-menus.php',
             $plugin_admin,
             'my_register_menu_metabox',
             10
         );
-        $this->loader->add_action( 'admin_init', $plugin_admin, 'watch_potential_issues' );
+        $this->loader->add_action( 'woocommerce_init', $plugin_admin, 'watch_potential_issues' );
+        $this->loader->add_action( 'wp_ajax_cpops_reset_issues_transient', $plugin_admin, 'delete_issues_transient' );
     }
     
     /**
@@ -223,12 +229,13 @@ class CartPops
         /* Partials */
         $this->loader->add_action( 'cartpops_drawer_inside', $plugin_public, 'render_drawer_inside' );
         $this->loader->add_action( 'cartpops_drawer_header', $plugin_public, 'render_drawer_header' );
-        $this->loader->add_action( 'cartpops_drawer_header_after', $plugin_public, 'render_wc_notices' );
+        $this->loader->add_action( 'cartpops_drawer_panel_wrapper_start', $plugin_public, 'render_wc_notices' );
         $this->loader->add_action( 'cartpops_drawer_cart_contents', $plugin_public, 'render_cart_contents' );
         $this->loader->add_action( 'cartpops_drawer_coupon_form', $plugin_public, 'render_coupon_form' );
         $this->loader->add_action( 'cartpops_drawer_coupon_removal', $plugin_public, 'render_coupon_removal' );
         $this->loader->add_action( 'cartpops_drawer_recommendations', $plugin_public, 'render_drawer_recommendations' );
         $this->loader->add_action( 'cartpops_drawer_totals', $plugin_public, 'render_cart_totals' );
+        $this->loader->add_action( 'cartpops_assistant_panel_bottom', $plugin_public, 'render_cart_totals' );
         $this->loader->add_action( 'cartpops_powered_by', $plugin_public, 'render_powered_by' );
         /* Ajax: Add to cart */
         $this->loader->add_action( 'wp_ajax_cpops_add_to_cart', $plugin_public, 'cpops_add_to_cart' );
@@ -259,6 +266,13 @@ class CartPops
             20,
             2
         );
+    }
+    
+    private function define_styles_hooks()
+    {
+        $plugin_settings = new CartPops_Settings( $this->plugin_name, $this->version );
+        $plugin_styles = new CartPops_Styles( $this->get_plugin_name(), $this->get_version(), $plugin_settings );
+        $this->loader->add_action( 'wp_enqueue_scripts', $plugin_styles, 'enqueue_styles' );
     }
     
     /**

@@ -3,9 +3,9 @@ Contributors: cartpops
 Donate link: https://cartpops.com
 Tags: add to cart popup, added to cart, cart, shop, shopping cart, cart drawer, floating cart, woo-commerce, woocommerce
 Requires at least: 5.1
-Tested up to: 5.6
+Tested up to: 5.6.1
 Requires PHP: 7.0
-Stable tag: 1.0.8
+Stable tag: 1.2.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -119,6 +119,27 @@ With this widget, you can easily style the Cart Launcher and show it anywhere yo
 If you have a caching plugin installed, or use any sort of caching in your site (DNS caching, object caching, etc), please clear those caches to make sure your browser loads the updated scripts.
 
 == Changelog ==
+
+#### Version: 1.2.8 - 8 February 2021
+- **new**: Reworked the quantity selectors. We received a lot of requests for a custom input field. Customers can now add any amount to the cart with just a few clicks. 💰
+- **new**: Ya'll asked for it. You can translate CartPops directly in the settings. Of course you can still use the good old .pot file 🤓
+- **upgrade**: By popular demand, CartPops will now stretch to the height of mobile devices and will not move past that height so that the checkout button will always be in view.
+- **upgrade**: Reworked how we check stock completely. CartPops now properly checks for backorders and alike.
+- **upgrade**: Reworked the Cart Laumcher shortcode and Elementor widget. WooCommerce fragments was causing a lot of issues with icons being replaced.
+- **upgrade**: Decreased the total bundle size 🚀. We're also on pace to be completely free from jQuery.
+- **upgrade**: Removed a small delay when a customer updates the cart, which results in a more snappy experience.
+
+#### Version: 1.1.0 - 25 January 2021
+- **upgrade**: Tiny tweaks to the coupon form on mobile.
+- **upgrade**: Improve tax calculations when discounts and shipping is applied.
+
+#### Version: 1.0.10 - 25 January 2021
+- **new**: CartPops now supports tax calculation 🤓!
+- **upgrade**: Fixed a bug with the Elementor icon not changing size.
+- **upgrade**: Fixed missing text colors when cart is empty
+
+#### Version: 1.0.9 - 24 January 2021
+- **upgrade**: Hot fix that prevented styles from showing.
 
 #### Version: 1.0.8 - 24 January 2021
 - **upgrade**: Fix an issue with certain Pro colors being included in the free plugin.

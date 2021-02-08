@@ -93,23 +93,54 @@ class CartPops_Settings
         if ( !isset( $this->plugin_screen_hook_suffix ) ) {
             return;
         }
+        $suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min' );
         $screen = get_current_screen();
         wp_enqueue_style(
             'cartpops-admin-global',
-            plugin_dir_url( __FILE__ ) . 'dist/css/admin-global.css',
+            CARTPOPS_URL . 'assets/css/admin-global' . $suffix . '.css',
             array(),
             $this->version,
             'all'
         );
+        
         if ( $this->plugin_screen_hook_suffix === $screen->id ) {
             wp_enqueue_style(
-                'cartpops-admin',
-                plugin_dir_url( __FILE__ ) . 'dist/css/admin.css',
+                $this->plugin_name . '-admin',
+                CARTPOPS_URL . 'assets/css/admin' . $suffix . '.css',
+                array(),
+                $this->version,
+                'all'
+            );
+            wp_enqueue_style(
+                $this->plugin_name . '-admin-select2',
+                CARTPOPS_URL . 'assets/lib/select2/select2' . $suffix . '.css',
+                array(),
+                $this->version,
+                'all'
+            );
+            wp_enqueue_style(
+                $this->plugin_name . '-admin-spectrum',
+                CARTPOPS_URL . 'assets/lib/spectrum/spectrum' . $suffix . '.css',
+                array(),
+                $this->version,
+                'all'
+            );
+            wp_enqueue_style(
+                $this->plugin_name . '-admin-codemirror',
+                CARTPOPS_URL . 'assets/lib/code-mirror/codemirror.css',
+                array(),
+                $this->version,
+                'all'
+            );
+            wp_enqueue_style(
+                $this->plugin_name . '-admin-codemirror-theme',
+                CARTPOPS_URL . 'assets/lib/code-mirror/material.css',
                 array(),
                 $this->version,
                 'all'
             );
         }
+    
     }
     
     /**
@@ -122,17 +153,22 @@ class CartPops_Settings
         if ( !isset( $this->plugin_screen_hook_suffix ) ) {
             return;
         }
+        $suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min' );
         $screen = get_current_screen();
         
         if ( $this->plugin_screen_hook_suffix === $screen->id ) {
             wp_enqueue_script( 'jquery-form' );
             wp_enqueue_script(
                 $this->plugin_name . '-admin-script',
-                plugin_dir_url( __FILE__ ) . 'dist/js/admin.js',
+                CARTPOPS_URL . 'assets/js/admin' . $suffix . '.js',
                 array( 'jquery', 'jquery-form' ),
                 $this->version,
                 true
             );
+            wp_localize_script( $this->plugin_name . '-admin-script', 'cpops_config', array(
+                'ajax_url' => admin_url( 'admin-ajax.php' ),
+                'nonce'    => wp_create_nonce( 'ajax-nonce' ),
+            ) );
         }
     
     }
@@ -178,6 +214,9 @@ class CartPops_Settings
         );
         $menu_items['appearance'] = array(
             'title' => __( 'Appearance', 'cartpops' ),
+        );
+        $menu_items['customization'] = array(
+            'title' => __( 'Customization', 'cartpops' ),
         );
         $menu_items['settings'] = array(
             'title' => __( 'Settings', 'cartpops' ),
@@ -327,6 +366,24 @@ class CartPops_Settings
             'type'        => 'checkbox',
             'default'     => '',
             'paid'        => 'true',
+        ) ),
+        );
+        $settings['assistant'] = array(
+            'title'       => __( 'Enable Shopping Assistant', 'cartpops' ),
+            'description' => __( 'All Shopping Assistant options', 'cartpops' ),
+            'fields'      => array( array(
+            'id'      => 'assistant_modal_enable',
+            'label'   => __( 'Enable Free Shipping Meter', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/assistant/', 'Tooltip', 'Assistant' ) ),
+            'tooltip' => __( 'This will enable the Shopping Assistant on the CartPops Drawer.', 'cartpops' ),
+            'type'    => 'checkbox',
+            'default' => '',
+            'paid'    => 'true',
+        ), array(
+            'id'      => 'assistant_coupon_form',
+            'label'   => __( 'Enable smart assistant for coupon form', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/cart-launcher/#floating-cart-launcher', 'Tooltip', 'Documentation' ) ),
+            'tooltip' => __( 'This will enable a floating icon on your website on which customers can quickly activate the CartPops Drawer and view their cart items.', 'cartpops' ),
+            'type'    => 'checkbox',
+            'default' => '',
         ) ),
         );
         $settings['floating_cart_launcher'] = array(
@@ -479,19 +536,68 @@ class CartPops_Settings
             'label'   => __( 'Enable rounded style', 'cartpops' ),
             'type'    => 'checkbox',
             'default' => '',
-        ),
-            array(
-            'id'      => 'animation_type',
-            'label'   => __( 'Animation Type', 'cartpops' ),
-            'type'    => 'select',
-            'options' => array(
-            'none'    => __( 'None', 'cartpops' ),
-            'simple'  => __( 'Slide In Right', 'cartpops' ),
-            'slideup' => __( 'Slide In Right & Slick', 'cartpops' ),
-        ),
-            'default' => array( 'slideup' ),
         )
         ),
+        );
+        $settings['customization_general'] = array(
+            'title'       => __( 'General', 'cartpops' ),
+            'description' => __( 'All General customization options.', 'cartpops' ),
+            'fields'      => array( array(
+            'id'      => 'animation_type',
+            'label'   => __( 'Animation type', 'cartpops' ),
+            'type'    => 'select',
+            'options' => array(
+            'none'   => __( 'None', 'cartpops' ),
+            'fade'   => __( 'Fade', 'cartpops' ),
+            'simple' => __( 'Slide in right', 'cartpops' ),
+            'slick'  => __( 'Slick', 'cartpops' ),
+        ),
+            'default' => array( 'slick' ),
+        ), array(
+            'id'          => 'customize_animation_duration',
+            'label'       => __( 'Animation speed', 'cartpops' ),
+            'type'        => 'number',
+            'placeholder' => __( '300', 'cartpops' ),
+            'default'     => '',
+            'attributes'  => array(
+            'max' => '800',
+            'min' => '50',
+        ),
+        ), array(
+            'id'          => 'customize_white_space_text',
+            'label'       => __( 'Truncate long text', 'cartpops' ),
+            'type'        => 'select',
+            'options'     => array(
+            'nowrap' => __( 'Yes', 'cartpops' ),
+            'break'  => __( 'No', 'cartpops' ),
+        ),
+            'placeholder' => __( 'Wrap text', 'cartpops' ),
+        ) ),
+        );
+        $settings['customization_drawer'] = array(
+            'title'       => __( 'Drawer', 'cartpops' ),
+            'description' => __( 'All Drawer customization options.', 'cartpops' ),
+            'fields'      => array( array(
+            'id'          => 'customize_width_drawer_mobile',
+            'label'       => __( 'Drawer width mobile (%)', 'cartpops' ),
+            'type'        => 'number',
+            'placeholder' => '80',
+            'default'     => '',
+            'attributes'  => array(
+            'max' => '100',
+            'min' => '50',
+        ),
+        ), array(
+            'id'          => 'customize_width_drawer_desktop',
+            'label'       => __( 'Drawer width desktop (px)', 'cartpops' ),
+            'type'        => 'number',
+            'placeholder' => '500',
+            'attributes'  => array(
+            'max' => '1400',
+            'min' => '300',
+        ),
+            'default'     => '',
+        ) ),
         );
         $settings['appearance_buttons'] = array(
             'title'       => __( 'Button color scheme', 'cartpops' ),
@@ -621,6 +727,120 @@ class CartPops_Settings
             'placeholder' => __( 'e.g. 93494', 'cartpops' ),
         ) ),
         );
+        $settings['translate'] = array(
+            'title'       => __( 'Translation', 'cartpops' ),
+            'description' => __( 'All translation options.', 'cartpops' ),
+            'fields'      => array(
+            array(
+            'id'          => 'drawer_header_title_text',
+            'label'       => __( 'Drawer cart title', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/tutorials/translate/', 'Tooltip', 'Translate' ) ),
+            'tooltip'     => __( 'Use this field to quickly change the text and/or language of CartPops.', 'cartpops' ),
+            'type'        => 'text',
+            'default'     => '',
+            'placeholder' => __( 'My cart', 'cartpops' ),
+            'attributes'  => array(),
+        ),
+            array(
+            'id'          => 'coupon_title_text',
+            'label'       => __( 'Coupon title', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/tutorials/translate/', 'Tooltip', 'Translate' ) ),
+            'tooltip'     => __( 'Use this field to quickly change the text and/or language of CartPops.', 'cartpops' ),
+            'type'        => 'text',
+            'default'     => '',
+            'attributes'  => array(),
+            'placeholder' => __( 'Got a discount code?', 'cartpops' ),
+        ),
+            array(
+            'id'          => 'coupon_input_placeholder_text',
+            'label'       => __( 'Coupon input field placeholder text', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/tutorials/translate/', 'Tooltip', 'Translate' ) ),
+            'tooltip'     => __( 'Use this field to quickly change the text and/or language of CartPops.', 'cartpops' ),
+            'type'        => 'text',
+            'default'     => '',
+            'attributes'  => array(),
+            'placeholder' => __( 'Enter discount code', 'cartpops' ),
+        ),
+            array(
+            'id'          => 'coupon_button_text',
+            'label'       => __( 'Coupon button text', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/tutorials/translate/', 'Tooltip', 'Translate' ) ),
+            'tooltip'     => __( 'Use this field to quickly change the text and/or language of CartPops.', 'cartpops' ),
+            'type'        => 'text',
+            'default'     => '',
+            'attributes'  => array(),
+            'placeholder' => __( 'Apply', 'cartpops' ),
+        ),
+            array(
+            'id'          => 'subtotal_line_item_text',
+            'label'       => __( 'Line item: Subtotal', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/tutorials/translate/', 'Tooltip', 'Translate' ) ),
+            'tooltip'     => __( 'Use this field to quickly change the text and/or language of CartPops.', 'cartpops' ),
+            'type'        => 'text',
+            'default'     => '',
+            'placeholder' => __( 'Subtotal', 'cartpops' ),
+            'attributes'  => array(),
+        ),
+            array(
+            'id'          => 'discount_line_item_text',
+            'label'       => __( 'Line item: Discount', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/tutorials/translate/', 'Tooltip', 'Translate' ) ),
+            'tooltip'     => __( 'Use this field to quickly change the text and/or language of CartPops.', 'cartpops' ),
+            'type'        => 'text',
+            'default'     => '',
+            'placeholder' => __( 'Discount', 'cartpops' ),
+            'attributes'  => array(),
+        ),
+            array(
+            'id'          => 'total_line_item_text',
+            'label'       => __( 'Line item: Total', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/tutorials/translate/', 'Tooltip', 'Translate' ) ),
+            'tooltip'     => __( 'Use this field to quickly change the text and/or language of CartPops.', 'cartpops' ),
+            'type'        => 'text',
+            'default'     => '',
+            'placeholder' => __( 'Total', 'cartpops' ),
+            'attributes'  => array(),
+        ),
+            array(
+            'id'          => 'checkout_button_text',
+            'label'       => __( 'Checkout button', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/tutorials/translate/', 'Tooltip', 'Translate' ) ),
+            'tooltip'     => __( 'Use this field to quickly change the text and/or language of CartPops.', 'cartpops' ),
+            'type'        => 'text',
+            'default'     => '',
+            'placeholder' => __( 'Checkout now', 'cartpops' ),
+            'attributes'  => array(),
+        ),
+            array(
+            'id'          => 'checkout_button_empty_text',
+            'label'       => __( 'Empty checkout button', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/tutorials/translate/', 'Tooltip', 'Translate' ) ),
+            'tooltip'     => __( 'Use this field to quickly change the text and/or language of CartPops.', 'cartpops' ),
+            'type'        => 'text',
+            'default'     => '',
+            'placeholder' => __( 'Your cart is empty. Shop now', 'cartpops' ),
+            'attributes'  => array(),
+        ),
+            array(
+            'id'          => 'drawer_empty_title_text',
+            'label'       => __( 'Drawer empty state title', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/tutorials/translate/', 'Tooltip', 'Translate' ) ),
+            'tooltip'     => __( 'Use this field to quickly change the text and/or language of CartPops.', 'cartpops' ),
+            'type'        => 'text',
+            'default'     => '',
+            'placeholder' => __( 'Your cart is empty.', 'cartpops' ),
+            'attributes'  => array(),
+        ),
+            array(
+            'id'          => 'drawer_empty_subtitle_text',
+            'label'       => __( 'Drawer empty state subtitle', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/tutorials/translate/', 'Tooltip', 'Translate' ) ),
+            'tooltip'     => __( 'Use this field to quickly change the text and/or language of CartPops.', 'cartpops' ),
+            'type'        => 'text',
+            'default'     => '',
+            'placeholder' => __( 'Looks like you haven\'t made a choice yet.', 'cartpops' ),
+            'attributes'  => array(),
+        ),
+            array(
+            'id'          => 'continue_shopping_text',
+            'label'       => __( 'Continue shopping text', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/tutorials/translate/', 'Tooltip', 'Translate' ) ),
+            'tooltip'     => __( 'Use this field to quickly change the text and/or language of CartPops.', 'cartpops' ),
+            'type'        => 'text',
+            'default'     => '',
+            'placeholder' => __( 'Or continue shopping', 'cartpops' ),
+            'attributes'  => array(),
+        )
+        ),
+        );
         $settings['custom_code'] = array(
             'title'       => __( 'Custom code', 'cartpops' ),
             'description' => __( 'All custom code options.', 'cartpops' ),
@@ -742,19 +962,58 @@ class CartPops_Settings
     public function watch_potential_issues()
     {
         $issues = array();
+        $transient = get_transient( 'cartpops_potential_issues' );
+        // Yep!  Just return it and we're done.
         
-        if ( 'yes' === get_option( 'woocommerce_cart_redirect_after_add' ) ) {
-            $issues['wc_cart_redirect']['category'] = array( 'general' );
-            $issues['wc_cart_redirect']['error'] = __( 'An option in WooCommerce is turned on which will immediately redirect customers to the /cart/ page preventing CartPops to open.', 'cartpops' );
-            /* translators: 1. Link */
-            $issues['wc_cart_redirect']['fix'] = sprintf( __( 'Turn off "Redirect to the cart page after successful addition" in the WooCommerce plugin settings. %s.', 'cartpops' ), sprintf( '<a href="%s" rel="noopener nofollower" target="_blank">%s</a>', admin_url( 'admin.php?page=wc-settings&tab=products' ), __( 'Take me there', 'cartpops' ) ) );
+        if ( !empty($transient) ) {
+            // The function will return here every time after the first time it is run, until the transient expires.
+            $issues = $transient;
+            // Nope!  We gotta make a call.
+        } else {
+            
+            if ( 'yes' === get_option( 'woocommerce_cart_redirect_after_add' ) ) {
+                $issues['wc_cart_redirect']['category'] = array( 'general' );
+                $issues['wc_cart_redirect']['error'] = __( 'An option in WooCommerce is turned on which will immediately redirect customers to the /cart/ page preventing CartPops to open.', 'cartpops' );
+                /* translators: 1. Link */
+                $issues['wc_cart_redirect']['fix'] = sprintf( __( 'Turn off "Redirect to the cart page after successful addition" in the WooCommerce plugin settings. %s.', 'cartpops' ), sprintf( '<a href="%s" rel="noopener nofollower" target="_blank">%s</a>', admin_url( 'admin.php?page=wc-settings&tab=products' ), __( 'Take me there', 'cartpops' ) ) );
+            }
+            
+            // if ( ! wp_script_is( 'wc-cart-fragments', 'enqueued' ) ) {
+            // $issues['wc_cart_fragments']['category'] = array( 'general' );
+            // $issues['wc_cart_fragments']['error']    = __( 'Your WooCommerce fragments are dequeued (turned off). Some features of CartPops might not work as expected. Test your front-end thorougly.', 'cartpops' );
+            // * translators: 1. Link */
+            // $issues['wc_cart_fragments']['fix'] = sprintf( __( 'If you know what you are doing. Good! If not, get in touch with %s.', 'cartpops' ), sprintf( '<a href="%s" rel="noopener nofollower" target="_blank">%s</a>', cartpops_outbound_url( 'docs', 'Plugin Dashboard', 'Troubleshoot' ), __( 'support', 'cartpops' ) ) );
+            // }
+            set_transient( 'cartpops_potential_issues', $issues, DAY_IN_SECONDS );
         }
         
-        if ( $issues ) {
-            $this->has_issues = true;
+        if ( !$issues ) {
+            return;
         }
+        $this->has_issues = true;
         $this->issue_list = $issues;
         return apply_filters( 'cartpops_plugin_issues_list', $this->issue_list );
+    }
+    
+    /**
+     * Delete the issue l;ist transietn.
+     *
+     * @author Chris Jayden <chris@chrisjayden.com>
+     */
+    public function delete_issues_transient()
+    {
+        if ( !wp_verify_nonce( $_POST['nonce'], 'ajax-nonce' ) ) {
+            die( 'Busted!' );
+        }
+        $deleted = delete_transient( 'cartpops_potential_issues' );
+        
+        if ( $deleted ) {
+            wp_send_json_success( __( 'Refreshing issues', 'cartpops' ) );
+        } else {
+            wp_send_json_success( __( 'Something went wrong', 'cartpops' ) );
+        }
+        
+        wp_die();
     }
     
     /**
@@ -908,7 +1167,7 @@ class CartPops_Settings
                 $html .= '<select multiple="multiple" ' . cartpops_implode_html_attributes( $attributes ) . '>';
                 foreach ( $field['options'] as $k => $v ) {
                     $selected = false;
-                    if ( in_array( $k, $data, true ) ) {
+                    if ( in_array( $k, $data ) ) {
                         $selected = true;
                     }
                     $html .= '<option ' . selected( $selected, true, false ) . ' value="' . esc_attr( $k ) . '" />' . $v . '</label> ';
@@ -1171,6 +1430,39 @@ class CartPops_Settings
             ?>
 											<?php 
             
+            if ( 'customization' === $menu_id ) {
+                ?>
+												<div class="cartpops-col settings-col">
+													<?php 
+                $this->render_section_fields(
+                    $this->settings_option_group,
+                    'customization_general',
+                    '',
+                    __( 'General', 'cartpops' ),
+                    'sliders'
+                );
+                $this->render_section_fields(
+                    $this->settings_option_group,
+                    'customization_drawer',
+                    '',
+                    __( 'Drawer', 'cartpops' ),
+                    'sliders'
+                );
+                ?>
+												</div>
+												<?php 
+                ?>
+													<div class="cartpops-col sidebar-col"><?php 
+                include 'views/upgrade-card.php';
+                ?></div>
+												<?php 
+                ?>
+											<?php 
+            }
+            
+            ?>
+											<?php 
+            
             if ( 'settings' === $menu_id ) {
                 ?>
 												<div class="cartpops-col settings-col">
@@ -1238,6 +1530,14 @@ class CartPops_Settings
                     'truck',
                     true
                 );
+                // $this->render_section_fields(
+                // $this->settings_option_group,
+                // 'assistant',
+                // '',
+                // __( 'Shopping Assistant settings', 'cartpops' ),
+                // 'truck',
+                // true
+                // );
                 ?>
 												</div>
 												<?php 
@@ -1263,6 +1563,13 @@ class CartPops_Settings
                     '',
                     __( 'Support on-going development', 'cartpops' ),
                     'coffee'
+                );
+                $this->render_section_fields(
+                    $this->settings_option_group,
+                    'translate',
+                    '',
+                    __( 'Translate', 'cartpops' ),
+                    'globe'
                 );
                 $this->render_section_fields(
                     $this->settings_option_group,
@@ -1304,7 +1611,7 @@ class CartPops_Settings
 									beforeSend: function() {
 										jQuery('.cpops-submit-slider').animate({
 												width: '100%'
-										}, 2300);
+										}, 700);
 										// add spinner
 										submitButtons.addClass('is-loading');
 										// lock button
@@ -1321,7 +1628,7 @@ class CartPops_Settings
 											// show dynamic notification
 											jQuery('.cpops-submit-slider').remove();
 											jQuery(".cpops-submit-slider").css("width", '0%');
-										}, 1800);
+										}, 200);
 									},
 								});
 
@@ -1437,7 +1744,7 @@ class CartPops_Settings
      */
     private function get_admin_asset( $asset )
     {
-        return plugin_dir_url( __FILE__ ) . 'dist/images/' . $asset;
+        return CARTPOPS_URL . 'assets/images/admin/' . $asset;
     }
     
     /**
@@ -1485,6 +1792,20 @@ class CartPops_Settings
 			</p>
 		</div>
 		<?php 
+    }
+    
+    /**
+     * Check if we're on the admin screen.
+     *
+     * @author Chris Jayden <chris@chrisjayden.com>
+     */
+    private function is_admin()
+    {
+        $screen = get_current_screen();
+        if ( $this->plugin_screen_hook_suffix === $screen->id ) {
+            return true;
+        }
+        return false;
     }
 
 }
