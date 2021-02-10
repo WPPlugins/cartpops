@@ -4,43 +4,15 @@
  * The class that loads in all dynamic styling.
  *
  * @package    CartPops
- * @subpackage CartPops/styles
- * @author     Chris Jayden <support@cartpops.com>
+ * @subpackage CartPops/assets
+ * @author     Chris Jayden <help@cartpops.com>
  */
-class CartPops_Styles
+class CartPops_Assets
 {
-    /**
-     * The ID of this plugin.
-     *
-     * @since    1.0.0
-     * @access   private
-     * @var      string    $plugin_name    The ID of this plugin.
-     */
     private  $plugin_name ;
-    /**
-     * The version of this plugin.
-     *
-     * @since    1.0.0
-     * @access   private
-     * @var      string    $version    The current version of this plugin.
-     */
     private  $version ;
-    /**
-     * The plugin settings.
-     *
-     * @since    1.0.0
-     * @access   private
-     * @var      object    $version    An object with settings.
-     */
     private  $plugin_settings ;
-    /**
-     * Styles outputted by plugin options.
-     *
-     * @since    1.0.0
-     * @access   private
-     * @var      string    $styles    Current plugin option styles.
-     */
-    private  $style_options ;
+    private  $trigger ;
     /**
      * Constructor
      *
@@ -53,6 +25,70 @@ class CartPops_Styles
         $this->plugin_name = $plugin_name;
         $this->version = $version;
         $this->plugin_settings = $plugin_settings;
+        $this->trigger = cartpops_get_option( 'add_to_cart_trigger' );
+    }
+    
+    /**
+     * Enqueue styles
+     *
+     * @return void
+     */
+    public function enqueue_frontend_styles()
+    {
+        $suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min' );
+        $custom_css = cartpops_get_option( 'custom_css' );
+        wp_enqueue_style(
+            'cartpops-frontend',
+            CARTPOPS_URL . 'assets/css/frontend' . $suffix . '.css',
+            array(),
+            $this->version,
+            'all'
+        );
+        wp_enqueue_style(
+            $this->plugin_name . '-swiper',
+            CARTPOPS_URL . 'assets/lib/swiper/swiper-bundle' . $suffix . '.css',
+            array(),
+            $this->version,
+            'all'
+        );
+        if ( $custom_css ) {
+            wp_add_inline_style( 'cartpops-frontend', wp_unslash( $custom_css ) );
+        }
+    }
+    
+    /**
+     * Enqueue scripts
+     *
+     * @return void
+     */
+    public function enqueue_frontend_scripts()
+    {
+        $suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min' );
+        $custom_js = cartpops_get_option( 'custom_js' );
+        wp_enqueue_script(
+            'cartpops-frontend',
+            CARTPOPS_URL . 'assets/js/frontend' . $suffix . '.js',
+            array( 'jquery' ),
+            $this->version,
+            true
+        );
+        wp_enqueue_script(
+            $this->plugin_name . '-swiper',
+            CARTPOPS_URL . 'assets/lib/swiper/swiper-bundle' . $suffix . '.js',
+            array(),
+            $this->version,
+            true
+        );
+        wp_localize_script( 'cartpops-frontend', 'cpops_config', array(
+            'script_debug' => ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? true : false ),
+            'ajax_url'     => admin_url( 'admin-ajax.php' ),
+            'pro'          => json_encode( fs_cartpops()->can_use_premium_code() ),
+            'nonce'        => wp_create_nonce( 'cartpops' ),
+            'trigger'      => $this->trigger,
+        ) );
+        if ( $custom_js ) {
+            wp_add_inline_script( 'cartpops-frontend', wp_unslash( $custom_js ) );
+        }
     }
     
     /**
@@ -61,7 +97,7 @@ class CartPops_Styles
      * @since    1.2.7
      * @author Chris Jayden <chris@chrisjayden.com>
      */
-    public function enqueue_styles()
+    public function enqueue_dynamic_styles()
     {
         $border_radius = cartpops_get_option( 'border_radius_rounded' );
         $styles = $this->plugin_settings->get_color_settings();

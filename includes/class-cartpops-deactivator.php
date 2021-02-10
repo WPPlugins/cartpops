@@ -17,7 +17,7 @@
  * @since      1.0.0
  * @package    CartPops
  * @subpackage CartPops/includes
- * @author     Chris Jayden <support@cartpops.com>
+ * @author     Chris Jayden <help@cartpops.com>
  */
 class CartPops_Deactivator {
 
@@ -35,7 +35,7 @@ class CartPops_Deactivator {
 	/**
 	 * Removes all plugin options.
 	 *
-	 * @author Chris Jayden <support@cartpops.com>
+	 * @author Chris Jayden <help@cartpops.com>
 	 */
 	public static function remove_options() {
 		$delete_options = cartpops_get_option( 'plugin_reset' );

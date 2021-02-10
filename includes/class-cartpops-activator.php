@@ -17,7 +17,7 @@
  * @since      1.0.0
  * @package    CartPops
  * @subpackage CartPops/includes
- * @author     Chris Jayden <support@cartpops.com>
+ * @author     Chris Jayden <help@cartpops.com>
  */
 class CartPops_Activator
 {

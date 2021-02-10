@@ -1,4 +1,4 @@
-/*! Copyright © Chris Jayden <help@cartpops.com> (https://cartpops.com) - cartpops - v1.2.8 - 08-02-2021 */
+/*! Copyright © Chris Jayden <help@cartpops.com> (https://cartpops.com) - cartpops - v1.2.9 - 10-02-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -1886,7 +1886,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var log = new _Loggin__WEBPACK_IMPORTED_MODULE_0__.default("Add To Cart");
+var log = new _Loggin__WEBPACK_IMPORTED_MODULE_0__.default('Add To Cart');
 /**
  * AJAX call to add a product to the cart.
  * @param {string} cart_key Cart key
@@ -1901,29 +1901,38 @@ function addToCart(form, data, button) {
   var product_id = data.product_id;
   var popupRecommendationsEl = button.parent().parent().parent();
 
-  if (popupRecommendationsEl.hasClass("cpops-recommendations-shortcode")) {
-    action = "recommendation";
+  if (popupRecommendationsEl.hasClass('cpops-recommendations-shortcode')) {
+    action = 'recommendation';
   }
 
-  log.send("Preparing add to cart request with data:", data);
-  addToCartBtn.removeClass("added");
-  addToCartBtn.addClass("loading");
+  log.send('Preparing add to cart request with data:', data);
+  addToCartBtn.removeClass('added');
+  addToCartBtn.addClass('loading');
   httpClient.post(cpops_config.ajax_url, qs__WEBPACK_IMPORTED_MODULE_3___default().stringify(data)).then(function (response) {
-    log.send("Product added to cart succesfully with data:", response.data); // Dont open cart for custom actions
+    log.send('Product added to cart succesfully with data:', response.data);
+    var fragments = response.data.fragments;
 
-    if (action === "recommendation") {
+    if (fragments) {
+      $.each(fragments, function (key, value) {
+        $(key).replaceWith(value);
+      });
+      $(document.body).trigger('wc_fragments_loaded');
+    } // Dont open cart for custom actions
+
+
+    if ('recommendation' === action) {
       (0,_RefreshCart__WEBPACK_IMPORTED_MODULE_1__.default)(false, product_id);
     } else {
       (0,_RefreshCart__WEBPACK_IMPORTED_MODULE_1__.default)(true, product_id);
     } // Trigger added to cart event.
 
 
-    $(document.body).trigger("added_to_cart", [response.data.fragments, response.data.cart_hash, button]);
+    $(document.body).trigger('added_to_cart', [response.data.fragments, response.data.cart_hash, button]);
   })["catch"](function (error) {
     console.log(error);
   })["finally"](function () {
-    addToCartBtn.addClass("added");
-    addToCartBtn.removeClass("loading");
+    addToCartBtn.addClass('added');
+    addToCartBtn.removeClass('loading');
   });
 }
 
@@ -2333,7 +2342,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var log = new _Loggin__WEBPACK_IMPORTED_MODULE_0__.default("Coupon");
+var log = new _Loggin__WEBPACK_IMPORTED_MODULE_0__.default('Coupon');
 /**
  * AJAX function to add a coupon
  * @param {string} coupon A coupon to be added into WooCOmmerce
@@ -2342,25 +2351,34 @@ var log = new _Loggin__WEBPACK_IMPORTED_MODULE_0__.default("Coupon");
 
 function applyCoupon(coupon, input, button) {
   var data = {
-    action: "cpops_apply_coupon",
+    action: 'cpops_apply_coupon',
     coupon: coupon,
     nonce: cpops_config.nonce
   };
-  log.send("Applying coupon with data:", data);
-  $("#cartpops-drawer button").prop("disabled", true);
-  button.addClass("is-loading");
+  log.send('Applying coupon with data:', data);
+  $('#cartpops-drawer button').prop('disabled', true);
+  button.addClass('is-loading');
   axios__WEBPACK_IMPORTED_MODULE_2___default().post(cpops_config.ajax_url, qs__WEBPACK_IMPORTED_MODULE_3___default().stringify(data)).then(function (response) {
-    log.send("Applied coupon successfully with data:", response.data);
+    log.send('Applied coupon successfully with data:', response.data);
+    var fragments = response.data.fragments;
+
+    if (fragments) {
+      $.each(fragments, function (key, value) {
+        $(key).replaceWith(value);
+      });
+      $(document.body).trigger('wc_fragments_loaded');
+    }
+
     (0,_RefreshCart__WEBPACK_IMPORTED_MODULE_1__.default)(false);
   })["catch"](function (error) {
     console.log(error);
   })["finally"](function () {
     // Reset input value..
-    $(input).val(""); // Remove loading class.
+    $(input).val(''); // Remove loading class.
 
-    button.removeClass("is-loading"); // Set all buttons back to non-disabled.
+    button.removeClass('is-loading'); // Set all buttons back to non-disabled.
 
-    $("#cartpops-drawer button").prop("disabled", false);
+    $('#cartpops-drawer button').prop('disabled', false);
   });
 }
 /**
@@ -2370,14 +2388,23 @@ function applyCoupon(coupon, input, button) {
  */
 
 function removeCoupon(coupon, coupon_tag) {
-  console.log("Removing coupon");
+  console.log('Removing coupon');
   var data = {
-    action: "cpops_remove_coupon",
+    action: 'cpops_remove_coupon',
     nonce: cpops_config.nonce,
     coupon: coupon
   };
   axios__WEBPACK_IMPORTED_MODULE_2___default().post(cpops_config.ajax_url, qs__WEBPACK_IMPORTED_MODULE_3___default().stringify(data)).then(function (response) {
-    log.send("Removed coupon successfully with data:", response.data);
+    log.send('Removed coupon successfully with data:', response.data);
+    var fragments = response.data.fragments;
+
+    if (fragments) {
+      $.each(fragments, function (key, value) {
+        $(key).replaceWith(value);
+      });
+      $(document.body).trigger('wc_fragments_loaded');
+    }
+
     (0,_RefreshCart__WEBPACK_IMPORTED_MODULE_1__.default)(false);
   })["catch"](function (error) {
     console.log(error);
@@ -2386,7 +2413,7 @@ function removeCoupon(coupon, coupon_tag) {
     $(coupon_tag).remove(); // Remove any notices after set time.
 
     setTimeout(function () {
-      $(".cpops-drawer-notices").empty();
+      $('.cpops-drawer-notices').empty();
     }, 3000);
   });
 }
@@ -3296,7 +3323,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var log = new _Loggin__WEBPACK_IMPORTED_MODULE_0__.default("Update Cart");
+var log = new _Loggin__WEBPACK_IMPORTED_MODULE_0__.default('Update Cart');
 /**
  * AJAX call to update the cart.
  * @param {string} cart_key Cart key
@@ -3307,23 +3334,32 @@ var log = new _Loggin__WEBPACK_IMPORTED_MODULE_0__.default("Update Cart");
 function updateCart(cart_key, quantity, button) {
   var httpClient = (axios__WEBPACK_IMPORTED_MODULE_2___default());
   var original_button = button.html();
-  $("#cartpops-drawer button").prop("disabled", true);
+  $('#cartpops-drawer button').prop('disabled', true);
   button.html('<span class="quantity__button--loader"></span>');
   var data = {
     nonce: cpops_config.nonce,
-    action: "cpops_update_cart",
+    action: 'cpops_update_cart',
     cart_key: cart_key,
     quantity: quantity
   };
-  log.send("Preparing to update the cart with data:", data);
+  log.send('Preparing to update the cart with data:', data);
   httpClient.post(cpops_config.ajax_url, qs__WEBPACK_IMPORTED_MODULE_3___default().stringify(data)).then(function (response) {
-    log.send("Cart updated with data:", response.data);
+    log.send('Cart updated with data:', response.data);
+    var fragments = response.data.fragments;
+
+    if (fragments) {
+      $.each(fragments, function (key, value) {
+        $(key).replaceWith(value);
+      });
+      $(document.body).trigger('wc_fragments_loaded');
+    }
+
     (0,_RefreshCart__WEBPACK_IMPORTED_MODULE_1__.default)(false);
   })["catch"](function (error) {
     console.log(error);
   })["finally"](function () {
     button.html(original_button);
-    $("#cartpops-drawer button").prop("disabled", false);
+    $('#cartpops-drawer button').prop('disabled', false);
   });
 }
 

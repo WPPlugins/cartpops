@@ -40,7 +40,7 @@ class CartPops_Settings
      *
      * @param  string $plugin_name The name of the plugin.
      * @param  string $version     The version of this plugin.
-     * @author Chris Jayden <support@cartpops.com>
+     * @author Chris Jayden <help@cartpops.com>
      */
     public function __construct( $plugin_name, $version )
     {
@@ -146,7 +146,7 @@ class CartPops_Settings
     /**
      * Enqueue scripts
      *
-     * @author Chris Jayden <support@cartpops.com>
+     * @author Chris Jayden <help@cartpops.com>
      */
     public function enqueue_scripts()
     {
@@ -205,7 +205,7 @@ class CartPops_Settings
     /**
      * Creates an array oof menu itmes for the plugin dashbooard.
      *
-     * @author Chris Jayden <support@cartpops.com>
+     * @author Chris Jayden <help@cartpops.com>
      */
     public function menu_items()
     {
@@ -902,7 +902,7 @@ class CartPops_Settings
     /**
      * Helper function for getting colors.
      *
-     * @author Chris Jayden <support@cartpops.com>
+     * @author Chris Jayden <help@cartpops.com>
      */
     public function get_color_settings()
     {
@@ -921,7 +921,7 @@ class CartPops_Settings
      * Gets all WooCoommerce products.
      *
      * @param string $type WooCommerce product type.
-     * @author Chris Jayden <support@cartpops.com>
+     * @author Chris Jayden <help@cartpops.com>
      */
     public function get_all_products( $type = 'simple' )
     {
@@ -1667,7 +1667,7 @@ class CartPops_Settings
      * @param string  $title Title of the section.
      * @param string  $icon Any icon to be included.
      * @param boolean $paid Whether it's a paid feature or not.
-     * @author Chris Jayden <support@cartpops.com>
+     * @author Chris Jayden <help@cartpops.com>
      */
     private function render_section_fields(
         $option_group,
@@ -1699,7 +1699,7 @@ class CartPops_Settings
      * Returns the changelog HTML markup from the readme.txt file.
      *
      * @param string $readme_file The file to be looked fr.
-     * @author Chris Jayden <support@cartpops.com>
+     * @author Chris Jayden <help@cartpops.com>
      */
     public function changelog_markup( $readme_file )
     {
@@ -1740,7 +1740,7 @@ class CartPops_Settings
      * Helper function for getting an admin asset from the images folder.
      *
      * @param string $asset Filename like example.png or example.jpg.
-     * @author Chris Jayden <support@cartpops.com>
+     * @author Chris Jayden <help@cartpops.com>
      */
     private function get_admin_asset( $asset )
     {
@@ -1750,7 +1750,7 @@ class CartPops_Settings
     /**
      * Registers a menu menu admin box.
      *
-     * @author Chris Jayden <support@cartpops.com>
+     * @author Chris Jayden <help@cartpops.com>
      */
     public function my_register_menu_metabox()
     {

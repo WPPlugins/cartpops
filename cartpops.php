@@ -5,7 +5,7 @@
  * Description: Beautiful, responsive, and conversion optimized add to cart popup templates for WooCommerce.
  * Plugin URI: https://cartpops.com
  * Author: CartPops.com
- * Version: 1.2.8
+ * Version: 1.2.9
  * Author URI: https://cartpops.com/?utm_source=wp-plugins&utm_campaign=author-uri&utm_medium=wp-dash
  *
  * Text Domain: cartpops
@@ -30,7 +30,7 @@ if ( !defined( 'WPINC' ) ) {
     die;
 }
 if ( !defined( 'CARTPOPS_VERSION' ) ) {
-    define( 'CARTPOPS_VERSION', '1.2.8' );
+    define( 'CARTPOPS_VERSION', '1.2.9' );
 }
 if ( !defined( 'CARTPOPS_PREFIX' ) ) {
     define( 'CARTPOPS_PREFIX', 'cartpops' );
@@ -50,7 +50,7 @@ if ( !defined( 'CARTPOPS_FILE' ) ) {
 /**
  * Will stop plugin from loading if PHP version is below #.
  *
- * @author Chris Jayden <support@cartpops.com>
+ * @author Chris Jayden <help@cartpops.com>
  */
 function cartpops_cant_activate_msg()
 {

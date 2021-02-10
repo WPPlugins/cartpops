@@ -24,7 +24,7 @@
  * @since      1.0.0
  * @package    CartPops
  * @subpackage CartPops/includes
- * @author     Chris Jayden <support@cartpops.com>
+ * @author     Chris Jayden <help@cartpops.com>
  */
 class CartPops
 {
@@ -61,6 +61,7 @@ class CartPops
      * @var    CartPops_Sanitize    $sanitizer    Sanitizes data
      */
     private  $integrations ;
+    private  $plugin_enabled ;
     /**
      * Define the core functionality of the plugin.
      *
@@ -82,9 +83,11 @@ class CartPops
         $this->plugin_name = 'cartpops';
         $this->load_dependencies();
         $this->set_locale();
-        $this->define_admin_hooks();
-        $this->define_public_hooks();
-        $this->define_styles_hooks();
+        $this->admin();
+        $this->cart();
+        $this->assets_frontend();
+        $this->public();
+        $this->ajax_frontend();
     }
     
     /**
@@ -105,40 +108,15 @@ class CartPops
      */
     private function load_dependencies()
     {
-        /**
-         * The class responsible for orchestrating the actions and filters of the
-         * core plugin.
-         */
         include_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-cartpops-loader.php';
-        /**
-         * The class responsible for defining internationalization functionality
-         * of the plugin.
-         */
         include_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-cartpops-i18n.php';
-        /**
-         * The class responsible for defining internationalization functionality
-         * of the plugin.
-         */
         include_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-cartpops-parsedown.php';
-        /**
-         * The class responsible for various globally-accessible functions
-         * of the plugin.
-         */
         include_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/cartpops-functions.php';
-        /**
-         * The class responsible for defining all actions that occur in the admin area.
-         */
         include_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-cartpops-settings.php';
-        /**
-         * The class responsible for defining all actions that occur in the public-facing
-         * side of the site.
-         */
+        include_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-cartpops-cart.php';
+        include_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-cartpops-assets.php';
         include_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-cartpops-public.php';
-        /**
-         * The class responsible for generating and loading dynanmic styles.
-         * side of the site.
-         */
-        include_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-cartpops-styles.php';
+        include_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-cartpops-ajax.php';
         $this->loader = new CartPops_Loader();
     }
     
@@ -164,7 +142,7 @@ class CartPops
      * @since  1.0.0
      * @access private
      */
-    private function define_admin_hooks()
+    private function admin()
     {
         $plugin_admin = new CartPops_Settings( $this->get_plugin_name(), $this->get_version() );
         $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
@@ -189,23 +167,73 @@ class CartPops
     }
     
     /**
-     * Register all of the hooks related to the public-facing functionality
-     * of the plugin.
+     * Construct all the cart templates.
      *
      * @since  1.0.0
      * @access private
      */
-    private function define_public_hooks()
+    private function cart()
     {
-        $plugin_settings = new CartPops_Settings( $this->plugin_name, $this->version );
-        $plugin_public = new CartPops_Public( $this->get_plugin_name(), $this->get_version(), $plugin_settings );
         $enabled = cartpops_get_option( 'plugin_enable' );
         if ( !$enabled ) {
             return;
         }
-        /* Assets */
-        $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-        $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+        $plugin_cart = new CartPops_Cart( $this->get_plugin_name(), $this->get_version() );
+        /* Templates */
+        $this->loader->add_action(
+            'wp_footer',
+            $plugin_cart,
+            'render_render_drawer',
+            15
+        );
+        $this->loader->add_action(
+            'wp_footer',
+            $plugin_cart,
+            'render_floating_cart_launcher',
+            10
+        );
+        /* Partials */
+        $this->loader->add_action( 'cartpops_drawer_inside', $plugin_cart, 'render_drawer_inside' );
+        $this->loader->add_action( 'cartpops_drawer_header', $plugin_cart, 'render_drawer_header' );
+        $this->loader->add_action( 'cartpops_drawer_panel_wrapper_start', $plugin_cart, 'render_wc_notices' );
+        $this->loader->add_action( 'cartpops_drawer_cart_contents', $plugin_cart, 'render_cart_contents' );
+        $this->loader->add_action( 'cartpops_drawer_coupon_form', $plugin_cart, 'render_coupon_form' );
+        $this->loader->add_action( 'cartpops_drawer_coupon_removal', $plugin_cart, 'render_coupon_removal' );
+        $this->loader->add_action( 'cartpops_drawer_recommendations', $plugin_cart, 'render_drawer_recommendations' );
+        $this->loader->add_action( 'cartpops_drawer_totals', $plugin_cart, 'render_cart_totals' );
+        $this->loader->add_action( 'cartpops_powered_by', $plugin_cart, 'render_powered_by' );
+    }
+    
+    /**
+     * Front-end assets manager
+     *
+     * @since 1.2.8
+     * @author Chris Jayden <help@cartpops.com>
+     */
+    private function assets_frontend()
+    {
+        $plugin_settings = new CartPops_Settings( $this->plugin_name, $this->version );
+        $assets_frontend = new CartPops_Assets( $this->get_plugin_name(), $this->get_version(), $plugin_settings );
+        $this->loader->add_action( 'wp_enqueue_scripts', $assets_frontend, 'enqueue_frontend_styles' );
+        $this->loader->add_action( 'wp_enqueue_scripts', $assets_frontend, 'enqueue_frontend_scripts' );
+        $this->loader->add_action( 'wp_enqueue_scripts', $assets_frontend, 'enqueue_dynamic_styles' );
+    }
+    
+    /**
+     * Register all of the hooks related to the public-facing functionality
+     * of the plugin.
+     *
+     * @since 1.2.8
+     * @access private
+     */
+    private function public()
+    {
+        $enabled = cartpops_get_option( 'plugin_enable' );
+        if ( !$enabled ) {
+            return;
+        }
+        $templates = new CartPops_Cart( $this->get_plugin_name(), $this->get_version() );
+        $plugin_public = new CartPops_Public( $this->get_plugin_name(), $this->get_version(), $templates );
         $this->loader->add_filter( 'woocommerce_add_to_cart_fragments', $plugin_public, 'menu_cart_fragments' );
         $this->loader->add_action(
             'woocommerce_init',
@@ -213,52 +241,12 @@ class CartPops
             'maybe_set_session',
             20
         );
-        /* Templates */
-        $this->loader->add_action(
-            'wp_footer',
-            $plugin_public,
-            'render_render_drawer',
-            15
-        );
-        $this->loader->add_action(
-            'wp_footer',
-            $plugin_public,
-            'render_floating_cart_launcher',
-            10
-        );
-        /* Partials */
-        $this->loader->add_action( 'cartpops_drawer_inside', $plugin_public, 'render_drawer_inside' );
-        $this->loader->add_action( 'cartpops_drawer_header', $plugin_public, 'render_drawer_header' );
-        $this->loader->add_action( 'cartpops_drawer_panel_wrapper_start', $plugin_public, 'render_wc_notices' );
-        $this->loader->add_action( 'cartpops_drawer_cart_contents', $plugin_public, 'render_cart_contents' );
-        $this->loader->add_action( 'cartpops_drawer_coupon_form', $plugin_public, 'render_coupon_form' );
-        $this->loader->add_action( 'cartpops_drawer_coupon_removal', $plugin_public, 'render_coupon_removal' );
-        $this->loader->add_action( 'cartpops_drawer_recommendations', $plugin_public, 'render_drawer_recommendations' );
-        $this->loader->add_action( 'cartpops_drawer_totals', $plugin_public, 'render_cart_totals' );
-        $this->loader->add_action( 'cartpops_assistant_panel_bottom', $plugin_public, 'render_cart_totals' );
-        $this->loader->add_action( 'cartpops_powered_by', $plugin_public, 'render_powered_by' );
-        /* Ajax: Add to cart */
-        $this->loader->add_action( 'wp_ajax_cpops_add_to_cart', $plugin_public, 'cpops_add_to_cart' );
-        $this->loader->add_action( 'wp_ajax_nopriv_cpops_add_to_cart', $plugin_public, 'cpops_add_to_cart' );
-        /* Ajax: Cart refresh */
-        $this->loader->add_action( 'wp_ajax_cpops_refresh_cart', $plugin_public, 'refresh_cart' );
-        $this->loader->add_action( 'wp_ajax_nopriv_cpops_refresh_cart', $plugin_public, 'refresh_cart' );
-        /* Ajax: Cart updates */
-        $this->loader->add_action( 'wp_ajax_cpops_update_cart', $plugin_public, 'update_cart' );
-        $this->loader->add_action( 'wp_ajax_nopriv_cpops_update_cart', $plugin_public, 'update_cart' );
-        /* Ajax: Coupon handling */
-        $this->loader->add_action( 'wp_ajax_cpops_apply_coupon', $plugin_public, 'apply_coupon' );
-        $this->loader->add_action( 'wp_ajax_nopriv_cpops_apply_coupon', $plugin_public, 'apply_coupon' );
-        $this->loader->add_action( 'wp_ajax_cpops_remove_coupon', $plugin_public, 'remove_coupon' );
-        $this->loader->add_action( 'wp_ajax_nopriv_cpops_remove_coupon', $plugin_public, 'remove_coupon' );
-        /* Shortcodes */
         $this->loader->add_shortcode(
             'cartpops_cart_launcher',
             $plugin_public,
             'shortcode_cart_launcher',
             10
         );
-        /* Menu */
         $this->loader->add_filter(
             'walker_nav_menu_start_el',
             $plugin_public,
@@ -268,11 +256,30 @@ class CartPops
         );
     }
     
-    private function define_styles_hooks()
+    /**
+     * Front-end ajax calls to
+     *
+     * @since 1.2.9
+     * @author Chris Jayden <help@cartpops.com>
+     */
+    private function ajax_frontend()
     {
-        $plugin_settings = new CartPops_Settings( $this->plugin_name, $this->version );
-        $plugin_styles = new CartPops_Styles( $this->get_plugin_name(), $this->get_version(), $plugin_settings );
-        $this->loader->add_action( 'wp_enqueue_scripts', $plugin_styles, 'enqueue_styles' );
+        $enabled = cartpops_get_option( 'plugin_enable' );
+        if ( !$enabled ) {
+            return;
+        }
+        $templates = new CartPops_Cart( $this->get_plugin_name(), $this->get_version() );
+        $frontend_ajax = new CartPops_Frontend_Ajax( $this->get_plugin_name(), $this->get_version(), $templates );
+        $this->loader->add_action( 'wp_ajax_cpops_add_to_cart', $frontend_ajax, 'add_to_cart' );
+        $this->loader->add_action( 'wp_ajax_nopriv_cpops_add_to_cart', $frontend_ajax, 'add_to_cart' );
+        $this->loader->add_action( 'wp_ajax_cpops_refresh_cart', $frontend_ajax, 'refresh_cart' );
+        $this->loader->add_action( 'wp_ajax_nopriv_cpops_refresh_cart', $frontend_ajax, 'refresh_cart' );
+        $this->loader->add_action( 'wp_ajax_cpops_update_cart', $frontend_ajax, 'update_cart' );
+        $this->loader->add_action( 'wp_ajax_nopriv_cpops_update_cart', $frontend_ajax, 'update_cart' );
+        $this->loader->add_action( 'wp_ajax_cpops_apply_coupon', $frontend_ajax, 'apply_coupon' );
+        $this->loader->add_action( 'wp_ajax_nopriv_cpops_apply_coupon', $frontend_ajax, 'apply_coupon' );
+        $this->loader->add_action( 'wp_ajax_cpops_remove_coupon', $frontend_ajax, 'remove_coupon' );
+        $this->loader->add_action( 'wp_ajax_nopriv_cpops_remove_coupon', $frontend_ajax, 'remove_coupon' );
     }
     
     /**

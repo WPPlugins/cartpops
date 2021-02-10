@@ -18,7 +18,7 @@
  *
  * @package    CartPops
  * @subpackage CartPops/includes
- * @author     Chris Jayden <support@cartpops.com>
+ * @author     Chris Jayden <help@cartpops.com>
  */
 class CartPops_Loader {
 
