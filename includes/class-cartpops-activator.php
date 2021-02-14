@@ -70,6 +70,8 @@ class CartPops_Activator
         // Options: Colors - Floating Cart Launcher.
         add_option( 'cartpops_color_floating_cart_laucher_icon', '#ffffff' );
         add_option( 'cartpops_color_floating_cart_laucher_background', '#000000' );
+        add_option( 'cartpops_color_floating_cart_laucher_icon', '#ffffff' );
+        add_option( 'cartpops_color_floating_cart_laucher_background', '#705aef' );
         // Options: Colors - art Launcher.
         add_option( 'cartpops_color_cart_laucher_background', 'rgba(255, 255, 255, 0)' );
         add_option( 'cartpops_color_cart_laucher_text', '#000000' );

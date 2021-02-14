@@ -12,7 +12,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 
-
 <div class="<?php echo esc_html( implode( ' ', array_filter( $classes ) ) ); ?>">
 
 	<div class="cpops-cart-line-items">

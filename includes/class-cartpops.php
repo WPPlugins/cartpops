@@ -83,6 +83,7 @@ class CartPops
         $this->plugin_name = 'cartpops';
         $this->load_dependencies();
         $this->set_locale();
+        $this->api();
         $this->admin();
         $this->cart();
         $this->assets_frontend();
@@ -110,6 +111,7 @@ class CartPops
     {
         include_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-cartpops-loader.php';
         include_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-cartpops-i18n.php';
+        include_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-cartpops-api.php';
         include_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-cartpops-parsedown.php';
         include_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/cartpops-functions.php';
         include_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-cartpops-settings.php';
@@ -117,7 +119,14 @@ class CartPops
         include_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-cartpops-assets.php';
         include_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-cartpops-public.php';
         include_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-cartpops-ajax.php';
+        include_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-cartpops-helpers.php';
         $this->loader = new CartPops_Loader();
+    }
+    
+    private function api()
+    {
+        $plugin_api = new CartPops_Api( $this->get_plugin_name(), $this->get_version() );
+        $this->loader->add_action( 'plugins_loaded', $plugin_api, 'plugins_loaded' );
     }
     
     /**
@@ -202,6 +211,7 @@ class CartPops
         $this->loader->add_action( 'cartpops_drawer_recommendations', $plugin_cart, 'render_drawer_recommendations' );
         $this->loader->add_action( 'cartpops_drawer_totals', $plugin_cart, 'render_cart_totals' );
         $this->loader->add_action( 'cartpops_powered_by', $plugin_cart, 'render_powered_by' );
+        $this->loader->add_action( 'cartpops', $plugin_cart, 'render_single_product_price' );
     }
     
     /**
@@ -254,6 +264,13 @@ class CartPops
             20,
             2
         );
+        $this->loader->add_filter(
+            'woocommerce_cart_item_price',
+            $plugin_public,
+            'fix_cart_price',
+            40,
+            3
+        );
     }
     
     /**
@@ -270,16 +287,34 @@ class CartPops
         }
         $templates = new CartPops_Cart( $this->get_plugin_name(), $this->get_version() );
         $frontend_ajax = new CartPops_Frontend_Ajax( $this->get_plugin_name(), $this->get_version(), $templates );
+        $this->loader->add_filter(
+            'woocommerce_add_to_cart_fragments',
+            $frontend_ajax,
+            'cart_fragments',
+            1,
+            1
+        );
         $this->loader->add_action( 'wp_ajax_cpops_add_to_cart', $frontend_ajax, 'add_to_cart' );
         $this->loader->add_action( 'wp_ajax_nopriv_cpops_add_to_cart', $frontend_ajax, 'add_to_cart' );
         $this->loader->add_action( 'wp_ajax_cpops_refresh_cart', $frontend_ajax, 'refresh_cart' );
         $this->loader->add_action( 'wp_ajax_nopriv_cpops_refresh_cart', $frontend_ajax, 'refresh_cart' );
         $this->loader->add_action( 'wp_ajax_cpops_update_cart', $frontend_ajax, 'update_cart' );
         $this->loader->add_action( 'wp_ajax_nopriv_cpops_update_cart', $frontend_ajax, 'update_cart' );
+        $this->loader->add_action( 'wp_ajax_cpops_remove_product', $frontend_ajax, 'remove_product' );
+        $this->loader->add_action( 'wp_ajax_nopriv_cpops_remove_product', $frontend_ajax, 'remove_product' );
+        $this->loader->add_action( 'wp_ajax_cpops_restore_product', $frontend_ajax, 'restore_product' );
+        $this->loader->add_action( 'wp_ajax_nopriv_cpops_restore_product', $frontend_ajax, 'restore_product' );
         $this->loader->add_action( 'wp_ajax_cpops_apply_coupon', $frontend_ajax, 'apply_coupon' );
         $this->loader->add_action( 'wp_ajax_nopriv_cpops_apply_coupon', $frontend_ajax, 'apply_coupon' );
         $this->loader->add_action( 'wp_ajax_cpops_remove_coupon', $frontend_ajax, 'remove_coupon' );
         $this->loader->add_action( 'wp_ajax_nopriv_cpops_remove_coupon', $frontend_ajax, 'remove_coupon' );
+        $this->loader->add_filter(
+            'woocommerce_remove_cart_item',
+            $frontend_ajax,
+            'removed_cart_item',
+            10,
+            2
+        );
     }
     
     /**

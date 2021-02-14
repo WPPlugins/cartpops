@@ -71,7 +71,7 @@ class CartPops_Cart
         self::$animation_counter = 0;
         $this->plugin_name = $plugin_name;
         $this->version = $version;
-        $this->trigger_type_type = cartpops_get_option( 'add_to_cart_trigger' );
+        $this->trigger_type = cartpops_get_option( 'add_to_cart_trigger' );
         $this->animation_type = cartpops_get_option( 'animation_type' );
         $this->checkout_button_text = cartpops_get_option( 'checkout_button_text' );
         $this->checkout_button_empty_text = cartpops_get_option( 'checkout_button_empty_text' );
@@ -89,12 +89,7 @@ class CartPops_Cart
      */
     public function render_drawer_inside()
     {
-        wc_get_template(
-            'drawer/cartpops-drawer-inside.php',
-            array(),
-            '',
-            plugin_dir_path( dirname( __FILE__ ) ) . 'templates/'
-        );
+        cpops_frontend_helper()->get_template( 'drawer/cartpops-drawer-inside', array() );
     }
     
     /**
@@ -111,12 +106,7 @@ class CartPops_Cart
             'role'     => 'dialog',
         ),
         );
-        wc_get_template(
-            'cartpops-drawer.php',
-            $data,
-            '',
-            plugin_dir_path( dirname( __FILE__ ) ) . 'templates/'
-        );
+        cpops_frontend_helper()->get_template( 'cartpops-drawer', $data );
     }
     
     /**
@@ -134,14 +124,10 @@ class CartPops_Cart
             return;
         }
         $data = array(
-            'classes' => apply_filters( 'cpops_floating_cart_launcher_classes', array( 'cpops-toggle-drawer' ) ),
+            'classes'      => apply_filters( 'cpops_floating_cart_launcher_classes', array( 'cpops-toggle-drawer' ) ),
+            'item_account' => WC()->cart->get_cart_contents_count(),
         );
-        wc_get_template(
-            'cartpops-launcher.php',
-            $data,
-            '',
-            plugin_dir_path( dirname( __FILE__ ) ) . 'templates/'
-        );
+        cpops_frontend_helper()->get_template( 'cartpops-launcher', $data );
     }
     
     /**
@@ -159,12 +145,7 @@ class CartPops_Cart
         if ( 'slick' === $this->animation_type ) {
             $data['classes'][] = self::get_animation_class();
         }
-        wc_get_template(
-            'drawer/cartpops-drawer-header.php',
-            $data,
-            '',
-            plugin_dir_path( dirname( __FILE__ ) ) . 'templates/'
-        );
+        cpops_frontend_helper()->get_template( 'drawer/cartpops-drawer-header', $data );
     }
     
     /**
@@ -177,37 +158,36 @@ class CartPops_Cart
         $cart = WC()->cart->get_cart();
         
         if ( !empty($cart) ) {
-            foreach ( $cart as $item ) {
-                $product = $item['data'];
+            foreach ( $cart as $cart_item_key => $cart_item ) {
+                $_product = apply_filters(
+                    'woocommerce_cart_item_product',
+                    $cart_item['data'],
+                    $cart_item,
+                    $cart_item_key
+                );
                 $data = array(
                     'classes'                 => apply_filters( 'cpops_drawer_cart_item_classes', array( 'cpops-cart-item' ) ),
                     'quantity'                => $this->render_quantity_selectors( array(
-                    'input_value'  => $item['quantity'],
-                    'quantity'     => $item['quantity'],
-                    'max_value'    => $product->get_max_purchase_quantity(),
-                    'min_value'    => $product->get_min_purchase_quantity(),
-                    'product_name' => $this->get_product_name( $item, $item['key'] ),
-                    'cart_key'     => $item['key'],
-                ), $product ),
-                    'cpops_cart_item'         => $item,
-                    'cpops_cart_item_key'     => $item['key'],
-                    'cpops_product'           => $product,
-                    'cpops_product_id'        => $item['product_id'],
-                    'cpops_product_permalink' => ( $product->is_visible() ? $product->get_permalink( $item ) : '' ),
-                    'cpops_thumbnail'         => $product->get_image(),
-                    'cpops_product_name'      => $this->get_product_name( $item, $item['key'] ),
-                    'cpops_product_price'     => WC()->cart->get_product_price( $product ),
-                    'cpops_product_subtotal'  => WC()->cart->get_product_subtotal( $product, $item['quantity'] ),
+                    'input_value'   => $cart_item['quantity'],
+                    'quantity'      => $cart_item['quantity'],
+                    'max_value'     => $_product->get_max_purchase_quantity(),
+                    'min_value'     => $_product->get_min_purchase_quantity(),
+                    'product_name'  => cpops_frontend_helper()->get_product_name( $cart_item, $cart_item_key ),
+                    'cart_item_key' => $cart_item_key,
+                ), $_product, true ),
+                    'cart_item'               => $cart_item,
+                    'cart_item_key'           => $cart_item_key,
+                    'product'                 => $_product,
+                    'cpops_product_id'        => $cart_item['product_id'],
+                    'cpops_product_permalink' => ( $_product->is_visible() ? $_product->get_permalink( $cart_item ) : '' ),
+                    'cpops_thumbnail'         => cpops_frontend_helper()->get_product_image( $_product, $cart_item, $cart_item_key ),
+                    'cpops_product_name'      => cpops_frontend_helper()->get_product_name( $cart_item, $cart_item_key ),
+                    'cpops_product_subtotal'  => cpops_frontend_helper()->get_item_price( $_product, $cart_item, $cart_item_key ),
                 );
                 if ( 'slick' === $this->animation_type ) {
                     $data['classes'][] = self::get_animation_class();
                 }
-                wc_get_template(
-                    'drawer/cartpops-drawer-cart-item.php',
-                    $data,
-                    '',
-                    plugin_dir_path( dirname( __FILE__ ) ) . 'templates/'
-                );
+                cpops_frontend_helper()->get_template( 'drawer/cartpops-drawer-cart-item', $data, false );
             }
         } else {
             $empty_cart_image = null;
@@ -219,14 +199,14 @@ class CartPops_Cart
             if ( 'slick' === $this->animation_type ) {
                 $data['classes'][] = self::get_animation_class();
             }
-            wc_get_template(
-                'drawer/cartpops-drawer-empty-state.php',
-                $data,
-                '',
-                plugin_dir_path( dirname( __FILE__ ) ) . 'templates/'
-            );
+            cpops_frontend_helper()->get_template( 'drawer/cartpops-drawer-empty-state', $data, false );
         }
     
+    }
+    
+    public function render_price( $data = array(), $echo = true )
+    {
+        return cpops_frontend_helper()->get_template( 'partials/product/price', $data, $echo );
     }
     
     /**
@@ -238,7 +218,7 @@ class CartPops_Cart
      *
      * @return string
      */
-    public function render_quantity_selectors( $data = array(), $product = null, $echo = false )
+    public function render_quantity_selectors( $data = array(), $product = null, $echo = true )
     {
         $quantity_enabled = true;
         if ( is_null( $product ) ) {
@@ -251,18 +231,18 @@ class CartPops_Cart
             return;
         }
         $defaults = array(
-            'input_id'     => uniqid( 'quantity_' ),
-            'input_name'   => 'quantity',
-            'input_value'  => '1',
-            'classes'      => apply_filters( 'woocommerce_quantity_input_classes', array( 'input-text', 'qty', 'text' ), $product ),
-            'max_value'    => apply_filters( 'woocommerce_quantity_input_max', -1, $product ),
-            'min_value'    => apply_filters( 'woocommerce_quantity_input_min', 0, $product ),
-            'step'         => apply_filters( 'woocommerce_quantity_input_step', 1, $product ),
-            'pattern'      => apply_filters( 'woocommerce_quantity_input_pattern', ( has_filter( 'woocommerce_stock_amount', 'intval' ) ? '[0-9]*' : '' ) ),
-            'inputmode'    => apply_filters( 'woocommerce_quantity_input_inputmode', ( has_filter( 'woocommerce_stock_amount', 'intval' ) ? 'numeric' : '' ) ),
-            'product_name' => ( $product ? $product->get_title() : '' ),
-            'placeholder'  => apply_filters( 'woocommerce_quantity_input_placeholder', '', $product ),
-            'cart_key'     => '',
+            'input_id'      => uniqid( 'quantity_' ),
+            'input_name'    => 'quantity',
+            'input_value'   => '1',
+            'classes'       => apply_filters( 'woocommerce_quantity_input_classes', array( 'input-text', 'qty', 'text' ), $product ),
+            'max_value'     => apply_filters( 'woocommerce_quantity_input_max', -1, $product ),
+            'min_value'     => apply_filters( 'woocommerce_quantity_input_min', 0, $product ),
+            'step'          => apply_filters( 'woocommerce_quantity_input_step', 1, $product ),
+            'pattern'       => apply_filters( 'woocommerce_quantity_input_pattern', ( has_filter( 'woocommerce_stock_amount', 'intval' ) ? '[0-9]*' : '' ) ),
+            'inputmode'     => apply_filters( 'woocommerce_quantity_input_inputmode', ( has_filter( 'woocommerce_stock_amount', 'intval' ) ? 'numeric' : '' ) ),
+            'product_name'  => ( $product ? $product->get_title() : '' ),
+            'placeholder'   => apply_filters( 'woocommerce_quantity_input_placeholder', '', $product ),
+            'cart_item_key' => '',
         );
         $data = apply_filters( 'woocommerce_quantity_input_args', wp_parse_args( $data, $defaults ), $product );
         // Apply sanity to min/max args - min cannot be lower than 0.
@@ -272,21 +252,7 @@ class CartPops_Cart
         if ( '' !== $data['max_value'] && $data['max_value'] < $data['min_value'] ) {
             $data['max_value'] = $data['min_value'];
         }
-        ob_start();
-        wc_get_template(
-            'cartpops-quantity-selectors.php',
-            $data,
-            '',
-            plugin_dir_path( dirname( __FILE__ ) ) . 'templates/partials/'
-        );
-        
-        if ( $echo ) {
-            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-            echo  ob_get_clean() ;
-        } else {
-            return ob_get_clean();
-        }
-    
+        return cpops_frontend_helper()->get_template( 'partials/product/quantity-selector', $data, $echo );
     }
     
     /**
@@ -319,12 +285,7 @@ class CartPops_Cart
             if ( 'slick' === $this->animation_type ) {
                 $data['classes'][] = self::get_animation_class();
             }
-            wc_get_template(
-                'drawer/cartpops-drawer-coupon-form.php',
-                $data,
-                '',
-                plugin_dir_path( dirname( __FILE__ ) ) . 'templates/'
-            );
+            cpops_frontend_helper()->get_template( 'drawer/cartpops-drawer-coupon-form', $data, false );
         }
     
     }
@@ -383,12 +344,7 @@ class CartPops_Cart
             if ( 'slick' === $this->animation_type ) {
                 $data['classes'][] = self::get_animation_class();
             }
-            wc_get_template(
-                'drawer/cartpops-drawer-recommendations.php',
-                $data,
-                '',
-                plugin_dir_path( dirname( __FILE__ ) ) . 'templates/'
-            );
+            cpops_frontend_helper()->get_template( 'drawer/cartpops-drawer-recommendations', $data );
         }
     
     }
@@ -458,7 +414,6 @@ class CartPops_Cart
      */
     public function render_cart_totals()
     {
-        WC()->cart->calculate_totals();
         $cart = WC()->cart->get_cart();
         $applied_coupons = WC()->cart->get_applied_coupons();
         
@@ -482,12 +437,7 @@ class CartPops_Cart
         if ( 'slick' === $this->animation_type ) {
             $data['classes'][] = self::get_animation_class();
         }
-        wc_get_template(
-            'drawer/cartpops-drawer-cart-totals.php',
-            $data,
-            '',
-            plugin_dir_path( dirname( __FILE__ ) ) . 'templates/'
-        );
+        cpops_frontend_helper()->get_template( 'drawer/cartpops-drawer-cart-totals', $data );
     }
     
     /**
@@ -704,12 +654,7 @@ class CartPops_Cart
         if ( 'slick' === $this->animation_type ) {
             $data['classes'][] = self::get_animation_class();
         }
-        wc_get_template(
-            'cartpops-powered-by.php',
-            $data,
-            '',
-            plugin_dir_path( dirname( __FILE__ ) ) . 'templates/partials/'
-        );
+        cpops_frontend_helper()->get_template( 'partials/cartpops-powered-by', $data );
     }
     
     /**
@@ -752,7 +697,7 @@ class CartPops_Cart
      */
     public function render_wc_notices()
     {
-        $html = '<div class="cpops-drawer-notices"></div>';
+        $html = '<div class="cpops-drawer-notices-wrapper"></div>';
         echo  wp_kses( apply_filters( 'cartpops_notices_html', $html ), apply_filters( 'cartpops_kses_notice_allowed_tags', wp_kses_allowed_html( 'post' ) ) ) ;
     }
     
@@ -783,12 +728,7 @@ class CartPops_Cart
                 foreach ( $all_notices[$notice_type] as $notice ) {
                     $messages[] = ( isset( $notice['notice'] ) ? $notice['notice'] : $notice );
                 }
-                wc_get_template(
-                    "info/{$notice_type}.php",
-                    $data,
-                    '',
-                    plugin_dir_path( dirname( __FILE__ ) ) . 'templates/'
-                );
+                cpops_frontend_helper()->get_template( 'info/{$notice_type}.php', $data );
             }
         
         }
@@ -796,64 +736,6 @@ class CartPops_Cart
         $notices = wc_kses_notice( ob_get_clean() );
         return $notices;
         // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-    }
-    
-    /**
-     * Helper fuction to get the product name.
-     *
-     * @param object $cart_item Single cart item.
-     * @param string $cart_item_key Single cart key.
-     * @return string
-     */
-    public function get_product_name( $cart_item, $cart_item_key )
-    {
-        $_product = apply_filters(
-            'cartpops_cart_item_product',
-            $cart_item['data'],
-            $cart_item,
-            $cart_item_key
-        );
-        $product_id = apply_filters(
-            'cartpops_cart_item_product_id',
-            $cart_item['product_id'],
-            $cart_item,
-            $cart_item_key
-        );
-        $product_permalink = apply_filters(
-            'cartpopse_cart_item_permalink',
-            ( $_product->is_visible() ? $_product->get_permalink( $cart_item ) : '' ),
-            $cart_item,
-            $cart_item_key
-        );
-        $html = '';
-        
-        if ( !$product_permalink ) {
-            $html .= wp_kses_post( apply_filters(
-                'cartpops_cart_item_name',
-                $_product->get_name(),
-                $cart_item,
-                $cart_item_key
-            ) . '&nbsp;' );
-        } else {
-            $html .= wp_kses_post( apply_filters(
-                'cartpops_cart_item_name',
-                sprintf( '<a href="%s">%s</a>', esc_url( $product_permalink ), $_product->get_name() ),
-                $cart_item,
-                $cart_item_key
-            ) );
-        }
-        
-        do_action( 'cartpops_after_cart_item_name', $cart_item, $cart_item_key );
-        // Meta data.
-        // $html .= wc_get_formatted_cart_item_data( $cart_item ); // PHPCS: XSS ok.
-        // Backorder notification.
-        
-        if ( $_product->backorders_require_notification() && $_product->is_on_backorder( $cart_item['quantity'] ) ) {
-            $html .= wp_kses_post( apply_filters( 'woocommerce_cart_item_backorder_notification', '<p class="backorder_notification">' . esc_html__( 'Available on backorder', 'cartpops' ) . '</p>', $product_id ) );
-            // phpcs:ignore
-        }
-        
-        return $html;
     }
     
     /**

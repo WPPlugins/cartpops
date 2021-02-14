@@ -38,6 +38,25 @@ class CartPops_Public {
 	}
 
 	/**
+	 * Alter the product price display outside of is_cart() function
+	 *
+	 * @param string $price
+	 * @param object $values
+	 * @param string $cart_item_key
+	 * @author Chris Jayden <help@cartpops.com>
+	 */
+	public function fix_cart_price( $price, $values, $cart_item_key ) {
+		$slashed_price = $values['data']->get_price_html();
+		$onsale        = $values['data']->is_on_sale();
+
+		if ( $onsale ) {
+			$price = $slashed_price;
+		}
+
+		return $price;
+	}
+
+	/**
 	 * Ajaxify short-code cart count.
 	 *
 	 * @param array $fragments Array of fragments.

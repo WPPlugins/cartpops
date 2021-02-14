@@ -33,7 +33,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<div class="cpops-cart-item__product">
 
 							<div class="cpops-cart-item__details">
-								<div class="cpops-cart-item__product--name"><a href="<?php echo $recommended_product->get_permalink(); ?>"><?php echo $recommended_product->get_name(); ?></a></div>
+								<div class="cpops-cart-item__product--name">
+									<div class="cpops-cart-item__product--link">
+										<a href="<?php echo $recommended_product->get_permalink(); ?>"><?php echo $recommended_product->get_name(); ?></a>
+									</div>
+								</div>
 								<div class="cpops-cart-item__slider-pricing">
 									<?php if ( $recommended_product->get_sale_price() ) : ?>
 										<div class="cpops-cart-item__slider-pricing--sale"><?php echo wc_price( $recommended_product->get_regular_price() ); ?></div>

@@ -662,17 +662,32 @@ class CartPops_Settings
         $settings['appearance_floating_cart_launcher'] = array(
             'title'       => __( 'Floating Cart Launcher Color Scheme', 'cartpops' ),
             'description' => __( 'All Floating Cart Launcher color options.', 'cartpops' ),
-            'fields'      => array( array(
+            'fields'      => array(
+            array(
             'id'      => 'color_floating_cart_laucher_background',
             'label'   => __( 'Floating Cart Launcher background color', 'cartpops' ),
             'type'    => 'color',
             'default' => '#000000',
-        ), array(
+        ),
+            array(
             'id'      => 'color_floating_cart_laucher_icon',
             'label'   => __( 'Floating Cart Launcher icon color', 'cartpops' ),
             'type'    => 'color',
             'default' => '#ffffff',
-        ) ),
+        ),
+            array(
+            'id'      => 'color_floating_cart_laucher_indicator_background',
+            'label'   => __( 'Floating Cart Launcher indicator background', 'cartpops' ),
+            'type'    => 'color',
+            'default' => '#ffffff',
+        ),
+            array(
+            'id'      => 'color_floating_cart_laucher_indicator_text',
+            'label'   => __( 'Floating Cart Launcher indicator text', 'cartpops' ),
+            'type'    => 'color',
+            'default' => '#ffffff',
+        )
+        ),
         );
         $settings['appearance_cart_launcher'] = array(
             'title'       => __( 'Cart Launcher Color Scheme', 'cartpops' ),
@@ -837,6 +852,15 @@ class CartPops_Settings
             'type'        => 'text',
             'default'     => '',
             'placeholder' => __( 'Or continue shopping', 'cartpops' ),
+            'attributes'  => array(),
+        ),
+            array(
+            'id'          => 'view_details_text',
+            'label'       => __( 'View details text', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/tutorials/translate/', 'Tooltip', 'Translate' ) ),
+            'tooltip'     => __( 'Use this field to quickly change the text and/or language of CartPops.', 'cartpops' ),
+            'type'        => 'text',
+            'default'     => '',
+            'placeholder' => __( 'View details', 'cartpops' ),
             'attributes'  => array(),
         )
         ),

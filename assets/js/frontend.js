@@ -1,4 +1,4 @@
-/*! Copyright © Chris Jayden <help@cartpops.com> (https://cartpops.com) - cartpops - v1.2.9 - 10-02-2021 */
+/*! Copyright © Chris Jayden <help@cartpops.com> (https://cartpops.com) - cartpops - v1.2.11 - 14-02-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -1856,8 +1856,7 @@ window.$ = (jquery__WEBPACK_IMPORTED_MODULE_0___default()); // import Recommenda
 
 (function () {
   // Assign to the window so we and others can listen to events.
-  window.CartPops = new _modules_CartPops__WEBPACK_IMPORTED_MODULE_1__.default();
-  ; // Kick off the plugin
+  window.CartPops = new _modules_CartPops__WEBPACK_IMPORTED_MODULE_1__.default(); // Kick off the plugin
 
   window.CartPops.launcher();
   var core = new _modules_Core__WEBPACK_IMPORTED_MODULE_2__.default();
@@ -1877,11 +1876,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "addToCart": () => (/* binding */ addToCart)
 /* harmony export */ });
 /* harmony import */ var _Loggin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Loggin */ "../assets/dev/js/frontend/modules/Loggin.js");
-/* harmony import */ var _RefreshCart__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RefreshCart */ "../assets/dev/js/frontend/modules/RefreshCart.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "../node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! qs */ "../node_modules/qs/lib/index.js");
-/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(qs__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "../node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! qs */ "../node_modules/qs/lib/index.js");
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(qs__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _Requests__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Requests */ "../assets/dev/js/frontend/modules/Requests.js");
+/* harmony import */ var _RefreshCart__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./RefreshCart */ "../assets/dev/js/frontend/modules/RefreshCart.js");
+
 
 
 
@@ -1895,7 +1896,7 @@ var log = new _Loggin__WEBPACK_IMPORTED_MODULE_0__.default('Add To Cart');
  */
 
 function addToCart(form, data, button) {
-  var httpClient = (axios__WEBPACK_IMPORTED_MODULE_2___default());
+  var httpClient = (axios__WEBPACK_IMPORTED_MODULE_1___default());
   var action = data.actionType;
   var addToCartBtn = button;
   var product_id = data.product_id;
@@ -1906,24 +1907,17 @@ function addToCart(form, data, button) {
   }
 
   log.send('Preparing add to cart request with data:', data);
+  _Requests__WEBPACK_IMPORTED_MODULE_3__.block(data.request_type);
   addToCartBtn.removeClass('added');
   addToCartBtn.addClass('loading');
-  httpClient.post(cpops_config.ajax_url, qs__WEBPACK_IMPORTED_MODULE_3___default().stringify(data)).then(function (response) {
+  httpClient.post(cpops_config.ajax_url, qs__WEBPACK_IMPORTED_MODULE_2___default().stringify(data)).then(function (response) {
     log.send('Product added to cart succesfully with data:', response.data);
-    var fragments = response.data.fragments;
-
-    if (fragments) {
-      $.each(fragments, function (key, value) {
-        $(key).replaceWith(value);
-      });
-      $(document.body).trigger('wc_fragments_loaded');
-    } // Dont open cart for custom actions
-
+    _Requests__WEBPACK_IMPORTED_MODULE_3__.finished(response, data.request_type); // Dont open cart for custom actions
 
     if ('recommendation' === action) {
-      (0,_RefreshCart__WEBPACK_IMPORTED_MODULE_1__.default)(false, product_id);
+      (0,_RefreshCart__WEBPACK_IMPORTED_MODULE_4__.default)(false, product_id);
     } else {
-      (0,_RefreshCart__WEBPACK_IMPORTED_MODULE_1__.default)(true, product_id);
+      (0,_RefreshCart__WEBPACK_IMPORTED_MODULE_4__.default)(true, product_id);
     } // Trigger added to cart event.
 
 
@@ -1931,6 +1925,7 @@ function addToCart(form, data, button) {
   })["catch"](function (error) {
     console.log(error);
   })["finally"](function () {
+    _Requests__WEBPACK_IMPORTED_MODULE_3__.unblock(data.request_type);
     addToCartBtn.addClass('added');
     addToCartBtn.removeClass('loading');
   });
@@ -1983,6 +1978,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
  |
  |
  */
+ // eslint-disable-line
 
 
 
@@ -1997,7 +1993,7 @@ var CartPops = /*#__PURE__*/function (_EventEmitter) {
     _classCallCheck(this, CartPops);
 
     _this = _super.call(this);
-    _this.options = window.cpops_config;
+    _this.plugin_config = window.cpops_config;
 
     _this.drawer();
 
@@ -2016,7 +2012,7 @@ var CartPops = /*#__PURE__*/function (_EventEmitter) {
       try {
         this.initialize();
       } catch (err) {
-        console.log(err);
+        console.log(err); // eslint-disable-line
       }
     }
   }, {
@@ -2042,6 +2038,8 @@ var CartPops = /*#__PURE__*/function (_EventEmitter) {
       if (drawerToggles && drawerEl) {
         drawerToggles.forEach(function (item) {
           item.addEventListener('click', function (event) {
+            event.preventDefault();
+
             _this2.drawer.show();
           });
         });
@@ -2079,7 +2077,7 @@ var CartPops = /*#__PURE__*/function (_EventEmitter) {
     value: function assistant() {
       var _this3 = this;
 
-      if (this.options.pro === false) {
+      if (false === this.plugin_config.pro) {
         return;
       }
 
@@ -2118,6 +2116,55 @@ var CartPops = /*#__PURE__*/function (_EventEmitter) {
 
 /***/ }),
 
+/***/ "../assets/dev/js/frontend/modules/Collapse.js":
+/*!*****************************************************!*\
+  !*** ../assets/dev/js/frontend/modules/Collapse.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Collapse)
+/* harmony export */ });
+// Use Immediately Invoked Function Express (IIFE)
+// to keep JS scoped to this function
+// and avoid overwriting of identifiers
+function Collapse() {
+  // Handler that uses various data-* attributes to trigger
+  // specific actions, mimicing bootstraps attributes
+  var triggers = Array.from(document.querySelectorAll('[data-cpops-toggle="collapse"]'));
+  window.addEventListener('click', function (ev) {
+    var elm = ev.target;
+    var selector = elm.getAttribute('data-cpops-target');
+
+    if (selector) {
+      collapse(selector, 'toggle', elm);
+    }
+  }, false);
+  var fnmap = {
+    toggle: 'toggle',
+    show: 'add',
+    hide: 'remove'
+  };
+
+  var collapse = function collapse(selector, cmd, elm) {
+    var targets = Array.from(document.querySelectorAll(selector));
+    targets.forEach(function (target) {
+      target.classList[fnmap[cmd]]('cpops-show');
+    });
+    elm.classList[fnmap[cmd]]('cpops-show');
+
+    if (elm.classList.contains('cpops-show')) {
+      elm.setAttribute('aria-expanded', 'true');
+    } else {
+      elm.setAttribute('aria-expanded', 'false');
+    }
+  };
+}
+
+/***/ }),
+
 /***/ "../assets/dev/js/frontend/modules/Core.js":
 /*!*************************************************!*\
   !*** ../assets/dev/js/frontend/modules/Core.js ***!
@@ -2131,7 +2178,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _UpdateCart__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UpdateCart */ "../assets/dev/js/frontend/modules/UpdateCart.js");
 /* harmony import */ var _Coupons__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Coupons */ "../assets/dev/js/frontend/modules/Coupons.js");
-/* harmony import */ var _AddToCart__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./AddToCart */ "../assets/dev/js/frontend/modules/AddToCart.js");
+/* harmony import */ var _RemoveProduct__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./RemoveProduct */ "../assets/dev/js/frontend/modules/RemoveProduct.js");
+/* harmony import */ var _AddToCart__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./AddToCart */ "../assets/dev/js/frontend/modules/AddToCart.js");
+/* harmony import */ var _Collapse__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Collapse */ "../assets/dev/js/frontend/modules/Collapse.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -2147,6 +2196,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
  |
  |
  */
+
 
 
 
@@ -2168,6 +2218,7 @@ var Core = /*#__PURE__*/function () {
       this.removeItem();
       this.handleCoupons();
       this.updateDelay = null;
+      (0,_Collapse__WEBPACK_IMPORTED_MODULE_4__.default)();
     }
   }, {
     key: "addProduct",
@@ -2202,7 +2253,8 @@ var Core = /*#__PURE__*/function () {
           action: 'cpops_add_to_cart',
           nonce: cpops_config.nonce,
           'add-to-cart': product_id,
-          product_id: product_id
+          product_id: product_id,
+          request_type: 'add_to_cart'
         };
 
         if ($(this).data('cpops-type')) {
@@ -2218,49 +2270,45 @@ var Core = /*#__PURE__*/function () {
         }
 
         $(document.body).trigger('adding_to_cart', [$button, data]);
-        (0,_AddToCart__WEBPACK_IMPORTED_MODULE_2__.addToCart)($form, data, $button);
+        (0,_AddToCart__WEBPACK_IMPORTED_MODULE_3__.addToCart)($form, data, $button);
         return false;
       });
     }
   }, {
     key: "quantitySelector",
     value: function quantitySelector() {
-      $(document).on('click', '.cpops-cart-item__quantity button', function (event) {
-        event.preventDefault;
-        var element = $(event.currentTarget),
-            cart_key = element.data('key'),
+      $(document).on('click', '.cpops-cart-item__quantity button', function (e) {
+        e.preventDefault();
+        var setQuantity = 0;
+        var element = $(e.currentTarget),
+            cartItemKey = element.data('key'),
             action = element.data('action'),
-            inputEl = $('#q-' + cart_key),
-            step = parseFloat(inputEl.attr('step'));
-        var currentQuantity = $(inputEl).val(),
-            setQuantity = null;
+            inputEl = $('#q-' + cartItemKey),
+            step = parseFloat(inputEl.attr('step')),
+            currentQuantity = parseFloat($(inputEl).val());
 
         if ('down' === action && 1 === currentQuantity) {
           setQuantity = 0;
-        }
-
-        if ('down' === action && currentQuantity >= 1) {
+          (0,_RemoveProduct__WEBPACK_IMPORTED_MODULE_2__.removeProduct)(cartItemKey);
+        } else if ('down' === action && currentQuantity >= 1) {
           setQuantity = Number(inputEl.val()) - step;
-        }
-
-        if ('up' === action && currentQuantity >= 1) {
+          inputEl.val(setQuantity).trigger('change');
+        } else if ('up' === action && currentQuantity >= 1) {
           setQuantity = Number(inputEl.val()) + step;
+          inputEl.val(setQuantity).trigger('change');
         }
 
-        inputEl.val(setQuantity).trigger('change');
-      }); // Watch input field
-
-      $(document).on('change', '.cpops-quantity__input', function (event) {
-        event.preventDefault;
-        var inputEl = $(event.currentTarget),
-            cartKey = inputEl.data('key'),
-            action = inputEl.data('action'),
+        return false;
+      });
+      $(document).on('change', '.cpops-quantity__input', function (e) {
+        e.preventDefault();
+        var invalid = false;
+        var inputEl = $(e.currentTarget),
+            cartItemKey = inputEl.data('key'),
             newQty = parseFloat(inputEl.val()),
             step = parseFloat(inputEl.attr('step')),
             min = parseFloat(inputEl.attr('min')),
-            max = parseFloat(inputEl.attr('max'));
-        var invalid = false,
-            message = false; // Client-side form validation.
+            max = parseFloat(inputEl.attr('max')); // Client-side form validation.
 
         if (isNaN(newQty) || newQty < 0 || newQty < min) {
           invalid = true;
@@ -2279,18 +2327,24 @@ var Core = /*#__PURE__*/function () {
 
         clearTimeout(this.updateDelay);
         this.updateDelay = setTimeout(function () {
-          (0,_UpdateCart__WEBPACK_IMPORTED_MODULE_0__.default)(cartKey, newQty, inputEl);
+          (0,_UpdateCart__WEBPACK_IMPORTED_MODULE_0__.default)(cartItemKey, newQty, inputEl);
         }, 150);
       });
     }
   }, {
     key: "removeItem",
     value: function removeItem() {
-      $(document).on('click', '.cpops-cart-item__actions--remove', function (event) {
-        event.preventDefault;
-        var el = $(event.currentTarget);
-        var cart_key = $(el).data('key');
-        (0,_UpdateCart__WEBPACK_IMPORTED_MODULE_0__.default)(cart_key, 0, el);
+      $(document).on('click', '.cpops-cart-item__actions--remove', function (e) {
+        e.preventDefault();
+        var el = $(e.currentTarget);
+        var cartItemKey = $(el).data('key');
+        (0,_RemoveProduct__WEBPACK_IMPORTED_MODULE_2__.removeProduct)(cartItemKey);
+      });
+      $(document).on('click', '.cpops-restore-item', function (e) {
+        e.preventDefault();
+        var el = $(e.currentTarget);
+        var cartItemKey = $(el).data('key');
+        (0,_RemoveProduct__WEBPACK_IMPORTED_MODULE_2__.restoreProduct)(cartItemKey);
       });
     }
   }, {
@@ -2333,11 +2387,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "removeCoupon": () => (/* binding */ removeCoupon)
 /* harmony export */ });
 /* harmony import */ var _Loggin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Loggin */ "../assets/dev/js/frontend/modules/Loggin.js");
-/* harmony import */ var _RefreshCart__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RefreshCart */ "../assets/dev/js/frontend/modules/RefreshCart.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "../node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! qs */ "../node_modules/qs/lib/index.js");
-/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(qs__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "../node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! qs */ "../node_modules/qs/lib/index.js");
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(qs__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _Requests__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Requests */ "../assets/dev/js/frontend/modules/Requests.js");
+/* harmony import */ var _RefreshCart__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./RefreshCart */ "../assets/dev/js/frontend/modules/RefreshCart.js");
+
 
 
 
@@ -2353,32 +2409,25 @@ function applyCoupon(coupon, input, button) {
   var data = {
     action: 'cpops_apply_coupon',
     coupon: coupon,
-    nonce: cpops_config.nonce
+    nonce: cpops_config.nonce,
+    request_type: 'apply_coupon'
   };
+  _Requests__WEBPACK_IMPORTED_MODULE_3__.block(data.request_type);
   log.send('Applying coupon with data:', data);
   $('#cartpops-drawer button').prop('disabled', true);
   button.addClass('is-loading');
-  axios__WEBPACK_IMPORTED_MODULE_2___default().post(cpops_config.ajax_url, qs__WEBPACK_IMPORTED_MODULE_3___default().stringify(data)).then(function (response) {
+  axios__WEBPACK_IMPORTED_MODULE_1___default().post(cpops_config.ajax_url, qs__WEBPACK_IMPORTED_MODULE_2___default().stringify(data)).then(function (response) {
     log.send('Applied coupon successfully with data:', response.data);
-    var fragments = response.data.fragments;
-
-    if (fragments) {
-      $.each(fragments, function (key, value) {
-        $(key).replaceWith(value);
-      });
-      $(document.body).trigger('wc_fragments_loaded');
-    }
-
-    (0,_RefreshCart__WEBPACK_IMPORTED_MODULE_1__.default)(false);
+    _Requests__WEBPACK_IMPORTED_MODULE_3__.finished(response, data.request_type);
+    (0,_RefreshCart__WEBPACK_IMPORTED_MODULE_4__.default)(false);
   })["catch"](function (error) {
-    console.log(error);
+    console.log(error); // eslint-disable-line
   })["finally"](function () {
     // Reset input value..
     $(input).val(''); // Remove loading class.
 
-    button.removeClass('is-loading'); // Set all buttons back to non-disabled.
-
-    $('#cartpops-drawer button').prop('disabled', false);
+    button.removeClass('is-loading');
+    _Requests__WEBPACK_IMPORTED_MODULE_3__.unblock(data.request_type);
   });
 }
 /**
@@ -2392,29 +2441,18 @@ function removeCoupon(coupon, coupon_tag) {
   var data = {
     action: 'cpops_remove_coupon',
     nonce: cpops_config.nonce,
-    coupon: coupon
+    coupon: coupon,
+    request_type: 'remove_coupon'
   };
-  axios__WEBPACK_IMPORTED_MODULE_2___default().post(cpops_config.ajax_url, qs__WEBPACK_IMPORTED_MODULE_3___default().stringify(data)).then(function (response) {
+  _Requests__WEBPACK_IMPORTED_MODULE_3__.block(data.request_type);
+  axios__WEBPACK_IMPORTED_MODULE_1___default().post(cpops_config.ajax_url, qs__WEBPACK_IMPORTED_MODULE_2___default().stringify(data)).then(function (response) {
     log.send('Removed coupon successfully with data:', response.data);
-    var fragments = response.data.fragments;
+    _Requests__WEBPACK_IMPORTED_MODULE_3__.finished(response, data.request_type); // Remove target coupon.
 
-    if (fragments) {
-      $.each(fragments, function (key, value) {
-        $(key).replaceWith(value);
-      });
-      $(document.body).trigger('wc_fragments_loaded');
-    }
-
-    (0,_RefreshCart__WEBPACK_IMPORTED_MODULE_1__.default)(false);
+    $(coupon_tag).remove();
+    (0,_RefreshCart__WEBPACK_IMPORTED_MODULE_4__.default)(false);
   })["catch"](function (error) {
-    console.log(error);
-  })["finally"](function () {
-    // Remove target coupon.
-    $(coupon_tag).remove(); // Remove any notices after set time.
-
-    setTimeout(function () {
-      $('.cpops-drawer-notices').empty();
-    }, 3000);
+    _Requests__WEBPACK_IMPORTED_MODULE_3__.unblock(data.request_type);
   });
 }
 
@@ -2441,23 +2479,25 @@ var Loggin = /*#__PURE__*/function () {
   function Loggin(title) {
     _classCallCheck(this, Loggin);
 
+    this.debug = true;
     this.title = {
-      body: title || "---"
+      body: title || '---'
     };
   }
 
   _createClass(Loggin, [{
     key: "send",
     value: function send() {
-      var body = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : "";
-      var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
+      var body = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+      var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
 
       // the second line is now the body because the first references the content after the first %c for the title
-      if (window.cpops_config.script_debug) {
-        console.log("%c\uD83D\uDCAC ".concat(this.title.body, ":%c").concat(body, " %c(SCRIPT_DEBUG is on)"), "color: white; padding: 3px 5px; margin-right: 10px; background: black; font-weight: bold;", "color: black;", "color: lightgray;");
+      if (window.cpops_config.script_debug && this.debug) {
+        console.log( // eslint-disable-line
+        "%c\uD83D\uDCAC ".concat(this.title.body, ":%c").concat(body, " %c(SCRIPT_DEBUG is on)"), "color: white; padding: 3px 5px; margin-right: 10px; background: black; font-weight: bold;", "color: black;", "color: lightgray;");
 
         if (data) {
-          console.table(data);
+          console.table(data); // eslint-disable-line
         }
       }
     }
@@ -3033,7 +3073,7 @@ var CartPops_Trigger = /*#__PURE__*/function (_EventEmitter) {
           if (o.autoHide !== false) {
             _this3.hide();
           }
-        }, 2500);
+        }, 4000);
       }
 
       this._resize();
@@ -3255,41 +3295,47 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var log = new _Loggin__WEBPACK_IMPORTED_MODULE_0__.default("Cart Refresh");
+var log = new _Loggin__WEBPACK_IMPORTED_MODULE_0__.default('Cart Refresh');
 /**
  *
- * @param {boolean} open_cart Decide whether or not to open the cart.
+ * @param {boolean} triggerCart Decide whether or not to open the cart.
  * @param {int} product_id Adds the product ID back to the refresh function. Important for fragments to work.
  */
 
 function refreshCart() {
-  var open_cart = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+  var triggerCart = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
   var product_id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-  var notices = null;
+  var cartHashKey = wc_cart_fragments_params.ajax_url.toString() + '-wc_cart_hash';
   var data = {
     action: 'cpops_refresh_cart',
     nonce: cpops_config.nonce,
-    product_id: product_id
+    product_id: product_id,
+    request_type: 'refresh_cart'
   };
   axios__WEBPACK_IMPORTED_MODULE_1___default().post(cpops_config.ajax_url, qs__WEBPACK_IMPORTED_MODULE_2___default().stringify(data)).then(function (response) {
-    log.send('Refreshing cart fragments:', response.data.fragments);
+    log.send('Refreshing cart fragments:', response.data);
     var fragments = response.data.fragments;
-    clearTimeout(notices);
-    notices = setTimeout(function () {
-      $(".cpops-drawer-notices").empty();
-    }, 3000);
+    var cartHash = response.data.cart_hash;
 
     if (fragments) {
       $.each(fragments, function (key, value) {
         $(key).replaceWith(value);
       });
-      $(document.body).trigger("wc_fragments_loaded");
+      $(document.body).trigger('wc_fragments_loaded');
     }
 
-    if (open_cart) {
-      if (cpops_config.trigger === 'popup') {
+    sessionStorage.setItem(wc_cart_fragments_params.fragment_name, JSON.stringify(fragments));
+
+    if (cartHash && cartHashKey) {
+      localStorage.setItem(cartHashKey, cartHash);
+      sessionStorage.setItem(cartHashKey, cartHash);
+      sessionStorage.setItem('wc_cart_created', new Date().getTime());
+    }
+
+    if (triggerCart) {
+      if ('popup' === cpops_config.trigger) {
         window.CartPops.popup.show();
-      } else if (cpops_config.trigger === 'bar') {
+      } else if ('bar' === cpops_config.trigger) {
         window.CartPops.bar.show();
       } else {
         window.CartPops.drawer.show();
@@ -3299,6 +3345,150 @@ function refreshCart() {
     console.log(error);
   })["finally"](function () {});
 }
+
+/***/ }),
+
+/***/ "../assets/dev/js/frontend/modules/RemoveProduct.js":
+/*!**********************************************************!*\
+  !*** ../assets/dev/js/frontend/modules/RemoveProduct.js ***!
+  \**********************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "removeProduct": () => (/* binding */ removeProduct),
+/* harmony export */   "restoreProduct": () => (/* binding */ restoreProduct)
+/* harmony export */ });
+/* harmony import */ var _Loggin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Loggin */ "../assets/dev/js/frontend/modules/Loggin.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "../node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! qs */ "../node_modules/qs/lib/index.js");
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(qs__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _Requests__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Requests */ "../assets/dev/js/frontend/modules/Requests.js");
+/* harmony import */ var _RefreshCart__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./RefreshCart */ "../assets/dev/js/frontend/modules/RefreshCart.js");
+
+
+
+
+
+var log = new _Loggin__WEBPACK_IMPORTED_MODULE_0__.default('Remove Product');
+/**
+ * AJAX call to update the cart.
+ * @param {string} cart_key Cart key
+ * @param {int} quantity Quantity
+ * @param {element} button HTML Button
+ */
+
+function removeProduct(cartKey) {
+  var httpClient = (axios__WEBPACK_IMPORTED_MODULE_1___default());
+  var data = {
+    nonce: cpops_config.nonce,
+    action: 'cpops_remove_product',
+    cart_key: cartKey,
+    request_type: 'remove_product'
+  };
+  _Requests__WEBPACK_IMPORTED_MODULE_3__.block(data.request_type);
+  log.send('Removing product from cart with data:', data);
+  httpClient.post(cpops_config.ajax_url, qs__WEBPACK_IMPORTED_MODULE_2___default().stringify(data)).then(function (response) {
+    log.send('Product removed with data:', response.data);
+    _Requests__WEBPACK_IMPORTED_MODULE_3__.finished(response, data.request_type);
+    (0,_RefreshCart__WEBPACK_IMPORTED_MODULE_4__.default)(false);
+  })["catch"](function (error) {
+    log.send('Error removing product', error);
+  })["finally"](function () {
+    $('#cartpops-drawer button').prop('disabled', false);
+  });
+}
+function restoreProduct(cartKey) {
+  var httpClient = (axios__WEBPACK_IMPORTED_MODULE_1___default());
+  $('#cartpops-drawer button').prop('disabled', true);
+  var data = {
+    nonce: cpops_config.nonce,
+    action: 'cpops_restore_product',
+    cart_key: cartKey,
+    request_type: 'restore_product'
+  };
+  _Requests__WEBPACK_IMPORTED_MODULE_3__.block(data.request_type);
+  log.send('Restoring product from cart with data:', data);
+  httpClient.post(cpops_config.ajax_url, qs__WEBPACK_IMPORTED_MODULE_2___default().stringify(data)).then(function (response) {
+    log.send('Product restored with data:', response.data);
+    _Requests__WEBPACK_IMPORTED_MODULE_3__.finished(response, data.request_type);
+    (0,_RefreshCart__WEBPACK_IMPORTED_MODULE_4__.default)(false);
+  })["catch"](function (error) {
+    log.send('Error restoring product', error);
+  })["finally"](function () {
+    _Requests__WEBPACK_IMPORTED_MODULE_3__.unblock(data.request_type);
+  });
+}
+
+/***/ }),
+
+/***/ "../assets/dev/js/frontend/modules/Requests.js":
+/*!*****************************************************!*\
+  !*** ../assets/dev/js/frontend/modules/Requests.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "finished": () => (/* binding */ finished),
+/* harmony export */   "block": () => (/* binding */ block),
+/* harmony export */   "unblock": () => (/* binding */ unblock)
+/* harmony export */ });
+var cartNotificationId = 'test';
+/**
+ * Handle the response after a succesfull call with Axios.
+ * Request types are: add_to_cart, update_cart, remove_product, restore_product
+ * @param {object} response An object of the Axios response.
+ * @param {string} requestType The type of request. Add to cart, coupon etc.
+ */
+
+function finished(response, requestType) {
+  var cartHashKey = wc_cart_fragments_params.ajax_url.toString() + '-wc_cart_hash';
+  var fragments = response.data.fragments;
+  var cartHash = response.data.cart_hash;
+
+  if (fragments) {
+    $.each(fragments, function (key, value) {
+      $(key).replaceWith(value);
+    });
+    $(document.body).trigger('wc_fragments_refreshed');
+  }
+
+  if (cartHash && cartHashKey) {
+    localStorage.setItem(cartHashKey, cartHash);
+    sessionStorage.setItem(cartHashKey, cartHash);
+    sessionStorage.setItem('wc_cart_created', new Date().getTime());
+  }
+
+  completed();
+}
+function block() {
+  var requestType = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+  $('#cartpops-drawer button').prop('disabled', true);
+}
+function unblock() {
+  var requestType = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+  $('#cartpops-drawer button').prop('disabled', false);
+}
+
+var completed = function completed() {
+  hideNotifications();
+};
+
+var hideNotifications = function hideNotifications() {
+  if (cartNotificationId) {
+    clearTimeout(cartNotificationId);
+  }
+
+  $('.cpops-drawer-notices-wrapper').show();
+  cartNotificationId = setTimeout(function () {
+    $('.cpops-drawer-notices-wrapper').empty();
+    $('.cpops-drawer-notices-wrapper').hide();
+  }, 4500);
+};
 
 /***/ }),
 
@@ -3314,11 +3504,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ updateCart)
 /* harmony export */ });
 /* harmony import */ var _Loggin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Loggin */ "../assets/dev/js/frontend/modules/Loggin.js");
-/* harmony import */ var _RefreshCart__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RefreshCart */ "../assets/dev/js/frontend/modules/RefreshCart.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "../node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! qs */ "../node_modules/qs/lib/index.js");
-/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(qs__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "../node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! qs */ "../node_modules/qs/lib/index.js");
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(qs__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _Requests__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Requests */ "../assets/dev/js/frontend/modules/Requests.js");
+/* harmony import */ var _RefreshCart__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./RefreshCart */ "../assets/dev/js/frontend/modules/RefreshCart.js");
+
 
 
 
@@ -3332,34 +3524,27 @@ var log = new _Loggin__WEBPACK_IMPORTED_MODULE_0__.default('Update Cart');
  */
 
 function updateCart(cart_key, quantity, button) {
-  var httpClient = (axios__WEBPACK_IMPORTED_MODULE_2___default());
+  var httpClient = (axios__WEBPACK_IMPORTED_MODULE_1___default());
   var original_button = button.html();
-  $('#cartpops-drawer button').prop('disabled', true);
   button.html('<span class="quantity__button--loader"></span>');
   var data = {
     nonce: cpops_config.nonce,
     action: 'cpops_update_cart',
     cart_key: cart_key,
-    quantity: quantity
+    quantity: quantity,
+    request_type: 'update_cart'
   };
+  _Requests__WEBPACK_IMPORTED_MODULE_3__.block(data.request_type);
   log.send('Preparing to update the cart with data:', data);
-  httpClient.post(cpops_config.ajax_url, qs__WEBPACK_IMPORTED_MODULE_3___default().stringify(data)).then(function (response) {
+  httpClient.post(cpops_config.ajax_url, qs__WEBPACK_IMPORTED_MODULE_2___default().stringify(data)).then(function (response) {
     log.send('Cart updated with data:', response.data);
-    var fragments = response.data.fragments;
-
-    if (fragments) {
-      $.each(fragments, function (key, value) {
-        $(key).replaceWith(value);
-      });
-      $(document.body).trigger('wc_fragments_loaded');
-    }
-
-    (0,_RefreshCart__WEBPACK_IMPORTED_MODULE_1__.default)(false);
+    _Requests__WEBPACK_IMPORTED_MODULE_3__.finished(response, data.request_type);
+    (0,_RefreshCart__WEBPACK_IMPORTED_MODULE_4__.default)(false);
   })["catch"](function (error) {
     console.log(error);
   })["finally"](function () {
+    _Requests__WEBPACK_IMPORTED_MODULE_3__.unblock(data.request_type);
     button.html(original_button);
-    $('#cartpops-drawer button').prop('disabled', false);
   });
 }
 
