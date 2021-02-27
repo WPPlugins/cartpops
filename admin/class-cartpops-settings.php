@@ -165,7 +165,7 @@ class CartPops_Settings
                 $this->version,
                 true
             );
-            wp_localize_script( $this->plugin_name . '-admin-script', 'cpops_config', array(
+            wp_localize_script( $this->plugin_name . '-admin-script', 'CartPopsConfig', array(
                 'ajax_url' => admin_url( 'admin-ajax.php' ),
                 'nonce'    => wp_create_nonce( 'ajax-nonce' ),
             ) );
@@ -244,13 +244,13 @@ class CartPops_Settings
             'fields'      => array( array(
             'id'      => 'plugin_enable',
             'label'   => __( 'Enable CartPops', 'cartpops' ) . $this->tooltip(),
-            'tooltip' => __( 'If you disable this, the plugin will stop working on the front-end of your website. This is useful if you temporarily want to disable CartPops without deactivating the plugin.', 'cartpops' ),
+            'tooltip' => __( 'If you disable this, the plugin will stop working on the front-end of your website. This is useful if you temporarily want to disable CartPops without deactivating the entire plugin.', 'cartpops' ),
             'type'    => 'checkbox',
             'default' => 'on',
         ), array(
             'id'         => 'plugin_reset',
             'label'      => __( 'Delete plugin settings upon deactivation', 'cartpops' ) . $this->tooltip(),
-            'tooltip'    => __( 'This wlll delete all plugins settings upon deactivation. Use with caution', 'cartpops' ),
+            'tooltip'    => __( 'This wlll delete all plugins settings upon deactivation. Use with caution!', 'cartpops' ),
             'type'       => 'checkbox',
             'default'    => '',
             'attributes' => array(
@@ -274,7 +274,7 @@ class CartPops_Settings
             'fields'      => array( array(
             'id'          => 'add_to_cart_trigger',
             'label'       => __( 'Select an add to cart trigger', 'cartpops' ),
-            'description' => sprintf( __( 'The Add To Cart trigger option allows you to choose which Add To Cart Trigger shows up on your customer\'s screen after they add something to their cart. By default, the Drawer will always be available for your customers and this can be used as a replacement for your default WooCommerce cart page. You can allow customers to access the Drawer by activating the Floating Cart Launcher icon or by using the shortcode [cartpops_cart_launcher]. You can read more about Add To Cart Triggers in the %s.', 'cartpops' ), sprintf( '<a href="%s" rel="noopener nofollower" target="_blank">documentation</a>', cartpops_outbound_url( 'docs/features/add-to-cart-trigger/', 'Message', 'Documentation' ) ) ),
+            'description' => sprintf( __( "The Add To Cart trigger option allows you to choose which Add To Cart Trigger shows up on your customer's screen after they add something to thei cart. By default, the Drawer will always be available for your customers, and this can be used a replacement for your default WooCommerce cart page. You can allow customers to access the Drawer by activating the Floating Cart Launcher icon or using the shortcode [cartpops_cart_launcher]. You can read more about Add To Cart Triggers in the  %s.", 'cartpops' ), sprintf( '<a href="%s" rel="noopener nofollower" target="_blank">documentation</a>', cartpops_outbound_url( 'docs/features/add-to-cart-trigger/', 'Message', 'Documentation' ) ) ),
             'type'        => 'radio-images',
             'options'     => array(
             'drawer' => array(
@@ -320,20 +320,16 @@ class CartPops_Settings
         ),
             array(
             'id'          => 'product_recommendation_engine_text',
-            'label'       => __( 'Enter a call to action', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/product-recommendation-engine/', 'Tooltip', 'Documentation' ) ),
-            'tooltip'     => __( 'Select a group of products that you want to recommend (currently only shows simple products). If a product is already in the cart it will be excluded from recommendations.', 'cartpops' ),
+            'label'       => __( 'Recommendations title', 'cartpops' ),
             'type'        => 'text',
             'default'     => __( 'You might also like these items.', 'cartpops' ),
             'placeholder' => __( 'Enter call to action text', 'cartpops' ),
-            'attributes'  => array(
-            'data-relies-on'       => 'support_us_enable',
-            'data-relies-on-value' => 'on',
-        ),
+            'attributes'  => array(),
         ),
             array(
             'id'      => 'product_recommendation_engine_type',
             'label'   => __( 'Select a Recommendation type', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/product-recommendation-engine/', 'Tooltip', 'Documentation' ) ),
-            'tooltip' => __( 'Select a group of products that you want to recommend (currently only shows simple products). If a product is already in the cart it will be excluded from recommendations.', 'cartpops' ),
+            'tooltip' => __( 'Select a group of products that you want to recommend (only simple products are supported). If a product is already in the cart it will be excluded from the recommendations.', 'cartpops' ),
             'type'    => 'select',
             'options' => array(
             'upsells'     => __( 'Upsells', 'cartpops' ),
@@ -345,11 +341,11 @@ class CartPops_Settings
             array(
             'id'      => 'product_recommendation_engine_fallback',
             'label'   => __( 'Select a fallback', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/product-recommendation-engine/', 'Tooltip', 'Documentation' ) ),
-            'tooltip' => __( 'Here you can select what to do in case there are no products to recommend.', 'cartpops' ),
+            'tooltip' => __( 'Select what you want to do in case there are no products to recommend.', 'cartpops' ),
             'type'    => 'select',
             'options' => array(
-            'hide'            => __( 'Hide', 'cartpops' ),
-            'random_products' => __( 'Random products', 'cartpops' ),
+            'hide'            => __( 'Hide the Product Recommendation Engine', 'cartpops' ),
+            'random_products' => __( 'Show random products', 'cartpops' ),
         ),
             'default' => array( 'hide' ),
         )
@@ -749,7 +745,7 @@ class CartPops_Settings
             array(
             'id'          => 'drawer_header_title_text',
             'label'       => __( 'Drawer cart title', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/tutorials/translate/', 'Tooltip', 'Translate' ) ),
-            'tooltip'     => __( 'Use this field to quickly change the text and/or language of CartPops.', 'cartpops' ),
+            'description' => __( 'These settings allow you to translate the plugin quickly. However, we recommend translating it via the .pot file in the plugin or with a popular translation plugin. We are actively working on including languages in the plugin by default so that this is not required.', 'cartpops' ),
             'type'        => 'text',
             'default'     => '',
             'placeholder' => __( 'My cart', 'cartpops' ),
@@ -758,7 +754,6 @@ class CartPops_Settings
             array(
             'id'          => 'coupon_title_text',
             'label'       => __( 'Coupon title', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/tutorials/translate/', 'Tooltip', 'Translate' ) ),
-            'tooltip'     => __( 'Use this field to quickly change the text and/or language of CartPops.', 'cartpops' ),
             'type'        => 'text',
             'default'     => '',
             'attributes'  => array(),
@@ -767,7 +762,6 @@ class CartPops_Settings
             array(
             'id'          => 'coupon_input_placeholder_text',
             'label'       => __( 'Coupon input field placeholder text', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/tutorials/translate/', 'Tooltip', 'Translate' ) ),
-            'tooltip'     => __( 'Use this field to quickly change the text and/or language of CartPops.', 'cartpops' ),
             'type'        => 'text',
             'default'     => '',
             'attributes'  => array(),
@@ -776,7 +770,6 @@ class CartPops_Settings
             array(
             'id'          => 'coupon_button_text',
             'label'       => __( 'Coupon button text', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/tutorials/translate/', 'Tooltip', 'Translate' ) ),
-            'tooltip'     => __( 'Use this field to quickly change the text and/or language of CartPops.', 'cartpops' ),
             'type'        => 'text',
             'default'     => '',
             'attributes'  => array(),
@@ -785,7 +778,6 @@ class CartPops_Settings
             array(
             'id'          => 'subtotal_line_item_text',
             'label'       => __( 'Line item: Subtotal', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/tutorials/translate/', 'Tooltip', 'Translate' ) ),
-            'tooltip'     => __( 'Use this field to quickly change the text and/or language of CartPops.', 'cartpops' ),
             'type'        => 'text',
             'default'     => '',
             'placeholder' => __( 'Subtotal', 'cartpops' ),
@@ -794,7 +786,6 @@ class CartPops_Settings
             array(
             'id'          => 'discount_line_item_text',
             'label'       => __( 'Line item: Discount', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/tutorials/translate/', 'Tooltip', 'Translate' ) ),
-            'tooltip'     => __( 'Use this field to quickly change the text and/or language of CartPops.', 'cartpops' ),
             'type'        => 'text',
             'default'     => '',
             'placeholder' => __( 'Discount', 'cartpops' ),
@@ -803,7 +794,6 @@ class CartPops_Settings
             array(
             'id'          => 'total_line_item_text',
             'label'       => __( 'Line item: Total', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/tutorials/translate/', 'Tooltip', 'Translate' ) ),
-            'tooltip'     => __( 'Use this field to quickly change the text and/or language of CartPops.', 'cartpops' ),
             'type'        => 'text',
             'default'     => '',
             'placeholder' => __( 'Total', 'cartpops' ),
@@ -812,7 +802,6 @@ class CartPops_Settings
             array(
             'id'          => 'checkout_button_text',
             'label'       => __( 'Checkout button', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/tutorials/translate/', 'Tooltip', 'Translate' ) ),
-            'tooltip'     => __( 'Use this field to quickly change the text and/or language of CartPops.', 'cartpops' ),
             'type'        => 'text',
             'default'     => '',
             'placeholder' => __( 'Checkout now', 'cartpops' ),
@@ -821,7 +810,6 @@ class CartPops_Settings
             array(
             'id'          => 'checkout_button_empty_text',
             'label'       => __( 'Empty checkout button', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/tutorials/translate/', 'Tooltip', 'Translate' ) ),
-            'tooltip'     => __( 'Use this field to quickly change the text and/or language of CartPops.', 'cartpops' ),
             'type'        => 'text',
             'default'     => '',
             'placeholder' => __( 'Your cart is empty. Shop now', 'cartpops' ),
@@ -830,7 +818,6 @@ class CartPops_Settings
             array(
             'id'          => 'drawer_empty_title_text',
             'label'       => __( 'Drawer empty state title', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/tutorials/translate/', 'Tooltip', 'Translate' ) ),
-            'tooltip'     => __( 'Use this field to quickly change the text and/or language of CartPops.', 'cartpops' ),
             'type'        => 'text',
             'default'     => '',
             'placeholder' => __( 'Your cart is empty.', 'cartpops' ),
@@ -839,7 +826,6 @@ class CartPops_Settings
             array(
             'id'          => 'drawer_empty_subtitle_text',
             'label'       => __( 'Drawer empty state subtitle', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/tutorials/translate/', 'Tooltip', 'Translate' ) ),
-            'tooltip'     => __( 'Use this field to quickly change the text and/or language of CartPops.', 'cartpops' ),
             'type'        => 'text',
             'default'     => '',
             'placeholder' => __( 'Looks like you haven\'t made a choice yet.', 'cartpops' ),
@@ -848,7 +834,6 @@ class CartPops_Settings
             array(
             'id'          => 'continue_shopping_text',
             'label'       => __( 'Continue shopping text', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/tutorials/translate/', 'Tooltip', 'Translate' ) ),
-            'tooltip'     => __( 'Use this field to quickly change the text and/or language of CartPops.', 'cartpops' ),
             'type'        => 'text',
             'default'     => '',
             'placeholder' => __( 'Or continue shopping', 'cartpops' ),
@@ -857,7 +842,6 @@ class CartPops_Settings
             array(
             'id'          => 'view_details_text',
             'label'       => __( 'View details text', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/tutorials/translate/', 'Tooltip', 'Translate' ) ),
-            'tooltip'     => __( 'Use this field to quickly change the text and/or language of CartPops.', 'cartpops' ),
             'type'        => 'text',
             'default'     => '',
             'placeholder' => __( 'View details', 'cartpops' ),
@@ -882,6 +866,17 @@ class CartPops_Settings
             'type'        => 'textarea',
             'default'     => '',
             'placeholder' => esc_html( 'console.log("Howdey!");' ),
+        ) ),
+        );
+        $settings['miscellaneous'] = array(
+            'title'       => __( 'Miscellaneous', 'cartpops' ),
+            'description' => __( 'All miscellaneous options.', 'cartpops' ),
+            'fields'      => array( array(
+            'id'      => 'force_fragments_refresh',
+            'label'   => __( 'Force refresh on page load', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/faq/force-refresh/', 'Tooltip', 'Documentation' ) ),
+            'tooltip' => __( 'This will force refresh the cart on each page load. Only use if you\'re having troubles with how the cart loads.', 'cartpops' ),
+            'type'    => 'checkbox',
+            'default' => '',
         ) ),
         );
         $settings = apply_filters( 'cartpops_settings_fields', $settings );
@@ -952,7 +947,8 @@ class CartPops_Settings
         $all_products = array();
         // Get external products.
         $args = array(
-            'type' => $type,
+            'type'           => $type,
+            'posts_per_page' => -1,
         );
         $products = wc_get_products( $args );
         if ( !empty($products) && !is_wp_error( $products ) ) {
@@ -1225,9 +1221,9 @@ class CartPops_Settings
         }
         
         if ( !empty($field['tooltip']) ) {
-            $html .= '<div class="wc_free_prod_samples-tooltip-text-wrapper">';
-            $html .= '<div class="wc_free_prod_samples-text-container">';
-            $html .= '<span class="wc_free_prod_samples-text">';
+            $html .= '<div class="cartpops-tooltip-text-wrapper">';
+            $html .= '<div class="cartpops-tooltips-text-container">';
+            $html .= '<span class="cartpops-tooltips-text">';
             $html .= sprintf( esc_html( $field['tooltip'] ) . ' %s', '<span style="text-decoration:underline">' . __( 'Click [?] to go to the documentation', 'cartpops' ) . '</span>' );
             $html .= '</span>';
             $html .= '</div>';
@@ -1600,6 +1596,13 @@ class CartPops_Settings
                     'custom_code',
                     '',
                     __( 'Custom code settings', 'cartpops' ),
+                    'code'
+                );
+                $this->render_section_fields(
+                    $this->settings_option_group,
+                    'miscellaneous',
+                    '',
+                    __( 'Miscellaneous & Experimental', 'cartpops' ),
                     'code'
                 );
                 ?>

@@ -79,12 +79,17 @@ class CartPops_Assets
             $this->version,
             true
         );
-        wp_localize_script( 'cartpops-frontend', 'cpops_config', array(
-            'script_debug' => ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? true : false ),
-            'ajax_url'     => admin_url( 'admin-ajax.php' ),
-            'pro'          => json_encode( fs_cartpops()->can_use_premium_code() ),
-            'nonce'        => wp_create_nonce( 'cartpops' ),
-            'trigger'      => $this->trigger,
+        wp_localize_script( 'cartpops-frontend', 'CartPopsConfig', array(
+            'script_debug'   => ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? true : false ),
+            'ajax_url'       => admin_url( 'admin-ajax.php' ),
+            'pro'            => json_encode( fs_cartpops()->can_use_premium_code() ),
+            'nonce'          => wp_create_nonce( 'cartpops' ),
+            'trigger'        => $this->trigger,
+            'forceRefresh'   => ( !empty(cartpops_get_option( 'force_fragments_refresh' )) ? true : false ),
+            'refreshDelay'   => 150,
+            'ajaxAddToCart'  => true,
+            'isCheckoutPage' => json_encode( is_checkout() ),
+            'isCartPage'     => json_encode( is_cart() ),
         ) );
         if ( $custom_js ) {
             wp_add_inline_script( 'cartpops-frontend', wp_unslash( $custom_js ) );

@@ -46,7 +46,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<div class="circle circle--animated circle-tertiary"></div>
 					</div>
 					<div class="cpops-issues-error__description">
-						<p><?php esc_html_e( 'No issues were found', 'cartpops' ); ?></p>
+						<p><?php esc_html_e( 'No issues were found.', 'cartpops' ); ?></p>
 					</div>
 				</td>
 				<td><p><?php esc_html_e( 'No action needed.', 'cartpops' ); ?></p></td>

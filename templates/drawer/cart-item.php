@@ -46,7 +46,7 @@ $args = array(
 		</button>
 
 		<?php
-			cpops_frontend_helper()->get_template( 'partials/product/price', $args );
+			cpops_frontend_helper()->get_template( 'components/product/price', $args );
 		?>
 	</div>
 </div>

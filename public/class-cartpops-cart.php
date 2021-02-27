@@ -89,7 +89,7 @@ class CartPops_Cart
      */
     public function render_drawer_inside()
     {
-        cpops_frontend_helper()->get_template( 'drawer/cartpops-drawer-inside', array() );
+        cpops_frontend_helper()->get_template( 'drawer/inside', array() );
     }
     
     /**
@@ -97,7 +97,7 @@ class CartPops_Cart
      *
      * @return void
      */
-    public function render_render_drawer()
+    public function render_drawer()
     {
         $data = array(
             'classes'    => apply_filters( 'cpops_drawer_classes', array( 'cpops-default-drawer', 'cpops-modal-wrap', "cpops-animation__{$this->animation_type}" ) ),
@@ -106,7 +106,7 @@ class CartPops_Cart
             'role'     => 'dialog',
         ),
         );
-        cpops_frontend_helper()->get_template( 'cartpops-drawer', $data );
+        cpops_frontend_helper()->get_template( 'drawer', $data );
     }
     
     /**
@@ -127,7 +127,7 @@ class CartPops_Cart
             'classes'      => apply_filters( 'cpops_floating_cart_launcher_classes', array( 'cpops-toggle-drawer' ) ),
             'item_account' => WC()->cart->get_cart_contents_count(),
         );
-        cpops_frontend_helper()->get_template( 'cartpops-launcher', $data );
+        cpops_frontend_helper()->get_template( 'components/launcher', $data );
     }
     
     /**
@@ -145,7 +145,7 @@ class CartPops_Cart
         if ( 'slick' === $this->animation_type ) {
             $data['classes'][] = self::get_animation_class();
         }
-        cpops_frontend_helper()->get_template( 'drawer/cartpops-drawer-header', $data );
+        cpops_frontend_helper()->get_template( 'drawer/header', $data );
     }
     
     /**
@@ -187,7 +187,7 @@ class CartPops_Cart
                 if ( 'slick' === $this->animation_type ) {
                     $data['classes'][] = self::get_animation_class();
                 }
-                cpops_frontend_helper()->get_template( 'drawer/cartpops-drawer-cart-item', $data, false );
+                cpops_frontend_helper()->get_template( 'drawer/cart-item', $data, false );
             }
         } else {
             $empty_cart_image = null;
@@ -199,14 +199,14 @@ class CartPops_Cart
             if ( 'slick' === $this->animation_type ) {
                 $data['classes'][] = self::get_animation_class();
             }
-            cpops_frontend_helper()->get_template( 'drawer/cartpops-drawer-empty-state', $data, false );
+            cpops_frontend_helper()->get_template( 'drawer/empty-state', $data, false );
         }
     
     }
     
     public function render_price( $data = array(), $echo = true )
     {
-        return cpops_frontend_helper()->get_template( 'partials/product/price', $data, $echo );
+        return cpops_frontend_helper()->get_template( 'components/product/price', $data, $echo );
     }
     
     /**
@@ -252,7 +252,7 @@ class CartPops_Cart
         if ( '' !== $data['max_value'] && $data['max_value'] < $data['min_value'] ) {
             $data['max_value'] = $data['min_value'];
         }
-        return cpops_frontend_helper()->get_template( 'partials/product/quantity-selector', $data, $echo );
+        return cpops_frontend_helper()->get_template( 'components/product/quantity-selector', $data, $echo );
     }
     
     /**
@@ -285,7 +285,7 @@ class CartPops_Cart
             if ( 'slick' === $this->animation_type ) {
                 $data['classes'][] = self::get_animation_class();
             }
-            cpops_frontend_helper()->get_template( 'drawer/cartpops-drawer-coupon-form', $data, false );
+            cpops_frontend_helper()->get_template( 'drawer/coupon-form', $data, false );
         }
     
     }
@@ -344,7 +344,7 @@ class CartPops_Cart
             if ( 'slick' === $this->animation_type ) {
                 $data['classes'][] = self::get_animation_class();
             }
-            cpops_frontend_helper()->get_template( 'drawer/cartpops-drawer-recommendations', $data );
+            cpops_frontend_helper()->get_template( 'drawer/recommendations', $data );
         }
     
     }
@@ -437,7 +437,7 @@ class CartPops_Cart
         if ( 'slick' === $this->animation_type ) {
             $data['classes'][] = self::get_animation_class();
         }
-        cpops_frontend_helper()->get_template( 'drawer/cartpops-drawer-cart-totals', $data );
+        cpops_frontend_helper()->get_template( 'drawer/cart-totals', $data );
     }
     
     /**
@@ -654,7 +654,7 @@ class CartPops_Cart
         if ( 'slick' === $this->animation_type ) {
             $data['classes'][] = self::get_animation_class();
         }
-        cpops_frontend_helper()->get_template( 'partials/cartpops-powered-by', $data );
+        cpops_frontend_helper()->get_template( 'components/powered-by', $data );
     }
     
     /**

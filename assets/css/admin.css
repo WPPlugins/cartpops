@@ -1,4 +1,4 @@
-/*! Copyright © Chris Jayden <help@cartpops.com> (https://cartpops.com) - cartpops - v1.2.11 - 14-02-2021 */
+/*! Copyright © Chris Jayden <help@cartpops.com> (https://cartpops.com) - cartpops - v1.2.12 - 27-02-2021 */
 /* --------------------------------------------------------------
 # Colors
 -------------------------------------------------------------- */
@@ -3254,17 +3254,17 @@ body.cartpops-wizard {
   #cartpops-admin-panel .cpops-tooltip:hover {
     background: #ccc;
     color: #777; }
-  #cartpops-admin-panel .wc_free_prod_samples-input-wrapper {
+  #cartpops-admin-panel .cartpops-tooltips-input-wrapper {
     white-space: nowrap; }
-  #cartpops-admin-panel .wc_free_prod_samples-tooltip-text-wrapper {
+  #cartpops-admin-panel .cartpops-tooltip-text-wrapper {
     position: absolute;
     left: 0;
     top: 0;
     width: 100%; }
     @media (max-width: 1200px) {
-      #cartpops-admin-panel .wc_free_prod_samples-tooltip-text-wrapper {
+      #cartpops-admin-panel .cartpops-tooltip-text-wrapper {
         display: block; } }
-  #cartpops-admin-panel .wc_free_prod_samples-text-container {
+  #cartpops-admin-panel .cartpops-tooltips-text-container {
     display: none;
     position: absolute;
     z-index: 500;
@@ -3272,7 +3272,7 @@ body.cartpops-wizard {
     bottom: 0;
     left: 21px;
     right: 0; }
-  #cartpops-admin-panel .wc_free_prod_samples-text {
+  #cartpops-admin-panel .cartpops-tooltips-text {
     display: inline-block;
     background-color: #23282d;
     color: #fff;
@@ -3284,7 +3284,7 @@ body.cartpops-wizard {
     line-height: 20px;
     -webkit-box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.15);
             box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.15); }
-  #cartpops-admin-panel .wc_free_prod_samples-text-container:after {
+  #cartpops-admin-panel .cartpops-tooltips-text-container:after {
     content: " ";
     position: absolute;
     top: 10px;

@@ -1,4 +1,4 @@
-/*! Copyright © Chris Jayden <help@cartpops.com> (https://cartpops.com) - cartpops - v1.2.11 - 14-02-2021 */
+/*! Copyright © Chris Jayden <help@cartpops.com> (https://cartpops.com) - cartpops - v1.2.12 - 27-02-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -431,10 +431,10 @@ var HandleSettings = /*#__PURE__*/function () {
         event.preventDefault();
         var data = {
           'action': 'cpops_reset_issues_transient',
-          'nonce': cpops_config.nonce
+          'nonce': CartPopsConfig.nonce
         }; // You can use wp_localize_script in php file to have admin_url( 'admin-ajax.php' ) available in front-end
 
-        jQuery.post(cpops_config.ajax_url, data, function (response) {
+        jQuery.post(CartPopsConfig.ajax_url, data, function (response) {
           sweetalert__WEBPACK_IMPORTED_MODULE_2___default()({
             icon: response.success === true ? 'success' : 'error',
             title: response.data,
@@ -602,10 +602,10 @@ var HandleSettings = /*#__PURE__*/function () {
     value: function tooltips() {
       $(".cpops-tooltip").on({
         mouseenter: function mouseenter() {
-          $(this).closest("tr").find(".wc_free_prod_samples-text-container").show();
+          $(this).closest("tr").find(".cartpops-tooltips-text-container").show();
         },
         mouseleave: function mouseleave() {
-          $(this).closest("tr").find(".wc_free_prod_samples-text-container").hide();
+          $(this).closest("tr").find(".cartpops-tooltips-text-container").hide();
         }
       });
     }

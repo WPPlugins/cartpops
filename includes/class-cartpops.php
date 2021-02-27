@@ -192,7 +192,7 @@ class CartPops
         $this->loader->add_action(
             'wp_footer',
             $plugin_cart,
-            'render_render_drawer',
+            'render_drawer',
             15
         );
         $this->loader->add_action(
@@ -298,6 +298,8 @@ class CartPops
         $this->loader->add_action( 'wp_ajax_nopriv_cpops_add_to_cart', $frontend_ajax, 'add_to_cart' );
         $this->loader->add_action( 'wp_ajax_cpops_refresh_cart', $frontend_ajax, 'refresh_cart' );
         $this->loader->add_action( 'wp_ajax_nopriv_cpops_refresh_cart', $frontend_ajax, 'refresh_cart' );
+        $this->loader->add_action( 'wp_ajax_cpops_get_refreshed_fragments', $frontend_ajax, 'get_refreshed_fragments' );
+        $this->loader->add_action( 'wp_ajax_nopriv_cpops_get_refreshed_fragments', $frontend_ajax, 'get_refreshed_fragments' );
         $this->loader->add_action( 'wp_ajax_cpops_update_cart', $frontend_ajax, 'update_cart' );
         $this->loader->add_action( 'wp_ajax_nopriv_cpops_update_cart', $frontend_ajax, 'update_cart' );
         $this->loader->add_action( 'wp_ajax_cpops_remove_product', $frontend_ajax, 'remove_product' );

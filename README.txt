@@ -5,7 +5,7 @@ Tags: add to cart popup, added to cart, cart, shop, shopping cart, cart drawer, 
 Requires at least: 5.1
 Tested up to: 5.6.1
 Requires PHP: 7.0
-Stable tag: 1.2.11
+Stable tag: 1.2.12
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -120,20 +120,28 @@ If you have a caching plugin installed, or use any sort of caching in your site 
 
 == Changelog ==
 
+#### Version 1.2.12 - 27 February 2021
+- **upgrade**: Fix an installation issue with multi-sites. ↔️
+- **upgrade**: Once more, we spend time on improving issues with caching. You can now find an option in the Advanced tab to force a refresh on page load. ➰
+- **upgrade**: Improve how we trigger the add to carts events to improve compatibility with other plugins and themes. Thanks, Sebastian, for reporting 🚀
+- **upgrade**: PRO: Fix an issue where choosing custom products in Recommendations only showed 10. 🙌
+- **upgrade**: Force cursor pointer on quantity selector buttons. 👉
+- **upgrade**: Several "under the hood" changes, including decreasing JS bundle size. ⬇️
+
 #### Version 1.2.11 - 14 February 2021
-- **new**: Products with more than 1 variations are now shown directly in the Drawer. To save space it's in a sleek drop-down accordion. 🌈
+- **new**: Products with more than one variation are now shown directly in the Drawer. To save space, it's in a sleek drop-down accordion. 🌈
 - **new**: Customers can now "undo" after they delete something from their cart. ❌
-- **new**: This is probably one of the more request features: Floating Cart Launcher item indicator 5️⃣. It's here! (Next up, hide the cart until something has been added to the cart).
+- **new**: This is probably one of the more requested features: Floating Cart Launcher item indicator 5️⃣. It's here! (Next up, hide the cart until will add something to the cart).
 - **upgrade**: Completely reworked all AJAX calls resulting a nice speed bump + CartPops should now be automatically recognized by most popular caching plugins. 🚀
-- **upgrade**: Reworked how pricing is diaplyed, and included a bunch of WooCommerce hooks. This should enable support for bulk discount plugins etc.
-- **upgrade**: Improved the full height Drawer on mobile so that it's actually full height. I weren't aware of [this iOS bug](https://allthingssmitty.com/2020/05/11/css-fix-for-100vh-in-mobile-webkit/). Sorry 😯. In the next update you can expect a proper JS solution to account for Android too.
+- **upgrade**: Reworked how pricing is displayed and included a bunch of WooCommerce hooks. This rework should enable support for bulk discount plugins etc.
+- **upgrade**: Improved the full height Drawer on mobile so that it's full height. I wasn't aware of [this iOS bug](https://allthingssmitty.com/2020/05/11/css-fix-for-100vh-in-mobile-webkit/). Sorry 😯. In the next update, you can expect a proper JS solution to account for Android too.
 - **upgrade**: Tiny CSS tweaks to the mobile Drawer. Mostly spacing and font sizing.
 
 #### Version: 1.2.8 - 8 February 2021
 - **new**: Reworked the quantity selectors. We received a lot of requests for a custom input field. Customers can now add any amount to the cart with just a few clicks. 💰
-- **new**: Ya'll asked for it. You can translate CartPops directly in the settings. Of course you can still use the good old .pot file 🤓
+- **new**: You asked for it. You can translate CartPops directly into the settings (most of the strings will be available; however, some dynamic strings have to be translated via a language plugin or POEDIT).
 - **upgrade**: By popular demand, CartPops will now stretch to the height of mobile devices and will not move past that height so that the checkout button will always be in view.
-- **upgrade**: Reworked how we check stock completely. CartPops now properly checks for backorders and alike.
+- **upgrade**: Reworked how we check for available stock. CartPops now correctly checks for backorders and alike.
 - **upgrade**: Reworked the Cart Laumcher shortcode and Elementor widget. WooCommerce fragments was causing a lot of issues with icons being replaced.
 - **upgrade**: Decreased the total bundle size 🚀. We're also on pace to be completely free from jQuery.
 - **upgrade**: Removed a small delay when a customer updates the cart, which results in a more snappy experience.
@@ -159,8 +167,8 @@ If you have a caching plugin installed, or use any sort of caching in your site 
 - **upgrade**: Improved translations. Made a translation? Get in touch with our team and we'll add it to the plugin.
 
 #### Version: 1.0.6 - 23 January 2021
-- **new**: Add an issue panel in the Dashboard tab to highlight potential issues preventing CartPops from working properly.
-- **upgrade**: Fix an issue with the Cart Launcher shortocde where the subtotal got escaped too aggressively.
+- **new**: Add an issue panel in the Dashboard tab to highlight potential issues preventing CartPops from working correctly.
+- **upgrade**: Fix an issue with the Cart Launcher shortcode where the subtotal got escaped too aggressively.
 - **upgrade**: Fix an issue where Popup recommendations wouldn't show up.
 - **upgrade**: Improve readme file by using actual Markdown links rather than HTML. Yes, sometimes I confuse the two.
 
@@ -185,8 +193,8 @@ If you have a caching plugin installed, or use any sort of caching in your site 
 - **new**: **Free**: Menu Cart Launcher settings and colors!
 
 #### Version: 0.6.0 - 29 December 2020
-- **new**: **Free**: New Cart Launcher shortcode! This shortcode `[cartpops]` will show a shopping cart button anywhere you like, this will open the Drawer when a user clicks on it. Read more about it in the [documentation](https://cartpops.com/docs/cart-launcher?utm_source=ReadMe&utm_campaign=Documentation&utm_medium=ReadMe)
-- **new**: **Pro**: Brand new Elementor integration for the Cart Launcher! Simply search for `cartpops` and you'll find it! Get a clickable shopping cart button with just a few clicks.
+- **new**: **Free**: New Cart Launcher shortcode! This shortcode `[cartpops]` will show a shopping cart button anywhere you like. This will open the Drawer when a user clicks on it. Read more about it in the [documentation](https://cartpops.com/docs/cart-launcher?utm_source=ReadMe&utm_campaign=Documentation&utm_medium=ReadMe)
+- **new**: **Pro**: Brand new Elementor integration for the Cart Launcher! Search for `cartpops,` and you'll find it! Get a clickable shopping cart button with just a few clicks.
 - **new**: **Free**: Ability to add the Cart Launcher to your menu. Simply head over to Appearance -> Menu. And find the **CartPops** tab. You can use this menu item anywhere you like. Read more about it in the [documentation](https://cartpops.com/docs/cart-launcher?utm_source=ReadMe&utm_campaign=Documentation&utm_medium=ReadMe)
 
 #### Version: 0.5.9 - 28 December 2020

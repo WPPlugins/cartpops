@@ -1,4 +1,4 @@
-/*! Copyright © Chris Jayden <help@cartpops.com> (https://cartpops.com) - cartpops - v1.2.11 - 14-02-2021 */
+/*! Copyright © Chris Jayden <help@cartpops.com> (https://cartpops.com) - cartpops - v1.2.12 - 27-02-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -1834,109 +1834,10 @@ module.exports = {
 
 /***/ }),
 
-/***/ "../assets/dev/js/frontend/frontend.js":
-/*!*********************************************!*\
-  !*** ../assets/dev/js/frontend/frontend.js ***!
-  \*********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "jquery");
-/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _modules_CartPops__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/CartPops */ "../assets/dev/js/frontend/modules/CartPops.js");
-/* harmony import */ var _modules_Core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/Core */ "../assets/dev/js/frontend/modules/Core.js");
-// Always expose jQuery to the window object for Webpack.
-
-window.jQuery = (jquery__WEBPACK_IMPORTED_MODULE_0___default());
-window.$ = (jquery__WEBPACK_IMPORTED_MODULE_0___default()); // import Recommendations from "./modules/Recommendations";
-
-
-
-
-(function () {
-  // Assign to the window so we and others can listen to events.
-  window.CartPops = new _modules_CartPops__WEBPACK_IMPORTED_MODULE_1__.default(); // Kick off the plugin
-
-  window.CartPops.launcher();
-  var core = new _modules_Core__WEBPACK_IMPORTED_MODULE_2__.default();
-})();
-
-/***/ }),
-
-/***/ "../assets/dev/js/frontend/modules/AddToCart.js":
-/*!******************************************************!*\
-  !*** ../assets/dev/js/frontend/modules/AddToCart.js ***!
-  \******************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "addToCart": () => (/* binding */ addToCart)
-/* harmony export */ });
-/* harmony import */ var _Loggin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Loggin */ "../assets/dev/js/frontend/modules/Loggin.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "../node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! qs */ "../node_modules/qs/lib/index.js");
-/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(qs__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _Requests__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Requests */ "../assets/dev/js/frontend/modules/Requests.js");
-/* harmony import */ var _RefreshCart__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./RefreshCart */ "../assets/dev/js/frontend/modules/RefreshCart.js");
-
-
-
-
-
-var log = new _Loggin__WEBPACK_IMPORTED_MODULE_0__.default('Add To Cart');
-/**
- * AJAX call to add a product to the cart.
- * @param {string} cart_key Cart key
- * @param {int} quantity Quantity
- * @param {element} button HTML Button
- */
-
-function addToCart(form, data, button) {
-  var httpClient = (axios__WEBPACK_IMPORTED_MODULE_1___default());
-  var action = data.actionType;
-  var addToCartBtn = button;
-  var product_id = data.product_id;
-  var popupRecommendationsEl = button.parent().parent().parent();
-
-  if (popupRecommendationsEl.hasClass('cpops-recommendations-shortcode')) {
-    action = 'recommendation';
-  }
-
-  log.send('Preparing add to cart request with data:', data);
-  _Requests__WEBPACK_IMPORTED_MODULE_3__.block(data.request_type);
-  addToCartBtn.removeClass('added');
-  addToCartBtn.addClass('loading');
-  httpClient.post(cpops_config.ajax_url, qs__WEBPACK_IMPORTED_MODULE_2___default().stringify(data)).then(function (response) {
-    log.send('Product added to cart succesfully with data:', response.data);
-    _Requests__WEBPACK_IMPORTED_MODULE_3__.finished(response, data.request_type); // Dont open cart for custom actions
-
-    if ('recommendation' === action) {
-      (0,_RefreshCart__WEBPACK_IMPORTED_MODULE_4__.default)(false, product_id);
-    } else {
-      (0,_RefreshCart__WEBPACK_IMPORTED_MODULE_4__.default)(true, product_id);
-    } // Trigger added to cart event.
-
-
-    $(document.body).trigger('added_to_cart', [response.data.fragments, response.data.cart_hash, button]);
-  })["catch"](function (error) {
-    console.log(error);
-  })["finally"](function () {
-    _Requests__WEBPACK_IMPORTED_MODULE_3__.unblock(data.request_type);
-    addToCartBtn.addClass('added');
-    addToCartBtn.removeClass('loading');
-  });
-}
-
-/***/ }),
-
-/***/ "../assets/dev/js/frontend/modules/CartPops.js":
-/*!*****************************************************!*\
-  !*** ../assets/dev/js/frontend/modules/CartPops.js ***!
-  \*****************************************************/
+/***/ "../assets/dev/js/frontend/cart.js":
+/*!*****************************************!*\
+  !*** ../assets/dev/js/frontend/cart.js ***!
+  \*****************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -1944,9 +1845,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _Modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Modal */ "../assets/dev/js/frontend/modules/Modal.js");
-/* harmony import */ var events__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! events */ "../node_modules/events/events.js");
-/* harmony import */ var events__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(events__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./core */ "../assets/dev/js/frontend/core.js");
+/* harmony import */ var _modules_UpdateCart__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/UpdateCart */ "../assets/dev/js/frontend/modules/UpdateCart.js");
+/* harmony import */ var _modules_Coupons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/Coupons */ "../assets/dev/js/frontend/modules/Coupons.js");
+/* harmony import */ var _modules_RemoveProduct__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/RemoveProduct */ "../assets/dev/js/frontend/modules/RemoveProduct.js");
+/* harmony import */ var _modules_AddToCart__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/AddToCart */ "../assets/dev/js/frontend/modules/AddToCart.js");
+/* harmony import */ var _modules_Requests__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/Requests */ "../assets/dev/js/frontend/modules/Requests.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1969,551 +1875,627 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-/*
- |--------------------------------------------------------------------------
- | Public: CartPops.js
- |--------------------------------------------------------------------------
- |
- | Initalizes the plugin.
- |
- |
- */
- // eslint-disable-line
+// Always expose jQuery to the window object.
+
+window.jQuery = (jquery__WEBPACK_IMPORTED_MODULE_0___default());
+window.$ = (jquery__WEBPACK_IMPORTED_MODULE_0___default());
 
 
 
-var CartPops = /*#__PURE__*/function (_EventEmitter) {
-  _inherits(CartPops, _EventEmitter);
 
-  var _super = _createSuper(CartPops);
 
-  function CartPops() {
+
+
+var CartPopsCart = /*#__PURE__*/function (_CartPopsCore) {
+  _inherits(CartPopsCart, _CartPopsCore);
+
+  var _super = _createSuper(CartPopsCart);
+
+  function CartPopsCart(config, modals) {
     var _this;
 
-    _classCallCheck(this, CartPops);
+    _classCallCheck(this, CartPopsCart);
+
+    _this = _super.call(this, config, modals);
+    _this.requestType = {
+      addToCart: 'add_to_cart',
+      removeCoupon: 'remove_coupon',
+      addCoupon: 'add_coupon'
+    };
+    _this.updateDelay = null;
+    _this.popupOpen = false;
+    _this.openCart = true;
+    return _this;
+  }
+  /**
+  * Initialize the core of the plugin.
+  */
+
+
+  _createClass(CartPopsCart, [{
+    key: "init",
+    value: function init() {
+      this.refreshFragmentsOnLoad();
+
+      this._initListeners(this);
+
+      this.emit('init', this);
+    }
+  }, {
+    key: "refreshFragmentsOnLoad",
+    value: function refreshFragmentsOnLoad() {
+      setTimeout(function () {
+        this.refreshFragments();
+      }.bind(this), this.config.refreshDelay);
+    }
+    /**
+     * Initializes the event listeners.
+     *
+     * @private
+     *
+     * @param self instance of this object, used for binding "this" to the listeners.
+     */
+
+  }, {
+    key: "_initListeners",
+    value: function _initListeners(self) {
+      this.drawerEl = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#cartpops-drawer');
+      this.popupEl = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#cartpops-popup');
+      this.documentBody = jquery__WEBPACK_IMPORTED_MODULE_0___default()(document.body); // Listen to add to cart events and open cart.
+
+      this.documentBody.on('added_to_cart', this.onAddedToCart.bind(self)); // Ajax add to cart on form submissions.
+
+      if (this.config.ajaxAddToCart) {
+        this.documentBody.on('submit', 'form.cart', this.singleAddProduct.bind(self));
+      } // View cart links/buttons.
+
+
+      this.documentBody.on('click', 'a.added_to_cart', this.viewCart.bind(self)); // Quantity selectors.
+
+      this.drawerEl.on('click', '.cpops-cart-item__quantity button', this.quantitySelector.bind(self));
+      this.drawerEl.on('change', '.cpops-quantity__input', this.quantiySelectorChange.bind(self)); // Restore and remove.
+
+      this.drawerEl.on('click', '.cpops-cart-item__actions--remove', {
+        action: 'remove'
+      }, this.updateItem.bind(self));
+      this.drawerEl.on('click', '.cpops-restore-item', {
+        action: 'restore'
+      }, this.updateItem.bind(self)); // Coupons.
+
+      this.drawerEl.on('submit', '#cpops-coupon-submit', this.addCoupon.bind(self));
+      this.drawerEl.on('click', '.cpops-coupon-remove__item-delete', this.removeCoupon.bind(self));
+
+      if ('true' === this.config.isCheckoutPage || 'true' === this.config.isCartPage) {
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()(document.body).on('updated_shipping_method', this.refreshFragments.bind(self));
+      }
+    }
+    /**
+     * To support themes that show a view cart link after an item is added to the cart.
+     * @param {object} ev The jQuery Event object.
+     */
+
+  }, {
+    key: "viewCart",
+    value: function viewCart(ev) {
+      ev.preventDefault();
+      this.modals.drawer.show();
+    }
+    /**
+     * Add a product to the cart.
+     * @param {object} ev jQuery Event object.
+     */
+
+  }, {
+    key: "addProduct",
+    value: function addProduct(ev) {
+      var buttonEl = jquery__WEBPACK_IMPORTED_MODULE_0___default()(ev.currentTarget);
+      var productId = null; //If the button is disabled don't allow this to fire.
+
+      if (buttonEl.hasClass('disabled')) {
+        return;
+      } //If the product is not simple on the shop page.
+
+
+      if (buttonEl.hasClass('product_type_variable') || buttonEl.hasClass('product_type_bundle')) {
+        return;
+      }
+
+      if (jquery__WEBPACK_IMPORTED_MODULE_0___default()('form.cart').length > 0 && !buttonEl.hasClass('add_to_cart_button')) {
+        var $form = buttonEl.closest('form.cart');
+        productId = $form.find('input[name=add-to-cart]').val() || buttonEl.val();
+      } else {
+        productId = buttonEl.data('product_id');
+      }
+
+      if (!productId) {
+        return;
+      }
+
+      ev.preventDefault();
+      var data = {
+        action: 'cpops_add_to_cart',
+        nonce: this.config.nonce,
+        'add-to-cart': productId,
+        product_id: productId,
+        request_type: this.requestType.addToCart
+      };
+
+      if (buttonEl.data('cpops-type')) {
+        data.actionType = buttonEl.data('cpops-type');
+      }
+
+      if (jquery__WEBPACK_IMPORTED_MODULE_0___default()('form.cart').length > 0 && !buttonEl.hasClass('add_to_cart_button')) {
+        $form.serializeArray().forEach(function (element) {
+          data[element.name] = element.value;
+        });
+      } else {
+        data.quantity = buttonEl.data('quantity');
+      }
+
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()(document.body).trigger('adding_to_cart', [buttonEl, data]);
+      (0,_modules_AddToCart__WEBPACK_IMPORTED_MODULE_5__.addToCart)($form, data, buttonEl);
+    }
+    /**
+     * Single add to cart form submission.
+     *
+     * @param {object} ev The jQuery Event object.
+     */
+
+  }, {
+    key: "singleAddProduct",
+    value: function singleAddProduct(ev) {
+      var form = jquery__WEBPACK_IMPORTED_MODULE_0___default()(ev.currentTarget),
+          buttonEl = form.find('button[type="submit"]'),
+          data = {},
+          rawData = form.serializeArray();
+      var isUrl = false,
+          productId = null,
+          productIdExists = false;
+
+      if (form.closest('.product').hasClass('product-type-external')) {
+        return;
+      }
+
+      ev.preventDefault();
+      jquery__WEBPACK_IMPORTED_MODULE_0___default().each(rawData, function (key, form_item) {
+        if ('productID' === form_item.name || 'add-to-cart' === form_item.name) {
+          if (form_item.value) {
+            productIdExists = true;
+            return false;
+          }
+        }
+      });
+
+      if (!productIdExists) {
+        isUrl = form.attr('action').match(/add-to-cart=([0-9]+)/);
+        productId = isUrl ? isUrl[1] : false;
+      }
+
+      if (buttonEl.attr('name') && 'add-to-cart' === buttonEl.attr('name') && buttonEl.attr('value')) {
+        productId = buttonEl.attr('value');
+      }
+
+      if (productId) {
+        rawData.push({
+          name: 'add-to-cart',
+          value: productId
+        });
+      }
+
+      rawData.push({
+        name: 'action',
+        value: 'cpops_add_to_cart'
+      });
+      rawData.push({
+        name: 'product_id',
+        value: productId
+      });
+      rawData.push({
+        name: 'request_type',
+        value: this.requestType.addToCart
+      });
+      jquery__WEBPACK_IMPORTED_MODULE_0___default().each(rawData, function (i, obj) {
+        data[obj.name] = obj.value;
+      });
+      (0,_modules_AddToCart__WEBPACK_IMPORTED_MODULE_5__.addToCart)(form, data, buttonEl);
+    }
+    /**
+     * Added to cart
+     *
+     * @param {object} ev The jQuery Event object.
+     * @param {Array} response Array with fragments from the WC Ajax API.
+     * @param {string} cartHash Cart hash key.
+     * @param {node} buton Button element.
+     */
+
+  }, {
+    key: "onAddedToCart",
+    value: function onAddedToCart(ev, response, cartHash, button) {
+      if (ev) {
+        ev.preventDefault();
+      }
+
+      var buttonArr = jquery__WEBPACK_IMPORTED_MODULE_0___default()(button);
+      var openFlag = true;
+      _modules_Requests__WEBPACK_IMPORTED_MODULE_6__.refreshFragments({
+        data: {
+          fragments: response
+        }
+      }, this.requestType.addToCart);
+      jquery__WEBPACK_IMPORTED_MODULE_0___default().each(buttonArr, function (key, item) {
+        if ('false' === item.getAttribute('data-cpops-cart-open')) {
+          openFlag = false;
+        }
+      });
+
+      if (openFlag) {
+        switch (this.config.trigger) {
+          case 'popup':
+            this.modals.popup.show();
+            break;
+
+          case 'bar':
+            this.modals.bar.show();
+            break;
+
+          default:
+            this.modals.drawer.show();
+            break;
+        }
+      }
+    }
+    /**
+     * Handles the (+/-) quantity selectors.
+     * @param {object} ev The jQuery Event object.
+     */
+
+  }, {
+    key: "quantitySelector",
+    value: function quantitySelector(ev) {
+      ev.preventDefault();
+      var element = jquery__WEBPACK_IMPORTED_MODULE_0___default()(ev.currentTarget),
+          cartItemKey = element.data('key'),
+          action = element.data('action'),
+          inputEl = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#q-' + cartItemKey),
+          step = parseFloat(inputEl.attr('step')),
+          currentQuantity = parseFloat(jquery__WEBPACK_IMPORTED_MODULE_0___default()(inputEl).val());
+      var setQuantity = 0;
+
+      if ('down' === action && 1 === currentQuantity) {
+        setQuantity = 0;
+        (0,_modules_RemoveProduct__WEBPACK_IMPORTED_MODULE_4__.removeProduct)(cartItemKey);
+      } else if ('down' === action && currentQuantity >= 1) {
+        setQuantity = Number(inputEl.val()) - step;
+        inputEl.val(setQuantity).trigger('change');
+      } else if ('up' === action && currentQuantity >= 1) {
+        setQuantity = Number(inputEl.val()) + step;
+        inputEl.val(setQuantity).trigger('change');
+      }
+    }
+    /**
+     * Watch the quantity input for changes.
+     * @param {object} ev The jQuery Event object.
+     */
+
+  }, {
+    key: "quantiySelectorChange",
+    value: function quantiySelectorChange(ev) {
+      ev.preventDefault();
+      var inputEl = jquery__WEBPACK_IMPORTED_MODULE_0___default()(ev.currentTarget),
+          cartItemKey = inputEl.data('key'),
+          newQty = parseFloat(inputEl.val()),
+          step = parseFloat(inputEl.attr('step')),
+          min = parseFloat(inputEl.attr('min')),
+          max = parseFloat(inputEl.attr('max'));
+      var invalid = false; // Client-side form validation.
+
+      if (isNaN(newQty) || newQty < 0 || newQty < min) {
+        invalid = true;
+      } else if (newQty > max) {
+        invalid = true;
+      } else if (newQty % step !== 0) {
+        invalid = true;
+      } // Set back to default quantity.
+
+
+      if (invalid) {
+        inputEl.val(max);
+      } else {
+        inputEl.val(newQty);
+      }
+
+      clearTimeout(this.updateDelay);
+      this.updateDelay = setTimeout(function () {
+        (0,_modules_UpdateCart__WEBPACK_IMPORTED_MODULE_2__.default)(cartItemKey, newQty, inputEl);
+      }, 150);
+    }
+    /**
+     * Remove or restore an item in the Drawer.
+     * @param {object} ev The jQuery Event object.
+     */
+
+  }, {
+    key: "updateItem",
+    value: function updateItem(ev) {
+      ev.preventDefault();
+      var el = jquery__WEBPACK_IMPORTED_MODULE_0___default()(ev.currentTarget);
+      var action = ev.data.action;
+      var cartItemKey = jquery__WEBPACK_IMPORTED_MODULE_0___default()(el).data('key');
+
+      if ('restore' === action) {
+        (0,_modules_RemoveProduct__WEBPACK_IMPORTED_MODULE_4__.restoreProduct)(cartItemKey);
+      } else {
+        (0,_modules_RemoveProduct__WEBPACK_IMPORTED_MODULE_4__.removeProduct)(cartItemKey);
+      }
+    }
+    /**
+     * Add a coupon code to the drawer.
+     * @param {object} ev The jQuery Event object.
+     */
+
+  }, {
+    key: "addCoupon",
+    value: function addCoupon(ev) {
+      ev.preventDefault();
+      var form = jquery__WEBPACK_IMPORTED_MODULE_0___default()(ev.currentTarget);
+      var button = form.find(':submit');
+      var input = jquery__WEBPACK_IMPORTED_MODULE_0___default()(form).find('input');
+      var coupon = input.val();
+      (0,_modules_Coupons__WEBPACK_IMPORTED_MODULE_3__.applyCoupon)(coupon, input, button);
+    }
+    /**
+     * Remove a coupon code from the drawer.
+     * @param {object} ev The jQuery Event object.
+     */
+
+  }, {
+    key: "removeCoupon",
+    value: function removeCoupon(ev) {
+      ev.preventDefault();
+      var element = jquery__WEBPACK_IMPORTED_MODULE_0___default()(ev.currentTarget);
+      var coupon = jquery__WEBPACK_IMPORTED_MODULE_0___default()(element).attr('data-coupon');
+
+      (0,_modules_Coupons__WEBPACK_IMPORTED_MODULE_3__.removeCoupon)(coupon, element.parent());
+    }
+  }]);
+
+  return CartPopsCart;
+}(_core__WEBPACK_IMPORTED_MODULE_1__.default);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CartPopsCart);
+
+/***/ }),
+
+/***/ "../assets/dev/js/frontend/core.js":
+/*!*****************************************!*\
+  !*** ../assets/dev/js/frontend/core.js ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var events__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! events */ "../node_modules/events/events.js");
+/* harmony import */ var events__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(events__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _modules_Loggin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/Loggin */ "../assets/dev/js/frontend/modules/Loggin.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "../node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! qs */ "../node_modules/qs/lib/index.js");
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(qs__WEBPACK_IMPORTED_MODULE_4__);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+// Always expose jQuery to the window object.
+
+window.jQuery = (jquery__WEBPACK_IMPORTED_MODULE_0___default());
+window.$ = (jquery__WEBPACK_IMPORTED_MODULE_0___default());
+
+
+
+
+var log = new _modules_Loggin__WEBPACK_IMPORTED_MODULE_2__.default('Cart Refresh');
+
+var CartPopsCore = /*#__PURE__*/function (_EventEmitter) {
+  _inherits(CartPopsCore, _EventEmitter);
+
+  var _super = _createSuper(CartPopsCore);
+
+  function CartPopsCore(config, modals) {
+    var _this;
+
+    _classCallCheck(this, CartPopsCore);
 
     _this = _super.call(this);
-    _this.plugin_config = window.cpops_config;
+    _this.config = config;
+    _this.modals = modals;
+    _this.cartNotificationId = null;
 
-    _this.drawer();
-
-    _this.popup();
-
-    _this.bar();
-
-    _this.assistant();
+    _this.pageShow();
 
     return _this;
   }
 
-  _createClass(CartPops, [{
-    key: "launcher",
-    value: function launcher() {
-      try {
-        this.initialize();
-      } catch (err) {
-        console.log(err); // eslint-disable-line
+  _createClass(CartPopsCore, [{
+    key: "pageShow",
+    value: function pageShow() {
+      if ('undefined' === typeof window.wc_cart_fragments_params) {
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).on('pageshow', this.onPageShow);
       }
     }
   }, {
-    key: "initialize",
-    value: function initialize() {
-      this.emit('init', this);
-    }
-  }, {
-    key: "drawer",
-    value: function drawer() {
+    key: "refreshFragments",
+    value: function refreshFragments() {
       var _this2 = this;
 
-      var drawerEl = document.getElementById('cpops-drawer-modal');
-      var drawerToggles = document.querySelectorAll('.cpops-toggle-drawer');
-
-      if (drawerEl) {
-        this.drawer = new _Modal__WEBPACK_IMPORTED_MODULE_0__.default({
-          el: drawerEl,
-          type: 'drawer'
-        });
-      }
-
-      if (drawerToggles && drawerEl) {
-        drawerToggles.forEach(function (item) {
-          item.addEventListener('click', function (event) {
-            event.preventDefault();
-
-            _this2.drawer.show();
-          });
-        });
-      }
-    }
-  }, {
-    key: "popup",
-    value: function popup() {
-      var popupEl = document.getElementById('cpops-popup-modal');
-
-      if (popupEl) {
-        this.popup = new _Modal__WEBPACK_IMPORTED_MODULE_0__.default({
-          el: popupEl,
-          type: 'popup'
-        });
-      }
-    }
-  }, {
-    key: "bar",
-    value: function bar() {
-      var barEl = document.getElementById('cpops-bar-modal');
-
-      if (barEl) {
-        this.bar = new _Modal__WEBPACK_IMPORTED_MODULE_0__.default({
-          el: barEl,
-          backdrop: false,
-          autoHide: true,
-          lockScroll: false,
-          type: 'bar'
-        });
-      }
-    }
-  }, {
-    key: "assistant",
-    value: function assistant() {
-      var _this3 = this;
-
-      if (false === this.plugin_config.pro) {
+      if (this.config.forceRefresh && 'undefined' !== typeof wc_cart_fragments_params) {
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()(document.body).trigger('wc_fragment_refresh');
+        log.send('Refreshing cart fragments via wc_fragment_refresh');
         return;
       }
 
-      var assistantEl = document.getElementById('cpops-assistant-modal');
-      var assistantToggles = document.querySelectorAll('.cpops-toggle-assistant');
+      this.block();
+      var data = {
+        action: 'cpops_get_refreshed_fragments'
+      };
+      axios__WEBPACK_IMPORTED_MODULE_3___default().post(this.config.ajax_url, qs__WEBPACK_IMPORTED_MODULE_4___default().stringify(data)).then(function (response) {
+        log.send('Refreshing cart fragments via cpops_get_refreshed_fragments');
 
-      if (assistantEl) {
-        this.assistant = new _Modal__WEBPACK_IMPORTED_MODULE_0__.default({
-          el: assistantEl,
-          lockScroll: false,
-          backdrop: false,
-          autoHide: false,
-          type: 'assistant'
+        _this2.updateFragments(response);
+      })["catch"](function (error) {
+        log.send('Refreshing cart fragments on load');
+        console.log(error);
+      })["finally"](function () {
+        _this2.unblock();
+      });
+    }
+  }, {
+    key: "updateFragments",
+    value: function updateFragments(response) {
+      if (response.data.fragments) {
+        this.block(); //Set fragments
+
+        jquery__WEBPACK_IMPORTED_MODULE_0___default().each(response.data.fragments, function (key, value) {
+          jquery__WEBPACK_IMPORTED_MODULE_0___default()(key).replaceWith(value);
         });
+
+        if (typeof window.wc_cart_fragments_params !== 'undefined' && 'sessionStorage' in window && window.sessionStorage !== null) {
+          sessionStorage.setItem(wc_cart_fragments_params.fragment_name, JSON.stringify(response.data.fragments));
+          localStorage.setItem(wc_cart_fragments_params.cart_hash_key, response.data.cart_hash);
+          sessionStorage.setItem(wc_cart_fragments_params.cart_hash_key, response.data.cart_hash);
+
+          if (response.data.cart_hash) {
+            sessionStorage.setItem('wc_cart_created', new Date().getTime());
+          }
+        }
+
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()(document.body).trigger('wc_fragments_refreshed');
+        this.unblock();
       }
 
-      if (assistantToggles && assistantEl) {
-        assistantToggles.forEach(function (item) {
-          item.addEventListener('click', function (event) {
-            var btn = event.target;
-            var content = btn.getAttribute('data-assistant');
-
-            if (content) {
-              _this3.assistant.show(content);
-            }
-          });
-        });
+      if (this.config.forceRefresh && typeof window.wc_cart_fragments_params !== 'undefined') {
+        this.block();
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()(document.body).trigger('wc_fragment_refresh');
       }
     }
+  }, {
+    key: "onPageShow",
+    value: function onPageShow(ev) {
+      if (ev.originalEvent.persisted) {
+        this.refreshMyFragments();
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()(document.body).trigger('wc_fragment_refresh');
+      }
+    }
+  }, {
+    key: "block",
+    value: function block() {}
+  }, {
+    key: "unblock",
+    value: function unblock() {}
   }]);
 
-  return CartPops;
+  return CartPopsCore;
 }((events__WEBPACK_IMPORTED_MODULE_1___default()));
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CartPops);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CartPopsCore);
 
 /***/ }),
 
-/***/ "../assets/dev/js/frontend/modules/Collapse.js":
-/*!*****************************************************!*\
-  !*** ../assets/dev/js/frontend/modules/Collapse.js ***!
-  \*****************************************************/
+/***/ "../assets/dev/js/frontend/frontend.js":
+/*!*********************************************!*\
+  !*** ../assets/dev/js/frontend/frontend.js ***!
+  \*********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ Collapse)
-/* harmony export */ });
-// Use Immediately Invoked Function Express (IIFE)
-// to keep JS scoped to this function
-// and avoid overwriting of identifiers
-function Collapse() {
-  // Handler that uses various data-* attributes to trigger
-  // specific actions, mimicing bootstraps attributes
-  var triggers = Array.from(document.querySelectorAll('[data-cpops-toggle="collapse"]'));
-  window.addEventListener('click', function (ev) {
-    var elm = ev.target;
-    var selector = elm.getAttribute('data-cpops-target');
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _cart__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./cart */ "../assets/dev/js/frontend/cart.js");
+/* harmony import */ var _modules_triggers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/triggers */ "../assets/dev/js/frontend/modules/triggers.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
-    if (selector) {
-      collapse(selector, 'toggle', elm);
-    }
-  }, false);
-  var fnmap = {
-    toggle: 'toggle',
-    show: 'add',
-    hide: 'remove'
-  };
-
-  var collapse = function collapse(selector, cmd, elm) {
-    var targets = Array.from(document.querySelectorAll(selector));
-    targets.forEach(function (target) {
-      target.classList[fnmap[cmd]]('cpops-show');
-    });
-    elm.classList[fnmap[cmd]]('cpops-show');
-
-    if (elm.classList.contains('cpops-show')) {
-      elm.setAttribute('aria-expanded', 'true');
-    } else {
-      elm.setAttribute('aria-expanded', 'false');
-    }
-  };
-}
-
-/***/ }),
-
-/***/ "../assets/dev/js/frontend/modules/Core.js":
-/*!*************************************************!*\
-  !*** ../assets/dev/js/frontend/modules/Core.js ***!
-  \*************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _UpdateCart__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UpdateCart */ "../assets/dev/js/frontend/modules/UpdateCart.js");
-/* harmony import */ var _Coupons__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Coupons */ "../assets/dev/js/frontend/modules/Coupons.js");
-/* harmony import */ var _RemoveProduct__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./RemoveProduct */ "../assets/dev/js/frontend/modules/RemoveProduct.js");
-/* harmony import */ var _AddToCart__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./AddToCart */ "../assets/dev/js/frontend/modules/AddToCart.js");
-/* harmony import */ var _Collapse__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Collapse */ "../assets/dev/js/frontend/modules/Collapse.js");
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-/*
- |--------------------------------------------------------------------------
- | Public: Recommendations
- |--------------------------------------------------------------------------
- |
- | Initalizes the different popups.
- |
- |
- */
+// Always expose jQuery to the window object.
+
+window.jQuery = (jquery__WEBPACK_IMPORTED_MODULE_0___default());
+window.$ = (jquery__WEBPACK_IMPORTED_MODULE_0___default()); // import Recommendations from "./modules/Recommendations";
 
 
 
 
+var CartPopsFrontend = /*#__PURE__*/function () {
+  function CartPopsFrontend(config) {
+    _classCallCheck(this, CartPopsFrontend);
 
-
-var Core = /*#__PURE__*/function () {
-  function Core() {
-    _classCallCheck(this, Core);
-
-    this.init();
+    this.config = config;
+    this.modals = new _modules_triggers__WEBPACK_IMPORTED_MODULE_2__.default(this.config);
+    this.cart = new _cart__WEBPACK_IMPORTED_MODULE_1__.default(this.config, this.modals);
   }
 
-  _createClass(Core, [{
+  _createClass(CartPopsFrontend, [{
     key: "init",
     value: function init() {
-      //this.drawer();
-      this.addProduct();
-      this.quantitySelector();
-      this.removeItem();
-      this.handleCoupons();
-      this.updateDelay = null;
-      (0,_Collapse__WEBPACK_IMPORTED_MODULE_4__.default)();
+      this.modals.init();
+      this.cart.init();
     }
-  }, {
-    key: "addProduct",
-    value: function addProduct() {
-      // Custom add to cart functionality
-      $(document).on('click', '.single_add_to_cart_button, .add_to_cart_button', function (e) {
-        //If the button is disabled don't allow this to fire.
-        if ($(this).hasClass('disabled')) {
-          return;
-        } //If the product is not simple on the shop page.
+    /**
+    * Named static constructor to encapsulate how to create the object.
+    */
 
-
-        if ($(this).hasClass('product_type_variable') || $(this).hasClass('product_type_bundle')) {
-          return;
-        }
-
-        var $button = $(this);
-
-        if ($('form.cart').length > 0 && !$(this).hasClass('add_to_cart_button')) {
-          var $form = $button.closest('form.cart'),
-              product_id = $form.find('input[name=add-to-cart]').val() || $button.val();
-        } else {
-          var product_id = $(this).data('product_id');
-        }
-
-        if (!product_id) {
-          return;
-        }
-
-        e.preventDefault();
-        var data = {
-          action: 'cpops_add_to_cart',
-          nonce: cpops_config.nonce,
-          'add-to-cart': product_id,
-          product_id: product_id,
-          request_type: 'add_to_cart'
-        };
-
-        if ($(this).data('cpops-type')) {
-          data.actionType = $(this).data('cpops-type');
-        }
-
-        if ($('form.cart').length > 0 && !$(this).hasClass('add_to_cart_button')) {
-          $form.serializeArray().forEach(function (element) {
-            data[element.name] = element.value;
-          });
-        } else {
-          data.quantity = $(this).data('quantity');
-        }
-
-        $(document.body).trigger('adding_to_cart', [$button, data]);
-        (0,_AddToCart__WEBPACK_IMPORTED_MODULE_3__.addToCart)($form, data, $button);
-        return false;
-      });
-    }
-  }, {
-    key: "quantitySelector",
-    value: function quantitySelector() {
-      $(document).on('click', '.cpops-cart-item__quantity button', function (e) {
-        e.preventDefault();
-        var setQuantity = 0;
-        var element = $(e.currentTarget),
-            cartItemKey = element.data('key'),
-            action = element.data('action'),
-            inputEl = $('#q-' + cartItemKey),
-            step = parseFloat(inputEl.attr('step')),
-            currentQuantity = parseFloat($(inputEl).val());
-
-        if ('down' === action && 1 === currentQuantity) {
-          setQuantity = 0;
-          (0,_RemoveProduct__WEBPACK_IMPORTED_MODULE_2__.removeProduct)(cartItemKey);
-        } else if ('down' === action && currentQuantity >= 1) {
-          setQuantity = Number(inputEl.val()) - step;
-          inputEl.val(setQuantity).trigger('change');
-        } else if ('up' === action && currentQuantity >= 1) {
-          setQuantity = Number(inputEl.val()) + step;
-          inputEl.val(setQuantity).trigger('change');
-        }
-
-        return false;
-      });
-      $(document).on('change', '.cpops-quantity__input', function (e) {
-        e.preventDefault();
-        var invalid = false;
-        var inputEl = $(e.currentTarget),
-            cartItemKey = inputEl.data('key'),
-            newQty = parseFloat(inputEl.val()),
-            step = parseFloat(inputEl.attr('step')),
-            min = parseFloat(inputEl.attr('min')),
-            max = parseFloat(inputEl.attr('max')); // Client-side form validation.
-
-        if (isNaN(newQty) || newQty < 0 || newQty < min) {
-          invalid = true;
-        } else if (newQty > max) {
-          invalid = true;
-        } else if (newQty % step !== 0) {
-          invalid = true;
-        } // Set back to default quantity.
-
-
-        if (invalid) {
-          inputEl.val(max);
-        } else {
-          inputEl.val(newQty);
-        }
-
-        clearTimeout(this.updateDelay);
-        this.updateDelay = setTimeout(function () {
-          (0,_UpdateCart__WEBPACK_IMPORTED_MODULE_0__.default)(cartItemKey, newQty, inputEl);
-        }, 150);
-      });
-    }
-  }, {
-    key: "removeItem",
-    value: function removeItem() {
-      $(document).on('click', '.cpops-cart-item__actions--remove', function (e) {
-        e.preventDefault();
-        var el = $(e.currentTarget);
-        var cartItemKey = $(el).data('key');
-        (0,_RemoveProduct__WEBPACK_IMPORTED_MODULE_2__.removeProduct)(cartItemKey);
-      });
-      $(document).on('click', '.cpops-restore-item', function (e) {
-        e.preventDefault();
-        var el = $(e.currentTarget);
-        var cartItemKey = $(el).data('key');
-        (0,_RemoveProduct__WEBPACK_IMPORTED_MODULE_2__.restoreProduct)(cartItemKey);
-      });
-    }
-  }, {
-    key: "handleCoupons",
-    value: function handleCoupons() {
-      $(document).on('submit', '#cpops-coupon-submit', function (e) {
-        e.preventDefault();
-        var form = $(e.currentTarget);
-        var button = form.find(':submit');
-        var input = $(form).find('input');
-        var coupon = input.val();
-        (0,_Coupons__WEBPACK_IMPORTED_MODULE_1__.applyCoupon)(coupon, input, button);
-      });
-      $(document).on('click', '.cpops-coupon-remove__item-delete', function (e) {
-        e.preventDefault();
-        var element = $(e.currentTarget);
-        var coupon = $(element).attr('data-coupon');
-        (0,_Coupons__WEBPACK_IMPORTED_MODULE_1__.removeCoupon)(coupon, element.parent());
-      });
-    }
-  }]);
-
-  return Core;
-}();
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Core);
-
-/***/ }),
-
-/***/ "../assets/dev/js/frontend/modules/Coupons.js":
-/*!****************************************************!*\
-  !*** ../assets/dev/js/frontend/modules/Coupons.js ***!
-  \****************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "applyCoupon": () => (/* binding */ applyCoupon),
-/* harmony export */   "removeCoupon": () => (/* binding */ removeCoupon)
-/* harmony export */ });
-/* harmony import */ var _Loggin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Loggin */ "../assets/dev/js/frontend/modules/Loggin.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "../node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! qs */ "../node_modules/qs/lib/index.js");
-/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(qs__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _Requests__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Requests */ "../assets/dev/js/frontend/modules/Requests.js");
-/* harmony import */ var _RefreshCart__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./RefreshCart */ "../assets/dev/js/frontend/modules/RefreshCart.js");
-
-
-
-
-
-var log = new _Loggin__WEBPACK_IMPORTED_MODULE_0__.default('Coupon');
-/**
- * AJAX function to add a coupon
- * @param {string} coupon A coupon to be added into WooCOmmerce
- * @param {element} input The input incoming input field
- */
-
-function applyCoupon(coupon, input, button) {
-  var data = {
-    action: 'cpops_apply_coupon',
-    coupon: coupon,
-    nonce: cpops_config.nonce,
-    request_type: 'apply_coupon'
-  };
-  _Requests__WEBPACK_IMPORTED_MODULE_3__.block(data.request_type);
-  log.send('Applying coupon with data:', data);
-  $('#cartpops-drawer button').prop('disabled', true);
-  button.addClass('is-loading');
-  axios__WEBPACK_IMPORTED_MODULE_1___default().post(cpops_config.ajax_url, qs__WEBPACK_IMPORTED_MODULE_2___default().stringify(data)).then(function (response) {
-    log.send('Applied coupon successfully with data:', response.data);
-    _Requests__WEBPACK_IMPORTED_MODULE_3__.finished(response, data.request_type);
-    (0,_RefreshCart__WEBPACK_IMPORTED_MODULE_4__.default)(false);
-  })["catch"](function (error) {
-    console.log(error); // eslint-disable-line
-  })["finally"](function () {
-    // Reset input value..
-    $(input).val(''); // Remove loading class.
-
-    button.removeClass('is-loading');
-    _Requests__WEBPACK_IMPORTED_MODULE_3__.unblock(data.request_type);
-  });
-}
-/**
- * AJAZX Function to remove a coupon from the cart
- * @param {string} coupon Coupon to be removed
- * @param {element} coupon_tag Element (coupon tag) to be removed.
- */
-
-function removeCoupon(coupon, coupon_tag) {
-  console.log('Removing coupon');
-  var data = {
-    action: 'cpops_remove_coupon',
-    nonce: cpops_config.nonce,
-    coupon: coupon,
-    request_type: 'remove_coupon'
-  };
-  _Requests__WEBPACK_IMPORTED_MODULE_3__.block(data.request_type);
-  axios__WEBPACK_IMPORTED_MODULE_1___default().post(cpops_config.ajax_url, qs__WEBPACK_IMPORTED_MODULE_2___default().stringify(data)).then(function (response) {
-    log.send('Removed coupon successfully with data:', response.data);
-    _Requests__WEBPACK_IMPORTED_MODULE_3__.finished(response, data.request_type); // Remove target coupon.
-
-    $(coupon_tag).remove();
-    (0,_RefreshCart__WEBPACK_IMPORTED_MODULE_4__.default)(false);
-  })["catch"](function (error) {
-    _Requests__WEBPACK_IMPORTED_MODULE_3__.unblock(data.request_type);
-  });
-}
-
-/***/ }),
-
-/***/ "../assets/dev/js/frontend/modules/Loggin.js":
-/*!***************************************************!*\
-  !*** ../assets/dev/js/frontend/modules/Loggin.js ***!
-  \***************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-var Loggin = /*#__PURE__*/function () {
-  function Loggin(title) {
-    _classCallCheck(this, Loggin);
-
-    this.debug = true;
-    this.title = {
-      body: title || '---'
-    };
-  }
-
-  _createClass(Loggin, [{
-    key: "send",
-    value: function send() {
-      var body = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-      var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-
-      // the second line is now the body because the first references the content after the first %c for the title
-      if (window.cpops_config.script_debug && this.debug) {
-        console.log( // eslint-disable-line
-        "%c\uD83D\uDCAC ".concat(this.title.body, ":%c").concat(body, " %c(SCRIPT_DEBUG is on)"), "color: white; padding: 3px 5px; margin-right: 10px; background: black; font-weight: bold;", "color: black;", "color: lightgray;");
-
-        if (data) {
-          console.table(data); // eslint-disable-line
-        }
+  }], [{
+    key: "run",
+    value: function run() {
+      // Bail out if the configuration is not passed from the server.
+      if (_typeof('undefined') === CartPopsConfig) {
+        return;
       }
+
+      var instance = new CartPopsFrontend(CartPopsConfig);
+      instance.init();
     }
   }]);
 
-  return Loggin;
+  return CartPopsFrontend;
 }();
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Loggin);
+jQuery(function ($) {
+  CartPopsFrontend.run();
+});
 
 /***/ }),
 
-/***/ "../assets/dev/js/frontend/modules/Modal.js":
-/*!**************************************************!*\
-  !*** ../assets/dev/js/frontend/modules/Modal.js ***!
-  \**************************************************/
+/***/ "../assets/dev/js/frontend/lib/modal.js":
+/*!**********************************************!*\
+  !*** ../assets/dev/js/frontend/lib/modal.js ***!
+  \**********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -2523,6 +2505,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var events__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! events */ "../node_modules/events/events.js");
 /* harmony import */ var events__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(events__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -2549,166 +2533,93 @@ function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Re
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-/**
- * Vanilla JS CartPops_Trigger compatible with Bootstrap
- * modal-vanilla 0.9.0 <https://github.com/KaneCohen/modal-vanilla>
- * Copyright 2020 Kane Cohen <https://github.com/KaneCohen>
- * Available under BSD-3-Clause license
- */
 
 
 var _factory = document.createElement('div');
 
 var _defaults = Object.freeze({
   el: null,
-  // Existing DOM element that will be 'CartPops_Trigger-ized'.
+  // Existing DOM element that will be turned into a modal.
   type: null,
+  // References to the type of modal: Drawer, popup, bar, assistant.
   animate: true,
-  // Show CartPops_Trigger using animation.
+  // Shows CartPops with an animation (adds a class);
   animateClass: 'cpops-fade',
-  //
+  // Animation class.
   animateInClass: 'cpops-show',
-  //
+  // Animation class added during animating in.
   animateOutClass: 'cpops-is-closing',
-  //
+  // Animate class during animation out.
   lockScroll: true,
+  // Prevent scrolling when modal is open.
   appendTo: 'body',
-  // DOM element to which constructed CartPops_Trigger will be appended.
+  // DOM element to which constructed modal will be added to.
   backdrop: true,
-  // Boolean or 'static', Show CartPops_Trigger backdrop blocking content.
+  // Show a backdrop.
   keyboard: true,
   // Close modal on esc key.
-  title: false,
-  // Content of the title in the constructed dialog.
-  header: true,
-  // Show header content.
-  content: false,
-  // Either string or an HTML element.
-  footer: true,
-  // Footer content. By default will use buttons.
-  buttons: null,
-  //
-  headerClose: true,
-  // Show close button in the header.
-  construct: false,
-  // Creates new HTML with a given content.
   transition: 300,
-  //
-  backdropTransition: 150 //
+  // Default transition time.
+  backdropTransition: 150 // Default backdrop transition time.
 
-});
-
-var _buttons = deepFreeze({
-  dialog: [{
-    text: 'Cancel',
-    value: false,
-    attr: {
-      'class': 'btn btn-default',
-      'data-dismiss': 'cpops-modal'
-    }
-  }, {
-    text: 'OK',
-    value: true,
-    attr: {
-      'class': 'btn btn-primary',
-      'data-dismiss': 'cpops-modal'
-    }
-  }],
-  alert: [{
-    text: 'OK',
-    attr: {
-      'class': 'btn btn-primary',
-      'data-dismiss': 'cpops-modal'
-    }
-  }],
-  confirm: [{
-    text: 'Cancel',
-    value: false,
-    attr: {
-      'class': 'btn btn-default',
-      'data-dismiss': 'cpops-modal'
-    }
-  }, {
-    text: 'OK',
-    value: true,
-    attr: {
-      'class': 'btn btn-primary',
-      'data-dismiss': 'cpops-modal'
-    }
-  }]
 });
 
 var _templates = {
-  container: '<div class="modal"></div>',
-  dialog: '<div class="modal-dialog"></div>',
-  content: '<div class="modal-content"></div>',
-  header: '<div class="modal-header"></div>',
-  headerClose: '<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>',
-  body: '<div class="modal-body"></div>',
-  footer: '<div class="modal-footer"></div>',
   backdrop: '<div class="cpops-modal-backdrop"></div>'
 };
-
-function deepFreeze(obj) {
-  for (var k in obj) {
-    if (Array.isArray(obj[k])) {
-      obj[k].forEach(function (v) {
-        deepFreeze(v);
-      });
-    } else if (obj[k] !== null && _typeof(obj[k]) === 'object') {
-      Object.freeze(obj[k]);
-    }
-  }
-
-  return Object.freeze(obj);
-}
+/**
+ * Create random unique ID.
+ * @return int Random ID
+ */
 
 function guid() {
-  return ((1 + Math.random()) * 0x10000 | 0).toString(16) + ((1 + Math.random()) * 0x10000 | 0).toString(16);
+  return ((1 + Math.random()) * 0x10000 | 0).toString(16) + ((1 + Math.random()) * 0x10000 | 0).toString(16); // eslint-disable-line no-bitwise
 }
 
 function data(el, prop, value) {
   var prefix = 'data';
   var elData = el[prefix] || {};
 
-  if (typeof value === 'undefined') {
+  if ('undefined' === typeof value) {
     if (el[prefix] && el[prefix][prop]) {
-      return el[prefix][prop];
+      el = el[prefix][prop];
     } else {
       var dataAttr = el.getAttribute("".concat(prefix, "-").concat(prop));
 
-      if (typeof dataAttr !== 'undefined') {
+      if ('undefined' !== typeof dataAttr) {
         return dataAttr;
       }
 
-      return null;
+      el = null;
     }
   } else {
     elData[prop] = value;
     el[prefix] = elData;
-    return el;
   }
+
+  return el;
 }
 
 function build(html, all) {
-  if (html.nodeName) return html;
+  if (html.nodeName) {
+    return html;
+  }
+
   html = html.replace(/(\t|\n$)/g, '');
   _factory.innerHTML = '';
   _factory.innerHTML = html;
 
-  if (all === true) {
+  if (true === all) {
     return _factory.childNodes;
-  } else {
-    return _factory.childNodes[0];
   }
+
+  return _factory.childNodes[0];
 }
 
 function calcScrollbarWidth() {
-  var inner;
-  var width;
-  var outerWidth;
+  var inner = null;
+  var width = null;
+  var outerWidth = null;
   var outer = document.createElement('div');
   Object.assign(outer.style, {
     visibility: 'hidden',
@@ -2736,17 +2647,17 @@ function getPath(node) {
   return nodes;
 }
 
-var CartPops_Trigger = /*#__PURE__*/function (_EventEmitter) {
-  _inherits(CartPops_Trigger, _EventEmitter);
+var CartPopsModal = /*#__PURE__*/function (_EventEmitter) {
+  _inherits(CartPopsModal, _EventEmitter);
 
-  var _super = _createSuper(CartPops_Trigger);
+  var _super = _createSuper(CartPopsModal);
 
-  function CartPops_Trigger() {
+  function CartPopsModal() {
     var _this;
 
     var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-    _classCallCheck(this, CartPops_Trigger);
+    _classCallCheck(this, CartPopsModal);
 
     _this = _super.call(this);
     _this.id = guid();
@@ -2754,14 +2665,10 @@ var CartPops_Trigger = /*#__PURE__*/function (_EventEmitter) {
     _this._html = {};
     _this._events = {};
     _this._visible = false;
-    _this._options = Object.assign({}, CartPops_Trigger.options, options);
-    _this._templates = Object.assign({}, CartPops_Trigger.templates, options.templates || {});
+    _this._options = Object.assign({}, CartPopsModal.options, options);
+    _this._templates = Object.assign({}, CartPopsModal.templates, options.templates || {});
     _this._html.appendTo = document.querySelector(_this._options.appendTo);
     _this._scrollbarWidth = calcScrollbarWidth();
-
-    if (_this._options.buttons === null) {
-      _this._options.buttons = CartPops_Trigger.buttons.dialog;
-    }
 
     if (_this._options.type !== null) {
       _this._type = _this._options.type;
@@ -2770,7 +2677,7 @@ var CartPops_Trigger = /*#__PURE__*/function (_EventEmitter) {
     if (_this._options.el) {
       var el = _this._options.el;
 
-      if (typeof _this._options.el == 'string') {
+      if ('string' === typeof _this._options.el) {
         el = document.querySelector(_this._options.el);
 
         if (!el) {
@@ -2780,50 +2687,14 @@ var CartPops_Trigger = /*#__PURE__*/function (_EventEmitter) {
 
       data(el, 'cpops-modal', _assertThisInitialized(_this));
       _this.el = el;
-    } else {
-      _this._options.construct = true;
     }
 
-    if (_this._options.construct) {
-      // Create new model
-      //this._render();
-      return _possibleConstructorReturn(_this, false);
-    } else {
-      // Found existing modal.
-      _this._mapDom();
-    }
+    _this._mapDom();
 
     return _this;
   }
 
-  _createClass(CartPops_Trigger, [{
-    key: "_render",
-    value: function _render() {
-      var html = this._html;
-      var o = this._options;
-      var t = this._templates;
-      var animate = animate.animate ? o.animateClass : false;
-      html.container = build(t.container);
-      html.dialog = build(t.dialog);
-      html.content = build(t.content);
-      html.header = build(t.header);
-      html.headerClose = build(t.headerClose);
-      html.body = build(t.body);
-      html.footer = build(t.footer);
-      if (animate) html.container.classList.add(animate);
-
-      this._setHeader();
-
-      this._setContent();
-
-      this._setFooter();
-
-      this.el = html.container;
-      html.dialog.appendChild(html.content);
-      html.container.appendChild(html.dialog);
-      return this;
-    }
-  }, {
+  _createClass(CartPopsModal, [{
     key: "_mapDom",
     value: function _mapDom() {
       var html = this._html;
@@ -2840,91 +2711,11 @@ var CartPops_Trigger = /*#__PURE__*/function (_EventEmitter) {
       html.headerClose = this.el.querySelector('.modal-header .close');
       html.body = this.el.querySelector('.modal-body');
       html.footer = this.el.querySelector('.modal-footer');
-
-      this._setHeader();
-
-      this._setContent();
-
-      this._setFooter();
-
       return this;
-    }
-  }, {
-    key: "_setHeader",
-    value: function _setHeader() {
-      var html = this._html;
-      var o = this._options;
-
-      if (o.header && html.header) {
-        if (o.title.nodeName) {
-          html.header.innerHTML = o.title.outerHTML;
-        } else if (typeof o.title === 'string') {
-          html.header.innerHTML = "<h4 class=\"modal-title\">".concat(o.title, "</h4>");
-        } // Add header close button only to constructed modals.
-
-
-        if (this.el === null && html.headerClose && o.headerClose) {
-          html.header.appendChild(html.headerClose);
-        }
-
-        if (o.construct) {
-          html.content.appendChild(html.header);
-        }
-      }
-    }
-  }, {
-    key: "_setContent",
-    value: function _setContent() {
-      var html = this._html;
-      var o = this._options;
-
-      if (o.content && html.body) {
-        if (typeof o.content === 'string') {
-          html.body.innerHTML = o.content;
-        } else {
-          html.body.innerHTML = o.content.outerHTML;
-        }
-
-        if (o.construct) {
-          html.content.appendChild(html.body);
-        }
-      }
-    }
-  }, {
-    key: "_setFooter",
-    value: function _setFooter() {
-      var html = this._html;
-      var o = this._options;
-
-      if (o.footer && html.footer) {
-        if (o.footer.nodeName) {
-          html.footer.ineerHTML = o.footer.outerHTML;
-        } else if (typeof o.footer === 'string') {
-          html.footer.innerHTML = o.footer;
-        } else if (!html.footer.children.length) {
-          o.buttons.forEach(function (button) {
-            var el = document.createElement('button');
-            data(el, 'button', button);
-            el.innerHTML = button.text;
-            el.setAttribute('type', 'button');
-
-            for (var j in button.attr) {
-              el.setAttribute(j, button.attr[j]);
-            }
-
-            html.footer.appendChild(el);
-          });
-        }
-
-        if (o.construct) {
-          html.content.appendChild(html.footer);
-        }
-      }
     }
   }, {
     key: "_setEvents",
     value: function _setEvents() {
-      var o = this._options;
       var html = this._html;
       this._events.keydownHandler = this._handleKeydownEvent.bind(this);
       document.body.addEventListener('keydown', this._events.keydownHandler);
@@ -2940,7 +2731,7 @@ var CartPops_Trigger = /*#__PURE__*/function (_EventEmitter) {
 
       var path = getPath(e.target);
       path.every(function (node) {
-        if (node.tagName === 'HTML') {
+        if ('HTML' === node.tagName) {
           return false;
         } // Hide backdrop on this specific modal instance only. Hidden to hide modal assistant too.
         // if (this._options.backdrop !== true && node.classList.contains('cpops-modal')) {
@@ -2949,7 +2740,7 @@ var CartPops_Trigger = /*#__PURE__*/function (_EventEmitter) {
         // Only hide assistant. Not the drawer.
 
 
-        if (node.getAttribute('data-dismiss') === 'cpops-assistant') {
+        if ('cpops-assistant' === node.getAttribute('data-dismiss')) {
           _this2.emit('dismiss', _this2, e, data(e.target, 'button'));
 
           if (_this2._type !== 'drawer') {
@@ -2959,7 +2750,7 @@ var CartPops_Trigger = /*#__PURE__*/function (_EventEmitter) {
           return false;
         }
 
-        if (node.getAttribute('data-dismiss') === 'cpops-modal') {
+        if ('cpops-modal' === node.getAttribute('data-dismiss')) {
           _this2.emit('dismiss', _this2, e, data(e.target, 'button'));
 
           _this2.hide();
@@ -2985,14 +2776,14 @@ var CartPops_Trigger = /*#__PURE__*/function (_EventEmitter) {
   }, {
     key: "_handleKeydownEvent",
     value: function _handleKeydownEvent(e) {
-      if (e.which === 27 && this._options.keyboard) {
+      if (27 === e.which && this._options.keyboard) {
         this.emit('dismiss', this, e, null);
         this.hide();
       }
     }
   }, {
     key: "_handleResizeEvent",
-    value: function _handleResizeEvent(e) {
+    value: function _handleResizeEvent() {
       this._resize();
     }
   }, {
@@ -3004,7 +2795,6 @@ var CartPops_Trigger = /*#__PURE__*/function (_EventEmitter) {
       var o = this._options;
       var html = this._html;
       this.emit('show', this);
-      var assistantModal = false;
 
       this._checkScrollbar();
 
@@ -3021,7 +2811,7 @@ var CartPops_Trigger = /*#__PURE__*/function (_EventEmitter) {
       html.container.style.display = 'block';
       html.container.scrollTop = 0;
 
-      if (content && o.type === 'assistant') {
+      if (content && 'assistant' === o.type) {
         var assistantContent = document.querySelectorAll("[data-assistant-content='".concat(content, "']"));
 
         if (assistantContent) {
@@ -3031,7 +2821,7 @@ var CartPops_Trigger = /*#__PURE__*/function (_EventEmitter) {
           try {
             for (_iterator.s(); !(_step = _iterator.n()).done;) {
               var element = _step.value;
-              element.style.display = "block";
+              element.style.display = 'block';
             }
           } catch (err) {
             _iterator.e(err);
@@ -3043,11 +2833,14 @@ var CartPops_Trigger = /*#__PURE__*/function (_EventEmitter) {
         assistantContent = null;
       }
 
-      if (o.backdrop !== false) {
+      if (false !== o.backdrop) {
         this.once('showBackdrop', function () {
           _this3._setEvents();
 
-          if (o.animate) html.container.offsetWidth; // Force reflow
+          if (o.animate) {
+            // Force reflow
+            html.container.offsetWidth; // eslint-disable-line
+          }
 
           html.container.classList.add(o.animateInClass);
           setTimeout(function () {
@@ -3061,7 +2854,10 @@ var CartPops_Trigger = /*#__PURE__*/function (_EventEmitter) {
       } else {
         this._setEvents();
 
-        if (o.animate) html.container.offsetWidth; // Force reflow
+        if (o.animate) {
+          // Force reflow
+          html.container.offsetWidth; // eslint-disable-line
+        }
 
         html.container.classList.add(o.animateInClass);
         setTimeout(function () {
@@ -3069,11 +2865,6 @@ var CartPops_Trigger = /*#__PURE__*/function (_EventEmitter) {
 
           _this3.emit('shown', _this3);
         }, o.transition);
-        setTimeout(function () {
-          if (o.autoHide !== false) {
-            _this3.hide();
-          }
-        }, 4000);
       }
 
       this._resize();
@@ -3106,9 +2897,17 @@ var CartPops_Trigger = /*#__PURE__*/function (_EventEmitter) {
       var o = this._options;
       var animate = o.animate ? o.animateClass : false;
       html.backdrop = build(t.backdrop);
-      if (animate) html.backdrop.classList.add(animate);
+
+      if (animate) {
+        html.backdrop.classList.add(animate); // eslint-disable-line
+      }
+
       html.appendTo.appendChild(html.backdrop);
-      if (animate) html.backdrop.offsetWidth;
+
+      if (animate) {
+        html.backdrop.offsetWidth; // eslint-disable-line
+      }
+
       html.backdrop.classList.add(o.animateInClass);
       setTimeout(function () {
         _this4.emit('showBackdrop', _this4);
@@ -3122,13 +2921,12 @@ var CartPops_Trigger = /*#__PURE__*/function (_EventEmitter) {
       var html = this._html;
       var o = this._options;
       var type = this._type;
-      var visible = this._visible;
       var contCList = html.container.classList;
       this.emit('hide', this);
       contCList.remove(o.animateInClass);
       contCList.add(o.animateOutClass);
 
-      if (type === 'assistant') {
+      if ('assistant' === type) {
         var assistantContent = document.querySelectorAll('.cpops-assistant-items__item');
 
         if (assistantContent) {
@@ -3138,7 +2936,7 @@ var CartPops_Trigger = /*#__PURE__*/function (_EventEmitter) {
           try {
             for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
               var element = _step2.value;
-              element.style.display = "none";
+              element.style.display = 'none';
             }
           } catch (err) {
             _iterator2.e(err);
@@ -3208,18 +3006,10 @@ var CartPops_Trigger = /*#__PURE__*/function (_EventEmitter) {
   }], [{
     key: "templates",
     get: function get() {
-      return Object.assign({}, _templates, CartPops_Trigger._baseTemplates || {});
+      return Object.assign({}, _templates, CartPopsModal._baseTemplates || {});
     },
     set: function set(templates) {
       this._baseTemplates = templates;
-    }
-  }, {
-    key: "buttons",
-    get: function get() {
-      return Object.assign({}, _buttons, CartPops_Trigger._baseButtons || {});
-    },
-    set: function set(buttons) {
-      this._baseButtons = buttons;
     }
   }, {
     key: "type",
@@ -3229,7 +3019,7 @@ var CartPops_Trigger = /*#__PURE__*/function (_EventEmitter) {
   }, {
     key: "options",
     get: function get() {
-      return Object.assign({}, _defaults, CartPops_Trigger._baseOptions || {});
+      return Object.assign({}, _defaults, CartPopsModal._baseOptions || {});
     },
     set: function set(options) {
       this._baseOptions = options;
@@ -3237,42 +3027,284 @@ var CartPops_Trigger = /*#__PURE__*/function (_EventEmitter) {
   }, {
     key: "version",
     get: function get() {
-      return '0.9.0';
-    }
-  }, {
-    key: "alert",
-    value: function alert(message) {
-      var _options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-      var options = Object.assign({}, _defaults, {
-        title: message,
-        content: false,
-        construct: true,
-        headerClose: false,
-        buttons: CartPops_Trigger.buttons.alert
-      }, _options);
-      return new CartPops_Trigger(options);
-    }
-  }, {
-    key: "confirm",
-    value: function confirm(question) {
-      var _options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-      var options = Object.assign({}, _defaults, {
-        title: question,
-        content: false,
-        construct: true,
-        headerClose: false,
-        buttons: CartPops_Trigger.buttons.confirm
-      }, _options);
-      return new CartPops_Trigger(options);
+      return '1.0.0';
     }
   }]);
 
-  return CartPops_Trigger;
+  return CartPopsModal;
 }((events__WEBPACK_IMPORTED_MODULE_0___default()));
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CartPops_Trigger);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CartPopsModal);
+
+/***/ }),
+
+/***/ "../assets/dev/js/frontend/modules/AddToCart.js":
+/*!******************************************************!*\
+  !*** ../assets/dev/js/frontend/modules/AddToCart.js ***!
+  \******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "addToCart": () => (/* binding */ addToCart)
+/* harmony export */ });
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Loggin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Loggin */ "../assets/dev/js/frontend/modules/Loggin.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "../node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! qs */ "../node_modules/qs/lib/index.js");
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(qs__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _Requests__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Requests */ "../assets/dev/js/frontend/modules/Requests.js");
+/* harmony import */ var _RefreshCart__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./RefreshCart */ "../assets/dev/js/frontend/modules/RefreshCart.js");
+// Always expose jQuery to the window object.
+
+window.jQuery = (jquery__WEBPACK_IMPORTED_MODULE_0___default());
+window.$ = (jquery__WEBPACK_IMPORTED_MODULE_0___default());
+
+
+
+
+
+var log = new _Loggin__WEBPACK_IMPORTED_MODULE_1__.default('Add To Cart');
+/**
+ * AJAX call to add a product to the cart.
+ * @param {string} cart_key Cart key
+ * @param {int} quantity Quantity
+ * @param {element} button HTML Button
+ */
+
+function addToCart(form, data, button) {
+  var httpClient = (axios__WEBPACK_IMPORTED_MODULE_2___default());
+  var action = data.actionType;
+  var productId = data.product_id;
+  var popupRecommendationsEl = button.parent().parent().parent();
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()(document.body).trigger('adding_to_cart', [button, data]);
+
+  if (popupRecommendationsEl.hasClass('cpops-recommendations-shortcode')) {
+    action = 'recommendation';
+  }
+
+  log.send('Preparing add to cart request with data:', data);
+  _Requests__WEBPACK_IMPORTED_MODULE_4__.block(data.request_type);
+  button.addClass('loading');
+  httpClient.post(CartPopsConfig.ajax_url, qs__WEBPACK_IMPORTED_MODULE_3___default().stringify(data)).then(function (response) {
+    log.send('Product added to cart succesfully with data:', response.data);
+    _Requests__WEBPACK_IMPORTED_MODULE_4__.refreshFragments(response, data.request_type); // Dont open cart for custom actions
+    // if ( 'recommendation' === action ) {
+    // 	refreshCart( false, productId );
+    // } else {
+    // 	refreshCart( true, productId );
+    // }
+    // Trigger added to cart event.
+
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(document.body).trigger('added_to_cart', [response.data.fragments, response.data.cart_hash, button]);
+  })["catch"](function (error) {
+    console.log(error);
+  })["finally"](function () {
+    _Requests__WEBPACK_IMPORTED_MODULE_4__.unblock(data.request_type);
+    button.addClass('added');
+    button.removeClass('loading');
+  });
+}
+
+/***/ }),
+
+/***/ "../assets/dev/js/frontend/modules/Collapse.js":
+/*!*****************************************************!*\
+  !*** ../assets/dev/js/frontend/modules/Collapse.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Collapse)
+/* harmony export */ });
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+// Always expose jQuery to the window object.
+
+window.jQuery = (jquery__WEBPACK_IMPORTED_MODULE_0___default());
+window.$ = (jquery__WEBPACK_IMPORTED_MODULE_0___default()); // Use Immediately Invoked Function Express (IIFE)
+// to keep JS scoped to this function
+// and avoid overwriting of identifiers
+
+function Collapse() {
+  // Handler that uses various data-* attributes to trigger
+  // specific actions, mimicing bootstraps attributes
+  var triggers = Array.from(document.querySelectorAll('[data-cpops-toggle="collapse"]'));
+  window.addEventListener('click', function (ev) {
+    var elm = ev.target;
+    var selector = elm.getAttribute('data-cpops-target');
+
+    if (selector) {
+      collapse(selector, 'toggle', elm);
+    }
+  }, false);
+  var fnmap = {
+    toggle: 'toggle',
+    show: 'add',
+    hide: 'remove'
+  };
+
+  var collapse = function collapse(selector, cmd, elm) {
+    var targets = Array.from(document.querySelectorAll(selector));
+    targets.forEach(function (target) {
+      target.classList[fnmap[cmd]]('cpops-show');
+    });
+    elm.classList[fnmap[cmd]]('cpops-show');
+
+    if (elm.classList.contains('cpops-show')) {
+      elm.setAttribute('aria-expanded', 'true');
+    } else {
+      elm.setAttribute('aria-expanded', 'false');
+    }
+  };
+}
+
+/***/ }),
+
+/***/ "../assets/dev/js/frontend/modules/Coupons.js":
+/*!****************************************************!*\
+  !*** ../assets/dev/js/frontend/modules/Coupons.js ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "applyCoupon": () => (/* binding */ applyCoupon),
+/* harmony export */   "removeCoupon": () => (/* binding */ removeCoupon)
+/* harmony export */ });
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Loggin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Loggin */ "../assets/dev/js/frontend/modules/Loggin.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "../node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! qs */ "../node_modules/qs/lib/index.js");
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(qs__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _Requests__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Requests */ "../assets/dev/js/frontend/modules/Requests.js");
+/* harmony import */ var _RefreshCart__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./RefreshCart */ "../assets/dev/js/frontend/modules/RefreshCart.js");
+// Always expose jQuery to the window object.
+
+window.jQuery = (jquery__WEBPACK_IMPORTED_MODULE_0___default());
+window.$ = (jquery__WEBPACK_IMPORTED_MODULE_0___default());
+
+
+
+
+
+var log = new _Loggin__WEBPACK_IMPORTED_MODULE_1__.default('Coupon');
+/**
+ * AJAX function to add a coupon
+ * @param {string} coupon A coupon to be added into WooCOmmerce
+ * @param {element} input The input incoming input field
+ */
+
+function applyCoupon(coupon, input, button) {
+  var data = {
+    action: 'cpops_apply_coupon',
+    coupon: coupon,
+    nonce: CartPopsConfig.nonce,
+    request_type: 'apply_coupon'
+  };
+  _Requests__WEBPACK_IMPORTED_MODULE_4__.block(data.request_type);
+  log.send('Applying coupon with data:', data);
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()('#cartpops-drawer button').prop('disabled', true);
+  button.addClass('is-loading');
+  axios__WEBPACK_IMPORTED_MODULE_2___default().post(CartPopsConfig.ajax_url, qs__WEBPACK_IMPORTED_MODULE_3___default().stringify(data)).then(function (response) {
+    log.send('Applied coupon successfully with data:', response.data);
+    _Requests__WEBPACK_IMPORTED_MODULE_4__.refreshFragments(response, data.request_type);
+    (0,_RefreshCart__WEBPACK_IMPORTED_MODULE_5__.default)(false);
+  })["catch"](function (error) {
+    console.log(error); // eslint-disable-line
+  })["finally"](function () {
+    // Reset input value..
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(input).val(''); // Remove loading class.
+
+    button.removeClass('is-loading');
+    _Requests__WEBPACK_IMPORTED_MODULE_4__.unblock(data.request_type);
+  });
+}
+/**
+ * AJAZX Function to remove a coupon from the cart
+ * @param {string} coupon Coupon to be removed
+ * @param {element} coupon_tag Element (coupon tag) to be removed.
+ */
+
+function removeCoupon(coupon, coupon_tag) {
+  console.log('Removing coupon');
+  var data = {
+    action: 'cpops_remove_coupon',
+    nonce: CartPopsConfig.nonce,
+    coupon: coupon,
+    request_type: 'remove_coupon'
+  };
+  _Requests__WEBPACK_IMPORTED_MODULE_4__.block(data.request_type);
+  axios__WEBPACK_IMPORTED_MODULE_2___default().post(CartPopsConfig.ajax_url, qs__WEBPACK_IMPORTED_MODULE_3___default().stringify(data)).then(function (response) {
+    log.send('Removed coupon successfully with data:', response.data);
+    _Requests__WEBPACK_IMPORTED_MODULE_4__.refreshFragments(response, data.request_type); // Remove target coupon.
+
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(coupon_tag).remove();
+    (0,_RefreshCart__WEBPACK_IMPORTED_MODULE_5__.default)(false);
+  })["catch"](function (error) {
+    _Requests__WEBPACK_IMPORTED_MODULE_4__.unblock(data.request_type);
+  });
+}
+
+/***/ }),
+
+/***/ "../assets/dev/js/frontend/modules/Loggin.js":
+/*!***************************************************!*\
+  !*** ../assets/dev/js/frontend/modules/Loggin.js ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Loggin = /*#__PURE__*/function () {
+  function Loggin(title) {
+    _classCallCheck(this, Loggin);
+
+    this.debug = true;
+    this.title = {
+      body: title || '---'
+    };
+  }
+
+  _createClass(Loggin, [{
+    key: "send",
+    value: function send() {
+      var body = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+      var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+
+      // the second line is now the body because the first references the content after the first %c for the title
+      if (window.CartPopsConfig.script_debug && this.debug) {
+        console.log( // eslint-disable-line
+        "%c\uD83D\uDCAC ".concat(this.title.body, ":%c").concat(body, " %c(SCRIPT_DEBUG is on)"), "color: white; padding: 3px 5px; margin-right: 10px; background: black; font-weight: bold;", "color: black;", "color: lightgray;");
+
+        if (data) {
+          console.table(data); // eslint-disable-line
+        }
+      }
+    }
+  }]);
+
+  return Loggin;
+}();
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Loggin);
 
 /***/ }),
 
@@ -3308,39 +3340,34 @@ function refreshCart() {
   var cartHashKey = wc_cart_fragments_params.ajax_url.toString() + '-wc_cart_hash';
   var data = {
     action: 'cpops_refresh_cart',
-    nonce: cpops_config.nonce,
+    nonce: CartPopsConfig.nonce,
     product_id: product_id,
     request_type: 'refresh_cart'
   };
-  axios__WEBPACK_IMPORTED_MODULE_1___default().post(cpops_config.ajax_url, qs__WEBPACK_IMPORTED_MODULE_2___default().stringify(data)).then(function (response) {
-    log.send('Refreshing cart fragments:', response.data);
-    var fragments = response.data.fragments;
-    var cartHash = response.data.cart_hash;
-
-    if (fragments) {
-      $.each(fragments, function (key, value) {
-        $(key).replaceWith(value);
-      });
-      $(document.body).trigger('wc_fragments_loaded');
-    }
-
-    sessionStorage.setItem(wc_cart_fragments_params.fragment_name, JSON.stringify(fragments));
-
-    if (cartHash && cartHashKey) {
-      localStorage.setItem(cartHashKey, cartHash);
-      sessionStorage.setItem(cartHashKey, cartHash);
-      sessionStorage.setItem('wc_cart_created', new Date().getTime());
-    }
-
-    if (triggerCart) {
-      if ('popup' === cpops_config.trigger) {
-        window.CartPops.popup.show();
-      } else if ('bar' === cpops_config.trigger) {
-        window.CartPops.bar.show();
-      } else {
-        window.CartPops.drawer.show();
-      }
-    }
+  axios__WEBPACK_IMPORTED_MODULE_1___default().post(CartPopsConfig.ajax_url, qs__WEBPACK_IMPORTED_MODULE_2___default().stringify(data)).then(function (response) {
+    log.send('Force refreshing cart fragments', response.data); // const fragments = response.data.fragments;
+    // const cartHash = response.data.cart_hash;
+    // if ( fragments ) {
+    // 	$.each( fragments, function( key, value ) {
+    // 		$( key ).replaceWith( value );
+    // 	} );
+    // 	$( document.body ).trigger( 'wc_fragments_loaded' );
+    // }
+    // sessionStorage.setItem( wc_cart_fragments_params.fragment_name, JSON.stringify( fragments ) );
+    // if ( cartHash && cartHashKey ) {
+    // 	localStorage.setItem( cartHashKey, cartHash );
+    // 	sessionStorage.setItem( cartHashKey, cartHash );
+    // 	sessionStorage.setItem( 'wc_cart_created', ( new Date() ).getTime() );
+    // }
+    // if ( triggerCart ) {
+    // 	if ( 'popup' === CartPopsConfig.trigger ) {
+    // 		window.CartPops.popup.show();
+    // 	} else if ( 'bar' === CartPopsConfig.trigger ) {
+    // 		window.CartPops.bar.show();
+    // 	} else {
+    // 		window.CartPops.drawer.show();
+    // 	}
+    // }
   })["catch"](function (error) {
     console.log(error);
   })["finally"](function () {});
@@ -3360,19 +3387,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "removeProduct": () => (/* binding */ removeProduct),
 /* harmony export */   "restoreProduct": () => (/* binding */ restoreProduct)
 /* harmony export */ });
-/* harmony import */ var _Loggin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Loggin */ "../assets/dev/js/frontend/modules/Loggin.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "../node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! qs */ "../node_modules/qs/lib/index.js");
-/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(qs__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _Requests__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Requests */ "../assets/dev/js/frontend/modules/Requests.js");
-/* harmony import */ var _RefreshCart__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./RefreshCart */ "../assets/dev/js/frontend/modules/RefreshCart.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Loggin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Loggin */ "../assets/dev/js/frontend/modules/Loggin.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "../node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! qs */ "../node_modules/qs/lib/index.js");
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(qs__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _Requests__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Requests */ "../assets/dev/js/frontend/modules/Requests.js");
+/* harmony import */ var _RefreshCart__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./RefreshCart */ "../assets/dev/js/frontend/modules/RefreshCart.js");
+// Always expose jQuery to the window object.
+
+window.jQuery = (jquery__WEBPACK_IMPORTED_MODULE_0___default());
+window.$ = (jquery__WEBPACK_IMPORTED_MODULE_0___default());
 
 
 
 
 
-var log = new _Loggin__WEBPACK_IMPORTED_MODULE_0__.default('Remove Product');
+var log = new _Loggin__WEBPACK_IMPORTED_MODULE_1__.default('Remove Product');
 /**
  * AJAX call to update the cart.
  * @param {string} cart_key Cart key
@@ -3381,44 +3414,44 @@ var log = new _Loggin__WEBPACK_IMPORTED_MODULE_0__.default('Remove Product');
  */
 
 function removeProduct(cartKey) {
-  var httpClient = (axios__WEBPACK_IMPORTED_MODULE_1___default());
+  var httpClient = (axios__WEBPACK_IMPORTED_MODULE_2___default());
   var data = {
-    nonce: cpops_config.nonce,
+    nonce: CartPopsConfig.nonce,
     action: 'cpops_remove_product',
     cart_key: cartKey,
     request_type: 'remove_product'
   };
-  _Requests__WEBPACK_IMPORTED_MODULE_3__.block(data.request_type);
+  _Requests__WEBPACK_IMPORTED_MODULE_4__.block(data.request_type);
   log.send('Removing product from cart with data:', data);
-  httpClient.post(cpops_config.ajax_url, qs__WEBPACK_IMPORTED_MODULE_2___default().stringify(data)).then(function (response) {
+  httpClient.post(CartPopsConfig.ajax_url, qs__WEBPACK_IMPORTED_MODULE_3___default().stringify(data)).then(function (response) {
     log.send('Product removed with data:', response.data);
-    _Requests__WEBPACK_IMPORTED_MODULE_3__.finished(response, data.request_type);
-    (0,_RefreshCart__WEBPACK_IMPORTED_MODULE_4__.default)(false);
+    _Requests__WEBPACK_IMPORTED_MODULE_4__.refreshFragments(response, data.request_type);
+    (0,_RefreshCart__WEBPACK_IMPORTED_MODULE_5__.default)(false);
   })["catch"](function (error) {
     log.send('Error removing product', error);
   })["finally"](function () {
-    $('#cartpops-drawer button').prop('disabled', false);
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('#cartpops-drawer button').prop('disabled', false);
   });
 }
 function restoreProduct(cartKey) {
-  var httpClient = (axios__WEBPACK_IMPORTED_MODULE_1___default());
-  $('#cartpops-drawer button').prop('disabled', true);
+  var httpClient = (axios__WEBPACK_IMPORTED_MODULE_2___default());
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()('#cartpops-drawer button').prop('disabled', true);
   var data = {
-    nonce: cpops_config.nonce,
+    nonce: CartPopsConfig.nonce,
     action: 'cpops_restore_product',
     cart_key: cartKey,
     request_type: 'restore_product'
   };
-  _Requests__WEBPACK_IMPORTED_MODULE_3__.block(data.request_type);
+  _Requests__WEBPACK_IMPORTED_MODULE_4__.block(data.request_type);
   log.send('Restoring product from cart with data:', data);
-  httpClient.post(cpops_config.ajax_url, qs__WEBPACK_IMPORTED_MODULE_2___default().stringify(data)).then(function (response) {
+  httpClient.post(CartPopsConfig.ajax_url, qs__WEBPACK_IMPORTED_MODULE_3___default().stringify(data)).then(function (response) {
     log.send('Product restored with data:', response.data);
-    _Requests__WEBPACK_IMPORTED_MODULE_3__.finished(response, data.request_type);
-    (0,_RefreshCart__WEBPACK_IMPORTED_MODULE_4__.default)(false);
+    _Requests__WEBPACK_IMPORTED_MODULE_4__.refreshFragments(response, data.request_type);
+    (0,_RefreshCart__WEBPACK_IMPORTED_MODULE_5__.default)(false);
   })["catch"](function (error) {
     log.send('Error restoring product', error);
   })["finally"](function () {
-    _Requests__WEBPACK_IMPORTED_MODULE_3__.unblock(data.request_type);
+    _Requests__WEBPACK_IMPORTED_MODULE_4__.unblock(data.request_type);
   });
 }
 
@@ -3433,11 +3466,17 @@ function restoreProduct(cartKey) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "finished": () => (/* binding */ finished),
+/* harmony export */   "refreshFragments": () => (/* binding */ refreshFragments),
 /* harmony export */   "block": () => (/* binding */ block),
 /* harmony export */   "unblock": () => (/* binding */ unblock)
 /* harmony export */ });
-var cartNotificationId = 'test';
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+// Always expose jQuery to the window object.
+
+window.jQuery = (jquery__WEBPACK_IMPORTED_MODULE_0___default());
+window.$ = (jquery__WEBPACK_IMPORTED_MODULE_0___default());
+var cartNotificationId = null;
 /**
  * Handle the response after a succesfull call with Axios.
  * Request types are: add_to_cart, update_cart, remove_product, restore_product
@@ -3445,16 +3484,19 @@ var cartNotificationId = 'test';
  * @param {string} requestType The type of request. Add to cart, coupon etc.
  */
 
-function finished(response, requestType) {
+function refreshFragments(response) {
+  var requestType = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+  refreshFragmentsStarted();
   var cartHashKey = wc_cart_fragments_params.ajax_url.toString() + '-wc_cart_hash';
   var fragments = response.data.fragments;
   var cartHash = response.data.cart_hash;
 
   if (fragments) {
-    $.each(fragments, function (key, value) {
-      $(key).replaceWith(value);
+    jquery__WEBPACK_IMPORTED_MODULE_0___default().each(fragments, function (key, value) {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()(key).replaceWith(value);
     });
-    $(document.body).trigger('wc_fragments_refreshed');
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(document.body).trigger('wc_fragments_refreshed');
+    sessionStorage.setItem(wc_cart_fragments_params.fragment_name, JSON.stringify(fragments));
   }
 
   if (cartHash && cartHashKey) {
@@ -3463,18 +3505,20 @@ function finished(response, requestType) {
     sessionStorage.setItem('wc_cart_created', new Date().getTime());
   }
 
-  completed();
+  refreshFragmentsCompleted();
 }
 function block() {
   var requestType = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-  $('#cartpops-drawer button').prop('disabled', true);
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()('#cartpops-drawer button').prop('disabled', true);
 }
 function unblock() {
   var requestType = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-  $('#cartpops-drawer button').prop('disabled', false);
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()('#cartpops-drawer button').prop('disabled', false);
 }
 
-var completed = function completed() {
+var refreshFragmentsStarted = function refreshFragmentsStarted() {};
+
+var refreshFragmentsCompleted = function refreshFragmentsCompleted() {
   hideNotifications();
 };
 
@@ -3483,10 +3527,10 @@ var hideNotifications = function hideNotifications() {
     clearTimeout(cartNotificationId);
   }
 
-  $('.cpops-drawer-notices-wrapper').show();
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()('.cpops-drawer-notices-wrapper').show();
   cartNotificationId = setTimeout(function () {
-    $('.cpops-drawer-notices-wrapper').empty();
-    $('.cpops-drawer-notices-wrapper').hide();
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.cpops-drawer-notices-wrapper').empty();
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.cpops-drawer-notices-wrapper').hide();
   }, 4500);
 };
 
@@ -3503,19 +3547,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ updateCart)
 /* harmony export */ });
-/* harmony import */ var _Loggin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Loggin */ "../assets/dev/js/frontend/modules/Loggin.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "../node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! qs */ "../node_modules/qs/lib/index.js");
-/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(qs__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _Requests__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Requests */ "../assets/dev/js/frontend/modules/Requests.js");
-/* harmony import */ var _RefreshCart__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./RefreshCart */ "../assets/dev/js/frontend/modules/RefreshCart.js");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Loggin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Loggin */ "../assets/dev/js/frontend/modules/Loggin.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "../node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! qs */ "../node_modules/qs/lib/index.js");
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(qs__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _Requests__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Requests */ "../assets/dev/js/frontend/modules/Requests.js");
+/* harmony import */ var _RefreshCart__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./RefreshCart */ "../assets/dev/js/frontend/modules/RefreshCart.js");
+// Always expose jQuery to the window object.
+
+window.jQuery = (jquery__WEBPACK_IMPORTED_MODULE_0___default());
+window.$ = (jquery__WEBPACK_IMPORTED_MODULE_0___default());
 
 
 
 
 
-var log = new _Loggin__WEBPACK_IMPORTED_MODULE_0__.default('Update Cart');
+var log = new _Loggin__WEBPACK_IMPORTED_MODULE_1__.default('Update Cart');
 /**
  * AJAX call to update the cart.
  * @param {string} cart_key Cart key
@@ -3524,29 +3574,235 @@ var log = new _Loggin__WEBPACK_IMPORTED_MODULE_0__.default('Update Cart');
  */
 
 function updateCart(cart_key, quantity, button) {
-  var httpClient = (axios__WEBPACK_IMPORTED_MODULE_1___default());
+  var httpClient = (axios__WEBPACK_IMPORTED_MODULE_2___default());
   var original_button = button.html();
   button.html('<span class="quantity__button--loader"></span>');
   var data = {
-    nonce: cpops_config.nonce,
+    nonce: CartPopsConfig.nonce,
     action: 'cpops_update_cart',
     cart_key: cart_key,
     quantity: quantity,
     request_type: 'update_cart'
   };
-  _Requests__WEBPACK_IMPORTED_MODULE_3__.block(data.request_type);
+  _Requests__WEBPACK_IMPORTED_MODULE_4__.block(data.request_type);
   log.send('Preparing to update the cart with data:', data);
-  httpClient.post(cpops_config.ajax_url, qs__WEBPACK_IMPORTED_MODULE_2___default().stringify(data)).then(function (response) {
+  httpClient.post(CartPopsConfig.ajax_url, qs__WEBPACK_IMPORTED_MODULE_3___default().stringify(data)).then(function (response) {
     log.send('Cart updated with data:', response.data);
-    _Requests__WEBPACK_IMPORTED_MODULE_3__.finished(response, data.request_type);
-    (0,_RefreshCart__WEBPACK_IMPORTED_MODULE_4__.default)(false);
+    _Requests__WEBPACK_IMPORTED_MODULE_4__.refreshFragments(response, data.request_type);
+    (0,_RefreshCart__WEBPACK_IMPORTED_MODULE_5__.default)(false);
   })["catch"](function (error) {
     console.log(error);
   })["finally"](function () {
-    _Requests__WEBPACK_IMPORTED_MODULE_3__.unblock(data.request_type);
+    _Requests__WEBPACK_IMPORTED_MODULE_4__.unblock(data.request_type);
     button.html(original_button);
   });
 }
+
+/***/ }),
+
+/***/ "../assets/dev/js/frontend/modules/triggers.js":
+/*!*****************************************************!*\
+  !*** ../assets/dev/js/frontend/modules/triggers.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var events__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! events */ "../node_modules/events/events.js");
+/* harmony import */ var events__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(events__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _lib_modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../lib/modal */ "../assets/dev/js/frontend/lib/modal.js");
+/* harmony import */ var _Collapse__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Collapse */ "../assets/dev/js/frontend/modules/Collapse.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+// Always expose jQuery to the window object.
+
+window.jQuery = (jquery__WEBPACK_IMPORTED_MODULE_0___default());
+window.$ = (jquery__WEBPACK_IMPORTED_MODULE_0___default());
+
+ // eslint-disable-line
+
+
+
+var Triggers = /*#__PURE__*/function (_EventEmitter) {
+  _inherits(Triggers, _EventEmitter);
+
+  var _super = _createSuper(Triggers);
+
+  function Triggers(config) {
+    var _this;
+
+    _classCallCheck(this, Triggers);
+
+    _this = _super.call(this);
+    _this.config = config;
+    _this.payingUser = _this.config.pro;
+    _this.drawer = null;
+    _this.assistant = null;
+    _this.popup = null;
+    _this.bar = null;
+    _this.drawerEl = document.getElementById('cpops-drawer-modal');
+    _this.drawerToggles = document.querySelectorAll('.cpops-toggle-drawer');
+    _this.assistantEl = document.getElementById('cpops-assistant-modal');
+    _this.assistantToggles = document.querySelectorAll('.cpops-toggle-assistant');
+    _this.popupEl = document.getElementById('cpops-popup-modal');
+    _this.barEl = document.getElementById('cpops-bar-modal');
+    return _this;
+  }
+  /**
+  * Initializes the handler.
+  */
+
+
+  _createClass(Triggers, [{
+    key: "init",
+    value: function init() {
+      this.emit('init', this);
+
+      this._initModals(this);
+    }
+    /**
+     * Initializes the event listeners.
+     *
+     * @private
+     *
+     * @param self instance of this object, used for binding "this" to the CartPops window object.
+     */
+
+  }, {
+    key: "_initModals",
+    value: function _initModals(self) {
+      if (this.drawerEl) {
+        this._createDrawer();
+      }
+
+      if (this.assistantEl && this.payingUser !== 'false') {
+        this._createAssistant();
+      }
+
+      if ('popup' === this.config.trigger && this.popupEl) {
+        this._createPopup();
+      }
+
+      if ('bar' === this.config.trigger && this.barEl) {
+        this._createBar();
+      }
+
+      window.CartPops = self;
+    }
+    /**
+     * Create the Drawer modal.
+     */
+
+  }, {
+    key: "_createDrawer",
+    value: function _createDrawer() {
+      var _this2 = this;
+
+      this.drawer = new _lib_modal__WEBPACK_IMPORTED_MODULE_2__.default({
+        el: this.drawerEl,
+        type: 'drawer'
+      });
+
+      if (this.drawerToggles) {
+        this.drawerToggles.forEach(function (toggle) {
+          toggle.addEventListener('click', function (event) {
+            event.preventDefault();
+
+            _this2.drawer.show();
+          });
+        });
+      }
+
+      (0,_Collapse__WEBPACK_IMPORTED_MODULE_3__.default)();
+    }
+    /**
+     * Create the Popup modal.
+     */
+
+  }, {
+    key: "_createPopup",
+    value: function _createPopup() {
+      this.popup = new _lib_modal__WEBPACK_IMPORTED_MODULE_2__.default({
+        el: this.popupEl,
+        type: 'popup'
+      });
+    }
+    /**
+     * Create the Bar modal.
+     */
+
+  }, {
+    key: "_createBar",
+    value: function _createBar() {
+      this.bar = new _lib_modal__WEBPACK_IMPORTED_MODULE_2__.default({
+        el: this.barEl,
+        backdrop: false,
+        autoHide: true,
+        lockScroll: false,
+        type: 'bar'
+      });
+    }
+    /**
+     * Create the Assistant modal.
+     */
+
+  }, {
+    key: "_createAssistant",
+    value: function _createAssistant() {
+      var _this3 = this;
+
+      this.assistant = new _lib_modal__WEBPACK_IMPORTED_MODULE_2__.default({
+        el: assistantEl,
+        lockScroll: false,
+        backdrop: false,
+        autoHide: false,
+        type: 'assistant'
+      });
+
+      if (this.assistantToggles) {
+        this.assistantToggles.forEach(function (toggle) {
+          toggle.addEventListener('click', function (event) {
+            var btn = event.target;
+            var content = btn.getAttribute('data-assistant');
+
+            if (content) {
+              _this3.assistant.show(content);
+            }
+          });
+        });
+      }
+    }
+  }]);
+
+  return Triggers;
+}((events__WEBPACK_IMPORTED_MODULE_1___default()));
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Triggers);
 
 /***/ }),
 

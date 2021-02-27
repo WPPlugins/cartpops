@@ -193,7 +193,7 @@ class CartPops_Frontend_Ajax
         }
         
         wc_clear_notices();
-        WC_Ajax::get_refreshed_fragments();
+        $this->get_refreshed_fragments();
         wp_die();
     }
     
@@ -230,7 +230,7 @@ class CartPops_Frontend_Ajax
         }
         
         wc_clear_notices();
-        WC_Ajax::get_refreshed_fragments();
+        $this->get_refreshed_fragments();
     }
     
     /**
@@ -253,7 +253,7 @@ class CartPops_Frontend_Ajax
         }
         
         wc_clear_notices();
-        WC_Ajax::get_refreshed_fragments();
+        $this->get_refreshed_fragments();
         wp_die();
     }
     
@@ -349,7 +349,7 @@ class CartPops_Frontend_Ajax
             $this->set_notification( $message, $message_type );
         }
         wc_clear_notices();
-        WC_Ajax::get_refreshed_fragments();
+        $this->get_refreshed_fragments();
         wp_die();
     }
     
@@ -389,7 +389,7 @@ class CartPops_Frontend_Ajax
         }
         
         wc_clear_notices();
-        WC_Ajax::get_refreshed_fragments();
+        $this->get_refreshed_fragments();
         wp_die();
     }
     
@@ -412,7 +412,7 @@ class CartPops_Frontend_Ajax
         }
         
         wc_clear_notices();
-        WC_Ajax::get_refreshed_fragments();
+        $this->get_refreshed_fragments();
         wp_die();
     }
     
@@ -427,6 +427,16 @@ class CartPops_Frontend_Ajax
     {
         $last_position = array_search( $cart_item_key, array_keys( $cart->cart_contents ), true );
         WC()->session->set( 'cartpops_drawer_item_removed_position', $last_position );
+    }
+    
+    /**
+     * Refresh WC AJAX fragments
+     *
+     * @author Chris Jayden <help@cartpops.com>
+     */
+    public function get_refreshed_fragments()
+    {
+        WC_AJAX::get_refreshed_fragments();
     }
 
 }

@@ -5,7 +5,7 @@
  * Description: Beautiful, responsive, and conversion optimized add to cart popup templates for WooCommerce.
  * Plugin URI: https://cartpops.com
  * Author: CartPops.com
- * Version: 1.2.11
+ * Version: 1.2.12
  * Author URI: https://cartpops.com/?utm_source=wp-plugins&utm_campaign=author-uri&utm_medium=wp-dash
  *
  * Text Domain: cartpops
@@ -30,7 +30,7 @@ if ( !defined( 'WPINC' ) ) {
     die;
 }
 if ( !defined( 'CARTPOPS_VERSION' ) ) {
-    define( 'CARTPOPS_VERSION', '1.2.11' );
+    define( 'CARTPOPS_VERSION', '1.2.12' );
 }
 if ( !defined( 'CARTPOPS_PREFIX' ) ) {
     define( 'CARTPOPS_PREFIX', 'cartpops' );
@@ -89,10 +89,32 @@ function cartpops_cant_activate_msg()
  */
 function cartpops_can_activate()
 {
-    if ( !in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
-        return false;
+    $can_activate = true;
+    if ( !function_exists( 'is_plugin_active_for_network' ) ) {
+        require_once ABSPATH . '/wp-admin/includes/plugin.php';
     }
-    return true;
+    
+    if ( is_multisite() ) {
+        // This plugin is network activated (WooCommerce must be network activated).
+        
+        if ( is_plugin_active_for_network( plugin_basename( __FILE__ ) ) ) {
+            $can_activate = ( is_plugin_active_for_network( 'woocommerce/woocommerce.php' ) ? true : false );
+            // Locally activated (WooCommerce can be network or locally activated).
+        } else {
+            $can_activate = ( is_plugin_active( 'woocommerce/woocommerce.php' ) ? true : false );
+        }
+    
+    } else {
+        $can_activate = ( is_plugin_active( 'woocommerce/woocommerce.php' ) ? true : false );
+    }
+    
+    
+    if ( false === $can_activate ) {
+        return false;
+    } else {
+        return true;
+    }
+
 }
 
 
