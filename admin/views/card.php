@@ -1,3 +1,16 @@
+<?php
+/**
+ * Admin: Card
+ *
+ * @package     CartPops\Admin\Views
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+?>
+
 <div class="<?php echo esc_html( implode( ' ', array_filter( $card_classes ) ) ); ?>">
 	<div class="card-content">
 		<div class="card-head">

@@ -25,7 +25,6 @@ class CartPops_Api {
 	 *
 	 * @param string $plugin_name The plugin name.
 	 * @param int    $version Current plugin version.
-	 * @param object $plugin_settings instance of the plugin options.
 	 */
 	public function __construct( $plugin_name, $version ) {
 		$this->plugin_name = $plugin_name;

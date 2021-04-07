@@ -64,7 +64,6 @@ class CartPops_Cart
      *
      * @param string $plugin_name The plugin name.
      * @param int    $version Current plugin version.
-     * @param object $plugin_settings instance of the plugin options.
      */
     public function __construct( $plugin_name, $version )
     {
@@ -100,7 +99,7 @@ class CartPops_Cart
     public function render_drawer()
     {
         $data = array(
-            'classes'    => apply_filters( 'cpops_drawer_classes', array( 'cpops-default-drawer', 'cpops-modal-wrap', "cpops-animation__{$this->animation_type}" ) ),
+            'classes'    => apply_filters( 'cartpops_drawer_classes', array( 'cpops-default-drawer', 'cpops-modal-wrap', "cpops-animation__{$this->animation_type}" ) ),
             'attributes' => array(
             'tabindex' => '-1',
             'role'     => 'dialog',
@@ -124,7 +123,7 @@ class CartPops_Cart
             return;
         }
         $data = array(
-            'classes'      => apply_filters( 'cpops_floating_cart_launcher_classes', array( 'cpops-toggle-drawer' ) ),
+            'classes'      => apply_filters( 'cartpops_floating_cart_launcher_classes', array( 'cpops-toggle-drawer' ) ),
             'item_account' => WC()->cart->get_cart_contents_count(),
         );
         cpops_frontend_helper()->get_template( 'components/launcher', $data );
@@ -139,7 +138,7 @@ class CartPops_Cart
     {
         $title = cartpops_get_option( 'drawer_header_title_text' );
         $data = array(
-            'classes' => apply_filters( 'cpops_drawer_header_classes', array( 'cpops-drawer-header__heading' ) ),
+            'classes' => apply_filters( 'cartpops_drawer_header_classes', array( 'cpops-drawer-header__heading' ) ),
             'title'   => ( !empty($title) ? esc_html( $title ) : __( 'My cart', 'cartpops' ) ),
         );
         if ( 'slick' === $this->animation_type ) {
@@ -166,7 +165,7 @@ class CartPops_Cart
                     $cart_item_key
                 );
                 $data = array(
-                    'classes'                 => apply_filters( 'cpops_drawer_cart_item_classes', array( 'cpops-cart-item' ) ),
+                    'classes'                 => apply_filters( 'cartpops_drawer_cart_item_classes', array( 'cpops-cart-item' ) ),
                     'quantity'                => $this->render_quantity_selectors( array(
                     'input_value'   => $cart_item['quantity'],
                     'quantity'      => $cart_item['quantity'],
@@ -192,7 +191,7 @@ class CartPops_Cart
         } else {
             $empty_cart_image = null;
             $data = array(
-                'classes'   => apply_filters( 'cpops_drawer_empty_cart_classes', array( 'cpops-empty-cart' ) ),
+                'classes'   => apply_filters( 'cartpops_drawer_empty_cart_classes', array( 'cpops-empty-cart' ) ),
                 'headline'  => ( !empty($this->drawer_empty_title) ? $this->drawer_empty_title : __( 'Your cart is empty.', 'cartpops' ) ),
                 'subheader' => ( !empty($this->drawer_empty_subtitle) ? $this->drawer_empty_subtitle : __( 'Looks like you haven\'t made a choice yet.', 'cartpops' ) ),
             );
@@ -212,7 +211,7 @@ class CartPops_Cart
     /**
      * Output the quantity input for add to cart forms.
      *
-     * @param  array           $args Args for the input.
+     * @param  array           $data Args for the input.
      * @param  WC_Product|null $product Product.
      * @param  boolean         $echo Whether to return or echo|string.
      *
@@ -274,7 +273,7 @@ class CartPops_Cart
                 }
             }
             $data = array(
-                'classes'          => apply_filters( 'cpops_drawer_coupon_form_classes', array( 'cpops-drawer-coupon' ) ),
+                'classes'          => apply_filters( 'cartpops_drawer_coupon_form_classes', array( 'cpops-drawer-coupon' ) ),
                 'active_coupon'    => WC()->cart->get_applied_coupons(),
                 'currency_symbol'  => get_woocommerce_currency_symbol(),
                 'cpops_coupon'     => ( !empty($coupon) ? $coupon->get_code() : '' ),
@@ -337,7 +336,7 @@ class CartPops_Cart
         if ( !empty($products) ) {
             $title = $this->product_recommendation_engine_text;
             $data = array(
-                'classes'              => apply_filters( 'cpops_drawer_empty_cart_classes', array( 'cpops-drawer-recommendations' ) ),
+                'classes'              => apply_filters( 'cartpops_drawer_recommendations_classes', array( 'cpops-drawer-recommendations' ) ),
                 'title'                => ( !empty($title) ? $title : __( 'You might also like these items!', 'cartpops' ) ),
                 'recommended_products' => $products,
             );
@@ -416,17 +415,19 @@ class CartPops_Cart
     {
         $cart = WC()->cart->get_cart();
         $applied_coupons = WC()->cart->get_applied_coupons();
+        $checkout_url = apply_filters( 'cartpops_checkout_button_url', wc_get_checkout_url() );
+        $shop_url = apply_filters( 'cartpops_empty_cart_button_url', get_permalink( wc_get_page_id( 'shop' ) ) );
         
         if ( !empty($cart) ) {
             $button_text = ( !empty($this->checkout_button_text) ? $this->checkout_button_text : __( 'Checkout now', 'cartpops' ) );
-            $url = wc_get_checkout_url();
+            $url = $checkout_url;
         } else {
             $button_text = ( !empty($this->checkout_button_empty_text) ? $this->checkout_button_empty_text : __( 'Your cart is empty. Shop now', 'cartpops' ) );
-            $url = get_permalink( wc_get_page_id( 'shop' ) );
+            $url = $shop_url;
         }
         
         $data = array(
-            'classes'     => apply_filters( 'cpops_drawer_cart_totals_classes', array( 'cpops-cart-total' ) ),
+            'classes'     => apply_filters( 'cartpops_drawer_cart_totals_classes', array( 'cpops-cart-total' ) ),
             'subtotal'    => $this->get_cart_subtotal_order_total_html(),
             'discount'    => $this->get_cart_discount_order_total_html(),
             'total'       => $this->get_cart_totals_order_total_html(),
@@ -455,7 +456,7 @@ class CartPops_Cart
         if ( wc_tax_enabled() || $has_coupons ) {
             $html = $this->create_single_line_item_html(
                 $label,
-                apply_filters( 'cartpops_cart_totals_subtotal_total_html', $value ),
+                apply_filters( 'cartpops_cart_totals_subtotal_html', $value ),
                 '',
                 'subtotal'
             );
@@ -496,6 +497,7 @@ class CartPops_Cart
             if ( !empty($tax_string_array) ) {
                 $taxable_address = WC()->customer->get_taxable_address();
                 $estimated_text = ( WC()->customer->is_customer_outside_base() && !WC()->customer->has_calculated_shipping() ? sprintf( ' ' . __( 'estimated for %s', 'cartpops' ), WC()->countries->estimated_for_prefix( $taxable_address[0] ) . WC()->countries->countries[$taxable_address[0]] ) : '' );
+                /* translators: %s: tax amount */
                 $value .= '<small class="includes_tax">' . sprintf( __( '(includes %s)', 'cartpops' ), implode( ', ', $tax_string_array ) . $estimated_text ) . '</small>';
             }
         
@@ -606,7 +608,7 @@ class CartPops_Cart
     )
     {
         $html = '';
-        $classes = apply_filters( 'cpops_line_item_classes', array( 'cpops-cart-line-items__' . $type ) );
+        $classes = apply_filters( 'cartpops_single_line_item_classes', array( 'cpops-cart-line-items__' . $type ) );
         $html .= '<div class="' . esc_html( implode( ' ', array_filter( $classes ) ) ) . '">';
         $html .= '<span>' . $label;
         
@@ -648,7 +650,7 @@ class CartPops_Cart
             $url = "https://r.freemius.com/7061/{$affiliate_url}/";
         }
         $data = array(
-            'classes' => apply_filters( 'cpops_powered_by_classes', array( 'cpops-powered-by' ) ),
+            'classes' => apply_filters( 'cartpops_powered_by_classes', array( 'cpops-powered-by' ) ),
             'url'     => esc_url( $url ),
         );
         if ( 'slick' === $this->animation_type ) {
@@ -699,43 +701,6 @@ class CartPops_Cart
     {
         $html = '<div class="cpops-drawer-notices-wrapper"></div>';
         echo  wp_kses( apply_filters( 'cartpops_notices_html', $html ), apply_filters( 'cartpops_kses_notice_allowed_tags', wp_kses_allowed_html( 'post' ) ) ) ;
-    }
-    
-    /**
-     * Custom notices wrapper
-     *
-     * @return string
-     */
-    public function print_notices()
-    {
-        $all_notices = WC()->session->get( 'wc_notices', array() );
-        $notice_types = apply_filters( 'woocommerce_notice_types', array( 'error', 'success', 'notice' ) );
-        // phpcs:ignore
-        // Buffer output.
-        ob_start();
-        foreach ( $notice_types as $notice_type ) {
-            
-            if ( wc_notice_count( $notice_type ) > 0 ) {
-                $messages = array();
-                $data = array(
-                    'classes'  => apply_filters( 'cpops_notices_classes', array( 'cpops-default-drawer', 'cpops-modal-wrap' ) ),
-                    'messages' => array_filter( $messages ),
-                    'notices'  => array_filter( $all_notices[$notice_type] ),
-                );
-                if ( 'slick' === $this->animation_type ) {
-                    $data['classes'][] = 'cpops-animation__slick-delay-1';
-                }
-                foreach ( $all_notices[$notice_type] as $notice ) {
-                    $messages[] = ( isset( $notice['notice'] ) ? $notice['notice'] : $notice );
-                }
-                cpops_frontend_helper()->get_template( 'info/{$notice_type}.php', $data );
-            }
-        
-        }
-        wc_clear_notices();
-        $notices = wc_kses_notice( ob_get_clean() );
-        return $notices;
-        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
     }
     
     /**
@@ -799,7 +764,7 @@ class CartPops_Cart
             'wrapper'              => 'false',
             'shortcode'            => 'false',
             'menu_item'            => 'false',
-            'classes'              => apply_filters( 'cpops_cart_launcher_classes', array( 'cartpops-cart__wrapper' ) ),
+            'classes'              => apply_filters( 'cartpops_cart_launcher_classes', array( 'cartpops-cart__wrapper' ) ),
         );
         $args = wp_parse_args( $args, $defaults );
         $product_count = WC()->cart->get_cart_contents_count();
@@ -830,7 +795,7 @@ class CartPops_Cart
                     break;
             }
         }
-        if ( 'true' === $args['indicator_hide_empty'] && $product_count === 0 ) {
+        if ( 'true' === $args['indicator_hide_empty'] && 0 === $product_count ) {
             $args['classes'][] = 'cartpops-cart--empty-indicator-hide';
         }
         if ( 'true' === $args['wrapper'] ) {
@@ -864,7 +829,7 @@ class CartPops_Cart
     /**
      * Ajaxify short-code cart count.
      *
-     * @param $fragments
+     * @param array $fragments WooCommerce fragments.
      *
      * @return mixed
      */
@@ -875,19 +840,14 @@ class CartPops_Cart
             return $fragments;
         }
         $cart_count = WC()->cart->get_cart_contents_count();
-        $cart_empty = ( $cart_count === 0 ? 'is-empty' : '' );
+        $cart_empty = ( 0 === $cart_count ? 'is-empty' : '' );
         $sub_total = WC()->cart->get_cart_subtotal();
         ob_start();
-        echo  '<span class="cartpops-cart__container-counter ' . $cart_empty . '">' . sprintf( _n(
-            '%d',
-            '%d',
-            $cart_count,
-            'cartpops'
-        ), $cart_count ) . '</span>' ;
+        echo  '<span class="cartpops-cart__container-counter ' . esc_attr( $cart_empty ) . '">' . esc_attr( $cart_count ) . '</span>' ;
         $cart_launcher_count = ob_get_clean();
         ob_start();
         ?>
-		 <span class="cartpops-cart__container-text"><?php 
+		<span class="cartpops-cart__container-text"><?php 
         echo  wp_kses_post( $sub_total ) ;
         ?></span>
 		<?php 

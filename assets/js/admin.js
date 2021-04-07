@@ -1,4 +1,4 @@
-/*! Copyright © Chris Jayden <help@cartpops.com> (https://cartpops.com) - cartpops - v1.2.12 - 27-02-2021 */
+/*! Copyright © Chris Jayden <help@cartpops.com> (https://cartpops.com) - cartpops - v1.2.14 - 07-04-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -86,8 +86,44 @@ var AdminSelect2 = /*#__PURE__*/function () {
   _createClass(AdminSelect2, [{
     key: "init",
     value: function init() {
-      $("#product_recommendation_engine_custom_global").select2({
-        width: '100%'
+      $('#product_recommendation_engine_custom_global').select2({
+        width: '100%',
+        ajax: {
+          url: window.CartPopsConfig.ajax_url,
+          // AJAX URL is predefined in WordPress admin
+          dataType: 'json',
+          delay: 250,
+          // delay in ms while typing when to perform a AJAX search
+          data: function data(params) {
+            return {
+              q: params.term,
+              // search query
+              action: 'cartpops_get_product' // AJAX action for admin-ajax.php
+
+            };
+          },
+          processResults: function processResults(data) {
+            var options = [];
+
+            if (data) {
+              // data is the array of arrays, and each of them contains ID and the Label of the option
+              $.each(data, function (index, productName) {
+                // do not forget that "index" is just auto incremented value
+                options.push({
+                  id: index,
+                  text: productName
+                });
+              });
+            }
+
+            return {
+              results: options
+            };
+          },
+          cache: true
+        },
+        minimumInputLength: 3 // the minimum of symbols to input before perform a search
+
       });
     }
   }]);

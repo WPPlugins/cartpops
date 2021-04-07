@@ -5,7 +5,7 @@
  * Description: Beautiful, responsive, and conversion optimized add to cart popup templates for WooCommerce.
  * Plugin URI: https://cartpops.com
  * Author: CartPops.com
- * Version: 1.2.12
+ * Version: 1.2.14
  * Author URI: https://cartpops.com/?utm_source=wp-plugins&utm_campaign=author-uri&utm_medium=wp-dash
  *
  * Text Domain: cartpops
@@ -30,7 +30,7 @@ if ( !defined( 'WPINC' ) ) {
     die;
 }
 if ( !defined( 'CARTPOPS_VERSION' ) ) {
-    define( 'CARTPOPS_VERSION', '1.2.12' );
+    define( 'CARTPOPS_VERSION', '1.2.14' );
 }
 if ( !defined( 'CARTPOPS_PREFIX' ) ) {
     define( 'CARTPOPS_PREFIX', 'cartpops' );
@@ -60,11 +60,11 @@ function cartpops_cant_activate_msg()
     ?>
 		<div class="notice notice-error is-dismissible checkout-wc">
 			<?php 
-    echo  sprintf( __( '<h3><strong>%s</strong>! WooCommerce is required to use CartPops.</h3>', 'cartpops' ), 'Oh no 😳' ) ;
+    echo  esc_html__( 'Oh no! WooCommerce is required to use CartPops.', 'cartpops' ) ;
     ?>
 			<p>
 			<?php 
-    echo  sprintf( __( 'To prevent fatal errors, we have loaded %1$s into <strong>%2$s</strong>, which disables all features and functionality.', 'cartpops' ), 'CartPops', __( 'safe mode', 'cartpops' ) ) ;
+    echo  esc_html__( 'To prevent fatal errors, we have loaded CartPops into safe mode.', 'cartpops' ) ;
     ?>
 				</p>
 				<p class="button-container">
@@ -72,9 +72,9 @@ function cartpops_cant_activate_msg()
     printf(
         '<a class="button button-primary" href="%1$s" target="_blank" rel="noopener noreferrer">%2$s <span class="screen-reader-text">%3$s</span><span aria-hidden="true" class="dashicons dashicons-external"></span></a>',
         esc_url( CARTPOPS_DOCS ),
-        __( 'View troubleshooting docs', 'cartpops' ),
+        esc_html__( 'View troubleshooting docs', 'cartpops' ),
         /* translators: Accessibility text. */
-        __( '(opens in a new tab)', 'cartpops' )
+        esc_html__( '(opens in a new tab)', 'cartpops' )
     );
     ?>
 			</p>
@@ -121,7 +121,9 @@ function cartpops_can_activate()
 if ( cartpops_can_activate() ) {
     
     if ( !function_exists( 'fs_cartpops' ) ) {
-        // Create a helper function for easy SDK access.
+        /**
+         * Freemius SDK access function
+         */
         function fs_cartpops()
         {
             global  $fs_cartpops ;
@@ -180,7 +182,6 @@ if ( cartpops_can_activate() ) {
         CartPops_Deactivator::deactivate();
     }
     
-    fs_cartpops()->add_action( 'after_uninstall', 'fs_cartpops_uninstall_cleanup' );
     register_activation_hook( __FILE__, 'activate_cartpops' );
     register_deactivation_hook( __FILE__, 'deactivate_cartpops' );
     /**

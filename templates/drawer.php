@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 	<?php do_action( 'cartpops_drawer_wrapper_start' ); ?>
 
-	<div id="cartpops-drawer" class="<?php echo esc_html( implode( ' ', array_filter( $classes ) ) ); ?>" <?php echo cartpops_implode_html_attributes( $attributes ); ?>>
+	<div id="cartpops-drawer" class="<?php echo esc_html( implode( ' ', array_filter( $classes ) ) ); ?>" <?php echo esc_attr( cartpops_implode_html_attributes( $attributes ) ); ?>>
 
 		<?php do_action( 'cartpops_drawer_panel_wrapper_start' ); ?>
 

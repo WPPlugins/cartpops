@@ -112,7 +112,7 @@ class CartPops
         include_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-cartpops-loader.php';
         include_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-cartpops-i18n.php';
         include_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-cartpops-api.php';
-        include_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-cartpops-parsedown.php';
+        include_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/lib/class-cartpops-parsedown.php';
         include_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/cartpops-functions.php';
         include_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-cartpops-settings.php';
         include_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-cartpops-cart.php';
@@ -173,6 +173,7 @@ class CartPops
         );
         $this->loader->add_action( 'woocommerce_init', $plugin_admin, 'watch_potential_issues' );
         $this->loader->add_action( 'wp_ajax_cpops_reset_issues_transient', $plugin_admin, 'delete_issues_transient' );
+        $this->loader->add_action( 'wp_ajax_cartpops_get_product', $plugin_admin, 'get_product' );
     }
     
     /**

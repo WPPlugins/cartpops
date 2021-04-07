@@ -1,4 +1,4 @@
-/*! Copyright © Chris Jayden <help@cartpops.com> (https://cartpops.com) - cartpops - v1.2.12 - 27-02-2021 */
+/*! Copyright © Chris Jayden <help@cartpops.com> (https://cartpops.com) - cartpops - v1.2.14 - 07-04-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -1834,6 +1834,117 @@ module.exports = {
 
 /***/ }),
 
+/***/ "../assets/dev/js/frontend/assistant.js":
+/*!**********************************************!*\
+  !*** ../assets/dev/js/frontend/assistant.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "jquery");
+/* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./core */ "../assets/dev/js/frontend/core.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+// Always expose jQuery to the window object.
+
+window.jQuery = (jquery__WEBPACK_IMPORTED_MODULE_0___default());
+window.$ = (jquery__WEBPACK_IMPORTED_MODULE_0___default());
+
+
+var CartPopsAssistant = /*#__PURE__*/function (_CartPopsCore) {
+  _inherits(CartPopsAssistant, _CartPopsCore);
+
+  var _super = _createSuper(CartPopsAssistant);
+
+  function CartPopsAssistant(config, modals) {
+    var _this;
+
+    _classCallCheck(this, CartPopsAssistant);
+
+    _this = _super.call(this, config, modals);
+    _this.assistantEl = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#cartpops-assistant');
+    _this.assistantTriggers = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.cpops-toggle-assistant');
+    return _this;
+  }
+  /**
+  * Initialize the core of the plugin.
+  */
+
+
+  _createClass(CartPopsAssistant, [{
+    key: "init",
+    value: function init() {
+      this._initListeners(this);
+
+      this.emit('init', this);
+    }
+    /**
+     * Initializes the event listeners.
+     *
+     * @private
+     *
+     * @param self instance of this object, used for binding "this" to the listeners.
+     */
+
+  }, {
+    key: "_initListeners",
+    value: function _initListeners(self) {
+      this.drawerEl = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#cartpops-drawer');
+
+      if (this.assistantTriggers) {
+        this.drawerEl.on('click', this.assistantTriggers, this.openAssistant.bind(self));
+      }
+    }
+    /**
+     * Handles the (+/-) quantity selectors.
+     * @param {object} ev The jQuery Event object.
+     */
+
+  }, {
+    key: "openAssistant",
+    value: function openAssistant(ev) {
+      ev.preventDefault();
+      var btn = ev.target;
+      var content = btn.getAttribute('data-assistant');
+
+      if (content) {
+        this.modals.assistant.show(content);
+      }
+    }
+  }]);
+
+  return CartPopsAssistant;
+}(_core__WEBPACK_IMPORTED_MODULE_1__.default);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CartPopsAssistant);
+
+/***/ }),
+
 /***/ "../assets/dev/js/frontend/cart.js":
 /*!*****************************************!*\
   !*** ../assets/dev/js/frontend/cart.js ***!
@@ -1915,12 +2026,19 @@ var CartPopsCart = /*#__PURE__*/function (_CartPopsCore) {
   _createClass(CartPopsCart, [{
     key: "init",
     value: function init() {
-      this.refreshFragmentsOnLoad();
+      // Force Ajax fragment refresh. Should only be used with caution.
+      if ('true' === this.config.forceRefresh) {
+        this.refreshFragmentsOnLoad();
+      }
 
       this._initListeners(this);
 
       this.emit('init', this);
     }
+    /**
+     * Refresh fragments onload.
+     */
+
   }, {
     key: "refreshFragmentsOnLoad",
     value: function refreshFragmentsOnLoad() {
@@ -1962,8 +2080,8 @@ var CartPopsCart = /*#__PURE__*/function (_CartPopsCore) {
         action: 'restore'
       }, this.updateItem.bind(self)); // Coupons.
 
-      this.drawerEl.on('submit', '#cpops-coupon-submit', this.addCoupon.bind(self));
-      this.drawerEl.on('click', '.cpops-coupon-remove__item-delete', this.removeCoupon.bind(self));
+      this.drawerEl.on('click', '.cpops-drawer-form__button', this.addCoupon.bind(self));
+      this.drawerEl.on('click', '.cpops-coupon-remove__item-delete', this.removeCoupon.bind(self)); // Refresh cart on the checkout/cart page if the shipping method is updated.
 
       if ('true' === this.config.isCheckoutPage || 'true' === this.config.isCartPage) {
         jquery__WEBPACK_IMPORTED_MODULE_0___default()(document.body).on('updated_shipping_method', this.refreshFragments.bind(self));
@@ -2237,7 +2355,7 @@ var CartPopsCart = /*#__PURE__*/function (_CartPopsCore) {
     key: "addCoupon",
     value: function addCoupon(ev) {
       ev.preventDefault();
-      var form = jquery__WEBPACK_IMPORTED_MODULE_0___default()(ev.currentTarget);
+      var form = jquery__WEBPACK_IMPORTED_MODULE_0___default()(ev.currentTarget).closest('.cpops-coupon-form');
       var button = form.find(':submit');
       var input = jquery__WEBPACK_IMPORTED_MODULE_0___default()(form).find('input');
       var coupon = input.val();
@@ -2337,6 +2455,10 @@ var CartPopsCore = /*#__PURE__*/function (_EventEmitter) {
 
     return _this;
   }
+  /**
+   * Page show event listener.
+   */
+
 
   _createClass(CartPopsCore, [{
     key: "pageShow",
@@ -2345,32 +2467,35 @@ var CartPopsCore = /*#__PURE__*/function (_EventEmitter) {
         jquery__WEBPACK_IMPORTED_MODULE_0___default()(window).on('pageshow', this.onPageShow);
       }
     }
+    /**
+     * Refresh all WC fragments.
+     */
+
   }, {
     key: "refreshFragments",
     value: function refreshFragments() {
       var _this2 = this;
-
-      if (this.config.forceRefresh && 'undefined' !== typeof wc_cart_fragments_params) {
-        jquery__WEBPACK_IMPORTED_MODULE_0___default()(document.body).trigger('wc_fragment_refresh');
-        log.send('Refreshing cart fragments via wc_fragment_refresh');
-        return;
-      }
 
       this.block();
       var data = {
         action: 'cpops_get_refreshed_fragments'
       };
       axios__WEBPACK_IMPORTED_MODULE_3___default().post(this.config.ajax_url, qs__WEBPACK_IMPORTED_MODULE_4___default().stringify(data)).then(function (response) {
-        log.send('Refreshing cart fragments via cpops_get_refreshed_fragments');
+        log.send('Refreshing cart fragments on load');
 
         _this2.updateFragments(response);
       })["catch"](function (error) {
-        log.send('Refreshing cart fragments on load');
         console.log(error);
       })["finally"](function () {
         _this2.unblock();
       });
     }
+    /**
+     * Refresh WC fragments from AJAX response.
+     *
+     * @param {array} response Array with response from AJAX
+     */
+
   }, {
     key: "updateFragments",
     value: function updateFragments(response) {
@@ -2400,6 +2525,12 @@ var CartPopsCore = /*#__PURE__*/function (_EventEmitter) {
         jquery__WEBPACK_IMPORTED_MODULE_0___default()(document.body).trigger('wc_fragment_refresh');
       }
     }
+    /**
+     * Listen to returning of the page using the browser's forward or back buttons
+     *
+     * @param {boject} ev Event object.
+     */
+
   }, {
     key: "onPageShow",
     value: function onPageShow(ev) {
@@ -2408,9 +2539,17 @@ var CartPopsCore = /*#__PURE__*/function (_EventEmitter) {
         jquery__WEBPACK_IMPORTED_MODULE_0___default()(document.body).trigger('wc_fragment_refresh');
       }
     }
+    /**
+     * Block the cart from user interaction.
+     */
+
   }, {
     key: "block",
     value: function block() {}
+    /**
+     * Unblock the cart from user interaction.
+     */
+
   }, {
     key: "unblock",
     value: function unblock() {}
@@ -2433,8 +2572,9 @@ var CartPopsCore = /*#__PURE__*/function (_EventEmitter) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "jquery");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _cart__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./cart */ "../assets/dev/js/frontend/cart.js");
-/* harmony import */ var _modules_triggers__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/triggers */ "../assets/dev/js/frontend/modules/triggers.js");
+/* harmony import */ var _modules_triggers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/triggers */ "../assets/dev/js/frontend/modules/triggers.js");
+/* harmony import */ var _cart__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./cart */ "../assets/dev/js/frontend/cart.js");
+/* harmony import */ var _assistant__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./assistant */ "../assets/dev/js/frontend/assistant.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2446,7 +2586,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 // Always expose jQuery to the window object.
 
 window.jQuery = (jquery__WEBPACK_IMPORTED_MODULE_0___default());
-window.$ = (jquery__WEBPACK_IMPORTED_MODULE_0___default()); // import Recommendations from "./modules/Recommendations";
+window.$ = (jquery__WEBPACK_IMPORTED_MODULE_0___default());
 
 
 
@@ -2456,8 +2596,9 @@ var CartPopsFrontend = /*#__PURE__*/function () {
     _classCallCheck(this, CartPopsFrontend);
 
     this.config = config;
-    this.modals = new _modules_triggers__WEBPACK_IMPORTED_MODULE_2__.default(this.config);
-    this.cart = new _cart__WEBPACK_IMPORTED_MODULE_1__.default(this.config, this.modals);
+    this.modals = new _modules_triggers__WEBPACK_IMPORTED_MODULE_1__.default(this.config);
+    this.cart = new _cart__WEBPACK_IMPORTED_MODULE_2__.default(this.config, this.modals);
+    this.assistant = new _assistant__WEBPACK_IMPORTED_MODULE_3__.default(this.config, this.modals);
   }
 
   _createClass(CartPopsFrontend, [{
@@ -2465,6 +2606,10 @@ var CartPopsFrontend = /*#__PURE__*/function () {
     value: function init() {
       this.modals.init();
       this.cart.init();
+
+      if (this.config.pro) {
+        this.assistant.init();
+      }
     }
     /**
     * Named static constructor to encapsulate how to create the object.
@@ -3091,13 +3236,7 @@ function addToCart(form, data, button) {
   button.addClass('loading');
   httpClient.post(CartPopsConfig.ajax_url, qs__WEBPACK_IMPORTED_MODULE_3___default().stringify(data)).then(function (response) {
     log.send('Product added to cart succesfully with data:', response.data);
-    _Requests__WEBPACK_IMPORTED_MODULE_4__.refreshFragments(response, data.request_type); // Dont open cart for custom actions
-    // if ( 'recommendation' === action ) {
-    // 	refreshCart( false, productId );
-    // } else {
-    // 	refreshCart( true, productId );
-    // }
-    // Trigger added to cart event.
+    _Requests__WEBPACK_IMPORTED_MODULE_4__.refreshFragments(response, data.request_type); // Trigger added to cart event.
 
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(document.body).trigger('added_to_cart', [response.data.fragments, response.data.cart_hash, button]);
   })["catch"](function (error) {
@@ -3234,8 +3373,7 @@ function applyCoupon(coupon, input, button) {
  * @param {element} coupon_tag Element (coupon tag) to be removed.
  */
 
-function removeCoupon(coupon, coupon_tag) {
-  console.log('Removing coupon');
+function removeCoupon(coupon, couponTag) {
   var data = {
     action: 'cpops_remove_coupon',
     nonce: CartPopsConfig.nonce,
@@ -3247,9 +3385,11 @@ function removeCoupon(coupon, coupon_tag) {
     log.send('Removed coupon successfully with data:', response.data);
     _Requests__WEBPACK_IMPORTED_MODULE_4__.refreshFragments(response, data.request_type); // Remove target coupon.
 
-    jquery__WEBPACK_IMPORTED_MODULE_0___default()(coupon_tag).remove();
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()(couponTag).remove();
     (0,_RefreshCart__WEBPACK_IMPORTED_MODULE_5__.default)(false);
   })["catch"](function (error) {
+    console.log(error);
+  })["finally"](function () {
     _Requests__WEBPACK_IMPORTED_MODULE_4__.unblock(data.request_type);
   });
 }
@@ -3774,28 +3914,13 @@ var Triggers = /*#__PURE__*/function (_EventEmitter) {
   }, {
     key: "_createAssistant",
     value: function _createAssistant() {
-      var _this3 = this;
-
       this.assistant = new _lib_modal__WEBPACK_IMPORTED_MODULE_2__.default({
-        el: assistantEl,
+        el: this.assistantEl,
         lockScroll: false,
         backdrop: false,
         autoHide: false,
         type: 'assistant'
       });
-
-      if (this.assistantToggles) {
-        this.assistantToggles.forEach(function (toggle) {
-          toggle.addEventListener('click', function (event) {
-            var btn = event.target;
-            var content = btn.getAttribute('data-assistant');
-
-            if (content) {
-              _this3.assistant.show(content);
-            }
-          });
-        });
-      }
     }
   }]);
 

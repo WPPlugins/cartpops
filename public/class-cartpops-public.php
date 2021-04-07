@@ -71,7 +71,7 @@ class CartPops_Public {
 		}
 
 		$cart_count = WC()->cart->get_cart_contents_count();
-		$cart_empty = ( $cart_count === 0 ) ? 'is-empty' : '';
+		$cart_empty = ( 0 === $cart_count ) ? 'is-empty' : '';
 		$sub_total  = WC()->cart->get_cart_subtotal();
 
 		ob_start();

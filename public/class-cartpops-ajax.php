@@ -156,11 +156,6 @@ class CartPops_Frontend_Ajax
      */
     public function refresh_cart()
     {
-        // $product_id = ( ! empty( $_POST['product_id'] ) ) ? intval( $_POST['product_id'] ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
-        // if ( $product_id ) {
-        // WC()->session->set( 'cartpops_last_added_product_id', $product_id );
-        // $this->last_added_product_id = $product_id;
-        // }
         ob_start();
         $data = apply_filters( 'cartpops_ajax_fragments', array() );
         wp_send_json( $data );
@@ -178,15 +173,18 @@ class CartPops_Frontend_Ajax
         // phpcs:ignore WordPress.Security.NonceVerification
         $product_id = ( !empty($_POST['product_id']) ? intval( $_POST['product_id'] ) : '' );
         // phpcs:ignore WordPress.Security.NonceVerification
+        $add_to_cart = ( !empty($_POST['add-to-cart']) ? intval( $_POST['add-to-cart'] ) : '' );
+        // phpcs:ignore WordPress.Security.NonceVerification
         if ( !$security_check ) {
             wp_send_json_error( esc_html__( 'Something went wrong, please reload the page.', 'cartpops' ), 403 );
         }
         if ( empty(wc_get_notices( 'error' )) ) {
-            do_action( 'woocommerce_ajax_added_to_cart', intval( $_POST['add-to-cart'] ) );
+            do_action( 'woocommerce_ajax_added_to_cart', $add_to_cart );
         }
         $product = ( !empty($product_id) ? wc_get_product( $product_id ) : '' );
         
         if ( $product ) {
+            /* translators: %s: product name */
             $this->set_notification( sprintf( __( '"%s" has been added to the cart.', 'cartpops' ), $product->get_name() ), 'success' );
         } else {
             $this->set_notification( __( 'Added to the cart successfully.', 'cartpops' ), 'success' );
@@ -205,7 +203,7 @@ class CartPops_Frontend_Ajax
     public function remove_product()
     {
         cpops_frontend_helper()->set_cart_constant();
-        $cart_item_key = ( !empty($_POST['cart_key']) ? filter_var( $_POST['cart_key'], FILTER_SANITIZE_STRING ) : null );
+        $cart_item_key = ( !empty($_POST['cart_key']) ? filter_var( wp_unslash( $_POST['cart_key'] ), FILTER_SANITIZE_STRING ) : null );
         // phpcs:ignore WordPress.Security.NonceVerification
         $cart_item = WC()->cart->get_cart_item( $cart_item_key );
         
@@ -241,7 +239,7 @@ class CartPops_Frontend_Ajax
     public function restore_product()
     {
         cpops_frontend_helper()->set_cart_constant();
-        $cart_item_key = ( !empty($_POST['cart_key']) ? filter_var( $_POST['cart_key'], FILTER_SANITIZE_STRING ) : null );
+        $cart_item_key = ( !empty($_POST['cart_key']) ? filter_var( wp_unslash( $_POST['cart_key'] ), FILTER_SANITIZE_STRING ) : null );
         // phpcs:ignore WordPress.Security.NonceVerification
         $product_name = WC()->session->get( 'cartpops_last_removed_item_name' );
         WC()->cart->restore_cart_item( $cart_item_key );
@@ -265,7 +263,7 @@ class CartPops_Frontend_Ajax
     public function update_cart()
     {
         cpops_frontend_helper()->set_cart_constant();
-        $cart_key = sanitize_text_field( wp_unslash( $_POST['cart_key'] ) );
+        $cart_key = ( isset( $_POST['cart_key'] ) ? sanitize_text_field( wp_unslash( $_POST['cart_key'] ) ) : '' );
         // phpcs:ignore WordPress.Security.NonceVerification
         $quantity = ( isset( $_POST['quantity'] ) ? (double) $_POST['quantity'] : '' );
         // phpcs:ignore WordPress.Security.NonceVerification
@@ -362,7 +360,7 @@ class CartPops_Frontend_Ajax
     {
         cpops_frontend_helper()->set_cart_constant();
         $coupon_code = ( isset( $_POST['coupon'] ) ? wc_format_coupon_code( wp_unslash( $_POST['coupon'] ) ) : false );
-        // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+        // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification
         
         if ( $coupon_code ) {
             
@@ -402,13 +400,13 @@ class CartPops_Frontend_Ajax
     {
         cpops_frontend_helper()->set_cart_constant();
         $coupon = ( isset( $_POST['coupon'] ) ? wc_format_coupon_code( wp_unslash( $_POST['coupon'] ) ) : false );
-        // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+        // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification
         
         if ( empty($coupon) ) {
             $this->set_notification( __( 'Sorry there was a problem removing this coupon.', 'cartpops' ), 'error' );
         } else {
             WC()->cart->remove_coupon( $coupon );
-            $this->set_notification( __( 'Coupon has been removed.', 'cartpops', 'success' ) );
+            $this->set_notification( __( 'Coupon has been removed.', 'cartpops' ), 'success' );
         }
         
         wc_clear_notices();

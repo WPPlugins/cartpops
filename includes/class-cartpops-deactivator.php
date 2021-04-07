@@ -43,7 +43,7 @@ class CartPops_Deactivator {
 		if ( $delete_options ) {
 			global $wpdb;
 
-			$plugin_options = $wpdb->get_results( "SELECT option_name FROM $wpdb->options WHERE option_name LIKE 'cartpops_%'" );
+			$plugin_options = $wpdb->get_results( "SELECT option_name FROM $wpdb->options WHERE option_name LIKE 'cartpops_%'" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
 
 			foreach ( $plugin_options as $option ) {
 				delete_option( $option->option_name );

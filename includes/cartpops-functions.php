@@ -8,34 +8,16 @@
  * @package    CartPops
  * @subpackage CartPops/includes
  */
-
-/**
- * Returns the result of the get_template global function
- */
-function cartpops_get_template( $name ) {
-	return CartPops_Globals::get_template( $name );
-}
-
 function cartpops_get_animation_count() {
-	return CartPops_Public::get_animation_counter();
+	return CartPops_Cart::get_animation_counter();
 }
 
 function cartpops_increase_animation_count() {
-	return CartPops_Public::increase_animation_counter();
+	return CartPops_Cart::increase_animation_counter();
 }
 
 function cartpops_new_animation_count() {
-	return CartPops_Public::increase_get_animation_counter();
-}
-
-function cartpops_get_template_part( $slug, $name ) {
-	return CartPops_Globals::get_template_part( $slug, $name );
-}
-/**
- * Returns the result of the get_max global function
- */
-function cartpops_get_max( $array ) {
-	return CartPops_Globals::get_max( $array );
+	return CartPops_Cart::increase_get_animation_counter();
 }
 
 /**
@@ -84,94 +66,6 @@ function cartpops_outbound_url( $slug = '', $source = 'Plugin Dashboard', $campa
 
 class CartPops_Globals {
 
-		/**
-		 * Returns the count of the largest arrays
-		 *
-		 * @param       array $array      An array of arrays to count
-		 * @return      int                     The count of the largest array
-		 */
-	public static function get_max( $array ) {
-
-		if ( empty( $array ) ) {
-			return '$array is empty!'; }
-
-		$count = array();
-
-		foreach ( $array as $name => $field ) {
-
-			$count[ $name ] = count( $field );
-
-		} //
-
-		$count = max( $count );
-
-		return $count;
-
-	} // get_max()
-
-	/**
-	 * Returns the path to a template file
-	 *
-	 * Looks for the file in these directories, in this order:
-	 *      Current theme
-	 *      Parent theme
-	 *      Current theme templates folder
-	 *      Parent theme templates folder
-	 *      This plugin
-	 *
-	 * To use a custom list template in a theme, copy the
-	 * file from public/templates into a templates folder in your
-	 * theme. Customize as needed, but keep the file name as-is. The
-	 * plugin will automatically use your custom template file instead
-	 * of the ones included in the plugin.
-	 *
-	 * @param   string $name           The name of a template file
-	 * @return  string                      The path to the template
-	 */
-	public static function get_template( $name ) {
-		$template    = '';
-		$locations[] = "{$name}.php";
-		$locations[] = "cartpops-templates/{$name}.php";
-
-		/**
-		* Filter the locations to search for a template file
-		*
-		* @param    array       $locations          File names and/or paths to check
-		*/
-		apply_filters( 'cartpops-template-paths', $locations );
-
-		$template = locate_template( $locations, true );
-
-		if ( empty( $template ) ) {
-			$template = plugin_dir_path( dirname( __FILE__ ) ) . 'templates/' . $name . '.php';
-		}
-
-		return $template;
-
-	} // get_template()
-
-	public static function get_template_part( $slug, $name ) {
-		$template    = '';
-		$locations[] = "{$slug}-{$name}.php";
-		$locations[] = "cartpops-templates/parts/{$slug}-{$name}.php";
-
-		/**
-		* Filter the locations to search for a template file
-		*
-		* @param    array       $locations          File names and/or paths to check
-		*/
-		apply_filters( 'cartpops-template-paths', $locations );
-
-		$template = locate_template( $locations, true );
-
-		if ( empty( $template ) ) {
-			$template = plugin_dir_path( dirname( __FILE__ ) ) . 'templates/template-parts/' . $slug . '-' . $name . '.php';
-		}
-
-		return $template;
-
-	} // get_template()
-
 	/**
 	 * Extract options from database or default array settings.
 	 *
@@ -201,13 +95,11 @@ class CartPops_Globals {
 		}
 
 		return null;
-	} // get_option_admin()
+	}
 
 	public static function get_emoji_flag( $country_code ) {
-		// An array to hold all the countries
 		$emoji_flags = array();
 
-		// Now, all the country flags as emojis
 		$emoji_flags['AD'] = "\u{1F1E6}\u{1F1E9}";
 		$emoji_flags['AE'] = "\u{1F1E6}\u{1F1EA}";
 		$emoji_flags['AF'] = "\u{1F1E6}\u{1F1EB}";
@@ -465,8 +357,6 @@ class CartPops_Globals {
 				return $value;
 			}
 		}
-
-		return;
 	}
 
 	/**

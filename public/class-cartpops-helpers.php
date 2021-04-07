@@ -1,15 +1,9 @@
 <?php
 class CartPops_Frontend_Helpers {
 
-	protected static $_instance = null;
 	private static $instance;
-
 	private $plugin_name;
 	private $version;
-
-	private function __construct() {
-
-	}
 
 	public static function get_instance() {
 
@@ -79,8 +73,7 @@ class CartPops_Frontend_Helpers {
 	 * @since     1.0.0
 	 */
 	public static function get_theme_template( $slug ) {
-
-		// Look in your theme
+		// Look inside theme folders.
 		$template_path = self::template_path();
 
 		$template = locate_template( array( $template_path . "{$slug}.php" ) );
@@ -92,9 +85,9 @@ class CartPops_Frontend_Helpers {
 	 * Get plugin template. Look within the plugin and active theme
 	 *
 	 * @param string $slug
-	 * @param array  $vars
+	 * @param array  $args
 	 * @param bool   $return
-	 * @param bool   $locateOnly
+	 * @param bool   $locate_only
 	 *
 	 * @return    string    The template
 	 * @since     1.0.0
@@ -134,9 +127,11 @@ class CartPops_Frontend_Helpers {
 	}
 
 	/**
-	 * @param $product
-	 * @param $cart_item
-	 * @param $cart_item_key
+	 * Returns the price.
+	 *
+	 * @param object $product
+	 * @param string $cart_item
+	 * @param string $cart_item_key
 	 *
 	 * @return mixed|void
 	 */
@@ -167,9 +162,11 @@ class CartPops_Frontend_Helpers {
 	}
 
 	/**
-	 * @param $product
-	 * @param $cart_item
-	 * @param $cart_item_key
+	 * Returns the product image.
+	 *
+	 * @param object $product
+	 * @param string $cart_item
+	 * @param string $cart_item_key
 	 *
 	 * @return mixed|void
 	 */
@@ -183,8 +180,10 @@ class CartPops_Frontend_Helpers {
 	}
 
 	/**
-	 * @param $cart_item
-	 * @param $cart_item_key
+	 * Returns the quantity from the cart item.
+	 *
+	 * @param string $cart_item
+	 * @param string $cart_item_key
 	 *
 	 * @return string
 	 */
@@ -193,8 +192,10 @@ class CartPops_Frontend_Helpers {
 	}
 
 	/**
-	 * @param $cart_item
-	 * @param $cart_item_key
+	 * Returns the cart item.
+	 *
+	 * @param array  $cart_item
+	 * @param string $cart_item_key
 	 *
 	 * @return WC_Product
 	 */

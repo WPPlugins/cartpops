@@ -2,8 +2,6 @@
 /**
  * Beacon JS template.
  *
- * @since 3.6
- *
  * @param array $data {
  *      @type string $form_id  Beacon form ID.
  *      @type string $identify Identify data to send to Helpscout.

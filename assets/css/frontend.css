@@ -1,4 +1,4 @@
-/*! Copyright © Chris Jayden <help@cartpops.com> (https://cartpops.com) - cartpops - v1.2.12 - 27-02-2021 */
+/*! Copyright © Chris Jayden <help@cartpops.com> (https://cartpops.com) - cartpops - v1.2.14 - 07-04-2021 */
 @keyframes spinAround {
   from {
     transform: rotate(0deg); }
@@ -372,7 +372,7 @@ html.cpops-trigger-open body {
 #cartpops-assistant {
   height: 100%;
   position: fixed;
-  max-width: 460px;
+  max-width: var(--cpops-width-drawer-desktop, 460px);
   top: 0;
   right: 0;
   border-radius: 6px;
@@ -389,7 +389,7 @@ html.cpops-trigger-open body {
   background-color: var(--color-cpops-background-primary) ; }
   @media (max-width: 544px) {
     #cartpops-assistant {
-      width: 90%;
+      max-width: var(--cpops-width-drawer-mobile, 90%);
       padding: 0 14px; } }
   #cartpops-assistant .cpops-assistant-panel {
     height: 100vh;

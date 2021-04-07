@@ -5,7 +5,7 @@ Tags: add to cart popup, added to cart, cart, shop, shopping cart, cart drawer, 
 Requires at least: 5.1
 Tested up to: 5.6.1
 Requires PHP: 7.0
-Stable tag: 1.2.12
+Stable tag: 1.2.14
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -119,6 +119,14 @@ With this widget, you can easily style the Cart Launcher and show it anywhere yo
 If you have a caching plugin installed, or use any sort of caching in your site (DNS caching, object caching, etc), please clear those caches to make sure your browser loads the updated scripts.
 
 == Changelog ==
+
+#### Version 1.2.14 - 7 April 2021
+- **upgrade**: Spreed improvements.
+- **upgrade**: Fix occassions where a deleted coupon was unable to be added again.
+- **upgrade**: Added several filters/actions. Click [here](https://cartpops.com/docs/) to view the hook documentation.
+
+#### Version 1.2.13 -  5 March 2021
+- **upgrade**: PRO: Fix static content in popup. 😅
 
 #### Version 1.2.12 - 27 February 2021
 - **upgrade**: Fix an installation issue with multi-sites. ↔️

@@ -211,21 +211,27 @@ class CartPops_Settings
     {
         $menu_items['dashboard'] = array(
             'title' => __( 'Dashboard', 'cartpops' ),
+            'icon'  => $this->get_admin_asset( 'menu-item-dashboard.svg' ),
         );
         $menu_items['appearance'] = array(
             'title' => __( 'Appearance', 'cartpops' ),
+            'icon'  => $this->get_admin_asset( 'menu-item-appearance.svg' ),
         );
         $menu_items['customization'] = array(
             'title' => __( 'Customization', 'cartpops' ),
+            'icon'  => $this->get_admin_asset( 'menu-item-customization.svg' ),
         );
         $menu_items['settings'] = array(
             'title' => __( 'Settings', 'cartpops' ),
+            'icon'  => $this->get_admin_asset( 'menu-item-settings.svg' ),
         );
         $menu_items['power_ups'] = array(
             'title' => __( 'Power-ups', 'cartpops' ),
+            'icon'  => $this->get_admin_asset( 'menu-item-power_ups.svg' ),
         );
         $menu_items['advanced'] = array(
             'title' => __( 'Advanced', 'cartpops' ),
+            'icon'  => $this->get_admin_asset( 'menu-item-advanced.svg' ),
         );
         $menu_items = apply_filters( 'cartpops_settings_menu_items', $menu_items );
         return $menu_items;
@@ -942,13 +948,15 @@ class CartPops_Settings
      * @param string $type WooCommerce product type.
      * @author Chris Jayden <help@cartpops.com>
      */
-    public function get_all_products( $type = 'simple' )
+    public function get_product()
     {
         $all_products = array();
         // Get external products.
         $args = array(
-            'type'           => $type,
-            'posts_per_page' => -1,
+            's'              => $_GET['q'],
+            'type'           => 'simple',
+            'post_status'    => 'publish',
+            'posts_per_page' => 50,
         );
         $products = wc_get_products( $args );
         if ( !empty($products) && !is_wp_error( $products ) ) {
@@ -956,7 +964,8 @@ class CartPops_Settings
                 $all_products[$product->get_id()] = $product->get_name();
             }
         }
-        return $all_products;
+        echo  json_encode( $all_products ) ;
+        die;
     }
     
     /**
@@ -998,12 +1007,6 @@ class CartPops_Settings
                 $issues['wc_cart_redirect']['fix'] = sprintf( __( 'Turn off "Redirect to the cart page after successful addition" in the WooCommerce plugin settings. %s.', 'cartpops' ), sprintf( '<a href="%s" rel="noopener nofollower" target="_blank">%s</a>', admin_url( 'admin.php?page=wc-settings&tab=products' ), __( 'Take me there', 'cartpops' ) ) );
             }
             
-            // if ( ! wp_script_is( 'wc-cart-fragments', 'enqueued' ) ) {
-            // $issues['wc_cart_fragments']['category'] = array( 'general' );
-            // $issues['wc_cart_fragments']['error']    = __( 'Your WooCommerce fragments are dequeued (turned off). Some features of CartPops might not work as expected. Test your front-end thorougly.', 'cartpops' );
-            // * translators: 1. Link */
-            // $issues['wc_cart_fragments']['fix'] = sprintf( __( 'If you know what you are doing. Good! If not, get in touch with %s.', 'cartpops' ), sprintf( '<a href="%s" rel="noopener nofollower" target="_blank">%s</a>', cartpops_outbound_url( 'docs', 'Plugin Dashboard', 'Troubleshoot' ), __( 'support', 'cartpops' ) ) );
-            // }
             set_transient( 'cartpops_potential_issues', $issues, DAY_IN_SECONDS );
         }
         
@@ -1022,7 +1025,8 @@ class CartPops_Settings
      */
     public function delete_issues_transient()
     {
-        if ( !wp_verify_nonce( $_POST['nonce'], 'ajax-nonce' ) ) {
+        $nonce = ( isset( $_POST['nonce'] ) ? sanitize_key( wp_unslash( $_POST['nonce'] ) ) : '' );
+        if ( !wp_verify_nonce( $nonce, 'ajax-nonce' ) ) {
             die( 'Busted!' );
         }
         $deleted = delete_transient( 'cartpops_potential_issues' );
@@ -1187,10 +1191,30 @@ class CartPops_Settings
                 $html .= '<select multiple="multiple" ' . cartpops_implode_html_attributes( $attributes ) . '>';
                 foreach ( $field['options'] as $k => $v ) {
                     $selected = false;
-                    if ( in_array( $k, $data ) ) {
+                    if ( in_array( $k, $data, true ) ) {
                         $selected = true;
                     }
                     $html .= '<option ' . selected( $selected, true, false ) . ' value="' . esc_attr( $k ) . '" />' . $v . '</label> ';
+                }
+                $html .= '</select> ';
+                break;
+            case 'select_products':
+                $attributes = array(
+                    'class' => 'init_select2',
+                    'name'  => esc_attr( $option_name ) . '[]',
+                    'id'    => esc_attr( $field['id'] ),
+                );
+                if ( $field['attributes'] ) {
+                    $attributes = array_merge( $attributes, $field['attributes'] );
+                }
+                $html .= '<select multiple="multiple" ' . cartpops_implode_html_attributes( $attributes ) . '>';
+                foreach ( $field['options'] as $k => $product_id ) {
+                    $selected = false;
+                    if ( in_array( $product_id, $data, true ) ) {
+                        $selected = true;
+                    }
+                    $product = wc_get_product( $product_id );
+                    $html .= '<option ' . selected( $selected, true, false ) . ' value="' . esc_attr( $product_id ) . '" />' . $product->get_title() . '</label> ';
                 }
                 $html .= '</select> ';
                 break;
@@ -1288,15 +1312,16 @@ class CartPops_Settings
                 continue;
             }
             printf(
-                '<a class="change-tab" href="%1$s" data-tab="%2$s">%3$s</a>',
-                add_query_arg( array(
+                '<a class="%1$s" href="%2$s" data-tab="%3$s">%4$s</a>',
+                ( empty($menu_item['href']) ? 'change-tab' : 'ext-link' ),
+                ( empty($menu_item['href']) ? add_query_arg( array(
                 'tab' => $menu_id,
-            ) ),
+            ) ) : esc_url( $menu_item['href'] ) ),
                 $menu_id,
                 sprintf(
                 '<li class="%1$s"><img src="%2$s" />%3$s %4$s</li>',
                 ( $current_tab === $menu_id ? 'active' : '' ),
-                esc_attr( $this->get_admin_asset( 'menu-item-' . $menu_id . '.svg' ) ),
+                esc_attr( $menu_item['icon'] ),
                 esc_attr( $menu_item['title'] ),
                 ( true === $this->has_issues && 'dashboard' === $menu_id ? '<i class="cartpops-has-margin-left-sm" style="color:red" data-feather="alert-circle"></i>' : '' )
             )

@@ -14,10 +14,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div class="<?php echo esc_html( implode( ' ', array_filter( $classes ) ) ); ?>">
 	<span><?php echo esc_html( $title ); ?></span>
-	<form id="cpops-coupon-submit">
+	<form class="cpops-coupon-form">
 		<div class="cpops-drawer-coupon__input">
 			<input type="text" id="cpops-coupon-input" placeholder="<?php echo esc_html( $placeholder_text ); ?>" required>
-			<button type="submit" class=" cpops-coupon-submit"><?php echo esc_html( $button_text ); ?></button>
+			<button type="submit" class="cpops-drawer-form__button"><?php echo esc_html( $button_text ); ?></button>
 		</div>
 	</form>
 	<div class="cpops-coupon-remove">

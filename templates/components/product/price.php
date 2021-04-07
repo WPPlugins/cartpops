@@ -14,6 +14,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <div class="cpops-cart-item__actions--pricing">
 	<div class="cpops-price">
-		<?php echo cpops_frontend_helper()->get_item_price( $product, $cart_item, $cart_item_key ); ?>
+		<?php echo cpops_frontend_helper()->get_item_price( $product, $cart_item, $cart_item_key ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 	</div>
 </div>

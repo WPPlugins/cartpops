@@ -2,8 +2,7 @@
 /**
  * Issues
  *
- * @package     CartPops\Admin\Templates
- * @version     1.0.0
+ * @package     CartPops\Admin\Views
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
