@@ -1,4 +1,4 @@
-/*! Copyright © Chris Jayden <help@cartpops.com> (https://cartpops.com) - cartpops - v1.2.14 - 07-04-2021 */
+/*! Copyright © Chris Jayden <help@cartpops.com> (https://cartpops.com) - cartpops - v1.2.15 - 08-04-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -1916,8 +1916,8 @@ var CartPopsAssistant = /*#__PURE__*/function (_CartPopsCore) {
     value: function _initListeners(self) {
       this.drawerEl = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#cartpops-drawer');
 
-      if (this.assistantTriggers) {
-        this.drawerEl.on('click', this.assistantTriggers, this.openAssistant.bind(self));
+      if (this.assistantTriggers && this.assistantEl) {
+        jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).on('click', '.cpops-toggle-assistant', this.openAssistant.bind(self));
       }
     }
     /**
@@ -2066,9 +2066,9 @@ var CartPopsCart = /*#__PURE__*/function (_CartPopsCore) {
       if (this.config.ajaxAddToCart) {
         this.documentBody.on('submit', 'form.cart', this.singleAddProduct.bind(self));
       } // View cart links/buttons.
+      //this.documentBody.on( 'click', 'a.added_to_cart', this.viewCart.bind( self ) );
+      // Quantity selectors.
 
-
-      this.documentBody.on('click', 'a.added_to_cart', this.viewCart.bind(self)); // Quantity selectors.
 
       this.drawerEl.on('click', '.cpops-cart-item__quantity button', this.quantitySelector.bind(self));
       this.drawerEl.on('change', '.cpops-quantity__input', this.quantiySelectorChange.bind(self)); // Restore and remove.

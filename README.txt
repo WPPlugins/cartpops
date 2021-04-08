@@ -3,9 +3,9 @@ Contributors: cartpops
 Donate link: https://cartpops.com
 Tags: add to cart popup, added to cart, cart, shop, shopping cart, cart drawer, floating cart, woo-commerce, woocommerce
 Requires at least: 5.1
-Tested up to: 5.6.1
+Tested up to: 5.7
 Requires PHP: 7.0
-Stable tag: 1.2.14
+Stable tag: 1.2.15
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -119,6 +119,9 @@ With this widget, you can easily style the Cart Launcher and show it anywhere yo
 If you have a caching plugin installed, or use any sort of caching in your site (DNS caching, object caching, etc), please clear those caches to make sure your browser loads the updated scripts.
 
 == Changelog ==
+
+#### Version 1.2.15 - 8 April 2021
+- **upgrade**: Hot fixed an issue with an event listener taking over the checkout button.
 
 #### Version 1.2.14 - 7 April 2021
 - **upgrade**: Spreed improvements.
