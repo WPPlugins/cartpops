@@ -61,8 +61,11 @@ class CartPops_Frontend_Ajax
             }
         }
         
-        // Floating Cart Launcher icon count.
-        $fragments['.cpops-floating-cart__count'] = '<div class="cpops-floating-cart__count"><span>' . $cart_count . '</span></div>';
+        // Floating cart launcher.
+        ob_start();
+        $this->templates->render_floating_cart_launcher();
+        $cart_launcher_floating = ob_get_clean();
+        $fragments['div#cpops-floating-cart'] = $cart_launcher_floating;
         // Update cart totals.
         ob_start();
         $this->templates->render_cart_totals();
@@ -70,7 +73,7 @@ class CartPops_Frontend_Ajax
         $fragments['div.cpops-cart-total'] = $cart_totals;
         // Coupon apply and remove.
         
-        if ( in_array( $request_type, array( 'apply_coupon', 'remove_coupon' ), true ) ) {
+        if ( $coupons ) {
             ob_start();
             $this->templates->render_coupon_removal();
             $coupon_form = ob_get_clean();
@@ -163,6 +166,7 @@ class CartPops_Frontend_Ajax
     
     /**
      * AJAX: Add a product to the cart.
+     * Ignores archive add to carts as they as AJAX by default.
      *
      * @author Chris Jayden <help@cartpops.com>
      */
@@ -375,7 +379,13 @@ class CartPops_Frontend_Ajax
                     if ( is_wp_error( $valid ) ) {
                         WC()->session->set( 'cartpops_coupon_error', $valid->get_error_message() );
                     }
-                    $this->set_notification( esc_html__( 'Sorry, this coupon code is not valid!', 'cartpops' ), 'error' );
+                    
+                    if ( $valid->get_error_message() ) {
+                        $this->set_notification( $valid->get_error_message(), 'error' );
+                    } else {
+                        $this->set_notification( esc_html__( 'Sorry, this coupon code is not valid!', 'cartpops' ), 'error' );
+                    }
+                
                 }
             
             } else {

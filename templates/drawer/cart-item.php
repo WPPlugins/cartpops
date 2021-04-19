@@ -49,4 +49,5 @@ $args = array(
 			cpops_frontend_helper()->get_template( 'components/product/price', $args );
 		?>
 	</div>
+
 </div>

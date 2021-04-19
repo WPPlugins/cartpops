@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<form class="cpops-coupon-form">
 		<div class="cpops-drawer-coupon__input">
 			<input type="text" id="cpops-coupon-input" placeholder="<?php echo esc_html( $placeholder_text ); ?>" required>
-			<button type="submit" class="cpops-drawer-form__button"><?php echo esc_html( $button_text ); ?></button>
+			<button type="submit" class="cpops-drawer-form__button cpops-button"><?php echo esc_html( $button_text ); ?></button>
 		</div>
 	</form>
 	<div class="cpops-coupon-remove">

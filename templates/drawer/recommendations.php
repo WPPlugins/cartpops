@@ -51,9 +51,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 					</div>
 
 					<div class="cpops-cart-item__actions">
-						<div class="cpops-add-to-cart" data-pid="<?php echo $recommended_product->get_id(); ?>">
-							<button type="button" data-cpops-cart-open="false" data-cpops-type="recommendation" value="<?php echo $recommended_product->get_id(); ?>"data-quantity="1" data-product_id="<?php echo $recommended_product->get_id(); ?>" class="cpops-btn-plus add_to_cart_button ajax_add_to_cart">
+						<div class="cpops-add-to-cart">
+							<button class="cpops-btn__upsell cpops-button add_to_cart_button ajax_add_to_cart" type="button" data-cpops-cart-open="false" data-cpops-type="recommendation" value="<?php echo $recommended_product->get_id(); ?>" data-quantity="1" data-product_id="<?php echo $recommended_product->get_id(); ?>">
+								<?php if ( 'text' === $button_type || 'text_icon' === $button_type ) : ?>
+									<span><?php echo esc_html( $button_text ); ?></span>
+								<?php endif; ?>
+								<?php if ( 'icon' === $button_type || 'text_icon' === $button_type ) : ?>
 									<svg aria-hidden="true" focusable="false" role="presentation" class="cpops-icon" viewBox="0 0 20 20"><path fill="#444" d="M17.409 8.929h-6.695V2.258c0-.566-.506-1.029-1.071-1.029s-1.071.463-1.071 1.029v6.671H1.967C1.401 8.929.938 9.435.938 10s.463 1.071 1.029 1.071h6.605V17.7c0 .566.506 1.029 1.071 1.029s1.071-.463 1.071-1.029v-6.629h6.695c.566 0 1.029-.506 1.029-1.071s-.463-1.071-1.029-1.071z"></path></svg>
+								<?php endif; ?>
 							</button>
 						</div>
 					</div>

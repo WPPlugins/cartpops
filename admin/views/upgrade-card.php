@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="card-content">
 		<div class="card-inside">
 			<img class="rocket" src="<?php echo esc_url( $this->get_admin_asset( 'rocket.png' ) ); ?>" />
-			<h2>Special Lifetime Deal</h2>
+			<h2>Level up your store</h2>
 			<p>Upgrade your WooCommerce Cart today and convert more customers</p>
 			<ul>
 				<li><i data-feather="check"></i><?php echo __( 'Popup & Bar Add To Cart Triggers', 'cartpops' ); ?></li>

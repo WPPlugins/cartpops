@@ -97,6 +97,9 @@ class CartPops_Activator
         add_option( 'cartpops_product_recommendation_engine_type', 'upsells' );
         add_option( 'cartpops_product_recommendation_engine_text', 'You might also like these items' );
         add_option( 'cartpops_product_recommendation_engine_fallback', 'random_products' );
+        add_option( 'cartpops_product_recommendation_engine_button_type', 'icon' );
+        // Settings: Customization.
+        add_option( 'customize_white_space_text', 'break' );
     }
 
 }

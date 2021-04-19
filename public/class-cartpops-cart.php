@@ -116,17 +116,22 @@ class CartPops_Cart
     public function render_floating_cart_launcher()
     {
         $enabled = cartpops_get_option( 'floating_cart_launcher_enable' );
+        $hide_if_empty = cartpops_get_option( 'floating_cart_launcher_hide_empty' );
         if ( !$enabled ) {
             return;
         }
-        if ( is_cart() || is_checkout() ) {
+        if ( is_checkout() ) {
             return;
         }
+        $cart_count = WC()->cart->get_cart_contents_count();
         $data = array(
             'classes'      => apply_filters( 'cartpops_floating_cart_launcher_classes', array( 'cpops-toggle-drawer' ) ),
-            'item_account' => WC()->cart->get_cart_contents_count(),
+            'item_account' => $cart_count,
         );
-        cpops_frontend_helper()->get_template( 'components/launcher', $data );
+        if ( $hide_if_empty && 0 === $cart_count ) {
+            $data['classes'][] = 'cpops-floating-cart-empty';
+        }
+        return cpops_frontend_helper()->get_template( 'components/launcher', $data, false );
     }
     
     /**
@@ -332,6 +337,8 @@ class CartPops_Cart
     public function render_drawer_recommendations()
     {
         $products = $this->get_recommendations();
+        $button_text = cartpops_get_option( 'cartpops_product_recommendation_engine_button_text' );
+        $button_type = cartpops_get_option( 'cartpops_product_recommendation_engine_button_type' );
         
         if ( !empty($products) ) {
             $title = $this->product_recommendation_engine_text;
@@ -339,6 +346,8 @@ class CartPops_Cart
                 'classes'              => apply_filters( 'cartpops_drawer_recommendations_classes', array( 'cpops-drawer-recommendations' ) ),
                 'title'                => ( !empty($title) ? $title : __( 'You might also like these items!', 'cartpops' ) ),
                 'recommended_products' => $products,
+                'button_text'          => ( !empty($button_text) ? $button_text : 'Add' ),
+                'button_type'          => $button_type,
             );
             if ( 'slick' === $this->animation_type ) {
                 $data['classes'][] = self::get_animation_class();
@@ -386,7 +395,7 @@ class CartPops_Cart
                 $product_ids = $_product->get_cross_sell_ids();
             }
         }
-        // Match upsells and cross-sells with current cart.
+        // Gather products and exclude any products that are in the cart already.
         foreach ( $product_ids as $product_id ) {
             $_product = wc_get_product( $product_id );
             $product_cart_id = WC()->cart->generate_cart_id( $product_id );
@@ -394,6 +403,7 @@ class CartPops_Cart
                 $products[] = $_product;
             }
         }
+        // No products found
         if ( empty($products) ) {
             switch ( $recommendation_fallback ) {
                 case 'random_products':

@@ -1,4 +1,4 @@
-/*! Copyright © Chris Jayden <help@cartpops.com> (https://cartpops.com) - cartpops - v1.2.15 - 08-04-2021 */
+/*! Copyright © Chris Jayden <help@cartpops.com> (https://cartpops.com) - cartpops - v1.2.16 - 18-04-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -2066,9 +2066,11 @@ var CartPopsCart = /*#__PURE__*/function (_CartPopsCore) {
       if (this.config.ajaxAddToCart) {
         this.documentBody.on('submit', 'form.cart', this.singleAddProduct.bind(self));
       } // View cart links/buttons.
-      //this.documentBody.on( 'click', 'a.added_to_cart', this.viewCart.bind( self ) );
-      // Quantity selectors.
 
+
+      this.documentBody.on('click', 'a.added_to_cart', this.viewCart.bind(self)); // Cart notifications
+
+      this.drawerEl.on('click', '.cpops-drawer-notices-wrapper', this.hideCartNotification.bind(self)); // Quantity selectors.
 
       this.drawerEl.on('click', '.cpops-cart-item__quantity button', this.quantitySelector.bind(self));
       this.drawerEl.on('change', '.cpops-quantity__input', this.quantiySelectorChange.bind(self)); // Restore and remove.
@@ -2234,12 +2236,15 @@ var CartPopsCart = /*#__PURE__*/function (_CartPopsCore) {
       }
 
       var buttonArr = jquery__WEBPACK_IMPORTED_MODULE_0___default()(button);
+      var addedToCartMessage = this.config.genericAddToCartMessage;
+      var notificationEl = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.cpops-drawer-notices-wrapper');
       var openFlag = true;
       _modules_Requests__WEBPACK_IMPORTED_MODULE_6__.refreshFragments({
         data: {
           fragments: response
         }
       }, this.requestType.addToCart);
+      notificationEl.empty();
       jquery__WEBPACK_IMPORTED_MODULE_0___default().each(buttonArr, function (key, item) {
         if ('false' === item.getAttribute('data-cpops-cart-open')) {
           openFlag = false;
@@ -2261,6 +2266,11 @@ var CartPopsCart = /*#__PURE__*/function (_CartPopsCore) {
             break;
         }
       }
+
+      notificationEl.append("<div class=\"cpops-notification cpops-has-shadow cpops-is-light cpops-is-success\" data-type=\"success\">".concat(addedToCartMessage, "</div>"));
+      setTimeout(function () {
+        notificationEl.empty();
+      }, this.config.notificationDelay);
     }
     /**
      * Handles the (+/-) quantity selectors.
@@ -2374,6 +2384,18 @@ var CartPopsCart = /*#__PURE__*/function (_CartPopsCore) {
       var coupon = jquery__WEBPACK_IMPORTED_MODULE_0___default()(element).attr('data-coupon');
 
       (0,_modules_Coupons__WEBPACK_IMPORTED_MODULE_3__.removeCoupon)(coupon, element.parent());
+    }
+    /**
+     * Hide cart notification on click
+     * @param {object} ev The Event object.
+     */
+
+  }, {
+    key: "hideCartNotification",
+    value: function hideCartNotification(ev) {
+      ev.preventDefault();
+      var element = jquery__WEBPACK_IMPORTED_MODULE_0___default()(ev.currentTarget);
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()(element).hide();
     }
   }]);
 
@@ -3235,8 +3257,8 @@ function addToCart(form, data, button) {
   _Requests__WEBPACK_IMPORTED_MODULE_4__.block(data.request_type);
   button.addClass('loading');
   httpClient.post(CartPopsConfig.ajax_url, qs__WEBPACK_IMPORTED_MODULE_3___default().stringify(data)).then(function (response) {
-    log.send('Product added to cart succesfully with data:', response.data);
-    _Requests__WEBPACK_IMPORTED_MODULE_4__.refreshFragments(response, data.request_type); // Trigger added to cart event.
+    log.send('Product added to cart succesfully with data:', response.data); // Fragments are refreshed via the added_to_cart listener in Cart.js
+    // Trigger added to cart event.
 
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(document.body).trigger('added_to_cart', [response.data.fragments, response.data.cart_hash, button]);
   })["catch"](function (error) {
@@ -3555,12 +3577,14 @@ var log = new _Loggin__WEBPACK_IMPORTED_MODULE_1__.default('Remove Product');
 
 function removeProduct(cartKey) {
   var httpClient = (axios__WEBPACK_IMPORTED_MODULE_2___default());
+  var cartItemEl = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".cpops-cart-item[data-key='".concat(cartKey, "']"));
   var data = {
     nonce: CartPopsConfig.nonce,
     action: 'cpops_remove_product',
     cart_key: cartKey,
     request_type: 'remove_product'
   };
+  cartItemEl.append('<div class="cpops-cart-item__loading"><div class="cpops-cart-item__spinner"></div></div>');
   _Requests__WEBPACK_IMPORTED_MODULE_4__.block(data.request_type);
   log.send('Removing product from cart with data:', data);
   httpClient.post(CartPopsConfig.ajax_url, qs__WEBPACK_IMPORTED_MODULE_3___default().stringify(data)).then(function (response) {
@@ -3591,6 +3615,7 @@ function restoreProduct(cartKey) {
   })["catch"](function (error) {
     log.send('Error restoring product', error);
   })["finally"](function () {
+    cartItemEl.find('.cpops-cart-item__loading').remove();
     _Requests__WEBPACK_IMPORTED_MODULE_4__.unblock(data.request_type);
   });
 }
@@ -3617,6 +3642,7 @@ __webpack_require__.r(__webpack_exports__);
 window.jQuery = (jquery__WEBPACK_IMPORTED_MODULE_0___default());
 window.$ = (jquery__WEBPACK_IMPORTED_MODULE_0___default());
 var cartNotificationId = null;
+var config = window.CartPopsConfig;
 /**
  * Handle the response after a succesfull call with Axios.
  * Request types are: add_to_cart, update_cart, remove_product, restore_product
@@ -3627,6 +3653,7 @@ var cartNotificationId = null;
 function refreshFragments(response) {
   var requestType = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
   refreshFragmentsStarted();
+  emptyNotifications();
   var cartHashKey = wc_cart_fragments_params.ajax_url.toString() + '-wc_cart_hash';
   var fragments = response.data.fragments;
   var cartHash = response.data.cart_hash;
@@ -3637,6 +3664,7 @@ function refreshFragments(response) {
     });
     jquery__WEBPACK_IMPORTED_MODULE_0___default()(document.body).trigger('wc_fragments_refreshed');
     sessionStorage.setItem(wc_cart_fragments_params.fragment_name, JSON.stringify(fragments));
+    showNotifications();
   }
 
   if (cartHash && cartHashKey) {
@@ -3645,6 +3673,7 @@ function refreshFragments(response) {
     sessionStorage.setItem('wc_cart_created', new Date().getTime());
   }
 
+  hideNotifications();
   refreshFragmentsCompleted();
 }
 function block() {
@@ -3658,20 +3687,31 @@ function unblock() {
 
 var refreshFragmentsStarted = function refreshFragmentsStarted() {};
 
-var refreshFragmentsCompleted = function refreshFragmentsCompleted() {
-  hideNotifications();
+var refreshFragmentsCompleted = function refreshFragmentsCompleted() {};
+
+var emptyNotifications = function emptyNotifications() {
+  jquery__WEBPACK_IMPORTED_MODULE_0___default()('.cpops-drawer-notices-wrapper').empty();
 };
+
+var showNotifications = function showNotifications() {
+  setTimeout(function () {
+    jquery__WEBPACK_IMPORTED_MODULE_0___default()('.cpops-drawer-notices-wrapper').show();
+  }, 250);
+};
+/**
+ * Hide any notifications.
+ */
+
 
 var hideNotifications = function hideNotifications() {
   if (cartNotificationId) {
     clearTimeout(cartNotificationId);
   }
 
-  jquery__WEBPACK_IMPORTED_MODULE_0___default()('.cpops-drawer-notices-wrapper').show();
   cartNotificationId = setTimeout(function () {
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('.cpops-drawer-notices-wrapper').empty();
     jquery__WEBPACK_IMPORTED_MODULE_0___default()('.cpops-drawer-notices-wrapper').hide();
-  }, 4500);
+  }, config.notificationDelay);
 };
 
 /***/ }),
@@ -3708,22 +3748,22 @@ window.$ = (jquery__WEBPACK_IMPORTED_MODULE_0___default());
 var log = new _Loggin__WEBPACK_IMPORTED_MODULE_1__.default('Update Cart');
 /**
  * AJAX call to update the cart.
- * @param {string} cart_key Cart key
+ * @param {string} cartKey Cart key
  * @param {int} quantity Quantity
  * @param {element} button HTML Button
  */
 
-function updateCart(cart_key, quantity, button) {
+function updateCart(cartKey, quantity, button) {
   var httpClient = (axios__WEBPACK_IMPORTED_MODULE_2___default());
-  var original_button = button.html();
-  button.html('<span class="quantity__button--loader"></span>');
+  var cartItemEl = jquery__WEBPACK_IMPORTED_MODULE_0___default()(".cpops-cart-item[data-key='".concat(cartKey, "']"));
   var data = {
     nonce: CartPopsConfig.nonce,
     action: 'cpops_update_cart',
-    cart_key: cart_key,
+    cart_key: cartKey,
     quantity: quantity,
     request_type: 'update_cart'
   };
+  cartItemEl.append('<div class="cpops-cart-item__loading"><div class="cpops-cart-item__spinner"></div></div>');
   _Requests__WEBPACK_IMPORTED_MODULE_4__.block(data.request_type);
   log.send('Preparing to update the cart with data:', data);
   httpClient.post(CartPopsConfig.ajax_url, qs__WEBPACK_IMPORTED_MODULE_3___default().stringify(data)).then(function (response) {
@@ -3733,8 +3773,8 @@ function updateCart(cart_key, quantity, button) {
   })["catch"](function (error) {
     console.log(error);
   })["finally"](function () {
+    cartItemEl.find('.cpops-cart-item__loading').remove();
     _Requests__WEBPACK_IMPORTED_MODULE_4__.unblock(data.request_type);
-    button.html(original_button);
   });
 }
 
@@ -3852,7 +3892,14 @@ var Triggers = /*#__PURE__*/function (_EventEmitter) {
         this._createBar();
       }
 
+      this._createEventListeners(self);
+
       window.CartPops = self;
+    }
+  }, {
+    key: "_createEventListeners",
+    value: function _createEventListeners(self) {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()(document).on('click', '.cpops-toggle-drawer', this.drawerTriggers.bind(self));
     }
     /**
      * Create the Drawer modal.
@@ -3861,24 +3908,17 @@ var Triggers = /*#__PURE__*/function (_EventEmitter) {
   }, {
     key: "_createDrawer",
     value: function _createDrawer() {
-      var _this2 = this;
-
       this.drawer = new _lib_modal__WEBPACK_IMPORTED_MODULE_2__.default({
         el: this.drawerEl,
         type: 'drawer'
       });
-
-      if (this.drawerToggles) {
-        this.drawerToggles.forEach(function (toggle) {
-          toggle.addEventListener('click', function (event) {
-            event.preventDefault();
-
-            _this2.drawer.show();
-          });
-        });
-      }
-
       (0,_Collapse__WEBPACK_IMPORTED_MODULE_3__.default)();
+    }
+  }, {
+    key: "drawerTriggers",
+    value: function drawerTriggers(ev) {
+      ev.preventDefault();
+      this.drawer.show();
     }
     /**
      * Create the Popup modal.

@@ -354,6 +354,26 @@ class CartPops_Settings
             'random_products' => __( 'Show random products', 'cartpops' ),
         ),
             'default' => array( 'hide' ),
+        ),
+            array(
+            'id'      => 'cartpops_product_recommendation_engine_button_type',
+            'label'   => __( 'Button type', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/product-recommendation-engine/', 'Tooltip', 'Documentation' ) ),
+            'tooltip' => __( 'Select what type of button you want to use.', 'cartpops' ),
+            'type'    => 'select',
+            'options' => array(
+            'icon'      => __( 'Icon', 'cartpops' ),
+            'text'      => __( 'Text (Pro)', 'cartpops' ),
+            'text_icon' => __( 'Text + Icon (Pro)', 'cartpops' ),
+        ),
+            'default' => array( 'hide' ),
+        ),
+            array(
+            'id'          => 'cartpops_product_recommendation_engine_button_text',
+            'label'       => __( 'Button text', 'cartpops' ),
+            'type'        => 'text',
+            'default'     => __( 'Add', 'cartpops' ),
+            'placeholder' => __( 'Add', 'cartpops' ),
+            'attributes'  => array(),
         )
         ),
         );
@@ -412,6 +432,13 @@ class CartPops_Settings
             'value'               => 'on',
             'data-relies-default' => 'hidden',
         ),
+        ), array(
+            'id'      => 'floating_cart_launcher_hide_empty',
+            'label'   => __( 'Hide when cart is empty', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/cart-launcher/#floating-cart-launcher', 'Tooltip', 'Documentation' ) ),
+            'tooltip' => __( 'This will hide the floating cart launcher when the cart is empty', 'cartpops' ),
+            'type'    => 'checkbox',
+            'default' => '',
+            'paid'    => 'true',
         ) ),
         );
         $settings['menu_cart_launcher'] = array(
@@ -636,6 +663,18 @@ class CartPops_Settings
             'description' => __( 'All Product Recommendation Engine color options.', 'cartpops' ),
             'fields'      => array(
             array(
+            'id'      => 'color_recommendations_button_background',
+            'label'   => __( 'Recommendations button background color', 'cartpops' ),
+            'type'    => 'color',
+            'default' => '#000000',
+        ),
+            array(
+            'id'      => 'color_recommendations_button_text',
+            'label'   => __( 'Recommendations button text color', 'cartpops' ),
+            'type'    => 'color',
+            'default' => '#ffffff',
+        ),
+            array(
             'id'      => 'color_recommendations_drawer_background',
             'label'   => __( 'Drawer Recommendations background color', 'cartpops' ),
             'type'    => 'color',
@@ -756,6 +795,14 @@ class CartPops_Settings
             'default'     => '',
             'placeholder' => __( 'My cart', 'cartpops' ),
             'attributes'  => array(),
+        ),
+            array(
+            'id'          => 'generic_add_to_cart_message_text',
+            'label'       => __( 'Generic added to cart message', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/tutorials/translate/', 'Tooltip', 'Translate' ) ),
+            'type'        => 'text',
+            'default'     => '',
+            'attributes'  => array(),
+            'placeholder' => __( 'Product successfully added to your cart.', 'cartpops' ),
         ),
             array(
             'id'          => 'coupon_title_text',
