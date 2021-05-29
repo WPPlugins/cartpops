@@ -117,13 +117,14 @@ class CartPops_Cart
     {
         $enabled = cartpops_get_option( 'floating_cart_launcher_enable' );
         $hide_if_empty = cartpops_get_option( 'floating_cart_launcher_hide_empty' );
+        $cart = WC()->cart;
+        $cart_count = ( !empty($cart) ? $cart->get_cart_contents_count() : 0 );
         if ( !$enabled ) {
             return;
         }
         if ( is_checkout() ) {
             return;
         }
-        $cart_count = WC()->cart->get_cart_contents_count();
         $data = array(
             'classes'      => apply_filters( 'cartpops_floating_cart_launcher_classes', array( 'cpops-toggle-drawer' ) ),
             'item_account' => $cart_count,
@@ -458,19 +459,24 @@ class CartPops_Cart
      */
     private function get_cart_subtotal_order_total_html()
     {
-        $label_translation = cartpops_get_option( 'subtotal_line_item_text' );
+        $enable_subtotal = cartpops_get_option( 'drawer_footer_display_subtotal' );
         $html = '';
-        $label = ( !empty($label_translation) ? $label_translation : __( 'Subtotal', 'cartpops' ) );
-        $has_coupons = WC()->cart->get_cart_discount_total();
-        $value = WC()->cart->get_cart_subtotal();
-        if ( wc_tax_enabled() || $has_coupons ) {
-            $html = $this->create_single_line_item_html(
-                $label,
-                apply_filters( 'cartpops_cart_totals_subtotal_html', $value ),
-                '',
-                'subtotal'
-            );
+        
+        if ( $enable_subtotal ) {
+            $label_translation = cartpops_get_option( 'subtotal_line_item_text' );
+            $label = ( !empty($label_translation) ? $label_translation : __( 'Subtotal', 'cartpops' ) );
+            $has_coupons = WC()->cart->get_cart_discount_total();
+            $value = WC()->cart->get_cart_subtotal();
+            if ( wc_tax_enabled() || $has_coupons ) {
+                $html = $this->create_single_line_item_html(
+                    $label,
+                    apply_filters( 'cartpops_cart_totals_subtotal_html', $value ),
+                    '',
+                    'subtotal'
+                );
+            }
         }
+        
         return $html;
     }
     
@@ -481,47 +487,54 @@ class CartPops_Cart
      */
     private function get_cart_totals_order_total_html()
     {
-        $label_translation = cartpops_get_option( 'total_line_item_text' );
-        $cart = WC()->cart;
-        $tooltip = '';
-        $label = ( !empty($label_translation) ? $label_translation : __( 'Total', 'cartpops' ) );
-        $shipping = $this->get_shipping_totals();
-        $shipping_total = $shipping->total;
-        $shipping_tax_total = $shipping->tax_total;
-        $total_without_shipping = $cart->get_total( 'number' ) - $shipping_total - $shipping_tax_total;
-        $value = '<strong>' . wc_price( $total_without_shipping ) . '</strong> ';
+        $enable_total = cartpops_get_option( 'drawer_footer_display_total' );
+        $html = '';
         
-        if ( wc_tax_enabled() && $cart->display_prices_including_tax() ) {
-            $tax_string_array = array();
-            $cart_tax_totals = $cart->get_tax_totals();
+        if ( $enable_total ) {
+            $cart = WC()->cart;
+            $tooltip = '';
+            $label_translation = cartpops_get_option( 'total_line_item_text' );
+            $enable_shipping = cartpops_get_option( 'drawer_footer_display_shipping' );
+            $label = ( !empty($label_translation) ? $label_translation : __( 'Total', 'cartpops' ) );
+            $shipping = $this->get_shipping_totals();
+            $shipping_total = $shipping->total;
+            $shipping_tax_total = $shipping->tax_total;
+            $total_without_shipping = $cart->get_total( 'number' ) - $shipping_total - $shipping_tax_total;
+            $value = '<strong>' . wc_price( $total_without_shipping ) . '</strong> ';
             
-            if ( get_option( 'woocommerce_tax_total_display' ) === 'itemized' ) {
-                foreach ( $cart_tax_totals as $code => $tax ) {
-                    $tax_string_array[] = sprintf( '%s %s', wc_price( $tax->amount - $shipping_tax_total ), $tax->label );
+            if ( wc_tax_enabled() && $cart->display_prices_including_tax() ) {
+                $tax_string_array = array();
+                $cart_tax_totals = $cart->get_tax_totals();
+                
+                if ( get_option( 'woocommerce_tax_total_display' ) === 'itemized' ) {
+                    foreach ( $cart_tax_totals as $code => $tax ) {
+                        $tax_string_array[] = sprintf( '%s %s', wc_price( $tax->amount - $shipping_tax_total ), $tax->label );
+                    }
+                } elseif ( !empty($cart_tax_totals) ) {
+                    $tax_string_array[] = sprintf( '%s %s', wc_price( $cart->get_taxes_total( true, false ) - $shipping_tax_total ), WC()->countries->tax_or_vat() );
                 }
-            } elseif ( !empty($cart_tax_totals) ) {
-                $tax_string_array[] = sprintf( '%s %s', wc_price( $cart->get_taxes_total( true, false ) - $shipping_tax_total ), WC()->countries->tax_or_vat() );
+                
+                
+                if ( !empty($tax_string_array) ) {
+                    $taxable_address = WC()->customer->get_taxable_address();
+                    $estimated_text = ( WC()->customer->is_customer_outside_base() && !WC()->customer->has_calculated_shipping() ? sprintf( ' ' . __( 'estimated for %s', 'cartpops' ), WC()->countries->estimated_for_prefix( $taxable_address[0] ) . WC()->countries->countries[$taxable_address[0]] ) : '' );
+                    /* translators: %s: tax amount */
+                    $value .= '<small class="includes_tax">' . sprintf( __( '(includes %s)', 'cartpops' ), implode( ', ', $tax_string_array ) . $estimated_text ) . '</small>';
+                }
+            
             }
             
-            
-            if ( !empty($tax_string_array) ) {
-                $taxable_address = WC()->customer->get_taxable_address();
-                $estimated_text = ( WC()->customer->is_customer_outside_base() && !WC()->customer->has_calculated_shipping() ? sprintf( ' ' . __( 'estimated for %s', 'cartpops' ), WC()->countries->estimated_for_prefix( $taxable_address[0] ) . WC()->countries->countries[$taxable_address[0]] ) : '' );
-                /* translators: %s: tax amount */
-                $value .= '<small class="includes_tax">' . sprintf( __( '(includes %s)', 'cartpops' ), implode( ', ', $tax_string_array ) . $estimated_text ) . '</small>';
+            if ( WC()->cart->needs_shipping() && WC()->cart->show_shipping() && !$enable_shipping ) {
+                $tooltip = __( 'Shipping calculated at checkout', 'cartpops' );
             }
-        
+            $html = $this->create_single_line_item_html(
+                $label,
+                apply_filters( 'cartpops_cart_totals_order_total_html', $value ),
+                $tooltip,
+                'total'
+            );
         }
         
-        if ( WC()->cart->needs_shipping() && WC()->cart->show_shipping() ) {
-            $tooltip = __( 'Shipping calculated at checkout', 'cartpops' );
-        }
-        $html = $this->create_single_line_item_html(
-            $label,
-            apply_filters( 'cartpops_cart_totals_order_total_html', $value ),
-            $tooltip,
-            'total'
-        );
         return $html;
     }
     
@@ -532,10 +545,12 @@ class CartPops_Cart
      */
     private function get_cart_tax_order_total_html()
     {
+        $enable_tax = cartpops_get_option( 'drawer_footer_display_tax' );
         $label = '';
         $value = '';
+        $html = '';
         
-        if ( wc_tax_enabled() && !WC()->cart->display_prices_including_tax() ) {
+        if ( $enable_tax && wc_tax_enabled() && !WC()->cart->display_prices_including_tax() ) {
             $shipping = $this->get_shipping_totals();
             $shipping_total = $shipping->total;
             $shipping_tax_total = $shipping->tax_total;
@@ -543,7 +558,7 @@ class CartPops_Cart
             if ( 'itemized' === get_option( 'woocommerce_tax_total_display' ) ) {
                 foreach ( WC()->cart->get_tax_totals() as $code => $tax ) {
                     $tax_excluding_shipping = $tax->amount - $shipping_tax_total;
-                    $label .= 'using';
+                    // $label                 .= 'using';
                     $label .= $tax->label;
                     $value .= wp_kses_post( wc_price( $tax_excluding_shipping ) );
                 }
@@ -551,15 +566,15 @@ class CartPops_Cart
                 $label .= esc_html( WC()->countries->tax_or_vat() );
                 $value .= wc_price( WC()->cart->get_taxes_total( false, false ) - $shipping_tax_total );
             }
-        
+            
+            $html = $this->create_single_line_item_html(
+                $label,
+                apply_filters( 'cartpops_cart_totals_vat_total_html', $value ),
+                '',
+                'tax'
+            );
         }
         
-        $html = $this->create_single_line_item_html(
-            $label,
-            apply_filters( 'cartpops_cart_totals_vat_total_html', $value ),
-            '',
-            'tax'
-        );
         return $html;
     }
     
@@ -572,18 +587,22 @@ class CartPops_Cart
     {
         $html = '';
         $label_translation = cartpops_get_option( 'discount_line_item_text' );
+        $enable_discount = cartpops_get_option( 'drawer_footer_display_discount' );
         $label = ( !empty($label_translation) ? $label_translation : __( 'Discount', 'cartpops' ) );
         $discount_excl_tax_total = WC()->cart->get_cart_discount_total();
         $discount_tax_total = WC()->cart->get_cart_discount_tax_total();
         $discount_total = $discount_excl_tax_total + $discount_tax_total;
         $value = wc_price( $discount_total );
-        if ( $discount_total > 0 ) {
-            $html = $this->create_single_line_item_html(
-                $label,
-                apply_filters( 'cartpops_cart_totals_discount_total_html', $value ),
-                '',
-                'discount'
-            );
+        $html = '';
+        if ( $enable_discount ) {
+            if ( $discount_total > 0 ) {
+                $html = $this->create_single_line_item_html(
+                    $label,
+                    apply_filters( 'cartpops_cart_totals_discount_total_html', $value ),
+                    '',
+                    'discount'
+                );
+            }
         }
         return $html;
     }
@@ -618,13 +637,13 @@ class CartPops_Cart
     )
     {
         $html = '';
-        $classes = apply_filters( 'cartpops_single_line_item_classes', array( 'cpops-cart-line-items__' . $type ) );
+        $classes = apply_filters( 'cartpops_single_line_item_classes', array( 'cpops-cart-line-items__item', 'cpops-cart-line-items__' . $type ) );
         $html .= '<div class="' . esc_html( implode( ' ', array_filter( $classes ) ) ) . '">';
-        $html .= '<span>' . $label;
+        $html .= '<span class="cpops-cart-line-items__label cpops-cart-line-items__' . $type . '-label">' . $label;
         
         if ( $tooltip ) {
             $html .= '<div class="cpops-tooltip">';
-            $html .= '<i class="cpops-tooltip__icon">?</i>';
+            $html .= '<i class="cpops-tooltip__icon>?</i>';
             $html .= '<div class="cpops-tooltip__info">';
             $html .= '<span>' . $tooltip . '</span>';
             $html .= '</div>';
@@ -633,7 +652,7 @@ class CartPops_Cart
         }
         
         $html .= '</span>';
-        $html .= '<span>' . $value . '</span>';
+        $html .= '<span class="cpops-cart-line-items__value cpops-cart-line-items__' . $type . '-value">' . $value . '</span>';
         $html .= '</div>';
         return $html;
     }

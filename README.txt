@@ -3,9 +3,9 @@ Contributors: cartpops
 Donate link: https://cartpops.com
 Tags: add to cart popup, added to cart, cart, shop, shopping cart, cart drawer, floating cart, woo-commerce, woocommerce
 Requires at least: 5.1
-Tested up to: 5.7.1
+Tested up to: 5.7.2
 Requires PHP: 7.0
-Stable tag: 1.2.16
+Stable tag: 1.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -119,6 +119,15 @@ With this widget, you can easily style the Cart Launcher and show it anywhere yo
 If you have a caching plugin installed, or use any sort of caching in your site (DNS caching, object caching, etc), please clear those caches to make sure your browser loads the updated scripts.
 
 == Changelog ==
+
+#### Version 1.3.0 - 29 May 2021
+- **new**: PRO: It's here! Secondary checkout buttons! Choose from View cart, Continue Shopping or enter a custom URL! 🎉
+- **new**: PRO: Allow customers to directly calculate and/or change their shipping directly in the cart 🚛
+- **new**: It's now possible to hide any cart line item! 🤝
+- **new**: Product images are now clickable!
+- **upgrade**: Fixed an issue where if the quantity input field was set to zero it wouldn't remove the item from the cart.
+- **upgrade**: Add Oxygen compatibility. CartPops will shut off when the Oxygen builder is active.
+- **upgrade**: Fixed an issue where the Free Shipping Meter wasn't updating if the shipping rule was set to: "apply minimum order rule before coupon amount".
 
 #### Version 1.2.16 - 18 April 2021
 - **new**: Added beautiful loading indicators when an item is updated or when a coupon is added to the cart. ↩️

@@ -37,6 +37,8 @@ class CartPops_Assets
     {
         $suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min' );
         $custom_css = cartpops_get_option( 'custom_css' );
+        $recommendation_engine = cartpops_get_option( 'product_recommendation_engine_enable' );
+        $shipping_calculator = cartpops_get_option( 'drawer_footer_display_shipping_calculator' );
         wp_enqueue_style(
             'cartpops-frontend',
             CARTPOPS_URL . 'assets/css/frontend' . $suffix . '.css',
@@ -44,13 +46,24 @@ class CartPops_Assets
             $this->version,
             'all'
         );
-        wp_enqueue_style(
-            $this->plugin_name . '-swiper',
-            CARTPOPS_URL . 'assets/lib/swiper/swiper-bundle' . $suffix . '.css',
-            array(),
-            $this->version,
-            'all'
-        );
+        if ( $shipping_calculator ) {
+            wp_enqueue_style(
+                $this->plugin_name . '-select2',
+                CARTPOPS_URL . 'assets/lib/select2/select2-frontend' . $suffix . '.css',
+                array( 'cartpops-frontend' ),
+                $this->version,
+                'all'
+            );
+        }
+        if ( $recommendation_engine ) {
+            wp_enqueue_style(
+                $this->plugin_name . '-swiper',
+                CARTPOPS_URL . 'assets/lib/swiper/swiper-bundle' . $suffix . '.css',
+                array( 'cartpops-frontend' ),
+                $this->version,
+                'all'
+            );
+        }
         if ( $custom_css ) {
             wp_add_inline_style( 'cartpops-frontend', wp_unslash( $custom_css ) );
         }
@@ -65,6 +78,9 @@ class CartPops_Assets
     {
         $suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min' );
         $custom_js = cartpops_get_option( 'custom_js' );
+        $custom_js = cartpops_get_option( 'custom_js' );
+        $recommendation_engine = cartpops_get_option( 'product_recommendation_engine_enable' );
+        $shipping_calculator = cartpops_get_option( 'drawer_footer_display_shipping_calculator' );
         wp_enqueue_script(
             'cartpops-frontend',
             CARTPOPS_URL . 'assets/js/frontend' . $suffix . '.js',
@@ -72,13 +88,21 @@ class CartPops_Assets
             $this->version,
             true
         );
-        wp_enqueue_script(
-            $this->plugin_name . '-swiper',
-            CARTPOPS_URL . 'assets/lib/swiper/swiper-bundle' . $suffix . '.js',
-            array(),
-            $this->version,
-            true
-        );
+        
+        if ( $shipping_calculator ) {
+            wp_enqueue_script( 'wc-country-select' );
+            wp_enqueue_script( 'selectWoo' );
+        }
+        
+        if ( $recommendation_engine ) {
+            wp_enqueue_script(
+                $this->plugin_name . '-swiper',
+                CARTPOPS_URL . 'assets/lib/swiper/swiper-bundle' . $suffix . '.js',
+                array(),
+                $this->version,
+                true
+            );
+        }
         wp_localize_script( 'cartpops-frontend', 'CartPopsConfig', array(
             'script_debug'            => ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? true : false ),
             'ajax_url'                => admin_url( 'admin-ajax.php' ),
@@ -92,6 +116,7 @@ class CartPops_Assets
             'isCartPage'              => wp_json_encode( is_cart() ),
             'genericAddToCartMessage' => ( !empty(cartpops_get_option( 'generic_add_to_cart_message_text' )) ? cartpops_get_option( 'generic_add_to_cart_message_text' ) : __( 'Product successfully added to your cart.', 'cartpops' ) ),
             'notificationDelay'       => 4200,
+            'recommendationEngine'    => ( !empty($recommendation_engine) ? wp_json_encode( true ) : wp_json_encode( false ) ),
         ) );
         if ( $custom_js ) {
             wp_add_inline_script( 'cartpops-frontend', wp_unslash( $custom_js ) );

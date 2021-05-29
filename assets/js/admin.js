@@ -1,4 +1,4 @@
-/*! Copyright © Chris Jayden <help@cartpops.com> (https://cartpops.com) - cartpops - v1.2.16 - 18-04-2021 */
+/*! Copyright © Chris Jayden <help@cartpops.com> (https://cartpops.com) - cartpops - v1.4.0 - 29-05-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -700,16 +700,18 @@ var OptionVisibility = /*#__PURE__*/function () {
     this.cartLauncherOptions();
     this.recommendationsOptions();
     this.shipingMeterOptions();
+    this.secondaryCheckoutBtn();
+    this.shippingLineItem();
   }
 
   _createClass(OptionVisibility, [{
     key: "cartLauncherOptions",
     value: function cartLauncherOptions() {
-      var checkboxCartLauncher = $("#floating_floating_cart_launcher_enable");
-      var fieldCartLauncherPosition = $("#floating_floating_cart_launcher_position");
+      var checkboxCartLauncher = $('#floating_floating_cart_launcher_enable');
+      var fieldCartLauncherPosition = $('#floating_floating_cart_launcher_position');
       var tableRow = fieldCartLauncherPosition.closest('tr');
 
-      if (checkboxCartLauncher.prop("checked")) {
+      if (checkboxCartLauncher.prop('checked')) {
         tableRow.show();
         checkboxCartLauncher.attr('data-relies-default', 'visible');
       } else {
@@ -717,8 +719,33 @@ var OptionVisibility = /*#__PURE__*/function () {
         checkboxCartLauncher.attr('data-relies-default', 'hidden');
       }
 
-      $(checkboxCartLauncher).on("change", function () {
-        if ($(this).prop("checked")) {
+      $(checkboxCartLauncher).on('change', function () {
+        if ($(this).prop('checked')) {
+          tableRow.show();
+          checkboxCartLauncher.attr('data-relies-default', 'visible');
+        } else {
+          tableRow.hide();
+          checkboxCartLauncher.attr('data-relies-default', 'hidden');
+        }
+      });
+    }
+  }, {
+    key: "shippingLineItem",
+    value: function shippingLineItem() {
+      var shippingLineItemCheckbox = $('#drawer_footer_display_shipping');
+      var shippingCalculatorCheckbox = $('#drawer_footer_display_shipping_calculator');
+      var tableRow = shippingCalculatorCheckbox.closest('tr');
+
+      if (shippingLineItemCheckbox.prop('checked')) {
+        tableRow.show();
+        shippingLineItemCheckbox.attr('data-relies-default', 'visible');
+      } else {
+        tableRow.hide();
+        shippingLineItemCheckbox.attr('data-relies-default', 'hidden');
+      }
+
+      $(shippingLineItemCheckbox).on('change', function () {
+        if ($(this).prop('checked')) {
           tableRow.show();
           checkboxCartLauncher.attr('data-relies-default', 'visible');
         } else {
@@ -730,11 +757,11 @@ var OptionVisibility = /*#__PURE__*/function () {
   }, {
     key: "supportUsOptions",
     value: function supportUsOptions() {
-      var checkboxSupportUs = $("#support_us_enable");
-      var fieldPartnerCode = $("#support_us_partner_code");
+      var checkboxSupportUs = $('#support_us_enable');
+      var fieldPartnerCode = $('#support_us_partner_code');
       var tableRow = fieldPartnerCode.closest('tr');
 
-      if (checkboxSupportUs.prop("checked")) {
+      if (checkboxSupportUs.prop('checked')) {
         tableRow.show();
         fieldPartnerCode.attr('data-relies-default', 'visible');
       } else {
@@ -742,8 +769,8 @@ var OptionVisibility = /*#__PURE__*/function () {
         fieldPartnerCode.attr('data-relies-default', 'hidden');
       }
 
-      $(checkboxSupportUs).on("change", function () {
-        if ($(this).prop("checked")) {
+      $(checkboxSupportUs).on('change', function () {
+        if ($(this).prop('checked')) {
           tableRow.show();
           fieldPartnerCode.attr('data-relies-default', 'visible');
         } else {
@@ -753,24 +780,59 @@ var OptionVisibility = /*#__PURE__*/function () {
       });
     }
   }, {
+    key: "secondaryCheckoutBtn",
+    value: function secondaryCheckoutBtn() {
+      var secondaryCheckoutBtnSelect = $('#drawer_footer_secondary_button');
+      var customLink = $('#drawer_footer_secondary_button_custom_url');
+      var customLinkRow = customLink.closest('tr');
+      var customText = $('#drawer_footer_secondary_button_custom_text');
+      var customTextRow = customText.closest('tr');
+
+      if ('custom_url' === secondaryCheckoutBtnSelect.val()) {
+        customLinkRow.show();
+        customLink.attr('data-relies-default', 'visible');
+        customTextRow.show();
+        customText.attr('data-relies-default', 'visible');
+      } else {
+        customLinkRow.hide();
+        customLink.attr('data-relies-default', 'hidden');
+        customTextRow.hide();
+        customText.attr('data-relies-default', 'hidden');
+      }
+
+      $(secondaryCheckoutBtnSelect).on('change', function () {
+        if ('custom_url' === $(this).val()) {
+          customLinkRow.show();
+          customLink.attr('data-relies-default', 'visible');
+          customTextRow.show();
+          customText.attr('data-relies-default', 'visible');
+        } else {
+          customLinkRow.hide();
+          customLink.attr('data-relies-default', 'hidden');
+          customTextRow.hide();
+          customText.attr('data-relies-default', 'hidden');
+        }
+      });
+    }
+  }, {
     key: "recommendationsOptions",
     value: function recommendationsOptions() {
-      var checkboxRecommendationEnable = $("#product_recommendation_engine_enable");
-      var fieldRecommendationType = $("#product_recommendation_engine_type");
+      var checkboxRecommendationEnable = $('#product_recommendation_engine_enable');
+      var fieldRecommendationType = $('#product_recommendation_engine_type');
       var tableRowRecommendationType = fieldRecommendationType.closest('tr');
-      var fieldRecommendationFallback = $("#product_recommendation_engine_fallback");
+      var fieldRecommendationFallback = $('#product_recommendation_engine_fallback');
       var tableRowRecommendationFallback = fieldRecommendationFallback.closest('tr');
-      var fieldRecommendationText = $("#product_recommendation_engine_text");
+      var fieldRecommendationText = $('#product_recommendation_engine_text');
       var tableRowRecommendationText = fieldRecommendationText.closest('tr');
-      var fieldRecommendationCustom = $("#product_recommendation_engine_custom_global");
+      var fieldRecommendationCustom = $('#product_recommendation_engine_custom_global');
       var tableRowRecommendationCustom = fieldRecommendationCustom.closest('tr');
 
-      if (checkboxRecommendationEnable.prop("checked")) {
+      if (checkboxRecommendationEnable.prop('checked')) {
         tableRowRecommendationType.show();
         tableRowRecommendationFallback.show();
         tableRowRecommendationText.show();
 
-        if (fieldRecommendationType.val() === 'custom') {
+        if ('custom' === fieldRecommendationType.val()) {
           tableRowRecommendationCustom.show();
         } else {
           tableRowRecommendationCustom.hide();
@@ -782,13 +844,13 @@ var OptionVisibility = /*#__PURE__*/function () {
         tableRowRecommendationCustom.hide();
       }
 
-      $(checkboxRecommendationEnable).on("change", function () {
-        if ($(this).prop("checked")) {
+      $(checkboxRecommendationEnable).on('change', function () {
+        if ($(this).prop('checked')) {
           tableRowRecommendationType.show();
           tableRowRecommendationText.show();
           tableRowRecommendationFallback.show();
 
-          if (fieldRecommendationType.val() === 'custom') {
+          if ('custom' === fieldRecommendationType.val()) {
             tableRowRecommendationCustom.show();
           } else {
             tableRowRecommendationCustom.hide();
@@ -803,7 +865,7 @@ var OptionVisibility = /*#__PURE__*/function () {
       $(fieldRecommendationType).on('change', function () {
         var value = $(this).val();
 
-        if (value === 'custom') {
+        if ('custom' === value) {
           tableRowRecommendationCustom.show();
         } else {
           tableRowRecommendationCustom.hide();
@@ -813,23 +875,22 @@ var OptionVisibility = /*#__PURE__*/function () {
   }, {
     key: "shipingMeterOptions",
     value: function shipingMeterOptions() {
-      var checkboxShippingMeterEnable = $("#free_shipping_meter_enable");
-      var fieldShippingMeterCustom = $("#free_shipping_meter_custom_global");
+      var checkboxShippingMeterEnable = $('#free_shipping_meter_enable');
+      var fieldShippingMeterCustom = $('#free_shipping_meter_custom_global');
       var tableRowShippingMeterCustom = fieldShippingMeterCustom.closest('tr');
-      var fieldShippingMeterType = $("#free_shipping_meter_type");
+      var fieldShippingMeterType = $('#free_shipping_meter_type');
       var tableRowShippingMeterType = fieldShippingMeterType.closest('tr');
-      var fieldShippingMeterTextBase = $("#free_shipping_meter_text_base");
+      var fieldShippingMeterTextBase = $('#free_shipping_meter_text_base');
       var tableRowShippingMeterTextBase = fieldShippingMeterTextBase.closest('tr');
-      var fieldShippingMeterTextAchieved = $("#free_shipping_meter_text_achieved");
+      var fieldShippingMeterTextAchieved = $('#free_shipping_meter_text_achieved');
       var tableRowShippingMeterTextAchieved = fieldShippingMeterTextAchieved.closest('tr');
 
-      if (checkboxShippingMeterEnable.prop("checked")) {
-        console.log("Checked");
+      if (checkboxShippingMeterEnable.prop('checked')) {
         tableRowShippingMeterType.show();
         tableRowShippingMeterTextBase.show();
         tableRowShippingMeterTextAchieved.show();
 
-        if (fieldShippingMeterType.val() === 'custom') {
+        if ('custom' === fieldShippingMeterType.val()) {
           tableRowShippingMeterCustom.show();
         }
       } else {
@@ -839,13 +900,13 @@ var OptionVisibility = /*#__PURE__*/function () {
         tableRowShippingMeterCustom.hide();
       }
 
-      $(checkboxShippingMeterEnable).on("change", function () {
-        if ($(this).prop("checked")) {
+      $(checkboxShippingMeterEnable).on('change', function () {
+        if ($(this).prop('checked')) {
           tableRowShippingMeterType.show();
           tableRowShippingMeterTextBase.show();
           tableRowShippingMeterTextAchieved.show();
 
-          if (fieldShippingMeterType.val() === 'custom') {
+          if ('custom' === fieldShippingMeterType.val()) {
             tableRowShippingMeterCustom.show();
           } else {
             tableRowShippingMeterCustom.hide();
@@ -860,7 +921,7 @@ var OptionVisibility = /*#__PURE__*/function () {
       $(fieldShippingMeterType).on('change', function () {
         var value = $(this).val();
 
-        if (value === 'custom') {
+        if ('custom' === value) {
           tableRowShippingMeterCustom.show();
         } else {
           tableRowShippingMeterCustom.hide();

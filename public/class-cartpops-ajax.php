@@ -77,7 +77,7 @@ class CartPops_Frontend_Ajax
             ob_start();
             $this->templates->render_coupon_removal();
             $coupon_form = ob_get_clean();
-            $fragments['div.cpops-coupon-remove'] = '<div class="cpops-coupon-remove">' . $coupon_form . '</div>';
+            $fragments['div.cpops-coupon-remove'] = '<div class="cpops-coupon-remove" class="cpops-modal">' . $coupon_form . '</div>';
         }
         
         // Drawer recommendations.
@@ -435,6 +435,35 @@ class CartPops_Frontend_Ajax
     {
         $last_position = array_search( $cart_item_key, array_keys( $cart->cart_contents ), true );
         WC()->session->set( 'cartpops_drawer_item_removed_position', $last_position );
+    }
+    
+    public function calculate_shipping()
+    {
+        WC_Shortcode_Cart::calculate_shipping();
+        if ( !wc_notice_count( 'error' ) ) {
+            $this->set_notification( __( 'You succesfully changed your shipping details.', 'cartpops' ), 'success' );
+        }
+        $this->get_refreshed_fragments();
+    }
+    
+    /**
+     * WErererer
+     *
+     * @author Chris Jayden <chris@chrisjayden.com>
+     */
+    public function update_shipping_method()
+    {
+        cpops_frontend_helper()->set_cart_constant();
+        $chosen_shipping_methods = WC()->session->get( 'chosen_shipping_methods' );
+        $posted_shipping_methods = ( isset( $_POST['shipping_method'] ) ? wc_clean( wp_unslash( $_POST['shipping_method'] ) ) : array() );
+        if ( is_array( $posted_shipping_methods ) ) {
+            foreach ( $posted_shipping_methods as $i => $value ) {
+                $chosen_shipping_methods[$i] = $value;
+            }
+        }
+        WC()->session->set( 'chosen_shipping_methods', $chosen_shipping_methods );
+        $this->set_notification( __( 'You succesfully changed your shipping method', 'cartpops' ), 'success' );
+        $this->get_refreshed_fragments();
     }
     
     /**

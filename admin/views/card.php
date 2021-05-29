@@ -25,6 +25,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<button name="submit" type="submit" class="cpops-button primary-button small-button"><?php echo esc_attr( __( 'Save Settings', 'cartpops' ) ); ?></button>
 			<?php endif; ?>
 		</div>
+		<?php if ( $description ) : ?>
+			<div class="card-description">
+					<p><?php echo wp_kses_post( $description ); ?></p>
+			</div>
+		<?php endif; ?>
 		<div class="card-inside">
 			<table class="form-table" role="presentation">
 				<?php if ( $partial ) : ?>

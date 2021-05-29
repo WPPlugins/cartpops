@@ -21,13 +21,23 @@ $args = array(
 <div class="<?php echo esc_html( implode( ' ', array_filter( $classes ) ) ); ?>" data-key="<?php echo esc_attr( $cart_item_key ); ?>">
 
 	<div class="cpops-cart-item__container">
+
 		<div class="cpops-cart-item__image">
+			<?php if ( $cpops_product_permalink ) : ?>
+				<a href="<?php echo esc_url( $cpops_product_permalink ); ?>">
+			<?php endif; ?>
+
 			<?php echo wp_kses_post( $cpops_thumbnail ); ?>
+
+			<?php if ( $cpops_product_permalink ) : ?>
+				</a>
+			<?php endif; ?>
 		</div>
 
 		<div class="cpops-cart-item__product">
 
 			<div class="cpops-cart-item__details">
+
 				<div class="cpops-cart-item__product--name"><?php echo wp_kses_post( $cpops_product_name ); ?></div>
 			</div>
 

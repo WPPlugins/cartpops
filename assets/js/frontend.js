@@ -1,4 +1,4 @@
-/*! Copyright © Chris Jayden <help@cartpops.com> (https://cartpops.com) - cartpops - v1.2.16 - 18-04-2021 */
+/*! Copyright © Chris Jayden <help@cartpops.com> (https://cartpops.com) - cartpops - v1.4.0 - 29-05-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
@@ -1958,12 +1958,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! jquery */ "jquery");
 /* harmony import */ var jquery__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(jquery__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./core */ "../assets/dev/js/frontend/core.js");
-/* harmony import */ var _modules_UpdateCart__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/UpdateCart */ "../assets/dev/js/frontend/modules/UpdateCart.js");
-/* harmony import */ var _modules_Coupons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/Coupons */ "../assets/dev/js/frontend/modules/Coupons.js");
-/* harmony import */ var _modules_RemoveProduct__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/RemoveProduct */ "../assets/dev/js/frontend/modules/RemoveProduct.js");
-/* harmony import */ var _modules_AddToCart__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./modules/AddToCart */ "../assets/dev/js/frontend/modules/AddToCart.js");
-/* harmony import */ var _modules_Requests__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/Requests */ "../assets/dev/js/frontend/modules/Requests.js");
+/* harmony import */ var _modules_Loggin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/Loggin */ "../assets/dev/js/frontend/modules/Loggin.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "../node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! qs */ "../node_modules/qs/lib/index.js");
+/* harmony import */ var qs__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(qs__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _modules_Requests__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/Requests */ "../assets/dev/js/frontend/modules/Requests.js");
+/* harmony import */ var _core__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./core */ "../assets/dev/js/frontend/core.js");
+/* harmony import */ var _modules_UpdateCart__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./modules/UpdateCart */ "../assets/dev/js/frontend/modules/UpdateCart.js");
+/* harmony import */ var _modules_Coupons__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./modules/Coupons */ "../assets/dev/js/frontend/modules/Coupons.js");
+/* harmony import */ var _modules_RemoveProduct__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modules/RemoveProduct */ "../assets/dev/js/frontend/modules/RemoveProduct.js");
+/* harmony import */ var _modules_AddToCart__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modules/AddToCart */ "../assets/dev/js/frontend/modules/AddToCart.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1996,6 +2001,9 @@ window.$ = (jquery__WEBPACK_IMPORTED_MODULE_0___default());
 
 
 
+
+
+ // import { calculateShipping, changeShipping } from './modules/Shipping';
 
 var CartPopsCart = /*#__PURE__*/function (_CartPopsCore) {
   _inherits(CartPopsCart, _CartPopsCore);
@@ -2058,6 +2066,7 @@ var CartPopsCart = /*#__PURE__*/function (_CartPopsCore) {
     key: "_initListeners",
     value: function _initListeners(self) {
       this.drawerEl = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#cartpops-drawer');
+      this.assistantEl = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#cartpops-assistant');
       this.popupEl = jquery__WEBPACK_IMPORTED_MODULE_0___default()('#cartpops-popup');
       this.documentBody = jquery__WEBPACK_IMPORTED_MODULE_0___default()(document.body); // Listen to add to cart events and open cart.
 
@@ -2087,6 +2096,14 @@ var CartPopsCart = /*#__PURE__*/function (_CartPopsCore) {
 
       if ('true' === this.config.isCheckoutPage || 'true' === this.config.isCartPage) {
         jquery__WEBPACK_IMPORTED_MODULE_0___default()(document.body).on('updated_shipping_method', this.refreshFragments.bind(self));
+      } // Shipping
+
+
+      if ('true' === this.config.pro) {
+        this.assistantEl.on('click', '.shipping-calculator-button', this.toggleCalculator.bind(self));
+        this.assistantEl.on('change', 'input.cpops-pick-shipping-method', this.shippingMethodChange.bind(self));
+        this.assistantEl.on('submit', 'form.woocommerce-shipping-calculator', this.shippingCalculatorSubmit.bind(self));
+        this.documentBody.on('wc_fragments_refreshed wc_fragments_loaded', this.initSelect2.bind(self));
       }
     }
     /**
@@ -2153,7 +2170,7 @@ var CartPopsCart = /*#__PURE__*/function (_CartPopsCore) {
       }
 
       jquery__WEBPACK_IMPORTED_MODULE_0___default()(document.body).trigger('adding_to_cart', [buttonEl, data]);
-      (0,_modules_AddToCart__WEBPACK_IMPORTED_MODULE_5__.addToCart)($form, data, buttonEl);
+      (0,_modules_AddToCart__WEBPACK_IMPORTED_MODULE_9__.addToCart)($form, data, buttonEl);
     }
     /**
      * Single add to cart form submission.
@@ -2217,7 +2234,7 @@ var CartPopsCart = /*#__PURE__*/function (_CartPopsCore) {
       jquery__WEBPACK_IMPORTED_MODULE_0___default().each(rawData, function (i, obj) {
         data[obj.name] = obj.value;
       });
-      (0,_modules_AddToCart__WEBPACK_IMPORTED_MODULE_5__.addToCart)(form, data, buttonEl);
+      (0,_modules_AddToCart__WEBPACK_IMPORTED_MODULE_9__.addToCart)(form, data, buttonEl);
     }
     /**
      * Added to cart
@@ -2239,7 +2256,7 @@ var CartPopsCart = /*#__PURE__*/function (_CartPopsCore) {
       var addedToCartMessage = this.config.genericAddToCartMessage;
       var notificationEl = jquery__WEBPACK_IMPORTED_MODULE_0___default()('.cpops-drawer-notices-wrapper');
       var openFlag = true;
-      _modules_Requests__WEBPACK_IMPORTED_MODULE_6__.refreshFragments({
+      _modules_Requests__WEBPACK_IMPORTED_MODULE_4__.refreshFragments({
         data: {
           fragments: response
         }
@@ -2291,7 +2308,7 @@ var CartPopsCart = /*#__PURE__*/function (_CartPopsCore) {
 
       if ('down' === action && 1 === currentQuantity) {
         setQuantity = 0;
-        (0,_modules_RemoveProduct__WEBPACK_IMPORTED_MODULE_4__.removeProduct)(cartItemKey);
+        inputEl.val(setQuantity).trigger('change');
       } else if ('down' === action && currentQuantity >= 1) {
         setQuantity = Number(inputEl.val()) - step;
         inputEl.val(setQuantity).trigger('change');
@@ -2333,9 +2350,16 @@ var CartPopsCart = /*#__PURE__*/function (_CartPopsCore) {
       }
 
       clearTimeout(this.updateDelay);
-      this.updateDelay = setTimeout(function () {
-        (0,_modules_UpdateCart__WEBPACK_IMPORTED_MODULE_2__.default)(cartItemKey, newQty, inputEl);
-      }, 150);
+
+      if (newQty === 0) {
+        this.updateDelay = setTimeout(function () {
+          (0,_modules_RemoveProduct__WEBPACK_IMPORTED_MODULE_8__.removeProduct)(cartItemKey);
+        }, 150);
+      } else {
+        this.updateDelay = setTimeout(function () {
+          (0,_modules_UpdateCart__WEBPACK_IMPORTED_MODULE_6__.default)(cartItemKey, newQty, inputEl);
+        }, 150);
+      }
     }
     /**
      * Remove or restore an item in the Drawer.
@@ -2351,9 +2375,9 @@ var CartPopsCart = /*#__PURE__*/function (_CartPopsCore) {
       var cartItemKey = jquery__WEBPACK_IMPORTED_MODULE_0___default()(el).data('key');
 
       if ('restore' === action) {
-        (0,_modules_RemoveProduct__WEBPACK_IMPORTED_MODULE_4__.restoreProduct)(cartItemKey);
+        (0,_modules_RemoveProduct__WEBPACK_IMPORTED_MODULE_8__.restoreProduct)(cartItemKey);
       } else {
-        (0,_modules_RemoveProduct__WEBPACK_IMPORTED_MODULE_4__.removeProduct)(cartItemKey);
+        (0,_modules_RemoveProduct__WEBPACK_IMPORTED_MODULE_8__.removeProduct)(cartItemKey);
       }
     }
     /**
@@ -2369,7 +2393,7 @@ var CartPopsCart = /*#__PURE__*/function (_CartPopsCore) {
       var button = form.find(':submit');
       var input = jquery__WEBPACK_IMPORTED_MODULE_0___default()(form).find('input');
       var coupon = input.val();
-      (0,_modules_Coupons__WEBPACK_IMPORTED_MODULE_3__.applyCoupon)(coupon, input, button);
+      (0,_modules_Coupons__WEBPACK_IMPORTED_MODULE_7__.applyCoupon)(coupon, input, button);
     }
     /**
      * Remove a coupon code from the drawer.
@@ -2383,7 +2407,7 @@ var CartPopsCart = /*#__PURE__*/function (_CartPopsCore) {
       var element = jquery__WEBPACK_IMPORTED_MODULE_0___default()(ev.currentTarget);
       var coupon = jquery__WEBPACK_IMPORTED_MODULE_0___default()(element).attr('data-coupon');
 
-      (0,_modules_Coupons__WEBPACK_IMPORTED_MODULE_3__.removeCoupon)(coupon, element.parent());
+      (0,_modules_Coupons__WEBPACK_IMPORTED_MODULE_7__.removeCoupon)(coupon, element.parent());
     }
     /**
      * Hide cart notification on click
@@ -2397,10 +2421,72 @@ var CartPopsCart = /*#__PURE__*/function (_CartPopsCore) {
       var element = jquery__WEBPACK_IMPORTED_MODULE_0___default()(ev.currentTarget);
       jquery__WEBPACK_IMPORTED_MODULE_0___default()(element).hide();
     }
+  }, {
+    key: "toggleCalculator",
+    value: function toggleCalculator(ev) {
+      ev.preventDefault(); // Stop WooCommerce from overtaking this action.
+
+      ev.stopImmediatePropagation();
+      var element = jquery__WEBPACK_IMPORTED_MODULE_0___default()(ev.currentTarget);
+      element.siblings('.shipping-calculator-form').slideToggle();
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()(document.body).trigger('country_to_state_changed');
+    }
+  }, {
+    key: "shippingMethodChange",
+    value: function shippingMethodChange(ev) {
+      var _this2 = this;
+
+      ev.preventDefault();
+      ev.stopImmediatePropagation();
+      var shippingMethods = {};
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()('select.shipping_method, :input[name^=cpops_shipping_method][type=radio]:checked, :input[name^=shipping_method][type=hidden]').each(function () {
+        shippingMethods[jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).data('index')] = jquery__WEBPACK_IMPORTED_MODULE_0___default()(this).val();
+      });
+      var data = {
+        action: 'cpops_update_shipping_method',
+        shipping_method: shippingMethods
+      };
+      axios__WEBPACK_IMPORTED_MODULE_2___default().post(CartPopsConfig.ajax_url, qs__WEBPACK_IMPORTED_MODULE_3___default().stringify(data)).then(function (response) {
+        console.log(response);
+        _modules_Requests__WEBPACK_IMPORTED_MODULE_4__.refreshFragments(response);
+      })["catch"](function (error) {
+        console.log(error);
+      })["finally"](function () {
+        _this2.modals.assistant.hide();
+      });
+    }
+  }, {
+    key: "shippingCalculatorSubmit",
+    value: function shippingCalculatorSubmit(ev) {
+      var _this3 = this;
+
+      ev.preventDefault(); // Stop WooCommerce from overtaking this action.
+
+      ev.stopImmediatePropagation();
+      var form = ev.currentTarget;
+      var formData = new FormData(form); // Provide the action for the AJAX event.
+
+      formData.append('action', 'cpops_calculate_shipping'); // Provide the submit button value because wc-form-handler expects it.
+
+      formData.append('calc_shipping', 'x');
+      var data = new URLSearchParams(formData).toString();
+      axios__WEBPACK_IMPORTED_MODULE_2___default().post(CartPopsConfig.ajax_url, data).then(function (response) {
+        _modules_Requests__WEBPACK_IMPORTED_MODULE_4__.refreshFragments(response);
+      })["catch"](function (error) {
+        console.log(error);
+      })["finally"](function () {
+        _this3.modals.assistant.hide();
+      });
+    }
+  }, {
+    key: "initSelect2",
+    value: function initSelect2() {
+      jquery__WEBPACK_IMPORTED_MODULE_0___default()(document.body).trigger('country_to_state_changed');
+    }
   }]);
 
   return CartPopsCart;
-}(_core__WEBPACK_IMPORTED_MODULE_1__.default);
+}(_core__WEBPACK_IMPORTED_MODULE_5__.default);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (CartPopsCart);
 
@@ -3122,10 +3208,13 @@ var CartPopsModal = /*#__PURE__*/function (_EventEmitter) {
 
       this._removeEvents();
 
-      setTimeout(function () {
-        document.documentElement.classList.remove('cpops-trigger-open');
-        document.body.style.paddingRight = _this5.originalBodyPad;
-      }, o.backdropTransition);
+      if ('assistant' !== type) {
+        setTimeout(function () {
+          document.documentElement.classList.remove('cpops-trigger-open');
+          document.body.style.paddingRight = _this5.originalBodyPad;
+        }, o.backdropTransition);
+      }
+
       setTimeout(function () {
         if (o.backdrop) {
           html.backdrop.parentNode.removeChild(html.backdrop);

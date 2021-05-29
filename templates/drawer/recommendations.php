@@ -22,12 +22,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 			<?php foreach ( $recommended_products as $key => $recommended_product ) : ?>
 
+				<?php
+					$product_permalink = $recommended_product->is_visible() ? $recommended_product->get_permalink( $cart_item ) : '';
+				?>
+
 				<div class="cpops-cart-item swiper-slide">
 
 					<div class="cpops-cart-item__container">
 
 						<div class="cpops-cart-item__image">
+							<?php if ( $product_permalink ) : ?>
+								<a href="<?php echo esc_url( $product_permalink ); ?>">
+							<?php endif; ?>
+
 							<img src="<?php echo wp_get_attachment_image_url( $recommended_product->get_image_id(), 'thumbnail' ); ?>" />
+
+							<?php if ( $product_permalink ) : ?>
+								</a>
+							<?php endif; ?>
 						</div>
 
 						<div class="cpops-cart-item__product">
@@ -35,7 +47,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 							<div class="cpops-cart-item__details">
 								<div class="cpops-cart-item__product--name">
 									<div class="cpops-cart-item__product--link">
-										<a href="<?php echo $recommended_product->get_permalink(); ?>"><?php echo $recommended_product->get_name(); ?></a>
+										<?php if ( $product_permalink ) : ?>
+											<a href="<?php echo esc_url( $product_permalink ); ?>">
+										<?php endif; ?>
+
+										<?php echo $recommended_product->get_name(); ?></a>
+
+										<?php if ( $product_permalink ) : ?>
+										</a>
+										<?php endif; ?>
 									</div>
 								</div>
 								<div class="cpops-cart-item__slider-pricing">
@@ -74,8 +94,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <script>
 	jQuery(document).ready( function($) {
 		if( $('#cpops-drawer-recommendations__slider').length ){
-
-			const myswiper = new Swiper('#cpops-drawer-recommendations__slider',{
+			var cartpopsRecommendations = new Swiper('#cpops-drawer-recommendations__slider',{
 				autoplayDisableOnInteraction: false,
 				observer: true,
 				observeParents: true,
@@ -94,7 +113,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 					}
 				},
 			})
-
 		}
 	});
 </script>

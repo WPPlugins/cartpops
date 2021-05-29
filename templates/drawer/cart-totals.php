@@ -27,10 +27,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php echo wp_kses_post( $tax ); ?>
 		<?php endif; ?>
 
+		<?php if ( ! empty( $shipping ) ) : ?>
+			<?php echo wp_kses_post( $shipping ); ?>
+		<?php endif; ?>
+
 		<?php if ( ! empty( $total ) ) : ?>
 			<?php echo wp_kses_post( $total ); ?>
 		<?php endif; ?>
 	</div>
+
+	<?php do_action( 'cartpops_drawer_before_secondary_checkout_button' ); ?>
+		<?php if ( ! empty( $secondary_btn ) ) : ?>
+			<?php echo wp_kses_post( $secondary_btn ); ?>
+		<?php endif; ?>
+	<?php do_action( 'cartpops_drawer_after_secondary_checkout_button' ); ?>
 
 	<?php do_action( 'cartpops_drawer_before_checkout_button' ); ?>
 

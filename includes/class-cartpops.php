@@ -85,10 +85,14 @@ class CartPops
         $this->set_locale();
         $this->api();
         $this->admin();
-        $this->cart();
-        $this->assets_frontend();
-        $this->public();
-        $this->ajax_frontend();
+        
+        if ( $this->can_activate_frontend() ) {
+            $this->cart();
+            $this->assets_frontend();
+            $this->public();
+            $this->ajax_frontend();
+        }
+    
     }
     
     /**
@@ -184,10 +188,6 @@ class CartPops
      */
     private function cart()
     {
-        $enabled = cartpops_get_option( 'plugin_enable' );
-        if ( !$enabled ) {
-            return;
-        }
         $plugin_cart = new CartPops_Cart( $this->get_plugin_name(), $this->get_version() );
         /* Templates */
         $this->loader->add_action(
@@ -225,8 +225,18 @@ class CartPops
     {
         $plugin_settings = new CartPops_Settings( $this->plugin_name, $this->version );
         $assets_frontend = new CartPops_Assets( $this->get_plugin_name(), $this->get_version(), $plugin_settings );
-        $this->loader->add_action( 'wp_enqueue_scripts', $assets_frontend, 'enqueue_frontend_styles' );
-        $this->loader->add_action( 'wp_enqueue_scripts', $assets_frontend, 'enqueue_frontend_scripts' );
+        $this->loader->add_action(
+            'wp_enqueue_scripts',
+            $assets_frontend,
+            'enqueue_frontend_styles',
+            10
+        );
+        $this->loader->add_action(
+            'wp_enqueue_scripts',
+            $assets_frontend,
+            'enqueue_frontend_scripts',
+            20
+        );
         $this->loader->add_action( 'wp_enqueue_scripts', $assets_frontend, 'enqueue_dynamic_styles' );
     }
     
@@ -239,10 +249,6 @@ class CartPops
      */
     private function public()
     {
-        $enabled = cartpops_get_option( 'plugin_enable' );
-        if ( !$enabled ) {
-            return;
-        }
         $templates = new CartPops_Cart( $this->get_plugin_name(), $this->get_version() );
         $plugin_public = new CartPops_Public( $this->get_plugin_name(), $this->get_version(), $templates );
         $this->loader->add_filter( 'woocommerce_add_to_cart_fragments', $plugin_public, 'menu_cart_fragments' );
@@ -282,10 +288,6 @@ class CartPops
      */
     private function ajax_frontend()
     {
-        $enabled = cartpops_get_option( 'plugin_enable' );
-        if ( !$enabled ) {
-            return;
-        }
         $templates = new CartPops_Cart( $this->get_plugin_name(), $this->get_version() );
         $frontend_ajax = new CartPops_Frontend_Ajax( $this->get_plugin_name(), $this->get_version(), $templates );
         $this->loader->add_filter(
@@ -311,6 +313,10 @@ class CartPops
         $this->loader->add_action( 'wp_ajax_nopriv_cpops_apply_coupon', $frontend_ajax, 'apply_coupon' );
         $this->loader->add_action( 'wp_ajax_cpops_remove_coupon', $frontend_ajax, 'remove_coupon' );
         $this->loader->add_action( 'wp_ajax_nopriv_cpops_remove_coupon', $frontend_ajax, 'remove_coupon' );
+        $this->loader->add_action( 'wp_ajax_cpops_calculate_shipping', $frontend_ajax, 'calculate_shipping' );
+        $this->loader->add_action( 'wp_ajax_nopriv_cpops_calculate_shipping', $frontend_ajax, 'calculate_shipping' );
+        $this->loader->add_action( 'wp_ajax_cpops_update_shipping_method', $frontend_ajax, 'update_shipping_method' );
+        $this->loader->add_action( 'wp_ajax_nopriv_cpops_update_shipping_method', $frontend_ajax, 'update_shipping_method' );
         $this->loader->add_filter(
             'woocommerce_remove_cart_item',
             $frontend_ajax,
@@ -318,6 +324,27 @@ class CartPops
             10,
             2
         );
+    }
+    
+    /**
+     * Check if we can activate CartPops on the front-end.
+     *
+     * @since 1.3.0
+     * @author Chris Jayden <chris@chrisjayden.com>
+     */
+    private function can_activate_frontend()
+    {
+        $enabled = cartpops_get_option( 'plugin_enable' );
+        // If the plugin is disabled in settings.
+        if ( 'on' !== $enabled ) {
+            return false;
+        }
+        // If the webpage is being edited by the Oxygen editor.
+        if ( isset( $_GET['ct_builder'] ) && 'true' === $_GET['ct_builder'] ) {
+            // phpcs:ignore
+            return false;
+        }
+        return true;
     }
     
     /**
