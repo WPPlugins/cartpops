@@ -1,4 +1,4 @@
-/*! Copyright © Chris Jayden <help@cartpops.com> (https://cartpops.com) - cartpops - v1.4.0 - 29-05-2021 */
+/*! Copyright © Chris Jayden <help@cartpops.com> (https://cartpops.com) - cartpops - v1.4.1 - 01-06-2021 */
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 

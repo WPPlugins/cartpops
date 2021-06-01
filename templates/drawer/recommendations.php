@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<?php foreach ( $recommended_products as $key => $recommended_product ) : ?>
 
 				<?php
-					$product_permalink = $recommended_product->is_visible() ? $recommended_product->get_permalink( $cart_item ) : '';
+					$product_permalink = $recommended_product->is_visible() ? $recommended_product->get_permalink() : '';
 				?>
 
 				<div class="cpops-cart-item swiper-slide">

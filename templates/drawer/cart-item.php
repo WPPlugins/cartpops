@@ -22,17 +22,19 @@ $args = array(
 
 	<div class="cpops-cart-item__container">
 
-		<div class="cpops-cart-item__image">
-			<?php if ( $cpops_product_permalink ) : ?>
-				<a href="<?php echo esc_url( $cpops_product_permalink ); ?>">
-			<?php endif; ?>
+		<?php if ( $cpops_thumbnail ) : ?>
+			<div class="cpops-cart-item__image">
+				<?php if ( $cpops_product_permalink ) : ?>
+					<a href="<?php echo esc_url( $cpops_product_permalink ); ?>">
+				<?php endif; ?>
 
-			<?php echo wp_kses_post( $cpops_thumbnail ); ?>
+				<?php echo wp_kses_post( $cpops_thumbnail ); ?>
 
-			<?php if ( $cpops_product_permalink ) : ?>
-				</a>
-			<?php endif; ?>
-		</div>
+				<?php if ( $cpops_product_permalink ) : ?>
+					</a>
+				<?php endif; ?>
+			</div>
+		<?php endif; ?>
 
 		<div class="cpops-cart-item__product">
 
@@ -48,16 +50,18 @@ $args = array(
 	</div>
 
 	<div class="cpops-cart-item__actions">
-		<button aria-label="Remove Item From Cart" class="cpops-cart-item__actions--remove" data-key="<?php echo esc_html( $cart_item_key ); ?>">
-			<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.001 512.001">
-				<defs/>
-				<path d="M512.001 84.853L427.148 0 256.001 171.147 84.853 0 0 84.853 171.148 256 0 427.148l84.853 84.853 171.148-171.147 171.147 171.147 84.853-84.853L340.853 256z"/>
-			</svg>
-		</button>
+		<?php if ( $delete ) : ?>
+			<button aria-label="Remove Item From Cart" class="cpops-cart-item__actions--remove" data-key="<?php echo esc_html( $cart_item_key ); ?>">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.001 512.001">
+					<defs/>
+					<path d="M512.001 84.853L427.148 0 256.001 171.147 84.853 0 0 84.853 171.148 256 0 427.148l84.853 84.853 171.148-171.147 171.147 171.147 84.853-84.853L340.853 256z"/>
+				</svg>
+			</button>
+		<?php endif; ?>
 
-		<?php
-			cpops_frontend_helper()->get_template( 'components/product/price', $args );
-		?>
+		<?php if ( $cpops_product_subtotal ) : ?>
+			<?php cpops_frontend_helper()->get_template( 'components/product/price', $args ); ?>
+		<?php endif; ?>
 	</div>
 
 </div>

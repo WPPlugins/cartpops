@@ -59,6 +59,7 @@ class CartPops_Cart
     private  $coupon_form_enabled ;
     private  $assistant_enabled ;
     private  $assistant_coupon_form ;
+    private  $bundled_items = array() ;
     /**
      * Constructor
      *
@@ -170,6 +171,7 @@ class CartPops_Cart
                     $cart_item,
                     $cart_item_key
                 );
+                $bundled_items = $this->get_bundled_item( $cart_item );
                 $data = array(
                     'classes'                 => apply_filters( 'cartpops_drawer_cart_item_classes', array( 'cpops-cart-item' ) ),
                     'quantity'                => $this->render_quantity_selectors( array(
@@ -180,15 +182,46 @@ class CartPops_Cart
                     'product_name'  => cpops_frontend_helper()->get_product_name( $cart_item, $cart_item_key ),
                     'cart_item_key' => $cart_item_key,
                 ), $_product, true ),
+                    'delete'                  => true,
                     'cart_item'               => $cart_item,
                     'cart_item_key'           => $cart_item_key,
                     'product'                 => $_product,
-                    'cpops_product_id'        => $cart_item['product_id'],
-                    'cpops_product_permalink' => ( $_product->is_visible() ? $_product->get_permalink( $cart_item ) : '' ),
+                    'cpops_product_id'        => apply_filters(
+                    'woocommerce_cart_item_product_id',
+                    $cart_item['product_id'],
+                    $cart_item,
+                    $cart_item_key
+                ),
+                    'cpops_product_permalink' => apply_filters(
+                    'woocommerce_cart_item_permalink',
+                    ( $_product->is_visible() ? $_product->get_permalink( $cart_item ) : '' ),
+                    $cart_item,
+                    $cart_item_key
+                ),
                     'cpops_thumbnail'         => cpops_frontend_helper()->get_product_image( $_product, $cart_item, $cart_item_key ),
                     'cpops_product_name'      => cpops_frontend_helper()->get_product_name( $cart_item, $cart_item_key ),
                     'cpops_product_subtotal'  => cpops_frontend_helper()->get_item_price( $_product, $cart_item, $cart_item_key ),
                 );
+                // Check if we're dealing with a bundled item.
+                
+                if ( !empty($bundled_items) ) {
+                    $data['classes'][] = 'cpops-cart-item__bundle_' . $bundled_items['type'];
+                    $data['classes'][] = 'cpops-cart-item__bundle_' . $bundled_items['key'];
+                    $data['cpops_product_subtotal'] = '';
+                    if ( !$bundled_items['image'] ) {
+                        $data['cpops_thumbnail'] = '';
+                    }
+                    if ( !$bundled_items['quantity_selectors'] ) {
+                        $data['quantity'] = '';
+                    }
+                    if ( !$bundled_items['quantity_selectors'] ) {
+                        $data['quantity'] = '';
+                    }
+                    if ( !$bundled_items['delete'] ) {
+                        $data['delete'] = false;
+                    }
+                }
+                
                 if ( 'slick' === $this->animation_type ) {
                     $data['classes'][] = self::get_animation_class();
                 }
@@ -884,6 +917,99 @@ class CartPops_Cart
         $fragments['.cartpops-cart__container-counter'] = $cart_launcher_count;
         $fragments['.cartpops-cart__container-text'] = $cart_total;
         return $fragments;
+    }
+    
+    /**
+     * Get all bundled items.
+     *
+     * @since 1.4.1
+     */
+    public function get_bundled_items()
+    {
+        if ( !empty($this->bundled_items) ) {
+            return $this->bundled_items;
+        }
+        $data = array(
+            'mnm_contents'       => array(
+            'key'                => 'mnm_contents',
+            'type'               => 'parent',
+            'delete'             => true,
+            'quantity_selectors' => true,
+            'image'              => true,
+            'link'               => true,
+        ),
+            'mnm_container'      => array(
+            'key'                => 'mnm_container',
+            'type'               => 'child',
+            'delete'             => false,
+            'quantity_selectors' => false,
+            'image'              => true,
+            'link'               => true,
+        ),
+            'bundled_items'      => array(
+            'key'                => 'bundled_items',
+            'type'               => 'parent',
+            'delete'             => true,
+            'quantity_selectors' => true,
+            'image'              => true,
+            'link'               => true,
+        ),
+            'bundled_by'         => array(
+            'key'                => 'bundled_by',
+            'type'               => 'child',
+            'delete'             => false,
+            'quantity_selectors' => false,
+            'image'              => true,
+            'link'               => true,
+        ),
+            'woosb_ids'          => array(
+            'key'                => 'woosb_ids',
+            'type'               => 'parent',
+            'delete'             => true,
+            'quantity_selectors' => true,
+            'image'              => true,
+            'link'               => true,
+        ),
+            'woosb_parent_id'    => array(
+            'key'                => 'woosb_parent_id',
+            'type'               => 'child',
+            'delete'             => false,
+            'quantity_selectors' => false,
+            'image'              => true,
+            'link'               => true,
+        ),
+            'composite_children' => array(
+            'key'                => 'composite_children',
+            'type'               => 'parent',
+            'delete'             => true,
+            'quantity_selectors' => true,
+            'image'              => true,
+            'link'               => true,
+        ),
+            'composite_parent'   => array(
+            'key'                => 'composite_parent',
+            'type'               => 'child',
+            'delete'             => false,
+            'quantity_selectors' => false,
+            'image'              => true,
+            'link'               => true,
+        ),
+        );
+        $this->bundled_items = apply_filters( 'cartpops_bundled_items_data', $data );
+        return $this->bundled_items;
+    }
+    
+    /**
+     * Get bundled item.
+     *
+     * @param array $cart_item Array of cart items.
+     * @since 1.4.1
+     */
+    public function get_bundled_item( $cart_item )
+    {
+        $bundled_items = $this->get_bundled_items();
+        $bundled_products = array_intersect_key( $bundled_items, $cart_item );
+        return ( !empty($bundled_products) ? array_values( array_intersect_key( $bundled_items, $cart_item ) )[0] : $bundled_products );
     }
     
     /**
