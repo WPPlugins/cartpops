@@ -930,64 +930,96 @@ class CartPops_Cart
             return $this->bundled_items;
         }
         $data = array(
-            'mnm_contents'       => array(
-            'key'                => 'mnm_contents',
+            'mnm_contents'        => array(
+            'key'                => 'woocommerce_mix_match_products_parent',
             'type'               => 'parent',
             'delete'             => true,
             'quantity_selectors' => true,
             'image'              => true,
             'link'               => true,
         ),
-            'mnm_container'      => array(
-            'key'                => 'mnm_container',
+            'mnm_container'       => array(
+            'key'                => 'woocommerce_mix_match_products_child',
             'type'               => 'child',
             'delete'             => false,
             'quantity_selectors' => false,
             'image'              => true,
             'link'               => true,
         ),
-            'bundled_items'      => array(
-            'key'                => 'bundled_items',
+            'bundled_items'       => array(
+            'key'                => 'woocommerce_product_bundles_parent',
             'type'               => 'parent',
             'delete'             => true,
             'quantity_selectors' => true,
             'image'              => true,
             'link'               => true,
         ),
-            'bundled_by'         => array(
-            'key'                => 'bundled_by',
+            'bundled_by'          => array(
+            'key'                => 'woocommerce_product_bundles_child',
             'type'               => 'child',
             'delete'             => false,
             'quantity_selectors' => false,
             'image'              => true,
             'link'               => true,
         ),
-            'woosb_ids'          => array(
-            'key'                => 'woosb_ids',
+            'extbundled_items'    => array(
+            'key'                => 'extendons_product_bundles_parent',
             'type'               => 'parent',
             'delete'             => true,
             'quantity_selectors' => true,
             'image'              => true,
             'link'               => true,
         ),
-            'woosb_parent_id'    => array(
-            'key'                => 'woosb_parent_id',
+            'ext_hidden_item'     => array(
+            'key'                => 'extendons_product_bundles_child',
             'type'               => 'child',
             'delete'             => false,
             'quantity_selectors' => false,
             'image'              => true,
             'link'               => true,
         ),
-            'composite_children' => array(
-            'key'                => 'composite_children',
+            'woosb_ids'           => array(
+            'key'                => 'wpc_product_bundles_parent',
             'type'               => 'parent',
             'delete'             => true,
             'quantity_selectors' => true,
             'image'              => true,
             'link'               => true,
         ),
-            'composite_parent'   => array(
-            'key'                => 'composite_parent',
+            'woosb_parent_id'     => array(
+            'key'                => 'wpc_product_bundles_child',
+            'type'               => 'child',
+            'delete'             => false,
+            'quantity_selectors' => false,
+            'image'              => true,
+            'link'               => true,
+        ),
+            'composite_parent'    => array(
+            'key'                => 'woocommerce_composite_parent',
+            'type'               => 'child',
+            'delete'             => false,
+            'quantity_selectors' => false,
+            'image'              => true,
+            'link'               => true,
+        ),
+            'composite_children'  => array(
+            'key'                => 'woocommerce_composite_child',
+            'type'               => 'parent',
+            'delete'             => true,
+            'quantity_selectors' => true,
+            'image'              => true,
+            'link'               => true,
+        ),
+            'chained_item_parent' => array(
+            'key'                => 'woocommerce_chained_products_parent',
+            'type'               => 'parent',
+            'delete'             => true,
+            'quantity_selectors' => true,
+            'image'              => true,
+            'link'               => true,
+        ),
+            'chained_item_of'     => array(
+            'key'                => 'woocommerce_chained_products_child',
             'type'               => 'child',
             'delete'             => false,
             'quantity_selectors' => false,
@@ -1009,6 +1041,7 @@ class CartPops_Cart
     {
         $bundled_items = $this->get_bundled_items();
         $bundled_products = array_intersect_key( $bundled_items, $cart_item );
+        error_log( print_r( $cart_item, true ) );
         return ( !empty($bundled_products) ? array_values( array_intersect_key( $bundled_items, $cart_item ) )[0] : $bundled_products );
     }
     
@@ -1026,6 +1059,30 @@ class CartPops_Cart
             $body = str_replace( $placeholder, $value, $body );
         }
         return $body;
+    }
+    
+    /**
+     * Update the cart
+     *
+     * @param array $cart_item_data
+     * @author Chris Jayden <chris@chrisjayden.com>
+     * @since 1.4.2
+     */
+    public function woocommerce_cart_item_product( $cart_item_data )
+    {
+        $cart_contents = WC()->cart->cart_contents;
+        foreach ( $cart_contents as $key => $cart_item ) {
+            /**
+             * Add cart_item key if it's a parent of a chained product.
+             * @since 1.4.2
+             */
+            
+            if ( isset( $cart_item['chained_item_of'] ) ) {
+                $parent_key = $cart_item['chained_item_of'];
+                WC()->cart->cart_contents[$cart_item['chained_item_of']]['chained_item_parent'] = true;
+            }
+        
+        }
     }
 
 }

@@ -5,7 +5,7 @@ Tags: add to cart popup, added to cart, cart, shop, shopping cart, cart drawer, 
 Requires at least: 5.1
 Tested up to: 5.7.2
 Requires PHP: 7.0
-Stable tag: 1.4.1
+Stable tag: 1.4.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -152,6 +152,10 @@ With this widget, you can easily style the Cart Launcher and show it anywhere yo
 If you have a caching plugin installed, or use any sort of caching in your site (DNS caching, object caching, etc), please clear those caches to make sure your browser loads the updated scripts.
 
 == Changelog ==
+
+#### Version 1.4.2 - 2 June 2021
+- **new**: Integration with [Extendons WooCommerce Product Bundles Plugin with Bulk Discounts](https://www.extendons.com/product/woocommerce-product-bundles-plugin-with-bulk-discounts/).
+- **new**: Integration with [WooCommerce Chained Products](https://woocommerce.com/products/chained-products/).
 
 #### Version 1.4.1 - 1 June 2021
 - **new**: Integration with [WooCommerce Product Bundles](https://woocommerce.com/products/product-bundles/).

@@ -189,6 +189,14 @@ class CartPops
     private function cart()
     {
         $plugin_cart = new CartPops_Cart( $this->get_plugin_name(), $this->get_version() );
+        /* Integrations */
+        $this->loader->add_action(
+            'woocommerce_cart_updated',
+            $plugin_cart,
+            'woocommerce_cart_item_product',
+            10,
+            1
+        );
         /* Templates */
         $this->loader->add_action(
             'wp_footer',
