@@ -5,14 +5,14 @@
  * Description: Beautiful, responsive, and conversion optimized add to cart popup templates for WooCommerce.
  * Plugin URI: https://cartpops.com
  * Author: CartPops.com
- * Version: 1.4.2
+ * Version: 1.4.5
  * Author URI: https://cartpops.com/?utm_source=wp-plugins&utm_campaign=author-uri&utm_medium=wp-dash
  *
  * Text Domain: cartpops
  * Domain Path: /languages
  *
  * WC requires at least: 3.0
- * WC tested up to: 5.3.0
+ * WC tested up to: 5.4.1
  *
  * CartPops is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@ if ( !defined( 'WPINC' ) ) {
     die;
 }
 if ( !defined( 'CARTPOPS_VERSION' ) ) {
-    define( 'CARTPOPS_VERSION', '1.4.2' );
+    define( 'CARTPOPS_VERSION', '1.4.5' );
 }
 if ( !defined( 'CARTPOPS_PREFIX' ) ) {
     define( 'CARTPOPS_PREFIX', 'cartpops' );
@@ -50,6 +50,9 @@ if ( !defined( 'CARTPOPS_FILE' ) ) {
 if ( !defined( 'CARTPOPS_TEMPLATE_DEBUG_MODE' ) ) {
     define( 'CARTPOPS_TEMPLATE_DEBUG_MODE', false );
 }
+// Composer autoloader
+// @since x.x
+require_once plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
 /**
  * Will stop plugin from loading if PHP version is below #.
  *
@@ -127,10 +130,8 @@ if ( cartpops_can_activate() ) {
         function fs_cartpops()
         {
             global  $fs_cartpops ;
-            
             if ( !isset( $fs_cartpops ) ) {
                 // Include Freemius SDK.
-                require_once dirname( __FILE__ ) . '/freemius/start.php';
                 $fs_cartpops = fs_dynamic_init( array(
                     'id'              => '7061',
                     'slug'            => 'cartpops',
@@ -152,7 +153,6 @@ if ( cartpops_can_activate() ) {
                     'is_live'         => true,
                 ) );
             }
-            
             return $fs_cartpops;
         }
         

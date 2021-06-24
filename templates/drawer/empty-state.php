@@ -13,6 +13,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <div class="<?php echo esc_html( implode( ' ', array_filter( $classes ) ) ); ?>">
-	<h2><?php echo esc_html( $headline ); ?></h2>
+	<span><?php echo esc_html( $headline ); ?></span>
 	<p><?php echo esc_html( $subheader ); ?></p>
 </div>

@@ -357,7 +357,7 @@ class CartPops_Cart
                 );
                 $html .= '</div>';
             }
-            // We echo because we don't need a seperate file for htis.
+            // We echo because we don't need a seperate file for this..
             echo  wp_kses_post( $html ) ;
         }
     
@@ -371,8 +371,8 @@ class CartPops_Cart
     public function render_drawer_recommendations()
     {
         $products = $this->get_recommendations();
-        $button_text = cartpops_get_option( 'cartpops_product_recommendation_engine_button_text' );
-        $button_type = cartpops_get_option( 'cartpops_product_recommendation_engine_button_type' );
+        $button_text = cartpops_get_option( 'product_recommendation_engine_button_text' );
+        $button_type = cartpops_get_option( 'product_recommendation_engine_button_type' );
         
         if ( !empty($products) ) {
             $title = $this->product_recommendation_engine_text;
@@ -381,7 +381,7 @@ class CartPops_Cart
                 'title'                => ( !empty($title) ? $title : __( 'You might also like these items!', 'cartpops' ) ),
                 'recommended_products' => $products,
                 'button_text'          => ( !empty($button_text) ? $button_text : 'Add' ),
-                'button_type'          => $button_type,
+                'button_type'          => ( !empty($button_type) ? $button_type : 'icon' ),
             );
             if ( 'slick' === $this->animation_type ) {
                 $data['classes'][] = self::get_animation_class();
@@ -1041,7 +1041,6 @@ class CartPops_Cart
     {
         $bundled_items = $this->get_bundled_items();
         $bundled_products = array_intersect_key( $bundled_items, $cart_item );
-        error_log( print_r( $cart_item, true ) );
         return ( !empty($bundled_products) ? array_values( array_intersect_key( $bundled_items, $cart_item ) )[0] : $bundled_products );
     }
     
@@ -1074,6 +1073,7 @@ class CartPops_Cart
         foreach ( $cart_contents as $key => $cart_item ) {
             /**
              * Add cart_item key if it's a parent of a chained product.
+             *
              * @since 1.4.2
              */
             

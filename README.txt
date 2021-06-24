@@ -5,7 +5,7 @@ Tags: add to cart popup, added to cart, cart, shop, shopping cart, cart drawer, 
 Requires at least: 5.1
 Tested up to: 5.7.2
 Requires PHP: 7.0
-Stable tag: 1.4.2
+Stable tag: 1.4.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -152,6 +152,15 @@ With this widget, you can easily style the Cart Launcher and show it anywhere yo
 If you have a caching plugin installed, or use any sort of caching in your site (DNS caching, object caching, etc), please clear those caches to make sure your browser loads the updated scripts.
 
 == Changelog ==
+
+#### Version 1.4.5 - 24 June 2021
+- **new**: Added German, Spanish, French, Italian, Dutch and Portuguese translations! Want to add another language or improve the current translations? Please check out [translate.cartpops.com](https://translate.cartpops.com/).
+- **upgrade**: Add [filter](https://cartpops.com/docs/php-filters/cartpops_notification_remove_delay/) that allows you to change the time in which notifications are removed from the Drawer.
+- **upgrade**: Replaced all H2 and H3 headings for `<span>`.
+- **upgrade**: Reworked handling of ajax fragments for upcoming features and better compatibility. Thanks Diego from [Aelia](https://aelia.co/) for helping out ❤️
+- **upgrade**: Removed Swiper.js that was used for the Product Recommendation Engine. This specific library caused a lot of conflicts with other plugins (for instance Elementor). This also decreased the total size of the assets from ~160kb to 31kb. 🎉
+- **upgrade**: Improved the total bundle size, specifically the main CSS file. Purging unused CSS decreased the total CSS bundle from ~200kb to ~110kb. Looking to reuse more classes and components in the future to decrease this even more.
+- **upgrade**: Minor bug fixes and tweaks.
 
 #### Version 1.4.2 - 2 June 2021
 - **new**: Integration with [Extendons WooCommerce Product Bundles Plugin with Bulk Discounts](https://www.extendons.com/product/woocommerce-product-bundles-plugin-with-bulk-discounts/).

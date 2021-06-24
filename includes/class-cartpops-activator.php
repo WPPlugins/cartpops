@@ -59,8 +59,8 @@ class CartPops_Activator
         add_option( 'cartpops_border_radius_rounded', 'on' );
         add_option( 'cartpops_animation_type', 'slideup' );
         // Options: Colors - Recommendations.
-        add_option( 'cartpops_color_recommendations_plus_btn_background', '#f7f7fe' );
-        add_option( 'cartpops_color_recommendations_plus_btn_text', '#705aef' );
+        add_option( 'cartpops_color_recommendations_button_background', '#000000' );
+        add_option( 'cartpops_color_recommendations_button_text', '#ffffff' );
         add_option( 'cartpops_color_recommendations_drawer_background', '#f7f7fe' );
         add_option( 'cartpops_color_recommendations_drawer_text', '#000000' );
         add_option( 'cartpops_color_slider_pagination_bullet_active', '#705aef' );
@@ -105,6 +105,7 @@ class CartPops_Activator
         add_option( 'cartpops_drawer_footer_display_tax', 'on' );
         add_option( 'cartpops_drawer_footer_display_shipping', 'on' );
         add_option( 'cartpops_drawer_footer_display_shipping_calculator', 'on' );
+        add_option( 'cartpops_drawer_footer_secondary_button', 'none' );
         // Settings: Customization.
         add_option( 'cartpops_customize_white_space_text', 'break' );
     }

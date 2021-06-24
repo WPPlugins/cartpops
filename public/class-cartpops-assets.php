@@ -41,7 +41,7 @@ class CartPops_Assets
         $shipping_calculator = cartpops_get_option( 'drawer_footer_display_shipping_calculator' );
         wp_enqueue_style(
             'cartpops-frontend',
-            CARTPOPS_URL . 'assets/css/frontend' . $suffix . '.css',
+            CARTPOPS_URL . 'public/dist/css/frontend.min.css',
             array(),
             $this->version,
             'all'
@@ -49,7 +49,7 @@ class CartPops_Assets
         if ( $shipping_calculator ) {
             wp_enqueue_style(
                 $this->plugin_name . '-select2',
-                CARTPOPS_URL . 'assets/lib/select2/select2-frontend' . $suffix . '.css',
+                CARTPOPS_URL . 'public/dist/vendor/select2-frontend.min.css',
                 array( 'cartpops-frontend' ),
                 $this->version,
                 'all'
@@ -57,8 +57,8 @@ class CartPops_Assets
         }
         if ( $recommendation_engine ) {
             wp_enqueue_style(
-                $this->plugin_name . '-swiper',
-                CARTPOPS_URL . 'assets/lib/swiper/swiper-bundle' . $suffix . '.css',
+                'cartpops-product-recommendations',
+                CARTPOPS_URL . 'public/dist/css/product-recommendations.min.css',
                 array( 'cartpops-frontend' ),
                 $this->version,
                 'all'
@@ -83,7 +83,7 @@ class CartPops_Assets
         $shipping_calculator = cartpops_get_option( 'drawer_footer_display_shipping_calculator' );
         wp_enqueue_script(
             'cartpops-frontend',
-            CARTPOPS_URL . 'assets/js/frontend' . $suffix . '.js',
+            CARTPOPS_URL . 'public/dist/js/frontend.min.js',
             array( 'jquery' ),
             $this->version,
             true
@@ -96,9 +96,9 @@ class CartPops_Assets
         
         if ( $recommendation_engine ) {
             wp_enqueue_script(
-                $this->plugin_name . '-swiper',
-                CARTPOPS_URL . 'assets/lib/swiper/swiper-bundle' . $suffix . '.js',
-                array(),
+                'cartpops-product-recommendations',
+                CARTPOPS_URL . 'public/dist/js/product-recommendations.min.js',
+                array( 'cartpops-frontend' ),
                 $this->version,
                 true
             );
@@ -115,7 +115,7 @@ class CartPops_Assets
             'isCheckoutPage'          => wp_json_encode( is_checkout() ),
             'isCartPage'              => wp_json_encode( is_cart() ),
             'genericAddToCartMessage' => ( !empty(cartpops_get_option( 'generic_add_to_cart_message_text' )) ? cartpops_get_option( 'generic_add_to_cart_message_text' ) : __( 'Product successfully added to your cart.', 'cartpops' ) ),
-            'notificationDelay'       => 4200,
+            'notificationDelay'       => apply_filters( 'cartpops_notification_remove_delay', 4200 ),
             'recommendationEngine'    => ( !empty($recommendation_engine) ? wp_json_encode( true ) : wp_json_encode( false ) ),
         ) );
         if ( $custom_js ) {
@@ -138,6 +138,11 @@ class CartPops_Assets
         $drawer_width_desktop = cartpops_get_option( 'customize_width_drawer_desktop' );
         $text_white_space = cartpops_get_option( 'customize_white_space_text' );
         $animation_duration = cartpops_get_option( 'customize_animation_duration' );
+        // Sanitize the values, to ensure that they are all strings
+        // @link https://github.com/cartpops/cartpops/issues/31
+        $styles = array_map( function ( $value ) {
+            return ( is_string( $value ) ? $value : '' );
+        }, $styles );
         if ( $styles ) {
             $dynamic_css = ":root {\n\t\t\t--color-cpops-text-primary: {$styles['color_typography_primary']};\n\t\t\t--color-cpops-text-secondary: {$styles['color_typography_secondary']};\n\t\t\t--color-cpops-text-tertiary: {$styles['color_typography_tertiary']};\n\t\t\t--color-cpops-accent-color: {$styles['color_accent']};\n\t\t\t--color-cpops-overlay-background: {$styles['color_overlay']};\n\t\t\t--color-cpops-background-primary: {$styles['color_background_primary']};\n\t\t\t--color-cpops-background-secondary: {$styles['color_background_secondary']};\n\t\t\t--color-cpops-button-primary-background: {$styles['color_button_primary_background']};\n\t\t\t--color-cpops-button-primary-text: {$styles['color_button_primary_text']};\n\t\t\t--color-cpops-button-secondary-background: {$styles['color_button_secondary_background']};\n\t\t\t--color-cpops-button-secondary-text: {$styles['color_button_secondary_text']};\n\t\t\t--color-cpops-input-field-background: {$styles['color_input_background']};\n\t\t\t--color-cpops-input-field-text: {$styles['color_input_text']};\n\t\t\t--color-cpops-border-color: {$styles['color_border']};\n\t\t\t--color-cpops-recommendations-plus-btn-text: {$styles['color_recommendations_button_text']};\n\t\t\t--color-cpops-recommendations-plus-btn-background: {$styles['color_recommendations_button_background']};\n\t\t\t--color-cpops-drawer-recommendations-background: {$styles['color_recommendations_drawer_background']};\n\t\t\t--color-cpops-drawer-recommendations-text: {$styles['color_recommendations_drawer_text']};\n\t\t\t--color-cpops-popup-recommendations-background: {$styles['color_recommendations_popup_background']};\n\t\t\t--color-cpops-popup-recommendations-text: {$styles['color_recommendations_popup_text']};\n\t\t\t--color-cpops-slider-pagination-bullet-active: {$styles['color_accent']};\n\t\t\t--color-cpops-slider-pagination-bullet: {$styles['color_accent']};\n\t\t\t--color-cpops-floating-cart-launcher-color: {$styles['color_floating_cart_laucher_icon']};\n\t\t\t--color-cpops-floating-cart-launcher-background: {$styles['color_floating_cart_laucher_background']};\n\t\t\t--color-cpops-floating-cart-launcher-indicator-text: {$styles['color_floating_cart_laucher_indicator_text']};\n\t\t\t--color-cpops-floating-cart-launcher-indicator-background: {$styles['color_floating_cart_laucher_indicator_background']};\n\t\t\t--color-cpops-cart-launcher-background: {$styles['color_cart_laucher_background']};\n\t\t\t--color-cpops-cart-launcher-text: {$styles['color_cart_laucher_text']};\n\t\t\t--color-cpops-cart-launcher-bubble-background: {$styles['color_cart_laucher_bubble_background']};\n\t\t\t--color-cpops-cart-launcher-bubble-text: {$styles['color_cart_laucher_bubble_text']};\n\t\t\t--color-cpops-close-color: {$styles['color_typography_secondary']};\n\t\t\t--color-cpops-remove-color: {$styles['color_typography_secondary']};\n\t\t\t--color-cpops-state-success: #24a317;\n\t\t\t--color-cpops-state-warning: #ffdd57;\n\t\t\t--color-cpops-state-danger: #f14668;\n\t\t\t}";
         }

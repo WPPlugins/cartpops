@@ -97,7 +97,7 @@ class CartPops_Settings
         $screen = get_current_screen();
         wp_enqueue_style(
             'cartpops-admin-global',
-            CARTPOPS_URL . 'assets/css/admin-global' . $suffix . '.css',
+            CARTPOPS_URL . 'admin/dist/css/admin-global.min.css',
             array(),
             $this->version,
             'all'
@@ -106,35 +106,35 @@ class CartPops_Settings
         if ( $this->plugin_screen_hook_suffix === $screen->id ) {
             wp_enqueue_style(
                 $this->plugin_name . '-admin',
-                CARTPOPS_URL . 'assets/css/admin' . $suffix . '.css',
+                CARTPOPS_URL . 'admin/dist/css/admin.min.css',
                 array(),
                 $this->version,
                 'all'
             );
             wp_enqueue_style(
                 $this->plugin_name . '-admin-select2',
-                CARTPOPS_URL . 'assets/lib/select2/select2' . $suffix . '.css',
+                CARTPOPS_URL . 'admin/dist/vendor/select2.css',
                 array(),
                 $this->version,
                 'all'
             );
             wp_enqueue_style(
                 $this->plugin_name . '-admin-spectrum',
-                CARTPOPS_URL . 'assets/lib/spectrum/spectrum' . $suffix . '.css',
+                CARTPOPS_URL . 'admin/dist/vendor/spectrum.css',
                 array(),
                 $this->version,
                 'all'
             );
             wp_enqueue_style(
                 $this->plugin_name . '-admin-codemirror',
-                CARTPOPS_URL . 'assets/lib/code-mirror/codemirror.css',
+                CARTPOPS_URL . 'admin/dist/vendor/codemirror.css',
                 array(),
                 $this->version,
                 'all'
             );
             wp_enqueue_style(
                 $this->plugin_name . '-admin-codemirror-theme',
-                CARTPOPS_URL . 'assets/lib/code-mirror/material.css',
+                CARTPOPS_URL . 'admin/dist/vendor/material.css',
                 array(),
                 $this->version,
                 'all'
@@ -160,7 +160,7 @@ class CartPops_Settings
             wp_enqueue_script( 'jquery-form' );
             wp_enqueue_script(
                 $this->plugin_name . '-admin-script',
-                CARTPOPS_URL . 'assets/js/admin' . $suffix . '.js',
+                CARTPOPS_URL . 'admin/dist/js/admin.min.js',
                 array( 'jquery', 'jquery-form' ),
                 $this->version,
                 true
@@ -349,7 +349,7 @@ class CartPops_Settings
             'default' => array( 'hide' ),
         ),
             array(
-            'id'      => 'cartpops_product_recommendation_engine_button_type',
+            'id'      => 'product_recommendation_engine_button_type',
             'label'   => __( 'Button type', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/product-recommendation-engine/', 'Tooltip', 'Documentation' ) ),
             'tooltip' => __( 'Select what type of button you want to use.', 'cartpops' ),
             'type'    => 'select',
@@ -358,10 +358,10 @@ class CartPops_Settings
             'text'      => __( 'Text (Pro)', 'cartpops' ),
             'text_icon' => __( 'Text + Icon (Pro)', 'cartpops' ),
         ),
-            'default' => array( 'hide' ),
+            'default' => 'icon',
         ),
             array(
-            'id'          => 'cartpops_product_recommendation_engine_button_text',
+            'id'          => 'product_recommendation_engine_button_text',
             'label'       => __( 'Button text', 'cartpops' ),
             'type'        => 'text',
             'default'     => __( 'Add', 'cartpops' ),
@@ -1944,7 +1944,7 @@ class CartPops_Settings
      */
     private function get_admin_asset( $asset )
     {
-        return CARTPOPS_URL . 'assets/images/admin/' . $asset;
+        return CARTPOPS_URL . 'admin/dist/images/' . $asset;
     }
     
     /**

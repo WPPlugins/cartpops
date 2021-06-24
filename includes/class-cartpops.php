@@ -237,7 +237,7 @@ class CartPops
             'wp_enqueue_scripts',
             $assets_frontend,
             'enqueue_frontend_styles',
-            10
+            20
         );
         $this->loader->add_action(
             'wp_enqueue_scripts',
@@ -245,7 +245,12 @@ class CartPops
             'enqueue_frontend_scripts',
             20
         );
-        $this->loader->add_action( 'wp_enqueue_scripts', $assets_frontend, 'enqueue_dynamic_styles' );
+        $this->loader->add_action(
+            'wp_enqueue_scripts',
+            $assets_frontend,
+            'enqueue_dynamic_styles',
+            25
+        );
     }
     
     /**
@@ -343,6 +348,14 @@ class CartPops
     private function can_activate_frontend()
     {
         $enabled = cartpops_get_option( 'plugin_enable' );
+        /**
+         * Don't run the front-end when in Gutenberg edit mode to prevent errors.
+         *
+         * @since 1.4.3
+         */
+        if ( $this->is_block_editor() ) {
+            return false;
+        }
         // If the plugin is disabled in settings.
         if ( 'on' !== $enabled ) {
             return false;
@@ -353,6 +366,20 @@ class CartPops
             return false;
         }
         return true;
+    }
+    
+    /**
+     * Check if the current screen is the Gutenberg block editor.
+     *
+     * @since 1.4.3
+     */
+    private function is_block_editor()
+    {
+        global  $current_screen ;
+        if ( $current_screen instanceof \WP_Screen && $current_screen->is_block_editor() ) {
+            return true;
+        }
+        return false;
     }
     
     /**

@@ -1,5 +1,8 @@
 <?php
 
+use  CartPops\Cart\Fragments\Cart_Fragment_Manager ;
+use  CartPops\Cart\Fragments\Cart_Fragment_Settings ;
+use  CartPops\Cart\Fragments\Cart_Item_Fragment_Settings ;
 /**
  * Frontend AJAX calls reside in this class.
  *
@@ -52,76 +55,59 @@ class CartPops_Frontend_Ajax
         cpops_frontend_helper()->set_cart_constant();
         // Calculate cart totals.
         WC()->cart->calculate_totals();
-        // Handle notices.
-        
-        if ( !in_array( $request_type, array( 'refresh_cart' ), true ) ) {
-            $notice = $this->get_notifications();
-            if ( !empty($notice) ) {
-                $fragments['div.cpops-drawer-notices-wrapper'] = '<div class="cpops-drawer-notices-wrapper">' . $notice . '</div>';
-            }
-        }
-        
-        // Floating cart launcher.
-        ob_start();
-        $this->templates->render_floating_cart_launcher();
-        $cart_launcher_floating = ob_get_clean();
-        $fragments['div#cpops-floating-cart'] = $cart_launcher_floating;
-        // Update cart totals.
-        ob_start();
-        $this->templates->render_cart_totals();
-        $cart_totals = ob_get_clean();
-        $fragments['div.cpops-cart-total'] = $cart_totals;
-        // Coupon apply and remove.
-        
-        if ( $coupons ) {
-            ob_start();
-            $this->templates->render_coupon_removal();
-            $coupon_form = ob_get_clean();
-            $fragments['div.cpops-coupon-remove'] = '<div class="cpops-coupon-remove" class="cpops-modal">' . $coupon_form . '</div>';
-        }
-        
-        // Drawer recommendations.
-        ob_start();
-        $this->templates->render_drawer_recommendations();
-        $recommendations = ob_get_clean();
-        $fragments['.cpops-drawer-recommendations'] = $recommendations;
+        /**
+         * Initialize the settings for the cart fragments
+         *
+         * @since 1.4.3
+         */
+        $fragment_settings = new Cart_Fragment_Settings( [
+            'templates'    => $this->templates,
+            'request_type' => $request_type,
+            'product_id'   => $product_id,
+            'cart'         => WC()->cart,
+            'notice'       => (string) $this->get_notifications(),
+        ] );
+        $cart_fragments = [
+            'div.cpops-drawer-notices-wrapper' => 'notices',
+            'div#cpops-floating-cart'          => 'cart_launcher',
+            'div.cpops-cart-total'             => 'cart_totals',
+            'div.cpops-coupon-remove'          => 'coupon_removal',
+            '.cpops-drawer-recommendations'    => 'drawer_recommendations',
+        ];
+        $fragments = array_merge( $fragments, Cart_Fragment_Manager::render_fragments( $cart_fragments, $fragment_settings ) );
         // Update cart.
         
         if ( in_array( $request_type, array( 'update_cart' ), true ) ) {
             foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
-                $product = cpops_frontend_helper()->cart_item_product( $cart_item, $cart_item_key );
-                
-                if ( $product && $product->exists() && $cart_item['quantity'] > 0 && apply_filters(
-                    'woocommerce_widget_cart_item_visible',
-                    true,
-                    $cart_item,
-                    $cart_item_key
-                ) ) {
-                    $fragments['div.cpops-cart-item[data-key="' . $cart_item_key . '"] .cpops-cart-item__actions--pricing'] = $this->templates->render_price( array(
-                        'cart_item_key' => $cart_item_key,
-                        'cart_item'     => $cart_item,
-                        'product'       => $product,
-                    ), $buffer_output );
-                    $fragments['div.cpops-cart-item[data-key="' . $cart_item_key . '"] .cpops-cart-item__quantity-selector'] = $this->templates->render_quantity_selectors( array(
-                        'input_value'   => $cart_item['quantity'],
-                        'quantity'      => $cart_item['quantity'],
-                        'max_value'     => $product->get_max_purchase_quantity(),
-                        'min_value'     => $product->get_min_purchase_quantity(),
-                        'product_name'  => cpops_frontend_helper()->get_product_name( $cart_item, $cart_item_key ),
-                        'cart_item_key' => $cart_item_key,
-                    ), $product, $buffer_output );
-                }
-            
+                /**
+                 * Initialise the settings for the cart item fragments
+                 *
+                 * @since 1.4.3
+                 */
+                $cart_item_fragment_settings = new Cart_Item_Fragment_Settings( [
+                    'templates'    => $this->templates,
+                    'request_type' => $request_type,
+                    'product_id'   => $product_id,
+                    'cart'         => WC()->cart,
+                    'notice'       => (string) $this->get_notifications(),
+                    'cart_item'    => $cart_item,
+                ] );
+                // Cart item price.
+                $fragments['div.cpops-cart-item[data-key="' . $cart_item_key . '"] .cpops-cart-item__actions--pricing'] = Cart_Fragment_Manager::get_fragment_html( 'cart_item_price', $cart_item_fragment_settings );
+                // Cart item quantity.
+                $fragments['div.cpops-cart-item[data-key="' . $cart_item_key . '"] .cpops-cart-item__quantity-selector'] = Cart_Fragment_Manager::get_fragment_html( 'cart_item_quantity', $cart_item_fragment_settings );
             }
         } else {
             // Add to cart, remove product updates.
-            ob_start();
-            $this->templates->render_cart_contents();
-            $product_added_screen = ob_get_clean();
-            $fragments['.cpops-drawer-cart'] = '<div class="cpops-drawer-cart">' . $product_added_screen . '</div>';
+            $fragments['.cpops-drawer-cart'] = Cart_Fragment_Manager::get_fragment_html( 'drawer_cart', $fragment_settings );
         }
         
-        return $fragments;
+        /**
+         * Remove all empty fragments from the response. This will allow to exclude the fragments thar were not rendered due to specific conditions
+         *
+         * @since 1.4.3
+         */
+        return array_filter( $fragments );
     }
     
     /**
