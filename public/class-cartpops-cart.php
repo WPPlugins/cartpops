@@ -118,6 +118,7 @@ class CartPops_Cart
     {
         $enabled = cartpops_get_option( 'floating_cart_launcher_enable' );
         $hide_if_empty = cartpops_get_option( 'floating_cart_launcher_hide_empty' );
+        $hide_indicator_if_empty = cartpops_get_option( 'floating_cart_launcher_hide_indicator_empty' );
         $cart = WC()->cart;
         $cart_count = ( !empty($cart) ? $cart->get_cart_contents_count() : 0 );
         if ( !$enabled ) {
@@ -132,6 +133,9 @@ class CartPops_Cart
         );
         if ( $hide_if_empty && 0 === $cart_count ) {
             $data['classes'][] = 'cpops-floating-cart-empty';
+        }
+        if ( $hide_indicator_if_empty && 0 === $cart_count ) {
+            $data['classes'][] = 'cpops-floating-cart-hide-indicator';
         }
         return cpops_frontend_helper()->get_template( 'components/launcher', $data, false );
     }
@@ -242,9 +246,9 @@ class CartPops_Cart
     
     }
     
-    public function render_price( $data = array(), $echo = true )
+    public function render_price( $data = array() )
     {
-        return cpops_frontend_helper()->get_template( 'components/product/price', $data, $echo );
+        return cpops_frontend_helper()->get_template( 'components/product/price', $data );
     }
     
     /**
@@ -924,7 +928,7 @@ class CartPops_Cart
      *
      * @since 1.4.1
      */
-    public function get_bundled_items()
+    public function get_bundled_items( $cart_item )
     {
         if ( !empty($this->bundled_items) ) {
             return $this->bundled_items;
@@ -1026,6 +1030,22 @@ class CartPops_Cart
             'image'              => true,
             'link'               => true,
         ),
+            'associated_products' => array(
+            'key'                => 'epo_themecomplete_parent',
+            'type'               => 'parent',
+            'delete'             => true,
+            'quantity_selectors' => true,
+            'image'              => true,
+            'link'               => true,
+        ),
+            'associated_parent'   => array(
+            'key'                => 'epo_themecomplete_child',
+            'type'               => 'child',
+            'delete'             => false,
+            'quantity_selectors' => false,
+            'image'              => true,
+            'link'               => true,
+        ),
         );
         $this->bundled_items = apply_filters( 'cartpops_bundled_items_data', $data );
         return $this->bundled_items;
@@ -1039,7 +1059,7 @@ class CartPops_Cart
      */
     public function get_bundled_item( $cart_item )
     {
-        $bundled_items = $this->get_bundled_items();
+        $bundled_items = $this->get_bundled_items( $cart_item );
         $bundled_products = array_intersect_key( $bundled_items, $cart_item );
         return ( !empty($bundled_products) ? array_values( array_intersect_key( $bundled_items, $cart_item ) )[0] : $bundled_products );
     }

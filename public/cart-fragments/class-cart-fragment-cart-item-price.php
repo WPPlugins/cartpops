@@ -44,6 +44,7 @@ class Fragment_Cart_Item_Price extends Fragment {
 	 */
 	protected function should_render(): bool {
 		$product = $this->get_cart_item_product();
+
 		return ( ( $product instanceof \WC_Product ) && $product->exists() && $this->settings->cart_item['quantity'] > 0 && apply_filters( 'woocommerce_widget_cart_item_visible', true, $this->settings->cart_item, $this->settings->cart_item['key'] ) );
 	}
 
@@ -54,11 +55,11 @@ class Fragment_Cart_Item_Price extends Fragment {
 	 */
 	protected function render_fragment(): void {
 		$this->settings->templates->render_price(
-			 [
-				 'cart_item_key' => $this->settings->cart_item['key'],
-				 'cart_item'     => $this->settings->cart_item,
-				 'product'       => $this->get_cart_item_product(),
-			 ]
-			);
+			[
+				'cart_item_key' => $this->settings->cart_item['key'],
+				'cart_item'     => $this->settings->cart_item,
+				'product'       => $this->get_cart_item_product(),
+			]
+		);
 	}
 }

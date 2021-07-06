@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 <div id="cpops-floating-cart" class="<?php echo esc_html( implode( ' ', array_filter( $classes ) ) ); ?>">
 
-	<button aria-label="Open CartPops popover" aria-expanded="false" class="cpops-floating-cart__buttob">
+	<button aria-label="Open CartPops popover" aria-expanded="false" class="cpops-floating-cart__button">
 		<div class="cpops-floating-cart__animation"></div>
 		<div class="cpops-floating-cart__count">
 			<span><?php echo esc_attr( $item_account ); ?></span>

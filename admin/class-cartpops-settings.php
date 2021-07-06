@@ -400,13 +400,15 @@ class CartPops_Settings
         );
         $settings['floating_cart_launcher'] = array(
             'title'  => __( 'Floating Cart Launcher', 'cartpops' ),
-            'fields' => array( array(
+            'fields' => array(
+            array(
             'id'      => 'floating_cart_launcher_enable',
             'label'   => __( 'Enable Floating Cart Launcher', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/cart-launcher/#floating-cart-launcher', 'Tooltip', 'Documentation' ) ),
             'tooltip' => __( 'This will enable a floating icon on your website on which customers can quickly activate the CartPops Drawer and view their cart items.', 'cartpops' ),
             'type'    => 'checkbox',
             'default' => '',
-        ), array(
+        ),
+            array(
             'id'        => 'floating_cart_launcher_position',
             'label'     => __( 'Select a position', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/cart-launcher/#floating-cart-launcher', 'Tooltip', 'Documentation' ) ),
             'tooltip'   => __( 'Change how the Floating Cart Launcher is positioned. Useful if you\'re using live chat on your store.', 'cartpops' ),
@@ -421,14 +423,24 @@ class CartPops_Settings
             'value'               => 'on',
             'data-relies-default' => 'hidden',
         ),
-        ), array(
+        ),
+            array(
             'id'      => 'floating_cart_launcher_hide_empty',
             'label'   => __( 'Hide when cart is empty', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/cart-launcher/#floating-cart-launcher', 'Tooltip', 'Documentation' ) ),
             'tooltip' => __( 'This will hide the floating cart launcher when the cart is empty', 'cartpops' ),
             'type'    => 'checkbox',
             'default' => '',
             'paid'    => 'true',
-        ) ),
+        ),
+            array(
+            'id'      => 'floating_cart_launcher_hide_indicator_empty',
+            'label'   => __( 'Hide indicator when cart is empty', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/cart-launcher/#floating-cart-launcher', 'Tooltip', 'Documentation' ) ),
+            'tooltip' => __( 'This will hide the floating cart indicator when the cart is empty', 'cartpops' ),
+            'type'    => 'checkbox',
+            'default' => '',
+            'paid'    => 'true',
+        )
+        ),
         );
         $settings['menu_cart_launcher'] = array(
             'title'  => __( 'Cart Launcher', 'cartpops' ),

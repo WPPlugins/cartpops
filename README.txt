@@ -5,7 +5,7 @@ Tags: add to cart popup, added to cart, cart, shop, shopping cart, cart drawer, 
 Requires at least: 5.1
 Tested up to: 5.7.2
 Requires PHP: 7.0
-Stable tag: 1.4.5
+Stable tag: 1.4.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -153,6 +153,13 @@ If you have a caching plugin installed, or use any sort of caching in your site 
 
 == Changelog ==
 
+#### Version 1.4.6 - 6 July 2021
+- **new**: Added option to hide the cart count indicator on the Floating Cart Launcher if the cart is empty.
+- **integration**: Integration with [WooCommerce Extra Product Options](https://codecanyon.net/item/woocommerce-extra-product-options/7908619).
+- **upgrade**: Reworked the add to cart handling to make it more compatibile with plugins that add (hidden) fields.
+- **upgrade**: Increase z-index for the modals.
+- **fix**: Ocassions where the modal animations are not working.
+
 #### Version 1.4.5 - 24 June 2021
 - **new**: Added German, Spanish, French, Italian, Dutch and Portuguese translations! Want to add another language or improve the current translations? Please check out [translate.cartpops.com](https://translate.cartpops.com/).
 - **upgrade**: Add [filter](https://cartpops.com/docs/php-filters/cartpops_notification_remove_delay/) that allows you to change the time in which notifications are removed from the Drawer.
@@ -163,14 +170,14 @@ If you have a caching plugin installed, or use any sort of caching in your site 
 - **upgrade**: Minor bug fixes and tweaks.
 
 #### Version 1.4.2 - 2 June 2021
-- **new**: Integration with [Extendons WooCommerce Product Bundles Plugin with Bulk Discounts](https://www.extendons.com/product/woocommerce-product-bundles-plugin-with-bulk-discounts/).
-- **new**: Integration with [WooCommerce Chained Products](https://woocommerce.com/products/chained-products/).
+- **integration**: Integration with [Extendons WooCommerce Product Bundles Plugin with Bulk Discounts](https://www.extendons.com/product/woocommerce-product-bundles-plugin-with-bulk-discounts/).
+- **integration**: Integration with [WooCommerce Chained Products](https://woocommerce.com/products/chained-products/).
 
 #### Version 1.4.1 - 1 June 2021
-- **new**: Integration with [WooCommerce Product Bundles](https://woocommerce.com/products/product-bundles/).
-- **new**: Integration with [WooCommerce Composite Products](https://woocommerce.com/products/composite-products/).
-- **new**: Integration with [WooCommerce Mix & Match Products](https://woocommerce.com/products/woocommerce-mix-and-match-products/).
-- **new**: Integration with [WPC Product Bundles](https://wordpress.org/plugins/woo-product-bundle/).
+- **integration**: Integration with [WooCommerce Product Bundles](https://woocommerce.com/products/product-bundles/).
+- **integration**: Integration with [WooCommerce Composite Products](https://woocommerce.com/products/composite-products/).
+- **integration**: Integration with [WooCommerce Mix & Match Products](https://woocommerce.com/products/woocommerce-mix-and-match-products/).
+- **integration**: Integration with [WPC Product Bundles](https://wordpress.org/plugins/woo-product-bundle/).
 - **upgrade**: CSS tweaks and small bug fixes.
 
 #### Version 1.4.0 - 29 May 2021
