@@ -108,7 +108,7 @@ class CartPops_Assets
             'ajax_url'                => admin_url( 'admin-ajax.php' ),
             'pro'                     => wp_json_encode( fs_cartpops()->can_use_premium_code() ),
             'nonce'                   => wp_create_nonce( 'cartpops' ),
-            'trigger'                 => $this->trigger,
+            'trigger'                 => apply_filters( 'cartpops_add_to_cart_trigger', $this->trigger ),
             'forceRefresh'            => ( !empty(cartpops_get_option( 'force_fragments_refresh' )) ? wp_json_encode( true ) : wp_json_encode( false ) ),
             'refreshDelay'            => 150,
             'ajaxAddToCart'           => true,
@@ -138,8 +138,7 @@ class CartPops_Assets
         $drawer_width_desktop = cartpops_get_option( 'customize_width_drawer_desktop' );
         $text_white_space = cartpops_get_option( 'customize_white_space_text' );
         $animation_duration = cartpops_get_option( 'customize_animation_duration' );
-        // Sanitize the values, to ensure that they are all strings
-        // @link https://github.com/cartpops/cartpops/issues/31
+        // Sanitize the values, to ensure that they are all strings.
         $styles = array_map( function ( $value ) {
             return ( is_string( $value ) ? $value : '' );
         }, $styles );

@@ -437,7 +437,7 @@ class CartPops_Cart
         foreach ( $product_ids as $product_id ) {
             $_product = wc_get_product( $product_id );
             $product_cart_id = WC()->cart->generate_cart_id( $product_id );
-            if ( !WC()->cart->find_product_in_cart( $product_cart_id ) && $_product->is_type( 'simple' ) && $_product->is_in_stock() ) {
+            if ( !WC()->cart->find_product_in_cart( $product_cart_id ) && $_product->is_in_stock() ) {
                 $products[] = $_product;
             }
         }
@@ -533,11 +533,18 @@ class CartPops_Cart
             $label_translation = cartpops_get_option( 'total_line_item_text' );
             $enable_shipping = cartpops_get_option( 'drawer_footer_display_shipping' );
             $label = ( !empty($label_translation) ? $label_translation : __( 'Total', 'cartpops' ) );
+            $cart_total = $cart->get_total( 'number' );
             $shipping = $this->get_shipping_totals();
             $shipping_total = $shipping->total;
             $shipping_tax_total = $shipping->tax_total;
-            $total_without_shipping = $cart->get_total( 'number' ) - $shipping_total - $shipping_tax_total;
-            $value = '<strong>' . wc_price( $total_without_shipping ) . '</strong> ';
+            $total_without_shipping = $cart_total - $shipping_total - $shipping_tax_total;
+            
+            if ( $enable_shipping ) {
+                $value = '<strong>' . wc_price( $cart_total ) . '</strong> ';
+            } else {
+                $value = '<strong>' . wc_price( $total_without_shipping ) . '</strong> ';
+            }
+            
             
             if ( wc_tax_enabled() && $cart->display_prices_including_tax() ) {
                 $tax_string_array = array();

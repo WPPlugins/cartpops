@@ -1074,7 +1074,6 @@ class CartPops_Settings
         // Get external products.
         $args = array(
             's'              => $_GET['q'],
-            'type'           => 'simple',
             'post_status'    => 'publish',
             'posts_per_page' => 50,
         );

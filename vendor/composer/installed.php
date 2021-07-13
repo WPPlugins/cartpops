@@ -1,22 +1,22 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => '1.4.6',
-        'version' => '1.4.6.0',
+        'pretty_version' => '1.4.7',
+        'version' => '1.4.7.0',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'd23b0762ab5357cd7933e04a5a3a5b069bb69121',
+        'reference' => '224814ddcbd7be8b6773ef95f4d1724e613f3a50',
         'name' => 'cartpops/cartpops',
         'dev' => false,
     ),
     'versions' => array(
         'cartpops/cartpops' => array(
-            'pretty_version' => '1.4.6',
-            'version' => '1.4.6.0',
+            'pretty_version' => '1.4.7',
+            'version' => '1.4.7.0',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'd23b0762ab5357cd7933e04a5a3a5b069bb69121',
+            'reference' => '224814ddcbd7be8b6773ef95f4d1724e613f3a50',
             'dev_requirement' => false,
         ),
         'freemius/wordpress-sdk' => array(

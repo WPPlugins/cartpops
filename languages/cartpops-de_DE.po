@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the CartPops package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2021-06-07 09:40:20+0000\n"
+"PO-Revision-Date: 2021-07-13 09:45:56+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,7 +11,15 @@ msgstr ""
 "Language: de\n"
 "Project-Id-Version: CartPops\n"
 
-#: public/class-cartpops-cart.php:947
+#: templates/drawer/recommendations.php:80
+msgid "Select options"
+msgstr "Ausführung wählen"
+
+#: admin/class-cartpops-settings.php:511
+msgid "This will hide the floating cart indicator when the cart is empty"
+msgstr ""
+
+#: public/class-cartpops-cart.php:958
 msgid "Edit"
 msgstr ""
 
@@ -27,78 +35,78 @@ msgstr ""
 msgid "Invalid properties passed to data object constructor. Class: \"%1$s\". Invalid properties (JSON): \"%2$s\"."
 msgstr ""
 
-#: admin/class-cartpops-settings.php:1902
+#: admin/class-cartpops-settings.php:1910
 msgid "These settings are deprecated and will be removed on July 11, 2021. %s."
 msgstr ""
 
-#: admin/class-cartpops-settings.php:1901
+#: admin/class-cartpops-settings.php:1909
 msgid "Translate (Deprecated)"
 msgstr ""
 
-#: admin/class-cartpops-settings.php:1838
+#: admin/class-cartpops-settings.php:1846
 msgid "Head over to your WordPress menu to activate this feature in your menu"
 msgstr ""
 
-#: admin/class-cartpops-settings.php:1837
+#: admin/class-cartpops-settings.php:1845
 msgid "Menu Cart launcher settings (Experimental)"
 msgstr ""
 
-#: admin/class-cartpops-settings.php:1801
+#: admin/class-cartpops-settings.php:1809
 msgid "documentation"
 msgstr ""
 
-#: admin/class-cartpops-settings.php:1260
+#: admin/class-cartpops-settings.php:1268
 msgid "Please make sure to stop using these features before July 11, 2021."
 msgstr ""
 
-#: admin/class-cartpops-settings.php:1259
-#: admin/class-cartpops-settings.php:1902
+#: admin/class-cartpops-settings.php:1267
+#: admin/class-cartpops-settings.php:1910
 msgid "Learn more here"
 msgstr ""
 
 #. translators: 1. Link
-#: admin/class-cartpops-settings.php:1259
+#: admin/class-cartpops-settings.php:1267
 msgid "The quick translation fields in the advanced plugin settings are deprecated and will be removed on July 11, 2021. %s."
 msgstr ""
 
-#: admin/class-cartpops-settings.php:1059
+#: admin/class-cartpops-settings.php:1067
 msgid "Continue shopping text (Popup)"
 msgstr ""
 
-#: admin/class-cartpops-settings.php:637
+#: admin/class-cartpops-settings.php:645
 msgid "Secondary button custom text"
 msgstr ""
 
-#: admin/class-cartpops-settings.php:624
+#: admin/class-cartpops-settings.php:632
 msgid "Secondary button custom URL"
 msgstr ""
 
-#: admin/class-cartpops-settings.php:618
+#: admin/class-cartpops-settings.php:626
 msgid "Custom URL (Pro)"
 msgstr ""
 
-#: admin/class-cartpops-settings.php:617
+#: admin/class-cartpops-settings.php:625
 msgid "View cart (Pro)"
 msgstr ""
 
-#: admin/class-cartpops-settings.php:616
+#: admin/class-cartpops-settings.php:624
 msgid "Continue shopping (Pro)"
 msgstr ""
 
-#: admin/class-cartpops-settings.php:604
+#: admin/class-cartpops-settings.php:612
 msgid "This will show a button next to the shipping line item where the customer can calculate or change their shipping."
 msgstr ""
 
-#: admin/class-cartpops-settings.php:603
+#: admin/class-cartpops-settings.php:611
 msgid "Shipping calculator"
 msgstr ""
 
-#: admin/class-cartpops-settings.php:596
+#: admin/class-cartpops-settings.php:604
 msgid "Show shipping"
 msgstr ""
 
 #. translators: %s: Item name.
-#: public/class-cartpops-ajax.php:240
+#: public/class-cartpops-ajax.php:249
 msgctxt "Item name in quotes"
 msgid "&ldquo;%s&rdquo;"
 msgstr "„%s“"
@@ -169,57 +177,57 @@ msgstr "Produktinformationen"
 msgid "Available on backorder"
 msgstr "Im Rückstand verfügbar"
 
-#: public/class-cartpops-cart.php:1229
+#: public/class-cartpops-cart.php:1241
 msgid "Congrats 🎉! You have earned free shipping!"
 msgstr "Herzlichen Glückwunsch 🎉! Du hast dir kostenlosen Versand verdient!"
 
 #. translators: %1$s is an emoji %2$s is replaced with a price (e.g. $30.00)
-#: public/class-cartpops-cart.php:1227
+#: public/class-cartpops-cart.php:1239
 msgid "%1$s Only %2$s away from free shipping!"
 msgstr ""
 
-#: public/class-cartpops-cart.php:948
+#: public/class-cartpops-cart.php:959
 msgid "Calculate shipping"
 msgstr "Versandkosten berechnen"
 
 #. translators: %s is an address.
-#: public/class-cartpops-cart.php:941 templates/drawer/shipping.php:68
+#: public/class-cartpops-cart.php:952 templates/drawer/shipping.php:68
 msgid "No shipping options were found for %s."
 msgstr "Es wurden keine Versandoptionen für %s gefunden."
 
-#: public/class-cartpops-cart.php:939 templates/drawer/shipping.php:62
+#: public/class-cartpops-cart.php:950 templates/drawer/shipping.php:62
 msgid "Shipping costs are calculated during checkout."
 msgstr "Die Versandgebühren werden beim Bezahlvorgang berechnet."
 
-#: public/class-cartpops-cart.php:922
+#: public/class-cartpops-cart.php:933
 msgid "Shipping"
 msgstr "Versand"
 
-#: public/class-cartpops-cart.php:829
+#: public/class-cartpops-cart.php:840
 msgid "Shipping calculated at checkout"
 msgstr "Versand wird an der Kasse berechnet"
 
 #. translators: %s: tax amount
-#: public/class-cartpops-cart.php:824
+#: public/class-cartpops-cart.php:835
 msgid "(includes %s)"
 msgstr "(enthält %s)"
 
 #. translators: %s: address
-#: public/class-cartpops-cart.php:821
+#: public/class-cartpops-cart.php:832
 msgid "estimated for %s"
 msgstr "schätzungsweise für %s"
 
-#: public/class-cartpops-cart.php:574 public/class-cartpops-cart.php:690
+#: public/class-cartpops-cart.php:580 public/class-cartpops-cart.php:696
 msgid "You might also like these items!"
 msgstr "Diese Artikel könnten dir auch gefallen!"
 
-#: public/class-cartpops-cart.php:541
+#: public/class-cartpops-cart.php:546
 msgid "Removes coupon code"
 msgstr "Gutschein-Code entfernen"
 
 #. translators: %1$s is replaced with the coupon name and %2$s with the coupon
 #. amount
-#: public/class-cartpops-cart.php:539
+#: public/class-cartpops-cart.php:544
 msgid "Coupon \"%1$s\" (%2$s)"
 msgstr "Gutschein \"%1$s\" (%2$s)"
 
@@ -227,86 +235,86 @@ msgstr "Gutschein \"%1$s\" (%2$s)"
 msgid "Select a shipping method"
 msgstr "Wähle eine Versandart"
 
-#: public/class-cartpops-ajax.php:500
+#: public/class-cartpops-ajax.php:509
 msgid "You succesfully changed your shipping method"
 msgstr "Du hast deine Versandart erfolgreich geändert"
 
-#: public/class-cartpops-ajax.php:474
+#: public/class-cartpops-ajax.php:483
 msgid "You succesfully changed your shipping details."
 msgstr "Du hast deine Versanddaten erfolgreich geändert."
 
-#: public/class-cartpops-ajax.php:447
+#: public/class-cartpops-ajax.php:456
 msgid "Coupon has been removed."
 msgstr "Der Gutschein wurde entfernt."
 
-#: public/class-cartpops-ajax.php:444
+#: public/class-cartpops-ajax.php:453
 msgid "Sorry there was a problem removing this coupon."
 msgstr "Leider gab es ein Problem beim Entfernen dieses Gutscheins."
 
-#: public/class-cartpops-ajax.php:418
+#: public/class-cartpops-ajax.php:427
 msgid "Sorry, this coupon code is already applied!"
 msgstr "Leider wurde dieser Gutscheincode bereits eingelöst!"
 
-#: public/class-cartpops-ajax.php:414
+#: public/class-cartpops-ajax.php:423
 msgid "Sorry, this coupon code is not valid!"
 msgstr "Leider ist dieser Gutscheincode ungültig!"
 
-#: public/class-cartpops-ajax.php:401
+#: public/class-cartpops-ajax.php:410
 msgid "Your coupon code was applied successfully."
 msgstr "Dein Gutscheincode wurde erfolgreich eingelöst."
 
 #. translators: %s: product name
-#: public/class-cartpops-ajax.php:361
+#: public/class-cartpops-ajax.php:370
 msgid "\"%s\" was removed from your cart"
 msgstr "„%s“ wurde aus deinem Warenkorb entfernt"
 
 #. translators: 1: product name 2: quantity in stock
-#: public/class-cartpops-ajax.php:352
+#: public/class-cartpops-ajax.php:361
 msgid "Sorry, we do not have enough \"%1$s\" in stock to fulfill your order (%2$s available). We apologize for any inconvenience caused."
 msgstr "Leider haben wir nicht genug „%1$s“ auf Lager, um deine Bestellung zu erfüllen (%2$s sind vorrätig). Wir möchten uns für die entstandenen Unannehmlichkeiten entschuldigen."
 
 #. translators: %s: product name
-#: public/class-cartpops-ajax.php:333
+#: public/class-cartpops-ajax.php:342
 msgid "\"%s\" has been updated."
 msgstr "„%s“ wurde aktualisiert."
 
 #. translators: %s: product name
-#: public/class-cartpops-ajax.php:325
+#: public/class-cartpops-ajax.php:334
 msgid "Sorry, \"%s\" is not in stock. Please edit your cart and try again. We apologize for any inconvenience caused."
 msgstr "Leider ist „%s“ nicht vorrätig. Bitte bearbeite deinen Warenkorb und versuche es erneut. Wir möchten uns für die entstandenen Unannehmlichkeiten entschuldigen."
 
-#: public/class-cartpops-ajax.php:303
+#: public/class-cartpops-ajax.php:312
 msgid "Did not pass security check"
 msgstr "Hat die Sicherheitsprüfung nicht bestanden"
 
 #. translators: %s: Item name.
-#: public/class-cartpops-ajax.php:277
+#: public/class-cartpops-ajax.php:286
 msgid "%s has been added back to your cart."
 msgstr "%s wurde wieder zu deinem Warenkorb hinzugefügt."
 
-#: public/class-cartpops-ajax.php:246
+#: public/class-cartpops-ajax.php:255
 msgid "Undo?"
 msgstr "Rückgängig machen?"
 
 #. Translators: %s Product title.
-#: public/class-cartpops-ajax.php:245 public/class-cartpops-ajax.php:249
+#: public/class-cartpops-ajax.php:254 public/class-cartpops-ajax.php:258
 msgid "%s removed."
 msgstr "%s wurde entfernt."
 
-#: public/class-cartpops-ajax.php:240
+#: public/class-cartpops-ajax.php:249
 msgid "Item"
 msgstr "Artikel"
 
-#: public/class-cartpops-ajax.php:210
+#: public/class-cartpops-ajax.php:219
 msgid "Added to the cart successfully."
 msgstr "Wurde erfolgreich zum Warenkorb hinzugefügt."
 
 #. translators: %s: product name
-#: public/class-cartpops-ajax.php:208
+#: public/class-cartpops-ajax.php:217
 msgid "\"%s\" has been added to the cart."
 msgstr "„%s“ wurde dem Warenkorb hinzugefügt."
 
-#: public/class-cartpops-ajax.php:197
+#: public/class-cartpops-ajax.php:206
 msgid "Something went wrong, please reload the page."
 msgstr "Da ist etwas schief gelaufen! Bitte lade die Seite neu."
 
@@ -474,595 +482,595 @@ msgstr "Es wurden keine Probleme gefunden."
 msgid "Save Settings"
 msgstr "Einstellungen speichern"
 
-#: admin/class-cartpops-settings.php:1920
+#: admin/class-cartpops-settings.php:1928
 msgid "Miscellaneous & Experimental"
 msgstr "Sonstiges und Experimentelles"
 
-#: admin/class-cartpops-settings.php:1911
+#: admin/class-cartpops-settings.php:1919
 msgid "Custom code settings"
 msgstr "Benutzerdefinierte Code-Einstellungen"
 
-#: admin/class-cartpops-settings.php:1891
+#: admin/class-cartpops-settings.php:1899
 msgid "Support on-going development"
 msgstr "Unterstützung der laufenden Entwicklung"
 
-#: admin/class-cartpops-settings.php:1863
+#: admin/class-cartpops-settings.php:1871
 msgid "Free Shipping Meter settings"
 msgstr "Free Shipping Meter-Einstellungen"
 
-#: admin/class-cartpops-settings.php:1854
+#: admin/class-cartpops-settings.php:1862
 msgid "Product Recommendation Engine settings"
 msgstr "Product-Recommendation-Engine-Einstellungen"
 
-#: admin/class-cartpops-settings.php:1828
+#: admin/class-cartpops-settings.php:1836
 msgid "Floating Cart Launcher settings"
 msgstr "Floating-Cart-Launcher-Einstellungen"
 
-#: admin/class-cartpops-settings.php:1819
+#: admin/class-cartpops-settings.php:1827
 msgid "Coupon form settings"
 msgstr "Gutschein-Formular-Einstellungen"
 
-#: admin/class-cartpops-settings.php:1799
+#: admin/class-cartpops-settings.php:1807
 msgid "Add To Cart Trigger settings"
 msgstr "Add-To-Cart-Trigger-Einstellungen"
 
-#: admin/class-cartpops-settings.php:1742
+#: admin/class-cartpops-settings.php:1750
 msgid "Cart launcher color scheme"
 msgstr "Cart-Launcher-Farbsystem"
 
-#: admin/class-cartpops-settings.php:1733
+#: admin/class-cartpops-settings.php:1741
 msgid "Floating Cart launcher color scheme"
 msgstr "Floating-Cart-Launcher-Farbsystem"
 
-#: admin/class-cartpops-settings.php:1715
+#: admin/class-cartpops-settings.php:1723
 msgid "Buttons color scheme"
 msgstr "Schaltfläche Farbschema"
 
-#: admin/class-cartpops-settings.php:1706
+#: admin/class-cartpops-settings.php:1714
 msgid "Primary color scheme"
 msgstr "Primärfarben-Schema"
 
-#: admin/class-cartpops-settings.php:1663
+#: admin/class-cartpops-settings.php:1671
 msgid "Issues"
 msgstr "Problem"
 
-#: admin/class-cartpops-settings.php:1602
+#: admin/class-cartpops-settings.php:1610
 msgid "Version"
 msgstr "Version"
 
 #. translators: %1$s is replaced with an icon
-#: admin/class-cartpops-settings.php:1556
+#: admin/class-cartpops-settings.php:1564
 msgid "Click %1$s to go to the documentation"
 msgstr ""
 
-#: admin/class-cartpops-settings.php:1526
+#: admin/class-cartpops-settings.php:1534
 msgid "Remove image"
 msgstr "Bild entfernen"
 
-#: admin/class-cartpops-settings.php:1525
+#: admin/class-cartpops-settings.php:1533
 msgid "Upload new image"
 msgstr "Neues Bild hochladen"
 
-#: admin/class-cartpops-settings.php:1525
+#: admin/class-cartpops-settings.php:1533
 msgid "Use image"
 msgstr "Bild verwenden"
 
-#: admin/class-cartpops-settings.php:1525
+#: admin/class-cartpops-settings.php:1533
 msgid "Upload an image"
 msgstr "Bild hochladen"
 
 #. translators: %1$s  and %2$s are replaced with a plugin option name and %3$s
 #. with an emoji.
-#: admin/class-cartpops-settings.php:1454
+#: admin/class-cartpops-settings.php:1462
 msgid "%1$s %2$s Requires upgrade %3$s"
 msgstr "%1$s %2$s Erfordert Upgrade %3$s"
 
-#: admin/class-cartpops-settings.php:1294
+#: admin/class-cartpops-settings.php:1302
 msgid "Something went wrong"
 msgstr "Etwas ist schief gelaufen"
 
-#: admin/class-cartpops-settings.php:1292
+#: admin/class-cartpops-settings.php:1300
 msgid "Refreshing issues"
 msgstr "Probleme beim Aktualisieren"
 
-#: admin/class-cartpops-settings.php:1252
+#: admin/class-cartpops-settings.php:1260
 msgid "Purchase a license"
 msgstr "Eine Lizenz erwerben"
 
 #. translators: 1. Link
-#: admin/class-cartpops-settings.php:1252
+#: admin/class-cartpops-settings.php:1260
 msgid "Activate your license, or purchase a new license. %s."
 msgstr "Aktiviere deine Lizenz oder erwerbe eine neue Lizenz. %s."
 
-#: admin/class-cartpops-settings.php:1250
+#: admin/class-cartpops-settings.php:1258
 msgid "The premium version of CartPops is activated without a valid license. Without a license, all Pro features are automatically disabled."
 msgstr "Die Premium-Version von CartPops wird ohne gültige Lizenz aktiviert. Ohne Lizenz werden alle Pro-Features automatisch deaktiviert."
 
-#: admin/class-cartpops-settings.php:1244
+#: admin/class-cartpops-settings.php:1252
 msgid "Take me there"
 msgstr "Bring mich hin"
 
 #. translators: 1. Link
-#: admin/class-cartpops-settings.php:1244
+#: admin/class-cartpops-settings.php:1252
 msgid "Turn off \"Redirect to the cart page after successful addition\" in the WooCommerce plugin settings. %s."
 msgstr "Schalte \"Weiterleitung zur Warenkorb-Seite nach erfolgreichem Hinzufügen\" in den WooCommerce Plugin-Einstellungen aus. %s."
 
-#: admin/class-cartpops-settings.php:1242
+#: admin/class-cartpops-settings.php:1250
 msgid "An option in WooCommerce is turned on which will immediately redirect customers to the /cart/ page preventing CartPops to open."
 msgstr "Eine Option in WooCommerce ist aktiviert, die Kunden sofort auf die Warenkorb/ Seite weiterleitet und somit die Öffnung von CartPops verhindert."
 
-#: admin/class-cartpops-settings.php:1214
+#: admin/class-cartpops-settings.php:1222
 msgid "View Documentation"
 msgstr "Dokumentation anzeigen"
 
-#: admin/class-cartpops-settings.php:1104
+#: admin/class-cartpops-settings.php:1112
 msgid "This will force refresh the cart on each page load. Only use if you're having troubles with how the cart loads."
 msgstr "Dies erzwingt eine Aktualisierung des Warenkorbs bei jedem Laden der Seite. Verwende dies nur, wenn du Probleme damit hast, wie der Warenkorb geladen wird."
 
-#: admin/class-cartpops-settings.php:1103
+#: admin/class-cartpops-settings.php:1111
 msgid "Force refresh on page load"
 msgstr "Beim Laden der Seite eine Aktualisierung erzwingen"
 
-#: admin/class-cartpops-settings.php:1099
+#: admin/class-cartpops-settings.php:1107
 msgid "Miscellaneous"
 msgstr "Sonstiges"
 
 #. translators: %1$s is replaced with an icon
-#: admin/class-cartpops-settings.php:1091
+#: admin/class-cartpops-settings.php:1099
 msgid "Add custom JS, this will fire after any CartPops JS. This is for more advanced users! You know what to do %1$s"
 msgstr ""
 
-#: admin/class-cartpops-settings.php:1089
+#: admin/class-cartpops-settings.php:1097
 msgid "Custom Javascript"
 msgstr "Benutzerdefiniertes Javascript"
 
 #. translators: %1$s is replaced with an icon
-#: admin/class-cartpops-settings.php:1082
+#: admin/class-cartpops-settings.php:1090
 msgid "Add custom CSS, this will fire after any CartPops CSS. This is for more advanced users! You know what to do %1$s"
 msgstr ""
 
-#: admin/class-cartpops-settings.php:1080
+#: admin/class-cartpops-settings.php:1088
 msgid "Custom CSS"
 msgstr "Benutzerdefinierte CSS"
 
-#: admin/class-cartpops-settings.php:1076
+#: admin/class-cartpops-settings.php:1084
 msgid "Custom code"
 msgstr "Benutzerdefinierter Code"
 
-#: admin/class-cartpops-settings.php:1070 public/class-cartpops-helpers.php:274
+#: admin/class-cartpops-settings.php:1078 public/class-cartpops-helpers.php:274
 msgid "View details"
 msgstr "Details anzeigen"
 
-#: admin/class-cartpops-settings.php:1067
+#: admin/class-cartpops-settings.php:1075
 msgid "View details text"
 msgstr "Text für das Anzeigen von Details"
 
-#: admin/class-cartpops-settings.php:1062 public/class-cartpops-cart.php:691
+#: admin/class-cartpops-settings.php:1070 public/class-cartpops-cart.php:697
 msgid "Or continue shopping"
 msgstr "Oder Einkauf fortsetzen"
 
-#: admin/class-cartpops-settings.php:1054 public/class-cartpops-cart.php:368
+#: admin/class-cartpops-settings.php:1062 public/class-cartpops-cart.php:374
 msgid "Looks like you haven't made a choice yet."
 msgstr "Sieht so aus, als hättest du noch keine Wahl getroffen."
 
-#: admin/class-cartpops-settings.php:1051
+#: admin/class-cartpops-settings.php:1059
 msgid "Drawer empty state subtitle"
 msgstr "Cart-Leerzustand-Zwischensumme"
 
 #. translators: %s will become an emoji
-#: admin/class-cartpops-settings.php:1046 public/class-cartpops-cart.php:367
+#: admin/class-cartpops-settings.php:1054 public/class-cartpops-cart.php:373
 msgid "Your cart is empty."
 msgstr "Dein Warenkorb ist leer."
 
-#: admin/class-cartpops-settings.php:1043
+#: admin/class-cartpops-settings.php:1051
 msgid "Drawer empty state title"
 msgstr "Drawer-Leerzustand-Titel"
 
-#: admin/class-cartpops-settings.php:1038 public/class-cartpops-cart.php:716
+#: admin/class-cartpops-settings.php:1046 public/class-cartpops-cart.php:722
 msgid "Your cart is empty. Shop now"
 msgstr "Dein Warenkorb ist leer. Kauf jetzt ein"
 
-#: admin/class-cartpops-settings.php:1035
+#: admin/class-cartpops-settings.php:1043
 msgid "Empty checkout button"
 msgstr "Schaltfläche Zur Kasse leeren"
 
-#: admin/class-cartpops-settings.php:1030 public/class-cartpops-cart.php:118
-#: public/class-cartpops-cart.php:713
+#: admin/class-cartpops-settings.php:1038 public/class-cartpops-cart.php:118
+#: public/class-cartpops-cart.php:719
 msgid "Checkout now"
 msgstr "Jetzt zur Kasse"
 
-#: admin/class-cartpops-settings.php:1027
+#: admin/class-cartpops-settings.php:1035
 msgid "Checkout button"
 msgstr "Schaltfläche Zur Kasse"
 
-#: admin/class-cartpops-settings.php:1022 public/class-cartpops-cart.php:797
+#: admin/class-cartpops-settings.php:1030 public/class-cartpops-cart.php:803
 msgid "Total"
 msgstr "Gesamtsumme"
 
-#: admin/class-cartpops-settings.php:1019
+#: admin/class-cartpops-settings.php:1027
 msgid "Line item: Total"
 msgstr "Posten: Gesamtsumme"
 
-#: admin/class-cartpops-settings.php:1014 public/class-cartpops-cart.php:893
+#: admin/class-cartpops-settings.php:1022 public/class-cartpops-cart.php:904
 msgid "Discount"
 msgstr "Rabatt"
 
-#: admin/class-cartpops-settings.php:1011
+#: admin/class-cartpops-settings.php:1019
 msgid "Line item: Discount"
 msgstr "Posten: Rabatt"
 
-#: admin/class-cartpops-settings.php:1006
+#: admin/class-cartpops-settings.php:1014
 #: includes/integrations/elementor/class-cartpops-cart-widget.php:145
-#: public/class-cartpops-cart.php:765
+#: public/class-cartpops-cart.php:771
 msgid "Subtotal"
 msgstr "Zwischensumme"
 
-#: admin/class-cartpops-settings.php:1003
+#: admin/class-cartpops-settings.php:1011
 msgid "Line item: Subtotal"
 msgstr "Posten: Zwischensumme"
 
-#: admin/class-cartpops-settings.php:999 public/class-cartpops-cart.php:497
+#: admin/class-cartpops-settings.php:1007 public/class-cartpops-cart.php:502
 msgid "Apply"
 msgstr "Anwenden"
 
-#: admin/class-cartpops-settings.php:995
+#: admin/class-cartpops-settings.php:1003
 msgid "Coupon button text"
 msgstr "Schaltflächentext"
 
-#: admin/class-cartpops-settings.php:991 public/class-cartpops-cart.php:496
+#: admin/class-cartpops-settings.php:999 public/class-cartpops-cart.php:501
 msgid "Enter discount code"
 msgstr "Gib den Rabattcode ein"
 
-#: admin/class-cartpops-settings.php:987
+#: admin/class-cartpops-settings.php:995
 msgid "Coupon input field placeholder text"
 msgstr "Gutschein-Eingabefeld Platzhaltertext"
 
-#: admin/class-cartpops-settings.php:983 public/class-cartpops-cart.php:495
+#: admin/class-cartpops-settings.php:991 public/class-cartpops-cart.php:500
 msgid "Got a discount code?"
 msgstr "Hast du einen Rabattcode?"
 
-#: admin/class-cartpops-settings.php:979
+#: admin/class-cartpops-settings.php:987
 msgid "Coupon title"
 msgstr "Gutschein-Titel"
 
-#: admin/class-cartpops-settings.php:975 public/class-cartpops-assets.php:98
+#: admin/class-cartpops-settings.php:983 public/class-cartpops-assets.php:98
 msgid "Product successfully added to your cart."
 msgstr "Produkt erfolgreich zum Warenkorb hinzugefügt."
 
-#: admin/class-cartpops-settings.php:971
+#: admin/class-cartpops-settings.php:979
 msgid "Generic added to cart message"
 msgstr "Allgemeine Nachricht, wenn etwas zum Warenkorb hinzugefügt wurde"
 
-#: admin/class-cartpops-settings.php:966 public/class-cartpops-cart.php:278
+#: admin/class-cartpops-settings.php:974 public/class-cartpops-cart.php:284
 msgid "My cart"
 msgstr "Mein Warenkorb"
 
-#: admin/class-cartpops-settings.php:963
+#: admin/class-cartpops-settings.php:971
 msgid "Drawer cart title"
 msgstr "Drawer-Cart-Titel"
 
-#: admin/class-cartpops-settings.php:959
+#: admin/class-cartpops-settings.php:967
 msgid "Translation"
 msgstr "Übersetzung"
 
-#: admin/class-cartpops-settings.php:954
+#: admin/class-cartpops-settings.php:962
 msgid "e.g. 93494"
 msgstr "z. B. 93494"
 
-#: admin/class-cartpops-settings.php:946
+#: admin/class-cartpops-settings.php:954
 msgid "Replace the default Powered by CartPops branding link with your referral link."
 msgstr "Ersetze den Standard-Branding-Link Powered by CartPops durch deinen Empfehlungs-Link."
 
-#: admin/class-cartpops-settings.php:945
+#: admin/class-cartpops-settings.php:953
 msgid "Partner code"
 msgstr "Partnercode"
 
-#: admin/class-cartpops-settings.php:939
+#: admin/class-cartpops-settings.php:947
 msgid "The core functionality of CartPops is free forever. You can support ongoing development and new updates by showing Powered by CartPops on your Add To Cart Triggers"
 msgstr "Die Kernfunktionalität von CartPops ist für immer kostenlos. Du kannst die laufende Entwicklung und neue Updates unterstützen, indem du Powered by CartPops auf deinen Add-To-Cart-Triggers anzeigst"
 
-#: admin/class-cartpops-settings.php:938
+#: admin/class-cartpops-settings.php:946
 msgid "Display Powered by CartPops"
 msgstr "Powered by CartPops anzeigen"
 
-#: admin/class-cartpops-settings.php:934
+#: admin/class-cartpops-settings.php:942
 msgid "Support Us"
 msgstr "Unterstütze uns"
 
-#: admin/class-cartpops-settings.php:927
+#: admin/class-cartpops-settings.php:935
 msgid "Cart Launcher bubble text"
 msgstr "Cart-Launcher-Blasentext"
 
-#: admin/class-cartpops-settings.php:921
+#: admin/class-cartpops-settings.php:929
 msgid "Cart Launcher bubble background"
 msgstr "Cart-Launcher-Blasenhintergrund"
 
-#: admin/class-cartpops-settings.php:915
+#: admin/class-cartpops-settings.php:923
 msgid "Cart Launcher text color"
 msgstr "Cart-Launcher-Textfarbe"
 
-#: admin/class-cartpops-settings.php:909
+#: admin/class-cartpops-settings.php:917
 msgid "Cart Launcher background color"
 msgstr "Cart-Launcher-Hintergrundfarbe"
 
-#: admin/class-cartpops-settings.php:905
+#: admin/class-cartpops-settings.php:913
 msgid "Cart Launcher Color Scheme"
 msgstr "Warenkorb Launcher Farbschema"
 
-#: admin/class-cartpops-settings.php:898
+#: admin/class-cartpops-settings.php:906
 msgid "Floating Cart Launcher indicator text"
 msgstr "Text des Floating Cart Launcher-Indikators"
 
-#: admin/class-cartpops-settings.php:892
+#: admin/class-cartpops-settings.php:900
 msgid "Floating Cart Launcher indicator background"
 msgstr "Hintergrund des Floating Cart Launcher-Indikators"
 
-#: admin/class-cartpops-settings.php:886
+#: admin/class-cartpops-settings.php:894
 msgid "Floating Cart Launcher icon color"
 msgstr "Floating-Cart-Launcher Icon-Farbe"
 
-#: admin/class-cartpops-settings.php:880
+#: admin/class-cartpops-settings.php:888
 msgid "Floating Cart Launcher background color"
 msgstr "Floating-Cart-Launcher-Hintergrundfarbe"
 
-#: admin/class-cartpops-settings.php:876
+#: admin/class-cartpops-settings.php:884
 msgid "Floating Cart Launcher Color Scheme"
 msgstr "Floating Cart Launcher Farbschema"
 
-#: admin/class-cartpops-settings.php:867
+#: admin/class-cartpops-settings.php:875
 msgid "Free Shipping Meter active background color"
 msgstr "Free-Shipping-Meter aktive Hintergrundfarbe"
 
-#: admin/class-cartpops-settings.php:861
+#: admin/class-cartpops-settings.php:869
 msgid "Free Shipping Meter background color"
 msgstr "Free-Shipping-Meter-Hintergrundfarbe"
 
-#: admin/class-cartpops-settings.php:857 admin/class-cartpops-settings.php:1752
+#: admin/class-cartpops-settings.php:865 admin/class-cartpops-settings.php:1760
 msgid "Free Shipping Meter color scheme"
 msgstr "Farbschema des Free Shipping Meter"
 
-#: admin/class-cartpops-settings.php:849
+#: admin/class-cartpops-settings.php:857
 msgid "Popup Recommendations text color"
 msgstr "Textfarbe für Popup-Empfehlungen"
 
-#: admin/class-cartpops-settings.php:843
+#: admin/class-cartpops-settings.php:851
 msgid "Popup Recommendations background color"
 msgstr "Hintergrundfarbe der Popup-Empfehlungen"
 
-#: admin/class-cartpops-settings.php:837
+#: admin/class-cartpops-settings.php:845
 msgid "Drawer Recommendations text color"
 msgstr "Textfarbe für Drawer Recommendations"
 
-#: admin/class-cartpops-settings.php:831
+#: admin/class-cartpops-settings.php:839
 msgid "Drawer Recommendations background color"
 msgstr "Hintergrundfarbe für Drawer Recommendations"
 
-#: admin/class-cartpops-settings.php:825
+#: admin/class-cartpops-settings.php:833
 msgid "Recommendations button text color"
 msgstr "Textfarbe der Recommendations-Schaltfläche"
 
-#: admin/class-cartpops-settings.php:819
+#: admin/class-cartpops-settings.php:827
 msgid "Recommendations button background color"
 msgstr "Hintergrundfarbe der Recommendations-Schaltfläche"
 
-#: admin/class-cartpops-settings.php:815 admin/class-cartpops-settings.php:1724
+#: admin/class-cartpops-settings.php:823 admin/class-cartpops-settings.php:1732
 msgid "Recommendations color scheme"
 msgstr "Empfehlungen Farbschema"
 
-#: admin/class-cartpops-settings.php:808
+#: admin/class-cartpops-settings.php:816
 msgid "Secondary Button Secondary Text"
 msgstr "Sekundäre Schaltfläche Sekundärer Text"
 
-#: admin/class-cartpops-settings.php:802
+#: admin/class-cartpops-settings.php:810
 msgid "Secondary Button Secondary Background"
 msgstr "Sekundäre Schaltfläche Sekundärer Hintergrund"
 
-#: admin/class-cartpops-settings.php:796
+#: admin/class-cartpops-settings.php:804
 msgid "Primary Button Text Color"
 msgstr "Primäre Schaltflächen-Textfarbe"
 
-#: admin/class-cartpops-settings.php:790
+#: admin/class-cartpops-settings.php:798
 msgid "Primary Button Background Color"
 msgstr "Primäre Schaltflächen-Hintergrundfarbe"
 
-#: admin/class-cartpops-settings.php:786
+#: admin/class-cartpops-settings.php:794
 msgid "Button color scheme"
 msgstr "Farbschema für Schaltflächen"
 
-#: admin/class-cartpops-settings.php:774
+#: admin/class-cartpops-settings.php:782
 msgid "Drawer width desktop (px)"
 msgstr "Breite der Schublade, Desktop (px)"
 
-#: admin/class-cartpops-settings.php:763
+#: admin/class-cartpops-settings.php:771
 msgid "Drawer width mobile (%)"
 msgstr "Breite des Drawers, mobil (%)"
 
-#: admin/class-cartpops-settings.php:759 admin/class-cartpops-settings.php:1782
+#: admin/class-cartpops-settings.php:767 admin/class-cartpops-settings.php:1790
 msgid "Drawer"
 msgstr "Drawer"
 
-#: admin/class-cartpops-settings.php:754
+#: admin/class-cartpops-settings.php:762
 msgid "Wrap text"
 msgstr "Text umbrechen"
 
-#: admin/class-cartpops-settings.php:752
+#: admin/class-cartpops-settings.php:760
 #: includes/integrations/elementor/class-cartpops-cart-widget.php:133
 msgid "No"
 msgstr "Nein"
 
-#: admin/class-cartpops-settings.php:751
+#: admin/class-cartpops-settings.php:759
 #: includes/integrations/elementor/class-cartpops-cart-widget.php:132
 msgid "Yes"
 msgstr "Ja"
 
-#: admin/class-cartpops-settings.php:748
+#: admin/class-cartpops-settings.php:756
 msgid "Truncate long text"
 msgstr "Langen Text abschneiden"
 
-#: admin/class-cartpops-settings.php:737
+#: admin/class-cartpops-settings.php:745
 msgid "Animation speed"
 msgstr "Animationsgeschwindigkeit"
 
-#: admin/class-cartpops-settings.php:731
+#: admin/class-cartpops-settings.php:739
 msgid "Slick"
 msgstr "Glatt"
 
-#: admin/class-cartpops-settings.php:730
+#: admin/class-cartpops-settings.php:738
 msgid "Slide in right"
 msgstr "Rechts einblenden"
 
-#: admin/class-cartpops-settings.php:729
+#: admin/class-cartpops-settings.php:737
 msgid "Fade"
 msgstr "Verblassen"
 
-#: admin/class-cartpops-settings.php:725
+#: admin/class-cartpops-settings.php:733
 msgid "Animation type"
 msgstr "Animationstyp"
 
-#: admin/class-cartpops-settings.php:721 admin/class-cartpops-settings.php:1773
+#: admin/class-cartpops-settings.php:729 admin/class-cartpops-settings.php:1781
 msgid "General"
 msgstr "Allgemein"
 
-#: admin/class-cartpops-settings.php:714
+#: admin/class-cartpops-settings.php:722
 msgid "Enable rounded style"
 msgstr "Abgerundeten Stil aktivieren"
 
-#: admin/class-cartpops-settings.php:708
+#: admin/class-cartpops-settings.php:716
 msgid "Input field text color"
 msgstr "Textfarbe des Eingabefeldes"
 
-#: admin/class-cartpops-settings.php:702
+#: admin/class-cartpops-settings.php:710
 msgid "Input field background color"
 msgstr "Hintergrundfarbe des Eingabefeldes"
 
-#: admin/class-cartpops-settings.php:696
+#: admin/class-cartpops-settings.php:704
 msgid "Overlay color"
 msgstr "Overlay-Farbe"
 
-#: admin/class-cartpops-settings.php:690
+#: admin/class-cartpops-settings.php:698
 msgid "Accent color"
 msgstr "Akzentfarbe"
 
-#: admin/class-cartpops-settings.php:684
+#: admin/class-cartpops-settings.php:692
 msgid "Border color"
 msgstr "Farbe der Umrandung"
 
-#: admin/class-cartpops-settings.php:678
+#: admin/class-cartpops-settings.php:686
 msgid "Tertiary text color"
 msgstr "Tertiäre Textfarbe"
 
-#: admin/class-cartpops-settings.php:672
+#: admin/class-cartpops-settings.php:680
 msgid "Secondary text color"
 msgstr "Sekundäre Textfarbe"
 
-#: admin/class-cartpops-settings.php:666
+#: admin/class-cartpops-settings.php:674
 msgid "Primary text color"
 msgstr "Primäre Textfarbe"
 
-#: admin/class-cartpops-settings.php:660
+#: admin/class-cartpops-settings.php:668
 msgid "Secondary background color"
 msgstr "Sekundäre Hintergrundfarbe"
 
-#: admin/class-cartpops-settings.php:654
+#: admin/class-cartpops-settings.php:662
 msgid "Primary background color"
 msgstr "Primäre Hintergrundfarbe"
 
-#: admin/class-cartpops-settings.php:650
+#: admin/class-cartpops-settings.php:658
 msgid "Primary color schemes"
 msgstr "Primäre Farbschemata"
 
-#: public/class-cartpops-cart.php:974 public/class-cartpops-cart.php:985
+#: public/class-cartpops-cart.php:986 public/class-cartpops-cart.php:997
 msgid "View cart"
 msgstr "Warenkorb ansehen"
 
-#: public/class-cartpops-cart.php:979
+#: public/class-cartpops-cart.php:991
 msgid "Continue shopping"
 msgstr "Einkauf fortsetzen"
 
-#: admin/class-cartpops-settings.php:611
+#: admin/class-cartpops-settings.php:619
 msgid "Secondary button"
 msgstr "Sekundäre Schaltfläche"
 
-#: admin/class-cartpops-settings.php:612
+#: admin/class-cartpops-settings.php:620
 msgid "This will show an icon next to the shipping line item where the customer can calculate their shipping."
 msgstr "Dies zeigt ein Symbol neben dem Versandposten an, mit dem der Kunde seine Versandkosten berechnen kann."
 
-#: admin/class-cartpops-settings.php:597
+#: admin/class-cartpops-settings.php:605
 msgid "This will show the shipping line item"
 msgstr "Hier wird der Versandposten angezeigt"
 
-#: admin/class-cartpops-settings.php:590
+#: admin/class-cartpops-settings.php:598
 msgid "For this to work you need to have taxes enabled in WooCommerce settings"
 msgstr "Damit dies funktioniert, musst du die Steuern in den WooCommerce-Einstellungen aktiviert haben."
 
-#: admin/class-cartpops-settings.php:589
+#: admin/class-cartpops-settings.php:597
 msgid "Show tax"
 msgstr "Steuern einblenden"
 
-#: admin/class-cartpops-settings.php:582
+#: admin/class-cartpops-settings.php:590
 msgid "Show discount"
 msgstr "Rabatt einblenden"
 
-#: admin/class-cartpops-settings.php:576 admin/class-cartpops-settings.php:583
+#: admin/class-cartpops-settings.php:584 admin/class-cartpops-settings.php:591
 msgid "This will show the subtotal line item."
 msgstr "Dies zeigt den Zwischenposten an."
 
-#: admin/class-cartpops-settings.php:575
+#: admin/class-cartpops-settings.php:583
 msgid "Show total"
 msgstr "Gesamtbetrag anzeigen"
 
-#: admin/class-cartpops-settings.php:569
+#: admin/class-cartpops-settings.php:577
 msgid "This will show the total line item."
 msgstr "Dies zeigt den Gesamtposten an"
 
-#: admin/class-cartpops-settings.php:564 admin/class-cartpops-settings.php:1810
+#: admin/class-cartpops-settings.php:572 admin/class-cartpops-settings.php:1818
 msgid "Drawer footer settings"
 msgstr "Einstellungen für die Fußzeile des Drawers"
 
-#: admin/class-cartpops-settings.php:557
+#: admin/class-cartpops-settings.php:565
 msgid "This will show the subtotal next to the cart icon."
 msgstr "Damit wird die Zwischensumme neben dem Einkaufswagen-Icon angezeigt."
 
-#: admin/class-cartpops-settings.php:556 admin/class-cartpops-settings.php:568
+#: admin/class-cartpops-settings.php:564 admin/class-cartpops-settings.php:576
 msgid "Show subtotal"
 msgstr "Zwischensumme anzeigen"
 
-#: admin/class-cartpops-settings.php:550
+#: admin/class-cartpops-settings.php:558
 msgid "This will hide the indicator on the cart icon if the cart is empty."
 msgstr "Damit wird der Indikator auf dem Einkaufswagen-Icon ausgeblendet, wenn der Einkaufswagen leer ist."
 
-#: admin/class-cartpops-settings.php:549
+#: admin/class-cartpops-settings.php:510 admin/class-cartpops-settings.php:557
 msgid "Hide indicator when cart is empty"
 msgstr "Indikator ausblenden, wenn der Warenkorb leer ist"
 
-#: admin/class-cartpops-settings.php:543
+#: admin/class-cartpops-settings.php:551
 #: includes/integrations/elementor/class-cartpops-cart-widget.php:120
 msgid "Plain"
 msgstr "Einfarbig"
 
-#: admin/class-cartpops-settings.php:542
+#: admin/class-cartpops-settings.php:550
 #: includes/integrations/elementor/class-cartpops-cart-widget.php:119
 msgid "Bubble"
 msgstr "Blase"
 
-#: admin/class-cartpops-settings.php:541 admin/class-cartpops-settings.php:615
-#: admin/class-cartpops-settings.php:728
+#: admin/class-cartpops-settings.php:549 admin/class-cartpops-settings.php:623
+#: admin/class-cartpops-settings.php:736
 #: includes/integrations/elementor/class-cartpops-cart-widget.php:118
 msgid "None"
 msgstr "Keinen"
 
-#: admin/class-cartpops-settings.php:538
+#: admin/class-cartpops-settings.php:546
 msgid "Choose if you wnat to show an indicator with the item total."
 msgstr "Wähle, ob du einen Indikator mit dem Gesamtbetrag der Artikel anzeigen möchtest."
 
-#: admin/class-cartpops-settings.php:537
+#: admin/class-cartpops-settings.php:545
 msgid "Menu Cart Launcher Indicator"
 msgstr "Menu Cart Launcher Indikator"
 
-#: admin/class-cartpops-settings.php:525 admin/class-cartpops-settings.php:526
-#: admin/class-cartpops-settings.php:527 admin/class-cartpops-settings.php:528
-#: admin/class-cartpops-settings.php:529 admin/class-cartpops-settings.php:530
-#: admin/class-cartpops-settings.php:531
+#: admin/class-cartpops-settings.php:533 admin/class-cartpops-settings.php:534
+#: admin/class-cartpops-settings.php:535 admin/class-cartpops-settings.php:536
+#: admin/class-cartpops-settings.php:537 admin/class-cartpops-settings.php:538
+#: admin/class-cartpops-settings.php:539
 #: includes/integrations/elementor/class-cartpops-cart-widget.php:99
 #: includes/integrations/elementor/class-cartpops-cart-widget.php:100
 #: includes/integrations/elementor/class-cartpops-cart-widget.php:101
@@ -1074,27 +1082,27 @@ msgstr "Menu Cart Launcher Indikator"
 msgid "Bag"
 msgstr "Tasche"
 
-#: admin/class-cartpops-settings.php:519 admin/class-cartpops-settings.php:520
-#: admin/class-cartpops-settings.php:521 admin/class-cartpops-settings.php:522
-#: admin/class-cartpops-settings.php:523 admin/class-cartpops-settings.php:524
+#: admin/class-cartpops-settings.php:527 admin/class-cartpops-settings.php:528
+#: admin/class-cartpops-settings.php:529 admin/class-cartpops-settings.php:530
+#: admin/class-cartpops-settings.php:531 admin/class-cartpops-settings.php:532
 #: includes/integrations/elementor/class-cartpops-cart-widget.php:94
 #: includes/integrations/elementor/class-cartpops-cart-widget.php:95
 #: includes/integrations/elementor/class-cartpops-cart-widget.php:96
 #: includes/integrations/elementor/class-cartpops-cart-widget.php:97
 #: includes/integrations/elementor/class-cartpops-cart-widget.php:98
-#: public/class-cartpops-cart.php:1425
+#: public/class-cartpops-cart.php:1437
 msgid "Cart"
 msgstr "Warenkorb"
 
-#: admin/class-cartpops-settings.php:516
+#: admin/class-cartpops-settings.php:524
 msgid "Choose an icon to display"
 msgstr "Wähle ein Icon zur Anzeige"
 
-#: admin/class-cartpops-settings.php:515
+#: admin/class-cartpops-settings.php:523
 msgid "Menu Cart Launcher icon"
 msgstr "Menu Cart Launcher Icon"
 
-#: admin/class-cartpops-settings.php:511
+#: admin/class-cartpops-settings.php:519
 msgid "Cart Launcher"
 msgstr "Cart Launcher"
 
@@ -1325,7 +1333,7 @@ msgid "Coupon form"
 msgstr "Couponformular"
 
 #. translators: %s will be replaced with a link to the plugin documentation
-#: admin/class-cartpops-settings.php:1801
+#: admin/class-cartpops-settings.php:1809
 msgid "The Add To Cart trigger option allows you to choose which Add To Cart Trigger shows up on your customer's screen after they add something to thei cart. By default, the Drawer will always be available for your customers, and this can be used a replacement for your default WooCommerce cart page. You can allow customers to access the Drawer by activating the Floating Cart Launcher icon or using the shortcode [cartpops_cart_launcher]. You can read more about Add To Cart Triggers in the  %s."
 msgstr "Mit der Option Add to Cart Trigger kannst du auswählen, welcher Add to Cart Trigger auf dem Bildschirm deines Kunden angezeigt werden soll, nachdem er etwas in den Warenkorb gelegt hat. Standardmäßig ist für deine Kunden immer der Drawer verfügbar, der als Ersatz für die standardmäßige WooCommerce Cart-Seite verwendet werden kann. Du kannst deinen Kunden den Zugriff auf den Drawer ermöglichen, indem du das Floating Cart Launcher-Symbol aktivierst oder den Kurzbefehl [cartpops_cart_launcher] verwendest. In den %s erfährst du mehr über die Add to Cart Trigger."
 
@@ -1341,7 +1349,7 @@ msgstr "Add to cart trigger"
 msgid "Enable chat support"
 msgstr "Chat-Unterstützung einschalten"
 
-#: admin/class-cartpops-settings.php:252 admin/class-cartpops-settings.php:1682
+#: admin/class-cartpops-settings.php:252 admin/class-cartpops-settings.php:1690
 msgid "Pro benefits"
 msgstr "Pro-Vorteile"
 
@@ -1361,7 +1369,7 @@ msgstr "Wenn du dies deaktivierst, wird das Plugin auf dem Frontend deiner Webse
 msgid "Enable CartPops"
 msgstr "CartPops aktivieren"
 
-#: admin/class-cartpops-settings.php:230 admin/class-cartpops-settings.php:1672
+#: admin/class-cartpops-settings.php:230 admin/class-cartpops-settings.php:1680
 msgid "Quick actions"
 msgstr "Schnellaktionen"
 

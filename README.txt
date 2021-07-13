@@ -5,7 +5,7 @@ Tags: add to cart popup, added to cart, cart, shop, shopping cart, cart drawer, 
 Requires at least: 5.1
 Tested up to: 5.7.2
 Requires PHP: 7.0
-Stable tag: 1.4.6
+Stable tag: 1.4.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -152,6 +152,14 @@ With this widget, you can easily style the Cart Launcher and show it anywhere yo
 If you have a caching plugin installed, or use any sort of caching in your site (DNS caching, object caching, etc), please clear those caches to make sure your browser loads the updated scripts.
 
 == Changelog ==
+
+#### Version 1.4.7 - 13 July 2021
+- **new**: Sleek and simple Floating Cart Launcher animation.
+- **upgrade**: Product Recommendations Engine can now take other product types too.
+- **upgrade**: Hide Product Recommendation Engine pagination if there's only 1 item.
+- **upgrade**: Add a background color if there's no product image for UX consistency.
+- **fix**: Remove redundant Swiper.js element.
+- **fix**: Total line item was not being calculated correctly when shipping line item was activated.
 
 #### Version 1.4.6 - 6 July 2021
 - **new**: Added option to hide the cart count indicator on the Floating Cart Launcher if the cart is empty.
