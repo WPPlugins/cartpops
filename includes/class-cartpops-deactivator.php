@@ -1,4 +1,7 @@
 <?php
+
+use CartPops\Admin\Options;
+
 /**
  * Fired during plugin deactivation
  *
@@ -38,9 +41,9 @@ class CartPops_Deactivator {
 	 * @author Chris Jayden <help@cartpops.com>
 	 */
 	public static function remove_options() {
-		$delete_options = cartpops_get_option( 'plugin_reset' );
+		$delete_options = Options::get( 'plugin_reset' );
 
-		if ( $delete_options ) {
+		if ( 'on' === $delete_options ) {
 			global $wpdb;
 
 			$plugin_options = $wpdb->get_results( "SELECT option_name FROM $wpdb->options WHERE option_name LIKE 'cartpops_%'" ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching

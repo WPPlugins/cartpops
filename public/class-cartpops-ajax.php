@@ -25,7 +25,6 @@ class CartPops_Frontend_Ajax
      */
     public  $notifications = null ;
     protected  $last_added_product_id = null ;
-    protected  $triger_type ;
     /**
      * Constructor
      *
@@ -52,7 +51,7 @@ class CartPops_Frontend_Ajax
         $cart_count = WC()->cart->get_cart_contents_count();
         $buffer_output = true;
         // Set cart constants.
-        cpops_frontend_helper()->set_cart_constant();
+        cartpops_set_cart_constant();
         // Calculate cart totals.
         WC()->cart->calculate_totals();
         /**
@@ -60,20 +59,20 @@ class CartPops_Frontend_Ajax
          *
          * @since 1.4.3
          */
-        $fragment_settings = new Cart_Fragment_Settings( [
+        $fragment_settings = new Cart_Fragment_Settings( array(
             'templates'    => $this->templates,
             'request_type' => $request_type,
             'product_id'   => $product_id,
             'cart'         => WC()->cart,
             'notice'       => (string) $this->get_notifications(),
-        ] );
-        $cart_fragments = [
+        ) );
+        $cart_fragments = array(
             'div.cpops-drawer-notices-wrapper' => 'notices',
             'div#cpops-floating-cart'          => 'cart_launcher',
             'div.cpops-cart-total'             => 'cart_totals',
             'div.cpops-coupon-remove'          => 'coupon_removal',
             '.cpops-drawer-recommendations'    => 'drawer_recommendations',
-        ];
+        );
         $fragments = array_merge( $fragments, Cart_Fragment_Manager::render_fragments( $cart_fragments, $fragment_settings ) );
         // Update cart.
         
@@ -84,14 +83,14 @@ class CartPops_Frontend_Ajax
                  *
                  * @since 1.4.3
                  */
-                $cart_item_fragment_settings = new Cart_Item_Fragment_Settings( [
+                $cart_item_fragment_settings = new Cart_Item_Fragment_Settings( array(
                     'templates'    => $this->templates,
                     'request_type' => $request_type,
                     'product_id'   => $product_id,
                     'cart'         => WC()->cart,
                     'notice'       => (string) $this->get_notifications(),
                     'cart_item'    => $cart_item,
-                ] );
+                ) );
                 // Cart item price.
                 $fragments['div.cpops-cart-item[data-key="' . $cart_item_key . '"] .cpops-cart-item__actions--pricing'] = Cart_Fragment_Manager::get_fragment_html( 'cart_item_price', $cart_item_fragment_settings );
                 // Cart item quantity.
@@ -102,6 +101,7 @@ class CartPops_Frontend_Ajax
             $fragments['.cpops-drawer-cart'] = Cart_Fragment_Manager::get_fragment_html( 'drawer_cart', $fragment_settings );
         }
         
+        // error_log( print_r( $fragments, true ) );
         /**
          * Remove all empty fragments from the response. This will allow to exclude the fragments thar were not rendered due to specific conditions
          *
@@ -158,7 +158,7 @@ class CartPops_Frontend_Ajax
      */
     public function add_to_cart()
     {
-        cpops_frontend_helper()->set_cart_constant();
+        cartpops_set_cart_constant();
         $security_check = isset( $_POST['add-to-cart'] );
         // phpcs:ignore WordPress.Security.NonceVerification
         $product_id = ( !empty($_POST['product_id']) ? intval( $_POST['product_id'] ) : '' );
@@ -171,7 +171,7 @@ class CartPops_Frontend_Ajax
         if ( empty(wc_get_notices( 'error' )) ) {
             do_action( 'woocommerce_ajax_added_to_cart', $add_to_cart );
         }
-        $product = ( !empty($product_id) ? wc_get_product( $product_id ) : '' );
+        $product = ( !empty($product_id) ? cartpops_get_product( $product_id ) : '' );
         
         if ( $product ) {
             /* translators: %s: product name */
@@ -192,14 +192,14 @@ class CartPops_Frontend_Ajax
      */
     public function remove_product()
     {
-        cpops_frontend_helper()->set_cart_constant();
+        cartpops_set_cart_constant();
         $cart_item_key = ( !empty($_POST['cart_key']) ? filter_var( wp_unslash( $_POST['cart_key'] ), FILTER_SANITIZE_STRING ) : null );
         // phpcs:ignore WordPress.Security.NonceVerification
         $cart_item = WC()->cart->get_cart_item( $cart_item_key );
         
         if ( $cart_item ) {
             WC()->cart->remove_cart_item( $cart_item_key );
-            $product = wc_get_product( $cart_item['product_id'] );
+            $product = cartpops_get_product( $cart_item['product_id'] );
             /* translators: %s: Item name. */
             $item_removed_title = apply_filters( 'cartpops_cart_item_removed_title', ( $product ? sprintf( _x( '&ldquo;%s&rdquo;', 'Item name in quotes', 'cartpops' ), $product->get_name() ) : __( 'Item', 'cartpops' ) ), $cart_item );
             // Don't show undo link if removed item is out of stock.
@@ -228,7 +228,7 @@ class CartPops_Frontend_Ajax
      */
     public function restore_product()
     {
-        cpops_frontend_helper()->set_cart_constant();
+        cartpops_set_cart_constant();
         $cart_item_key = ( !empty($_POST['cart_key']) ? filter_var( wp_unslash( $_POST['cart_key'] ), FILTER_SANITIZE_STRING ) : null );
         // phpcs:ignore WordPress.Security.NonceVerification
         $product_name = WC()->session->get( 'cartpops_last_removed_item_name' );
@@ -252,7 +252,7 @@ class CartPops_Frontend_Ajax
      */
     public function update_cart()
     {
-        cpops_frontend_helper()->set_cart_constant();
+        cartpops_set_cart_constant();
         $cart_key = ( isset( $_POST['cart_key'] ) ? sanitize_text_field( wp_unslash( $_POST['cart_key'] ) ) : '' );
         // phpcs:ignore WordPress.Security.NonceVerification
         $quantity = ( isset( $_POST['quantity'] ) ? (double) $_POST['quantity'] : '' );
@@ -348,7 +348,7 @@ class CartPops_Frontend_Ajax
      */
     public function apply_coupon()
     {
-        cpops_frontend_helper()->set_cart_constant();
+        cartpops_set_cart_constant();
         $coupon_code = ( isset( $_POST['coupon'] ) ? wc_format_coupon_code( wp_unslash( $_POST['coupon'] ) ) : false );
         // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification
         
@@ -394,7 +394,7 @@ class CartPops_Frontend_Ajax
      */
     public function remove_coupon()
     {
-        cpops_frontend_helper()->set_cart_constant();
+        cartpops_set_cart_constant();
         $coupon = ( isset( $_POST['coupon'] ) ? wc_format_coupon_code( wp_unslash( $_POST['coupon'] ) ) : false );
         // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.NonceVerification
         
@@ -435,11 +435,11 @@ class CartPops_Frontend_Ajax
     /**
      * WErererer
      *
-     * @author Chris Jayden <chris@chrisjayden.com>
+     * @author Chris Jayden <chris@cartpops.com>
      */
     public function update_shipping_method()
     {
-        cpops_frontend_helper()->set_cart_constant();
+        cartpops_set_cart_constant();
         $chosen_shipping_methods = WC()->session->get( 'chosen_shipping_methods' );
         $posted_shipping_methods = ( isset( $_POST['shipping_method'] ) ? wc_clean( wp_unslash( $_POST['shipping_method'] ) ) : array() );
         if ( is_array( $posted_shipping_methods ) ) {
@@ -459,7 +459,16 @@ class CartPops_Frontend_Ajax
      */
     public function get_refreshed_fragments()
     {
-        WC_AJAX::get_refreshed_fragments();
+        ob_start();
+        woocommerce_mini_cart();
+        $mini_cart = ob_get_clean();
+        $data = array(
+            'fragments' => apply_filters( 'woocommerce_add_to_cart_fragments', array(
+            'div.widget_shopping_cart_content' => '<div class="widget_shopping_cart_content">' . $mini_cart . '</div>',
+        ) ),
+            'cart_hash' => WC()->cart->get_cart_hash(),
+        );
+        wp_send_json( $data );
     }
 
 }

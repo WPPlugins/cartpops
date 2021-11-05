@@ -1,4 +1,5 @@
 <?php
+use CartPops\Admin\Options;
 
 class CartPops_Public {
 
@@ -142,16 +143,16 @@ class CartPops_Public {
 
 		if ( $cartpops_menu_item ) {
 
-			$icon            = cartpops_get_option( 'menu_cart_launcher_icon' );
-			$indicator       = cartpops_get_option( 'menu_cart_launcher_indicator' );
-			$indicator_empty = cartpops_get_option( 'menu_cart_launcher_indicator_empty' );
-			$subtotal        = cartpops_get_option( 'menu_cart_launcher_subtotal' );
+			$icon            = Options::get( 'menu_cart_launcher_icon' );
+			$indicator       = Options::get( 'menu_cart_launcher_indicator' );
+			$indicator_empty = Options::get( 'menu_cart_launcher_indicator_empty' );
+			$subtotal        = Options::get( 'menu_cart_launcher_subtotal' );
 
 			$args = array(
 				'icon'                 => ( empty( $icon ) ) ? 'cpops-icon-shopping-cart-fill' : $icon,  // Whether to include Item/Items suffix.
-				'subtotal'             => ( empty( $subtotal ) ) ? 'false' : 'true',  // Whether to include total cost.
+				'subtotal'             => ( 'on' !== $subtotal ) ? 'false' : 'true',  // Whether to include total cost.
 				'indicator'            => ( empty( $indicator ) ) ? 'bubble' : $indicator,
-				'indicator_hide_empty' => ( empty( $indicator_empty ) ) ? 'false' : 'true',  // Whether to include total cost.
+				'indicator_hide_empty' => ( 'on' !== $indicator_empty ) ? 'false' : 'true',  // Whether to include total cost.
 				'wrapper'              => 'true',
 				'menu_item'            => 'true',
 			);
@@ -168,4 +169,28 @@ class CartPops_Public {
 		return $item_output;
 	}
 
+	/**
+	 * Update the cart
+	 *
+	 * @param array $cart_item_data
+	 * @author Chris Jayden <help@cartpops.com>
+	 * @since 1.4.2
+	 */
+	public function woocommerce_cart_item_product( $cart_item_data ) {
+
+		$cart_contents = WC()->cart->cart_contents;
+
+		foreach ( $cart_contents as $key => $cart_item ) {
+			/**
+			 * Add cart_item key if it's a parent of a chained product.
+			 *
+			 * @since 1.4.2
+			 */
+			if ( isset( $cart_item['chained_item_of'] ) ) {
+				$parent_key = $cart_item['chained_item_of'];
+				WC()->cart->cart_contents[ $cart_item['chained_item_of'] ]['chained_item_parent'] = true;
+			}
+		}
+
+	}
 }

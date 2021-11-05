@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitde8e19bfae5326623b36aff9f65c2022
+class ComposerStaticInit8c6adf4428ce688f4a1bbd809d56915a
 {
     public static $files = array (
         '839f1f8105ec3374e7919e0039d104c0' => __DIR__ . '/..' . '/freemius/wordpress-sdk/start.php',
@@ -12,6 +12,7 @@ class ComposerStaticInitde8e19bfae5326623b36aff9f65c2022
 
     public static $classMap = array (
         'CartPops' => __DIR__ . '/../..' . '/includes/class-cartpops.php',
+        'CartPops\\Admin\\Options' => __DIR__ . '/../..' . '/admin/class-cartpops-options.php',
         'CartPops\\Base\\Data\\Base_Data_Object' => __DIR__ . '/../..' . '/includes/lib/data/class-base-data-object.php',
         'CartPops\\Cart\\Fragments\\Cart_Fragment_Manager' => __DIR__ . '/../..' . '/public/cart-fragments/class-cart-fragment-manager.php',
         'CartPops\\Cart\\Fragments\\Cart_Fragment_Settings' => __DIR__ . '/../..' . '/public/cart-fragments/class-cart-fragment-settings.php',
@@ -30,26 +31,44 @@ class ComposerStaticInitde8e19bfae5326623b36aff9f65c2022
         'CartPops\\Cart\\Fragments\\Fragment_Recommended_Products' => __DIR__ . '/../..' . '/public/cart-fragments/class-cart-fragment-recommended-products.php',
         'CartPops\\Cart\\Fragments\\Fragment_Shipping_Calculator' => __DIR__ . '/../..' . '/public/cart-fragments/class-cart-fragment-shipping-calculator.php',
         'CartPops_Activator' => __DIR__ . '/../..' . '/includes/class-cartpops-activator.php',
+        'CartPops_Admin_Ajax' => __DIR__ . '/../..' . '/admin/class-cartpops-admin-ajax.php',
+        'CartPops_Admin_Assets' => __DIR__ . '/../..' . '/admin/class-cartpops-admin-assets.php',
         'CartPops_Api' => __DIR__ . '/../..' . '/includes/class-cartpops-api.php',
         'CartPops_Assets' => __DIR__ . '/../..' . '/public/class-cartpops-assets.php',
         'CartPops_Cart' => __DIR__ . '/../..' . '/public/class-cartpops-cart.php',
         'CartPops_Cart_Widget' => __DIR__ . '/../..' . '/includes/integrations/elementor/class-cartpops-cart-widget.php',
+        'CartPops_Color_Tab' => __DIR__ . '/../..' . '/admin/menu/tabs/color.php',
+        'CartPops_Compatibility' => __DIR__ . '/../..' . '/includes/abstracts/abstract-cartpops-compatibility.php',
+        'CartPops_Dashboard_Tab' => __DIR__ . '/../..' . '/admin/menu/tabs/dashboard.php',
+        'CartPops_Date_Time' => __DIR__ . '/../..' . '/includes/class-cartpops-date-time.php',
         'CartPops_Deactivator' => __DIR__ . '/../..' . '/includes/class-cartpops-deactivator.php',
         'CartPops_Elementor_Widgets' => __DIR__ . '/../..' . '/includes/integrations/elementor/class-cartpops-elementor-widgets.php',
         'CartPops_Frontend_Ajax' => __DIR__ . '/../..' . '/public/class-cartpops-ajax.php',
-        'CartPops_Frontend_Helpers' => __DIR__ . '/../..' . '/public/class-cartpops-helpers.php',
-        'CartPops_Globals' => __DIR__ . '/../..' . '/includes/cartpops-functions.php',
         'CartPops_I18n' => __DIR__ . '/../..' . '/includes/class-cartpops-i18n.php',
+        'CartPops_Issues_Tab' => __DIR__ . '/../..' . '/admin/menu/tabs/issues.php',
         'CartPops_Loader' => __DIR__ . '/../..' . '/includes/class-cartpops-loader.php',
+        'CartPops_Master_Log' => __DIR__ . '/../..' . '/includes/entity/class-cartpops-master-log.php',
+        'CartPops_Menu_Management' => __DIR__ . '/../..' . '/admin/menu/class-cartpops-menu-management.php',
+        'CartPops_Notifications' => __DIR__ . '/../..' . '/includes/abstracts/class-cartpops-notifications.php',
         'CartPops_Parsedown' => __DIR__ . '/../..' . '/includes/lib/class-cartpops-parsedown.php',
+        'CartPops_Post' => __DIR__ . '/../..' . '/includes/abstracts/abstract-cartpops-post.php',
         'CartPops_Public' => __DIR__ . '/../..' . '/public/class-cartpops-public.php',
+        'CartPops_Register_Post_Status' => __DIR__ . '/../..' . '/includes/class-cartpops-register-post-status.php',
+        'CartPops_Register_Post_Types' => __DIR__ . '/../..' . '/includes/class-cartpops-register-post-types.php',
+        'CartPops_Rule' => __DIR__ . '/../..' . '/includes/entity/class-cartpops-rule.php',
+        'CartPops_Rules_List_Table' => __DIR__ . '/../..' . '/admin/menu/wp-list-table/class-cartpops-rules-list-table.php',
+        'CartPops_Rules_Tab' => __DIR__ . '/../..' . '/admin/menu/tabs/upsells.php',
+        'CartPops_Settings' => __DIR__ . '/../..' . '/admin/menu/class-cartpops-settings.php',
+        'CartPops_Settings_Deprecated' => __DIR__ . '/../..' . '/admin/class-cartpops-settings-deprecated.php',
+        'CartPops_Settings_Page' => __DIR__ . '/../..' . '/includes/abstracts/class-cartpops-settings-page.php',
+        'CartPops_Settings_Tab' => __DIR__ . '/../..' . '/admin/menu/tabs/settings.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->classMap = ComposerStaticInitde8e19bfae5326623b36aff9f65c2022::$classMap;
+            $loader->classMap = ComposerStaticInit8c6adf4428ce688f4a1bbd809d56915a::$classMap;
 
         }, null, ClassLoader::class);
     }

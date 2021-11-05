@@ -34,7 +34,7 @@ class Fragment_Cart_Item_Price extends Fragment {
 	 */
 	protected function get_cart_item_product(): \WC_Product {
 		$cart_item = $this->settings->cart_item;
-		return $this->cart_item_product ?? $this->cart_item_product = cpops_frontend_helper()->cart_item_product( $cart_item, $cart_item['key'] );
+		return $this->cart_item_product ?? $this->cart_item_product = cartpops_cart_item_product( $cart_item, $cart_item['key'] );
 	}
 
 	/**

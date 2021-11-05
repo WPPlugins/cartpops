@@ -33,7 +33,7 @@ class Fragment_Cart_Item_Quantity extends Fragment {
 	 */
 	protected function get_cart_item_product(): \WC_Product {
 		$cart_item = $this->settings->cart_item;
-		return $this->cart_item_product ?? $this->cart_item_product = cpops_frontend_helper()->cart_item_product( $cart_item, $cart_item['key'] );
+		return $this->cart_item_product ?? $this->cart_item_product = cartpops_cart_item_product( $cart_item, $cart_item['key'] );
 	}
 
 	/**
@@ -60,7 +60,7 @@ class Fragment_Cart_Item_Quantity extends Fragment {
 				'max_value'     => $product->get_max_purchase_quantity(),
 				'min_value'     => $product->get_min_purchase_quantity(),
 				// TODO Refactor this call. It doesn't actually return a product name, but an HTML entity with product details
-				'product_name'  => cpops_frontend_helper()->get_product_name( $this->settings->cart_item, $this->settings->cart_item['key'] ),
+				'product_name'  => cartpops_cart_item_product_name( $this->settings->cart_item, $this->settings->cart_item['key'] ),
 				'cart_item_key' => $this->settings->cart_item['key'],
 			),
 			$product

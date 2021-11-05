@@ -22,25 +22,26 @@ $args = array(
 
 	<div class="cpops-cart-item__container">
 
-		<?php if ( $cpops_thumbnail ) : ?>
 			<div class="cpops-cart-item__image">
-				<?php if ( $cpops_product_permalink ) : ?>
-					<a href="<?php echo esc_url( $cpops_product_permalink ); ?>">
+				<?php if ( $product_permalink ) : ?>
+					<a href="<?php echo esc_url( $product_permalink ); ?>">
 				<?php endif; ?>
 
-				<?php echo wp_kses_post( $cpops_thumbnail ); ?>
+				<?php if ( $thumbnail ) : ?>
+					<?php echo $thumbnail; ?>
+				<?php else : ?>
+					<?php echo $fallback_thumbnail; ?>
+				<?php endif; ?>
 
-				<?php if ( $cpops_product_permalink ) : ?>
+				<?php if ( $product_permalink ) : ?>
 					</a>
 				<?php endif; ?>
 			</div>
-		<?php endif; ?>
 
 		<div class="cpops-cart-item__product">
 
 			<div class="cpops-cart-item__details">
-
-				<div class="cpops-cart-item__product--name"><?php echo wp_kses_post( $cpops_product_name ); ?></div>
+				<div class="cpops-cart-item__product--name"><?php echo $product_name; ?></div>
 			</div>
 
 			<?php if ( $quantity ) : ?>
@@ -59,8 +60,8 @@ $args = array(
 			</button>
 		<?php endif; ?>
 
-		<?php if ( $cpops_product_subtotal ) : ?>
-			<?php cpops_frontend_helper()->get_template( 'components/product/price', $args ); ?>
+		<?php if ( $product_subtotal ) : ?>
+			<?php cartpops_get_template( 'components/product/price', $args ); ?>
 		<?php endif; ?>
 	</div>
 

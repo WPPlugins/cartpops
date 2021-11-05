@@ -2,7 +2,8 @@
 namespace CartPops\Cart\Fragments;
 
 if ( ! defined( 'WPINC' ) ) {
-	die; }
+	die;
+}
 
 /**
  * Renders the cart contents fragment.
@@ -16,12 +17,6 @@ class Fragment_Drawer_Cart extends Fragment {
 	 * @return void
 	 */
 	protected function render_fragment(): void {
-		?>
-		<div class="cpops-drawer-cart">
-		<?php
-			$this->settings->templates->render_cart_contents();
-		?>
-		</div>
-		<?php
+		$this->settings->templates->render_cart_contents();
 	}
 }

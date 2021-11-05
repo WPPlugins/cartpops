@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<?php do_action( 'cartpops_drawer_panel_wrapper_start' ); ?>
 
 		<div class="cpops-panel">
-			<?php do_action( 'cartpops_drawer_inside' ); ?>
+			<?php do_action( 'cartpops_drawer_content' ); ?>
 		</div>
 
 		<?php do_action( 'cartpops_drawer_panel_wrapper_end' ); ?>

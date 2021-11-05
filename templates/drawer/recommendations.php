@@ -60,10 +60,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 										</div>
 									</div>
 									<div class="cpops-cart-item__slider-pricing">
-										<?php if ( $recommended_product->get_sale_price() ) : ?>
-											<div class="cpops-cart-item__slider-pricing--sale"><?php echo wc_price( $recommended_product->get_regular_price() ); ?></div>
-										<?php endif; ?>
-										<div class="cpops-cart-item__slider-pricing--price"><?php echo wc_price( $recommended_product->get_price() ); ?></div>
+										<div class="cpops-cart-item__slider-pricing--price">
+											<?php echo $recommended_product->get_price_html(); ?>
+										</div>
 									</div>
 								</div>
 

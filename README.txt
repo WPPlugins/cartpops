@@ -3,9 +3,9 @@ Contributors: cartpops
 Donate link: https://cartpops.com
 Tags: add to cart popup, added to cart, cart, shop, shopping cart, cart drawer, floating cart, woo-commerce, woocommerce
 Requires at least: 5.1
-Tested up to: 5.7.2
+Tested up to: 5.8
 Requires PHP: 7.0
-Stable tag: 1.4.7
+Stable tag: 1.4.12
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -152,6 +152,19 @@ With this widget, you can easily style the Cart Launcher and show it anywhere yo
 If you have a caching plugin installed, or use any sort of caching in your site (DNS caching, object caching, etc), please clear those caches to make sure your browser loads the updated scripts.
 
 == Changelog ==
+
+#### Version 1.4.12 - 5 Nov 2021
+- **new**: Add the ability to hide the Floating Cart Launcher on certain pages.
+- **fix**: Shipping line item being Pro only whilst it should be free.
+- **fix**: Add sale price to price in Drawer.
+- **fix**: The ability to not trigger the cart wasn't working. This is fixed now: https://cartpops.com/docs/php-filters/cartpops_add_to_cart_trigger/
+- **fix**: Automatically disable the free CartPops plugin if CartPops Pro gets installed.
+- **fix**: Ensure add to cart buttons are disabled when adding to cart is still in progress.
+- **fix**: Fix occassions where the shipping line item wasn't showing.
+- **upgrade**: Ensure overflow hidden is set to important. Some themes/plugins were overriding this style.
+- **upgrade**: Recommendations should be more consistent now.
+- **upgrade**: Cart events are more fluid and wait up on another.
+- **upgrade**: Allow non-simple products to be shown as random Recommendations.
 
 #### Version 1.4.7 - 13 July 2021
 - **new**: Sleek and simple Floating Cart Launcher animation.

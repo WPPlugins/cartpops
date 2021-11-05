@@ -3,7 +3,8 @@
 if ( !defined( 'ABSPATH' ) ) {
     exit;
 }
-class CartPops_Settings
+use  CartPops\Admin\Options ;
+class CartPops_Settings_Deprecated
 {
     /**
      * Slug of the plugin screen.
@@ -174,22 +175,6 @@ class CartPops_Settings
     }
     
     /**
-     * Adds links to the plugin links row.
-     *
-     * @since  1.0.0
-     * @param  array  $links The current array of row links.
-     * @param  string $file  The name of the file.
-     * @return array The modified array of row links.
-     */
-    public function link_row( $links, $file )
-    {
-        if ( CARTPOPS_FILE === $file ) {
-            $links[] = '<a href="http://twitter.com/slushman">Twitter</a>';
-        }
-        return $links;
-    }
-    
-    /**
      * Adds a link to the plugin settings page.
      *
      * @since  1.0.0
@@ -251,13 +236,11 @@ class CartPops_Settings
             'label'   => __( 'Enable CartPops', 'cartpops' ) . $this->tooltip(),
             'tooltip' => __( 'If you disable this, the plugin will stop working on the front-end of your website. This is useful if you temporarily want to disable CartPops without deactivating the entire plugin.', 'cartpops' ),
             'type'    => 'checkbox',
-            'default' => 'on',
         ), array(
             'id'         => 'plugin_reset',
             'label'      => __( 'Delete plugin settings upon deactivation', 'cartpops' ) . $this->tooltip(),
             'tooltip'    => __( 'This wlll delete all plugins settings upon deactivation. Use with caution!', 'cartpops' ),
             'type'       => 'checkbox',
-            'default'    => '',
             'attributes' => array(
             'class' => 'danger',
         ),
@@ -266,10 +249,9 @@ class CartPops_Settings
         $settings['pro_benefits'] = array(
             'title'  => __( 'Pro benefits', 'cartpops' ),
             'fields' => array( array(
-            'id'      => 'support_chat_enable',
-            'label'   => __( 'Enable chat support', 'cartpops' ),
-            'type'    => 'checkbox',
-            'default' => 'on',
+            'id'    => 'support_chat_enable',
+            'label' => __( 'Enable chat support', 'cartpops' ),
+            'type'  => 'checkbox',
         ) ),
         );
         $settings['cart_trigger'] = array(
@@ -295,7 +277,6 @@ class CartPops_Settings
             'paid'  => 'true',
         ),
         ),
-            'default' => 'drawer',
         ) ),
         );
         $settings['coupon_form'] = array(
@@ -305,7 +286,6 @@ class CartPops_Settings
             'label'   => __( 'Enable coupon form', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/coupon-form/', 'Tooltip', 'Documentation' ) ),
             'tooltip' => __( 'This will enable a coupon form on the CartPops Drawer that allows customers to claim discount codes.', 'cartpops' ),
             'type'    => 'checkbox',
-            'default' => '',
         ) ),
         );
         $settings['product_recommendation_engine'] = array(
@@ -316,7 +296,6 @@ class CartPops_Settings
             'label'   => __( 'Enable Product Recommendation Engine', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/product-recommendation-engine/', 'Tooltip', 'Documentation' ) ),
             'tooltip' => __( 'This will enable the Product Recommendation Engine.', 'cartpops' ),
             'type'    => 'checkbox',
-            'default' => '',
         ),
             array(
             'id'          => 'product_recommendation_engine_text',
@@ -335,7 +314,6 @@ class CartPops_Settings
             'cross_sells' => __( 'Cross-sells', 'cartpops' ),
             'custom'      => __( 'Custom products (Pro)', 'cartpops' ),
         ),
-            'default' => array( 'upsells' ),
         ),
             array(
             'id'      => 'product_recommendation_engine_fallback',
@@ -346,7 +324,6 @@ class CartPops_Settings
             'hide'            => __( 'Hide the Product Recommendation Engine', 'cartpops' ),
             'random_products' => __( 'Show random products', 'cartpops' ),
         ),
-            'default' => array( 'hide' ),
         ),
             array(
             'id'      => 'product_recommendation_engine_button_type',
@@ -358,13 +335,11 @@ class CartPops_Settings
             'text'      => __( 'Text (Pro)', 'cartpops' ),
             'text_icon' => __( 'Text + Icon (Pro)', 'cartpops' ),
         ),
-            'default' => 'icon',
         ),
             array(
             'id'          => 'product_recommendation_engine_button_text',
             'label'       => __( 'Button text', 'cartpops' ),
             'type'        => 'text',
-            'default'     => __( 'Add', 'cartpops' ),
             'placeholder' => __( 'Add', 'cartpops' ),
             'attributes'  => array(),
         )
@@ -377,25 +352,7 @@ class CartPops_Settings
             'label'   => __( 'Enable Free Shipping Meter', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/free-shipping-progress-meter/', 'Tooltip', 'Documentation' ) ),
             'tooltip' => __( 'This will enable the Free Shipping Meter on the CartPops Drawer and selected Add To Cart Trigger.', 'cartpops' ),
             'type'    => 'checkbox',
-            'default' => '',
             'paid'    => 'true',
-        ) ),
-        );
-        $settings['assistant'] = array(
-            'title'  => __( 'Enable Shopping Assistant', 'cartpops' ),
-            'fields' => array( array(
-            'id'      => 'assistant_modal_enable',
-            'label'   => __( 'Enable Free Shipping Meter', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/assistant/', 'Tooltip', 'Assistant' ) ),
-            'tooltip' => __( 'This will enable the Shopping Assistant on the CartPops Drawer.', 'cartpops' ),
-            'type'    => 'checkbox',
-            'default' => '',
-            'paid'    => 'true',
-        ), array(
-            'id'      => 'assistant_coupon_form',
-            'label'   => __( 'Enable smart assistant for coupon form', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/cart-launcher/#floating-cart-launcher', 'Tooltip', 'Documentation' ) ),
-            'tooltip' => __( 'This will enable a floating icon on your website on which customers can quickly activate the CartPops Drawer and view their cart items.', 'cartpops' ),
-            'type'    => 'checkbox',
-            'default' => '',
         ) ),
         );
         $settings['floating_cart_launcher'] = array(
@@ -406,7 +363,6 @@ class CartPops_Settings
             'label'   => __( 'Enable Floating Cart Launcher', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/cart-launcher/#floating-cart-launcher', 'Tooltip', 'Documentation' ) ),
             'tooltip' => __( 'This will enable a floating icon on your website on which customers can quickly activate the CartPops Drawer and view their cart items.', 'cartpops' ),
             'type'    => 'checkbox',
-            'default' => '',
         ),
             array(
             'id'        => 'floating_cart_launcher_position',
@@ -417,7 +373,6 @@ class CartPops_Settings
             'bottom_right' => __( 'Bottom right', 'cartpops' ),
             'bottom_left'  => __( 'Bottom left', 'cartpops' ),
         ),
-            'default'   => array( 'bottom_right' ),
             'relies_on' => array(
             'id'                  => 'floating_cart_launcher_enable',
             'value'               => 'on',
@@ -429,7 +384,6 @@ class CartPops_Settings
             'label'   => __( 'Hide when cart is empty', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/cart-launcher/#floating-cart-launcher', 'Tooltip', 'Documentation' ) ),
             'tooltip' => __( 'This will hide the floating cart launcher when the cart is empty', 'cartpops' ),
             'type'    => 'checkbox',
-            'default' => '',
             'paid'    => 'true',
         ),
             array(
@@ -437,7 +391,6 @@ class CartPops_Settings
             'label'   => __( 'Hide indicator when cart is empty', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/cart-launcher/#floating-cart-launcher', 'Tooltip', 'Documentation' ) ),
             'tooltip' => __( 'This will hide the floating cart indicator when the cart is empty', 'cartpops' ),
             'type'    => 'checkbox',
-            'default' => '',
             'paid'    => 'true',
         )
         ),
@@ -465,7 +418,6 @@ class CartPops_Settings
             'cpops-icon-handbag-line'          => __( 'Bag', 'cartpops' ) . ' 7',
             'cpops-icon-cpops-handbag-fill'    => __( 'Bag', 'cartpops' ) . ' 8',
         ),
-            'default' => array( 'cpops-icon-shopping-bag-line' ),
         ),
             array(
             'id'      => 'menu_cart_launcher_indicator',
@@ -477,21 +429,18 @@ class CartPops_Settings
             'bubble' => __( 'Bubble', 'cartpops' ),
             'plain'  => __( 'Plain', 'cartpops' ),
         ),
-            'default' => array( 'bubble' ),
         ),
             array(
             'id'      => 'menu_cart_launcher_indicator_empty',
             'label'   => __( 'Hide indicator when cart is empty', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/cart-launcher/#menu-cart-launcher', 'Tooltip', 'Documentation' ) ),
             'tooltip' => __( 'This will hide the indicator on the cart icon if the cart is empty.', 'cartpops' ),
             'type'    => 'checkbox',
-            'default' => '',
         ),
             array(
             'id'      => 'menu_cart_launcher_subtotal',
             'label'   => __( 'Show subtotal', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/cart-launcher/#menu-cart-launcher', 'Tooltip', 'Documentation' ) ),
             'tooltip' => __( 'This will show the subtotal next to the cart icon.', 'cartpops' ),
             'type'    => 'checkbox',
-            'default' => 'on',
         )
         ),
         );
@@ -503,42 +452,36 @@ class CartPops_Settings
             'label'   => __( 'Show subtotal', 'cartpops' ),
             'tooltip' => __( 'This will show the total line item.', 'cartpops' ),
             'type'    => 'checkbox',
-            'default' => '',
         ),
             array(
             'id'      => 'drawer_footer_display_total',
             'label'   => __( 'Show total', 'cartpops' ),
             'tooltip' => __( 'This will show the subtotal line item.', 'cartpops' ),
             'type'    => 'checkbox',
-            'default' => 'on',
         ),
             array(
             'id'      => 'drawer_footer_display_discount',
             'label'   => __( 'Show discount', 'cartpops' ),
             'tooltip' => __( 'This will show the subtotal line item.', 'cartpops' ),
             'type'    => 'checkbox',
-            'default' => 'on',
         ),
             array(
             'id'      => 'drawer_footer_display_tax',
             'label'   => __( 'Show tax', 'cartpops' ),
             'tooltip' => __( 'For this to work you need to have taxes enabled in WooCommerce settings', 'cartpops' ),
             'type'    => 'checkbox',
-            'default' => 'on',
         ),
             array(
             'id'      => 'drawer_footer_display_shipping',
             'label'   => __( 'Show shipping', 'cartpops' ),
             'tooltip' => __( 'This will show the shipping line item', 'cartpops' ),
             'type'    => 'checkbox',
-            'default' => 'on',
         ),
             array(
             'id'      => 'drawer_footer_display_shipping_calculator',
             'label'   => __( 'Shipping calculator', 'cartpops' ),
             'tooltip' => __( 'This will show a button next to the shipping line item where the customer can calculate or change their shipping.', 'cartpops' ),
             'type'    => 'checkbox',
-            'default' => 'on',
             'paid'    => 'true',
         ),
             array(
@@ -552,14 +495,12 @@ class CartPops_Settings
             'view_cart'         => __( 'View cart (Pro)', 'cartpops' ),
             'custom_url'        => __( 'Custom URL (Pro)', 'cartpops' ),
         ),
-            'default' => array( 'none' ),
         ),
             array(
             'id'          => 'drawer_footer_secondary_button_custom_url',
             'label'       => __( 'Secondary button custom URL', 'cartpops' ),
             'type'        => 'text',
             'placeholder' => get_site_url(),
-            'default'     => '',
             'attributes'  => array(
             'type'                 => 'url',
             'data-relies-on'       => 'drawer_footer_secondary_button',
@@ -572,7 +513,6 @@ class CartPops_Settings
             'label'       => __( 'Secondary button custom text', 'cartpops' ),
             'type'        => 'text',
             'placeholder' => 'View shipping terms',
-            'default'     => '',
             'attributes'  => array(
             'data-relies-on'       => 'drawer_footer_secondary_button',
             'data-relies-on-value' => 'custom_url',
@@ -585,70 +525,59 @@ class CartPops_Settings
             'title'  => __( 'Primary color schemes', 'cartpops' ),
             'fields' => array(
             array(
-            'id'      => 'color_background_primary',
-            'label'   => __( 'Primary background color', 'cartpops' ),
-            'type'    => 'color',
-            'default' => '#ffffff',
+            'id'    => 'color_background_primary',
+            'label' => __( 'Primary background color', 'cartpops' ),
+            'type'  => 'color',
         ),
             array(
-            'id'      => 'color_background_secondary',
-            'label'   => __( 'Secondary background color', 'cartpops' ),
-            'type'    => 'color',
-            'default' => '#f7f7fe',
+            'id'    => 'color_background_secondary',
+            'label' => __( 'Secondary background color', 'cartpops' ),
+            'type'  => 'color',
         ),
             array(
-            'id'      => 'color_typography_primary',
-            'label'   => __( 'Primary text color', 'cartpops' ),
-            'type'    => 'color',
-            'default' => '#000000',
+            'id'    => 'color_typography_primary',
+            'label' => __( 'Primary text color', 'cartpops' ),
+            'type'  => 'color',
         ),
             array(
-            'id'      => 'color_typography_secondary',
-            'label'   => __( 'Secondary text color', 'cartpops' ),
-            'type'    => 'color',
-            'default' => '#3B3B3B',
+            'id'    => 'color_typography_secondary',
+            'label' => __( 'Secondary text color', 'cartpops' ),
+            'type'  => 'color',
         ),
             array(
-            'id'      => 'color_typography_tertiary',
-            'label'   => __( 'Tertiary text color', 'cartpops' ),
-            'type'    => 'color',
-            'default' => '#D6D5D5',
+            'id'    => 'color_typography_tertiary',
+            'label' => __( 'Tertiary text color', 'cartpops' ),
+            'type'  => 'color',
         ),
             array(
-            'id'      => 'color_border',
-            'label'   => __( 'Border color', 'cartpops' ),
-            'type'    => 'color',
-            'default' => '#dbdbe0',
+            'id'    => 'color_border',
+            'label' => __( 'Border color', 'cartpops' ),
+            'type'  => 'color',
         ),
             array(
-            'id'      => 'color_accent',
-            'label'   => __( 'Accent color', 'cartpops' ),
-            'type'    => 'color',
-            'default' => '#705aef',
+            'id'    => 'color_accent',
+            'label' => __( 'Accent color', 'cartpops' ),
+            'type'  => 'color',
         ),
             array(
-            'id'      => 'color_overlay',
-            'label'   => __( 'Overlay color', 'cartpops' ),
-            'type'    => 'color',
-            'default' => 'rgba(33, 42, 47, 0.85)',
+            'id'    => 'color_overlay',
+            'label' => __( 'Overlay color', 'cartpops' ),
+            'type'  => 'color',
         ),
             array(
-            'id'      => 'color_input_background',
-            'label'   => __( 'Input field background color', 'cartpops' ),
-            'type'    => 'color',
-            'default' => '#ffffff',
+            'id'    => 'color_input_background',
+            'label' => __( 'Input field background color', 'cartpops' ),
+            'type'  => 'color',
         ),
             array(
-            'id'      => 'color_input_text',
-            'label'   => __( 'Input field text color', 'cartpops' ),
-            'type'    => 'color',
-            'default' => '#82828b',
+            'id'    => 'color_input_text',
+            'label' => __( 'Input field text color', 'cartpops' ),
+            'type'  => 'color',
         ),
             array(
-            'id'      => 'border_radius_rounded',
-            'label'   => __( 'Enable rounded style', 'cartpops' ),
-            'type'    => 'checkbox',
-            'default' => '',
+            'id'    => 'border_radius_rounded',
+            'label' => __( 'Enable rounded style', 'cartpops' ),
+            'type'  => 'checkbox',
         )
         ),
         );
@@ -664,13 +593,11 @@ class CartPops_Settings
             'simple' => __( 'Slide in right', 'cartpops' ),
             'slick'  => __( 'Slick', 'cartpops' ),
         ),
-            'default' => array( 'slick' ),
         ), array(
             'id'          => 'customize_animation_duration',
             'label'       => __( 'Animation speed', 'cartpops' ),
             'type'        => 'number',
             'placeholder' => '300',
-            'default'     => '',
             'attributes'  => array(
             'max' => '800',
             'min' => '50',
@@ -693,7 +620,6 @@ class CartPops_Settings
             'label'       => __( 'Drawer width mobile (%)', 'cartpops' ),
             'type'        => 'number',
             'placeholder' => '80',
-            'default'     => '',
             'attributes'  => array(
             'max' => '100',
             'min' => '50',
@@ -707,35 +633,30 @@ class CartPops_Settings
             'max' => '1400',
             'min' => '300',
         ),
-            'default'     => '',
         ) ),
         );
         $settings['appearance_buttons'] = array(
             'title'  => __( 'Button color scheme', 'cartpops' ),
             'fields' => array(
             array(
-            'id'      => 'color_button_primary_background',
-            'label'   => __( 'Primary Button Background Color', 'cartpops' ),
-            'type'    => 'color',
-            'default' => '#705aef',
+            'id'    => 'color_button_primary_background',
+            'label' => __( 'Primary Button Background Color', 'cartpops' ),
+            'type'  => 'color',
         ),
             array(
-            'id'      => 'color_button_primary_text',
-            'label'   => __( 'Primary Button Text Color', 'cartpops' ),
-            'type'    => 'color',
-            'default' => '#ffffff',
+            'id'    => 'color_button_primary_text',
+            'label' => __( 'Primary Button Text Color', 'cartpops' ),
+            'type'  => 'color',
         ),
             array(
-            'id'      => 'color_button_secondary_background',
-            'label'   => __( 'Secondary Button Secondary Background', 'cartpops' ),
-            'type'    => 'color',
-            'default' => '#ffffff',
+            'id'    => 'color_button_secondary_background',
+            'label' => __( 'Secondary Button Secondary Background', 'cartpops' ),
+            'type'  => 'color',
         ),
             array(
-            'id'      => 'color_button_secondary_text',
-            'label'   => __( 'Secondary Button Secondary Text', 'cartpops' ),
-            'type'    => 'color',
-            'default' => '#e6e6eb',
+            'id'    => 'color_button_secondary_text',
+            'label' => __( 'Secondary Button Secondary Text', 'cartpops' ),
+            'type'  => 'color',
         )
         ),
         );
@@ -743,40 +664,39 @@ class CartPops_Settings
             'title'  => __( 'Recommendations color scheme', 'cartpops' ),
             'fields' => array(
             array(
-            'id'      => 'color_recommendations_button_background',
-            'label'   => __( 'Recommendations button background color', 'cartpops' ),
-            'type'    => 'color',
-            'default' => '#000000',
+            'id'    => 'color_recommendations_button_background',
+            'label' => __( 'Recommendations button background color', 'cartpops' ),
+            'type'  => 'color',
         ),
             array(
-            'id'      => 'color_recommendations_button_text',
-            'label'   => __( 'Recommendations button text color', 'cartpops' ),
-            'type'    => 'color',
-            'default' => '#ffffff',
+            'id'    => 'color_recommendations_button_text',
+            'label' => __( 'Recommendations button text color', 'cartpops' ),
+            'type'  => 'color',
         ),
             array(
-            'id'      => 'color_recommendations_drawer_background',
-            'label'   => __( 'Drawer Recommendations background color', 'cartpops' ),
-            'type'    => 'color',
-            'default' => '#f7f7fe',
+            'id'    => 'color_recommendations_drawer_background',
+            'label' => __( 'Drawer Recommendations background color', 'cartpops' ),
+            'type'  => 'color',
         ),
             array(
-            'id'      => 'color_recommendations_drawer_text',
-            'label'   => __( 'Drawer Recommendations text color', 'cartpops' ),
-            'type'    => 'color',
-            'default' => '#000000',
+            'id'    => 'color_recommendations_drawer_border',
+            'label' => __( 'Drawer Recommendations border color', 'cartpops' ),
+            'type'  => 'color',
         ),
             array(
-            'id'      => 'color_recommendations_popup_background',
-            'label'   => __( 'Popup Recommendations background color', 'cartpops' ),
-            'type'    => 'color',
-            'default' => '#f7f7fe',
+            'id'    => 'color_recommendations_drawer_text',
+            'label' => __( 'Drawer Recommendations text color', 'cartpops' ),
+            'type'  => 'color',
         ),
             array(
-            'id'      => 'color_recommendations_popup_text',
-            'label'   => __( 'Popup Recommendations text color', 'cartpops' ),
-            'type'    => 'color',
-            'default' => '#000000',
+            'id'    => 'color_recommendations_popup_background',
+            'label' => __( 'Popup Recommendations background color', 'cartpops' ),
+            'type'  => 'color',
+        ),
+            array(
+            'id'    => 'color_recommendations_popup_text',
+            'label' => __( 'Popup Recommendations text color', 'cartpops' ),
+            'type'  => 'color',
         )
         ),
         );
@@ -784,28 +704,24 @@ class CartPops_Settings
             'title'  => __( 'Floating Cart Launcher Color Scheme', 'cartpops' ),
             'fields' => array(
             array(
-            'id'      => 'color_floating_cart_laucher_background',
-            'label'   => __( 'Floating Cart Launcher background color', 'cartpops' ),
-            'type'    => 'color',
-            'default' => '#000000',
+            'id'    => 'color_floating_cart_laucher_background',
+            'label' => __( 'Floating Cart Launcher background color', 'cartpops' ),
+            'type'  => 'color',
         ),
             array(
-            'id'      => 'color_floating_cart_laucher_icon',
-            'label'   => __( 'Floating Cart Launcher icon color', 'cartpops' ),
-            'type'    => 'color',
-            'default' => '#ffffff',
+            'id'    => 'color_floating_cart_laucher_icon',
+            'label' => __( 'Floating Cart Launcher icon color', 'cartpops' ),
+            'type'  => 'color',
         ),
             array(
-            'id'      => 'color_floating_cart_laucher_indicator_background',
-            'label'   => __( 'Floating Cart Launcher indicator background', 'cartpops' ),
-            'type'    => 'color',
-            'default' => '#ffffff',
+            'id'    => 'color_floating_cart_laucher_indicator_background',
+            'label' => __( 'Floating Cart Launcher indicator background', 'cartpops' ),
+            'type'  => 'color',
         ),
             array(
-            'id'      => 'color_floating_cart_laucher_indicator_text',
-            'label'   => __( 'Floating Cart Launcher indicator text', 'cartpops' ),
-            'type'    => 'color',
-            'default' => '#ffffff',
+            'id'    => 'color_floating_cart_laucher_indicator_text',
+            'label' => __( 'Floating Cart Launcher indicator text', 'cartpops' ),
+            'type'  => 'color',
         )
         ),
         );
@@ -813,28 +729,24 @@ class CartPops_Settings
             'title'  => __( 'Cart Launcher Color Scheme', 'cartpops' ),
             'fields' => array(
             array(
-            'id'      => 'color_cart_laucher_background',
-            'label'   => __( 'Cart Launcher background color', 'cartpops' ),
-            'type'    => 'color',
-            'default' => 'rgba(255, 255, 255, 0)',
+            'id'    => 'color_cart_laucher_background',
+            'label' => __( 'Cart Launcher background color', 'cartpops' ),
+            'type'  => 'color',
         ),
             array(
-            'id'      => 'color_cart_laucher_text',
-            'label'   => __( 'Cart Launcher text color', 'cartpops' ),
-            'type'    => 'color',
-            'default' => '#000000',
+            'id'    => 'color_cart_laucher_text',
+            'label' => __( 'Cart Launcher text color', 'cartpops' ),
+            'type'  => 'color',
         ),
             array(
-            'id'      => 'color_cart_laucher_bubble_background',
-            'label'   => __( 'Cart Launcher bubble background', 'cartpops' ),
-            'type'    => 'color',
-            'default' => '#705aef',
+            'id'    => 'color_cart_laucher_bubble_background',
+            'label' => __( 'Cart Launcher bubble background', 'cartpops' ),
+            'type'  => 'color',
         ),
             array(
-            'id'      => 'color_cart_laucher_bubble_text',
-            'label'   => __( 'Cart Launcher bubble text', 'cartpops' ),
-            'type'    => 'color',
-            'default' => '#ffffff',
+            'id'    => 'color_cart_laucher_bubble_text',
+            'label' => __( 'Cart Launcher bubble text', 'cartpops' ),
+            'type'  => 'color',
         )
         ),
         );
@@ -845,13 +757,11 @@ class CartPops_Settings
             'label'   => __( 'Display Powered by CartPops', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/powered-by/', 'Tooltip', 'Documentation' ) ),
             'tooltip' => __( 'The core functionality of CartPops is free forever. You can support ongoing development and new updates by showing Powered by CartPops on your Add To Cart Triggers', 'cartpops' ),
             'type'    => 'checkbox',
-            'default' => '',
         ), array(
             'id'          => 'support_us_partner_code',
             'label'       => __( 'Partner code', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/powered-by/', 'Tooltip', 'Affiliate Program' ) ),
             'tooltip'     => __( 'Replace the default Powered by CartPops branding link with your referral link.', 'cartpops' ),
             'type'        => 'number',
-            'default'     => '',
             'attributes'  => array(
             'data-relies-on'       => 'support_us_enable',
             'data-relies-on-value' => 'on',
@@ -867,7 +777,6 @@ class CartPops_Settings
             'id'          => 'drawer_header_title_text',
             'label'       => __( 'Drawer cart title', 'cartpops' ),
             'type'        => 'text',
-            'default'     => '',
             'placeholder' => __( 'My cart', 'cartpops' ),
             'attributes'  => array(),
         ),
@@ -875,7 +784,6 @@ class CartPops_Settings
             'id'          => 'generic_add_to_cart_message_text',
             'label'       => __( 'Generic added to cart message', 'cartpops' ),
             'type'        => 'text',
-            'default'     => '',
             'attributes'  => array(),
             'placeholder' => __( 'Product successfully added to your cart.', 'cartpops' ),
         ),
@@ -883,7 +791,6 @@ class CartPops_Settings
             'id'          => 'coupon_title_text',
             'label'       => __( 'Coupon title', 'cartpops' ),
             'type'        => 'text',
-            'default'     => '',
             'attributes'  => array(),
             'placeholder' => __( 'Got a discount code?', 'cartpops' ),
         ),
@@ -891,7 +798,6 @@ class CartPops_Settings
             'id'          => 'coupon_input_placeholder_text',
             'label'       => __( 'Coupon input field placeholder text', 'cartpops' ),
             'type'        => 'text',
-            'default'     => '',
             'attributes'  => array(),
             'placeholder' => __( 'Enter discount code', 'cartpops' ),
         ),
@@ -899,7 +805,6 @@ class CartPops_Settings
             'id'          => 'coupon_button_text',
             'label'       => __( 'Coupon button text', 'cartpops' ),
             'type'        => 'text',
-            'default'     => '',
             'attributes'  => array(),
             'placeholder' => __( 'Apply', 'cartpops' ),
         ),
@@ -907,7 +812,6 @@ class CartPops_Settings
             'id'          => 'subtotal_line_item_text',
             'label'       => __( 'Line item: Subtotal', 'cartpops' ),
             'type'        => 'text',
-            'default'     => '',
             'placeholder' => __( 'Subtotal', 'cartpops' ),
             'attributes'  => array(),
         ),
@@ -915,7 +819,6 @@ class CartPops_Settings
             'id'          => 'discount_line_item_text',
             'label'       => __( 'Line item: Discount', 'cartpops' ),
             'type'        => 'text',
-            'default'     => '',
             'placeholder' => __( 'Discount', 'cartpops' ),
             'attributes'  => array(),
         ),
@@ -923,7 +826,6 @@ class CartPops_Settings
             'id'          => 'total_line_item_text',
             'label'       => __( 'Line item: Total', 'cartpops' ),
             'type'        => 'text',
-            'default'     => '',
             'placeholder' => __( 'Total', 'cartpops' ),
             'attributes'  => array(),
         ),
@@ -931,7 +833,6 @@ class CartPops_Settings
             'id'          => 'checkout_button_text',
             'label'       => __( 'Checkout button', 'cartpops' ),
             'type'        => 'text',
-            'default'     => '',
             'placeholder' => __( 'Checkout now', 'cartpops' ),
             'attributes'  => array(),
         ),
@@ -939,7 +840,6 @@ class CartPops_Settings
             'id'          => 'checkout_button_empty_text',
             'label'       => __( 'Empty checkout button', 'cartpops' ),
             'type'        => 'text',
-            'default'     => '',
             'placeholder' => __( 'Your cart is empty. Shop now', 'cartpops' ),
             'attributes'  => array(),
         ),
@@ -947,7 +847,6 @@ class CartPops_Settings
             'id'          => 'drawer_empty_title_text',
             'label'       => __( 'Drawer empty state title', 'cartpops' ),
             'type'        => 'text',
-            'default'     => '',
             'placeholder' => __( 'Your cart is empty.', 'cartpops' ),
             'attributes'  => array(),
         ),
@@ -955,7 +854,6 @@ class CartPops_Settings
             'id'          => 'drawer_empty_subtitle_text',
             'label'       => __( 'Drawer empty state subtitle', 'cartpops' ),
             'type'        => 'text',
-            'default'     => '',
             'placeholder' => __( 'Looks like you haven\'t made a choice yet.', 'cartpops' ),
             'attributes'  => array(),
         ),
@@ -963,7 +861,6 @@ class CartPops_Settings
             'id'          => 'continue_shopping_text',
             'label'       => __( 'Continue shopping text (Popup)', 'cartpops' ),
             'type'        => 'text',
-            'default'     => '',
             'placeholder' => __( 'Or continue shopping', 'cartpops' ),
             'attributes'  => array(),
         ),
@@ -971,7 +868,6 @@ class CartPops_Settings
             'id'          => 'view_details_text',
             'label'       => __( 'View details text', 'cartpops' ),
             'type'        => 'text',
-            'default'     => '',
             'placeholder' => __( 'View details', 'cartpops' ),
             'attributes'  => array(),
         )
@@ -984,14 +880,12 @@ class CartPops_Settings
             'label'       => __( 'Custom CSS', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/custom-code/', 'Tooltip', 'Documentation' ) ),
             'tooltip'     => sprintf( __( 'Add custom CSS, this will fire after any CartPops CSS. This is for more advanced users! You know what to do %1$s', 'cartpops' ), 'ʕ •ᴥ•ʔ' ),
             'type'        => 'textarea',
-            'default'     => '',
             'placeholder' => esc_html( '#cpops-drawer { text: uppercase; }' ),
         ), array(
             'id'          => 'custom_js',
             'label'       => __( 'Custom Javascript', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/features/custom-code/', 'Tooltip', 'Documentation' ) ),
             'tooltip'     => sprintf( __( 'Add custom JS, this will fire after any CartPops JS. This is for more advanced users! You know what to do %1$s', 'cartpops' ), 'ʕ •ᴥ•ʔ' ),
             'type'        => 'textarea',
-            'default'     => '',
             'placeholder' => esc_html( 'console.log("Howdey!");' ),
         ) ),
         );
@@ -1002,7 +896,6 @@ class CartPops_Settings
             'label'   => __( 'Force refresh on page load', 'cartpops' ) . $this->tooltip( cartpops_outbound_url( 'docs/faq/force-refresh/', 'Tooltip', 'Documentation' ) ),
             'tooltip' => __( 'This will force refresh the cart on each page load. Only use if you\'re having troubles with how the cart loads.', 'cartpops' ),
             'type'    => 'checkbox',
-            'default' => '',
         ) ),
         );
         $settings = apply_filters( 'cartpops_settings_fields', $settings );
@@ -1105,7 +998,7 @@ class CartPops_Settings
     /**
      * Returns potential issues that may hinder the plugin from working as expected.
      *
-     * @author Chris Jayden <chris@chrisjayden.com>
+     * @author Chris Jayden <help@cartpops.com>
      */
     public function watch_potential_issues()
     {
@@ -1148,7 +1041,7 @@ class CartPops_Settings
     /**
      * Delete the issue l;ist transietn.
      *
-     * @author Chris Jayden <chris@chrisjayden.com>
+     * @author Chris Jayden <help@cartpops.com>
      */
     public function delete_issues_transient()
     {
@@ -1178,16 +1071,11 @@ class CartPops_Settings
         $field = $args['field'];
         $html = '';
         $option_name = $this->settings_base . $field['id'];
-        $option = get_option( $option_name );
-        $data = '';
-        
-        if ( isset( $field['default'] ) ) {
-            $data = $field['default'];
-            if ( $option ) {
-                $data = $option;
-            }
+        $option = Options::get( $field['id'] );
+        $data = Options::get_default( $option_name );
+        if ( $option ) {
+            $data = $option;
         }
-        
         $html .= "<div style='display: table; width: 100%;'>";
         $html .= "<div class='cartpops-input-wrapper'>";
         switch ( $field['type'] ) {
@@ -1226,13 +1114,13 @@ class CartPops_Settings
                 break;
             case 'checkbox':
                 $checked = '';
-                if ( $option && 'on' === $option ) {
+                if ( $option && '1' === $option ) {
                     $checked = 'checked="checked"';
                 }
-                $checked = ( $option && 'on' === $option ? true : false );
+                $checked = ( $option && '1' === $option ? true : false );
                 $disabled = ( isset( $field['paid'] ) && 'true' === $field['paid'] && !fs_cartpops()->is_premium() ? true : false );
                 $html .= '<label class="switch" data-paid="' . (( true === $disabled ? esc_attr( 'true' ) : esc_attr( 'false' ) )) . '">';
-                $html .= '<input aria-role="checkbox" id="' . esc_attr( $field['id'] ) . '" type="' . esc_attr( $field['type'] ) . '" name="' . esc_attr( $option_name ) . '" ' . checked( $checked, true, false ) . disabled( $disabled, true, false ) . '/>';
+                $html .= '<input aria-role="checkbox" id="' . esc_attr( $field['id'] ) . '" type="' . esc_attr( $field['type'] ) . '" name="' . esc_attr( $option_name ) . '" value="1"' . checked( $checked, true, false ) . disabled( $disabled, true, false ) . '/>';
                 $html .= '<span class="slider round"></span>';
                 $html .= '</label>';
                 break;
@@ -1335,13 +1223,15 @@ class CartPops_Settings
                     $attributes = array_merge( $attributes, $field['attributes'] );
                 }
                 $html .= '<select multiple="multiple" ' . cartpops_implode_html_attributes( $attributes ) . '>';
-                foreach ( $field['options'] as $k => $product_id ) {
-                    $selected = false;
-                    if ( in_array( $product_id, $data, true ) ) {
-                        $selected = true;
+                if ( $field['options'] ) {
+                    foreach ( $field['options'] as $k => $product_id ) {
+                        $selected = false;
+                        if ( in_array( $product_id, $data, true ) ) {
+                            $selected = true;
+                        }
+                        $product = wc_get_product( $product_id );
+                        $html .= '<option ' . selected( $selected, true, false ) . ' value="' . esc_attr( $product_id ) . '" />' . $product->get_title() . '</label> ';
                     }
-                    $product = wc_get_product( $product_id );
-                    $html .= '<option ' . selected( $selected, true, false ) . ' value="' . esc_attr( $product_id ) . '" />' . $product->get_title() . '</label> ';
                 }
                 $html .= '</select> ';
                 break;
@@ -1727,14 +1617,6 @@ class CartPops_Settings
                     'truck',
                     true
                 );
-                // $this->render_section_fields(
-                // $this->settings_option_group,
-                // 'assistant',
-                // '',
-                // __( 'Shopping Assistant settings', 'cartpops' ),
-                // 'truck',
-                // true
-                // );
                 ?>
 												</div>
 												<?php 
@@ -2008,7 +1890,7 @@ class CartPops_Settings
     /**
      * Check if we're on the admin screen.
      *
-     * @author Chris Jayden <chris@chrisjayden.com>
+     * @author Chris Jayden <help@cartpops.com>
      */
     private function is_admin()
     {
@@ -2044,7 +1926,7 @@ class CartPops_Settings
             'view_details_text'
         );
         foreach ( $options as $option => $value ) {
-            if ( !empty(cartpops_get_option( $value )) ) {
+            if ( !empty(Options::get( $value )) ) {
                 return true;
             }
         }

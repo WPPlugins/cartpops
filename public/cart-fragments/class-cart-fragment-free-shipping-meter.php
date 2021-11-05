@@ -25,12 +25,6 @@ class Fragment_Free_Shipping_Meter extends Fragment {
 	 * @return void
 	 */
 	protected function render_fragment(): void {
-		?>
-		<div class="cpops-free-shipping-meter">
-		<?php
-			$this->settings->templates->render_free_shipping_meter__premium_only();
-		?>
-		</div>
-		<?php
+		$this->settings->templates->render_free_shipping_meter__premium_only();
 	}
 }

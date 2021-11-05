@@ -25,7 +25,8 @@ class Fragment_Last_Cart_Item extends Fragment {
 	 * @return void
 	 */
 	protected function render_fragment(): void {
-		$product = wc_get_product( $this->settings->product_id );
+		$product = cartpops_get_product( $this->settings->product_id );
+
 		?>
 		<div class="cpops-added-product-item">
 		<?php

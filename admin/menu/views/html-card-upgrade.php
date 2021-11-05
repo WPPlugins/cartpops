@@ -11,10 +11,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 
-<div class="cartpops-card upgrade" style="background-image: url(<?php echo esc_url( $this->get_admin_asset( 'effects@20x-3.png' ) ); ?>);">
+<div class="cartpops-card upgrade" style="background-image: url(<?php echo esc_url( CartPops_Settings::get_admin_asset( 'effects@20x-3.png' ) ); ?>);">
 	<div class="card-content">
 		<div class="card-inside">
-			<img class="rocket" src="<?php echo esc_url( $this->get_admin_asset( 'rocket.png' ) ); ?>" />
+			<img class="rocket" src="<?php echo esc_url( CartPops_Settings::get_admin_asset( 'rocket.png' ) ); ?>" />
 			<h2>Level up your store</h2>
 			<p>Upgrade your WooCommerce Cart today and convert more customers</p>
 			<ul>

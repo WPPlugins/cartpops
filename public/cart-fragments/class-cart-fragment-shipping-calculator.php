@@ -1,6 +1,8 @@
 <?php
 namespace CartPops\Cart\Fragments;
 
+use CartPops\Admin\Options;
+
 if ( ! defined( 'WPINC' ) ) {
 	die; }
 
@@ -16,7 +18,7 @@ class Fragment_Shipping_Calculator extends Fragment {
 	 * @return boolean
 	 */
 	protected function should_render(): bool {
-		return fs_cartpops()->is__premium_only() && cartpops_get_option( 'drawer_footer_display_shipping_calculator' );
+		return fs_cartpops()->is__premium_only() && 'on' === Options::get( 'drawer_footer_display_shipping_calculator' );
 	}
 
 	/**
@@ -25,12 +27,6 @@ class Fragment_Shipping_Calculator extends Fragment {
 	 * @return void
 	 */
 	protected function render_fragment(): void {
-		?>
-		<div class="cpops-assistant-items">
-		<?php
-			$this->settings->templates->render_assistant_items__premium_only();
-		?>
-		</div>
-		<?php
+		$this->settings->templates->render_assistant_items__premium_only();
 	}
 }

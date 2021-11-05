@@ -25,12 +25,6 @@ class Fragment_Coupon_Removal extends Fragment {
 	 * @return void
 	 */
 	protected function render_fragment(): void {
-		?>
-		<div class="cpops-coupon-remove">
-		<?php
-			$this->settings->templates->render_coupon_removal();
-		?>
-		</div>
-		<?php
+		$this->settings->templates->render_coupon_removal();
 	}
 }
