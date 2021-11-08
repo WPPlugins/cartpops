@@ -17,7 +17,7 @@ $categories = cartpops_get_wc_categories();
 			<tr>
 				<th scope='row'>
 					<label><?php esc_html_e( 'User Filter', 'cartpops' ); ?>
-						<?php cartpops_wc_help_tip( esc_html__( 'The selected users will be eligible for free upsells', 'cartpops' ) ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped. ?>
+						<?php cartpops_wc_help_tip( esc_html__( 'The selected users will be eligible for upsells', 'cartpops' ) ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped. ?>
 					</label>
 				</th>
 				<td>
@@ -176,7 +176,7 @@ $categories = cartpops_get_wc_categories();
 			<tr>
 				<th scope='row'>
 					<label><?php esc_html_e( 'Product Count', 'cartpops' ); ?>
-						<?php cartpops_wc_help_tip( esc_html__( 'The user must add the number of products mentioned in this option to their cart in order for them to be eligibile for a Free Upsell.', 'cartpops' ) ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped. ?>
+						<?php cartpops_wc_help_tip( esc_html__( 'The user must add the number of products mentioned in this option to their cart in order for them to be eligibile for a Upsell.', 'cartpops' ) ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped. ?>
 					</label>
 				</th>
 				<td>

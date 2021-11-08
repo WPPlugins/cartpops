@@ -22,8 +22,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php esc_html_e( 'From', 'cartpops' ); ?>
 					<?php
 					$rule_valid_from_date_args = array(
-						'name'        => 'cartpops_rule[cartpops_rule_valid_from_date]',
-						'value'       => $rule_data['cartpops_rule_valid_from_date'],
+						'name'        => 'cartpops_rule[cartpops_upsell_valid_from_date]',
+						'value'       => $rule_data['cartpops_upsell_valid_from_date'],
 						'wp_zone'     => false,
 						'placeholder' => CartPops_Date_Time::get_wp_date_format(),
 					);
@@ -34,8 +34,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php esc_html_e( 'To', 'cartpops' ); ?>
 					<?php
 					$rule_valid_to_date_args = array(
-						'name'        => 'cartpops_rule[cartpops_rule_valid_to_date]',
-						'value'       => $rule_data['cartpops_rule_valid_to_date'],
+						'name'        => 'cartpops_rule[cartpops_upsell_valid_to_date]',
+						'value'       => $rule_data['cartpops_upsell_valid_to_date'],
 						'wp_zone'     => false,
 						'placeholder' => CartPops_Date_Time::get_wp_date_format(),
 					);

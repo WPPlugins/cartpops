@@ -15,8 +15,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 				<tr>
 					<th scope='row'>
-						<label><?php esc_html_e( 'Display Free Upsell Eligibility Notice in Cart for this Rule', 'cartpops' ); ?>
-							<?php cartpops_wc_help_tip( esc_html__( 'When set to "Show", a notice will be displayed to user in cart and checkout if they are eligible for receiving free upsells.', 'cartpops' ) ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped. ?>
+						<label><?php esc_html_e( 'Upsell Upselll Eligibility Notice in Cart for this Rule', 'cartpops' ); ?>
+							<?php cartpops_wc_help_tip( esc_html__( 'When set to "Show", a notice will be displayed to user in cart and checkout if they are eligible for receiving upsells.', 'cartpops' ) ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped. ?>
 						</label>
 					</th>
 					<td>

@@ -135,7 +135,7 @@ if ( ! function_exists( 'cartpops_delete_master_log' ) ) {
 if ( ! function_exists( 'cartpops_get_rule_statuses' ) ) {
 
 	/**
-	 * Get Rule statuses
+	 * Get Upsell statuseses
 	 *
 	 * @return array
 	 */

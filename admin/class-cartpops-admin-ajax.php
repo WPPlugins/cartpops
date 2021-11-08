@@ -244,7 +244,7 @@ if ( ! class_exists( 'CartPops_Admin_Ajax' ) ) {
 				// Create order for selected user with upsell products
 				$order_id = CartPops_Manual_Upsell_Order_Handler::create_free_upsell_order( $user_id, $products, $order_status );
 
-				$msg = esc_html__( 'Free Upsell has been sent successfully', 'cartpops' );
+				$msg = esc_html__( 'Upsell has been sent successfully', 'cartpops' );
 
 				wp_send_json_success( array( 'msg' => $msg ) );
 			} catch ( Exception $ex ) {

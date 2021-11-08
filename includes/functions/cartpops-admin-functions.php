@@ -254,7 +254,7 @@ if ( ! function_exists( 'cartpops_get_rule_type_name' ) ) {
 			'1' => esc_html__( 'Manual', 'cartpops' ),
 			'2' => esc_html__( 'Automatic', 'cartpops' ),
 			'3' => esc_html__( 'Buy X Get Y', 'cartpops' ),
-			'4' => esc_html__( 'Coupon based Free Upsell', 'cartpops' ),
+			'4' => esc_html__( 'Coupon based Upsell', 'cartpops' ),
 		);
 
 		if ( ! isset( $types[ $type ] ) ) {

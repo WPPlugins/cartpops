@@ -354,7 +354,7 @@ class CartPops_Settings_Tab extends CartPops_Settings_Page
         // Trobuleshoot Section Start.
         $section_fields[] = array(
             'type'  => 'title',
-            'title' => esc_html__( 'Proudct Recommendation Engine Settings', 'cartpops' ),
+            'title' => esc_html__( 'Product Recommendation Engine Settings', 'cartpops' ),
             'icon'  => 'shopping-bag',
             'id'    => 'cartpops_recommendations_settings_options',
         );

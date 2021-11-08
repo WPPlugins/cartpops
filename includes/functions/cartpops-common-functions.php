@@ -369,7 +369,7 @@ function cartpops_get_address( $user_id, $flag ) {
 }
 
 /**
- * Get the free upsells per page column count.
+ * Get the upsells per page column count.
  *
  * @return int
  */

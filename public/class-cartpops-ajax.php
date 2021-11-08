@@ -101,7 +101,6 @@ class CartPops_Frontend_Ajax
             $fragments['.cpops-drawer-cart'] = Cart_Fragment_Manager::get_fragment_html( 'drawer_cart', $fragment_settings );
         }
         
-        // error_log( print_r( $fragments, true ) );
         /**
          * Remove all empty fragments from the response. This will allow to exclude the fragments thar were not rendered due to specific conditions
          *

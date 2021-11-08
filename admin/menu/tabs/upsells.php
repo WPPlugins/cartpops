@@ -56,7 +56,7 @@ class CartPops_Rules_Tab extends CartPops_Settings_Page {
 	 * @return void
 	 */
 	public function display_rule_configuration_notices() {
-		CartPops_Settings::notice( esc_html__( 'Please make sure the products you select as free upsells have been published and are currently In-stock.', 'cartpops' ) );
+		CartPops_Settings::notice( esc_html__( 'Please make sure the products you select as upsells have been published and are currently In-stock.', 'cartpops' ) );
 	}
 
 	/**
@@ -67,8 +67,8 @@ class CartPops_Rules_Tab extends CartPops_Settings_Page {
 
 		$default_field_data = array(
 			'cartpops_rule_status'                    => 'cartpops_active',
-			'cartpops_rule_name'                      => '',
-			'cartpops_rule_description'               => '',
+			'cartpops_upsell_name'                    => '',
+			'cartpops_upsell_desc'                    => '',
 			'cartpops_rule_type'                      => '1',
 			'cartpops_upsell_type'                    => '1',
 			'cartpops_upsell_products'                => array(),
@@ -88,8 +88,8 @@ class CartPops_Rules_Tab extends CartPops_Settings_Page {
 			'cartpops_apply_coupon'                   => array(),
 			'cartpops_coupon_upsell_products'         => array(),
 			'cartpops_coupon_upsell_products_qty'     => '1',
-			'cartpops_rule_valid_from_date'           => '',
-			'cartpops_rule_valid_to_date'             => '',
+			'cartpops_upsell_valid_from_date'         => '',
+			'cartpops_upsell_valid_to_date'           => '',
 			'cartpops_rule_week_days_validation'      => array(),
 			'cartpops_rule_allowed_user_type'         => '1',
 			'cartpops_rule_allowed_user_count'        => '1',
@@ -152,8 +152,8 @@ class CartPops_Rules_Tab extends CartPops_Settings_Page {
 		$default_field_data = array(
 			'id'                                      => $rule->get_id(),
 			'cartpops_rule_status'                    => $rule->get_status(),
-			'cartpops_rule_name'                      => $rule->get_name(),
-			'cartpops_rule_description'               => $rule->get_description(),
+			'cartpops_upsell_name'                    => $rule->get_name(),
+			'cartpops_upsell_desc'                    => $rule->get_description(),
 			'cartpops_rule_type'                      => $rule->get_rule_type(),
 			'cartpops_upsell_type'                    => $rule->get_upsell_type(),
 			'cartpops_upsell_products'                => $rule->get_upsell_products(),
@@ -173,8 +173,8 @@ class CartPops_Rules_Tab extends CartPops_Settings_Page {
 			'cartpops_apply_coupon'                   => $rule->get_apply_coupon(),
 			'cartpops_coupon_upsell_products'         => $rule->get_coupon_upsell_products(),
 			'cartpops_coupon_upsell_products_qty'     => $rule->get_coupon_upsell_products_qty(),
-			'cartpops_rule_valid_from_date'           => $rule->get_rule_valid_from_date(),
-			'cartpops_rule_valid_to_date'             => $rule->get_rule_valid_to_date(),
+			'cartpops_upsell_valid_from_date'         => $rule->get_rule_valid_from_date(),
+			'cartpops_upsell_valid_to_date'           => $rule->get_rule_valid_to_date(),
 			'cartpops_rule_week_days_validation'      => $rule->get_rule_week_days_validation(),
 			'cartpops_rule_upsells_count_per_order'   => $rule->get_rule_upsells_count_per_order(),
 			'cartpops_rule_restriction_count'         => $rule->get_rule_restriction_count(),
@@ -274,7 +274,7 @@ class CartPops_Rules_Tab extends CartPops_Settings_Page {
 	 */
 	private static function get_rule_data_tabs() {
 		$tabs = apply_filters(
-				'cartpops_rule_data_tabs',
+			'cartpops_rule_data_tabs',
 			array(
 				'general'      => array(
 					'label'    => esc_html__( 'General', 'cartpops' ),
@@ -307,7 +307,7 @@ class CartPops_Rules_Tab extends CartPops_Settings_Page {
 					'priority' => 50,
 				),
 			)
-			);
+		);
 
 		// Sort tabs based on priority.
 		uasort( $tabs, array( __CLASS__, 'rule_data_tabs_sort' ) );
@@ -371,8 +371,8 @@ class CartPops_Rules_Tab extends CartPops_Settings_Page {
 
 			$post_args = array(
 				'post_status'  => $rule_post_data['cartpops_rule_status'],
-				'post_title'   => $rule_post_data['cartpops_rule_name'],
-				'post_content' => $rule_post_data['cartpops_rule_description'],
+				'post_title'   => $rule_post_data['cartpops_upsell_name'],
+				'post_content' => $rule_post_data['cartpops_upsell_desc'],
 				'menu_order'   => 99999,
 			);
 
@@ -383,13 +383,13 @@ class CartPops_Rules_Tab extends CartPops_Settings_Page {
 			unset( $_POST['cartpops_rule'] );
 
 			wp_safe_redirect(
-					cartpops_get_rule_page_url(
-							array(
-								'action'  => 'edit',
-								'id'      => $rule_id,
-								'message' => 'success',
-							)
+				cartpops_get_rule_page_url(
+					array(
+						'action'  => 'edit',
+						'id'      => $rule_id,
+						'message' => 'success',
 					)
+				)
 			);
 			exit();
 		} catch ( Exception $ex ) {
@@ -411,8 +411,8 @@ class CartPops_Rules_Tab extends CartPops_Settings_Page {
 
 			$post_args = array(
 				'post_status'  => $rule_post_data['cartpops_rule_status'],
-				'post_title'   => $rule_post_data['cartpops_rule_name'],
-				'post_content' => $rule_post_data['cartpops_rule_description'],
+				'post_title'   => $rule_post_data['cartpops_upsell_name'],
+				'post_content' => $rule_post_data['cartpops_upsell_desc'],
 			);
 
 			cartpops_update_rule( $rule_id, $rule_post_data, $post_args );
@@ -436,7 +436,7 @@ class CartPops_Rules_Tab extends CartPops_Settings_Page {
 		$rule_post_data = ! empty( $_REQUEST['cartpops_rule'] ) ? wc_clean( wp_unslash( ( $_REQUEST['cartpops_rule'] ) ) ) : array();
 
 		// Validate rule name
-		if ( '' == $rule_post_data['cartpops_rule_name'] ) {
+		if ( '' == $rule_post_data['cartpops_upsell_name'] ) {
 			throw new Exception( esc_html__( 'Rule Name is mandatory', 'cartpops' ) );
 		}
 
@@ -465,7 +465,7 @@ class CartPops_Rules_Tab extends CartPops_Settings_Page {
 				}
 
 				if ( empty( $rule_post_data['cartpops_coupon_upsell_products_qty'] ) ) {
-					throw new Exception( esc_html__( 'Quantity for Selected Free Upsell Product(s)cannot be empty', 'cartpops' ) );
+					throw new Exception( esc_html__( 'Quantity for Selected Upsell Product(s)cannot be empty', 'cartpops' ) );
 				}
 				break;
 			case '3':
@@ -509,7 +509,7 @@ class CartPops_Rules_Tab extends CartPops_Settings_Page {
 				}
 
 				if ( empty( $rule_post_data['cartpops_automatic_product_qty'] ) ) {
-					throw new Exception( esc_html__( 'Quantity for Selected Free Upsell Product(s)cannot be empty', 'cartpops' ) );
+					throw new Exception( esc_html__( 'Quantity for Selected Upsell Product(s)cannot be empty', 'cartpops' ) );
 				}
 				break;
 
@@ -530,7 +530,7 @@ class CartPops_Rules_Tab extends CartPops_Settings_Page {
 		$non_purchasable_product = self::get_non_purchasable_product( $rule_products );
 		if ( $non_purchasable_product ) {
 			/* translators: %s: products */
-			throw new Exception( sprintf( esc_html__( 'The selected product(s) %s cannot be set as free upsells. Please make sure the products you select as free upsells have been published and are currently In-stock.', 'cartpops' ), $non_purchasable_product ) );
+			throw new Exception( sprintf( esc_html__( 'The selected product(s) %s cannot be set as upsells. Please make sure the products you select as upsells have been published and are currently In-stock.', 'cartpops' ), $non_purchasable_product ) );
 		}
 
 		// Validate the include Products/Category selection.

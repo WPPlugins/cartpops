@@ -8,13 +8,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 $categories = cartpops_get_wc_categories();
 ?>
 <div class="woocommerce cartpops_rule_wrapper cartpops_new_rule">
-	<h2><?php esc_html_e( 'New Free Upsell Rule', 'cartpops' ); ?></h2>
+	<h2><?php esc_html_e( 'New Upsell Rule', 'cartpops' ); ?></h2>
 	<table class="form-table">
 		<tbody>
 			<tr>
 				<th scope='row'>
-					<label><?php esc_html_e( 'Rule Status', 'cartpops' ); ?><span class="required">*</span>
-						<?php cartpops_wc_help_tip( esc_html__( 'When set to Active, the products from this rule will be listed to the user. The user can choose their Free Upsell from the available products.', 'cartpops' ) ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped. ?>
+					<label><?php esc_html_e( 'Upsell Status', 'cartpops' ); ?><span class="required">*</span>
+						<?php cartpops_wc_help_tip( esc_html__( 'When set to Active, the products from this rule will be listed to the user. The user can choose their Upsell from the available products.', 'cartpops' ) ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped. ?>
 					</label>
 				</th>
 				<td>
@@ -27,10 +27,10 @@ $categories = cartpops_get_wc_categories();
 
 			<tr>
 				<th scope='row'>
-					<label><?php esc_html_e( 'Rule Name', 'cartpops' ); ?><span class="required">*</span></label>
+					<label><?php esc_html_e( 'Upsell Name', 'cartpops' ); ?><span class="required">*</span></label>
 				</th>
 				<td>
-					<input type="text" name="cartpops_rule[cartpops_rule_name]" value="<?php echo esc_attr( $rule_data['cartpops_rule_name'] ); ?>"/>
+					<input type="text" name="cartpops_rule[cartpops_upsell_name]" value="<?php echo esc_attr( $rule_data['cartpops_upsell_name'] ); ?>"/>
 				</td>
 			</tr>
 
@@ -39,7 +39,7 @@ $categories = cartpops_get_wc_categories();
 					<label><?php esc_html_e( 'Description', 'cartpops' ); ?></label>
 				</th>
 				<td>
-					<textarea name="cartpops_rule[cartpops_rule_description]"><?php echo esc_html( $rule_data['cartpops_rule_description'] ); ?></textarea>
+					<textarea name="cartpops_rule[cartpops_upsell_desc]"><?php echo esc_html( $rule_data['cartpops_upsell_desc'] ); ?></textarea>
 				</td>
 			</tr>
 

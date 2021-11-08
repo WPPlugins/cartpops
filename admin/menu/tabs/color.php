@@ -291,6 +291,14 @@ class CartPops_Color_Tab extends CartPops_Settings_Page {
 		);
 
 		$section_fields[] = array(
+			'title'             => esc_html__( 'Drawer Recommendations border color', 'cartpops' ),
+			'type'              => 'color',
+			'custom_attributes' => '',
+			'desc_tip'          => false,
+			'id'                => $this->get_option_key( 'recommendations_drawer_border' ),
+		);
+
+		$section_fields[] = array(
 			'title'             => esc_html__( 'Drawer Recommendations text color', 'cartpops' ),
 			'type'              => 'color',
 			'custom_attributes' => '',

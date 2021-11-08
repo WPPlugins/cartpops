@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the CartPops package.
 msgid ""
 msgstr ""
-"Project-Id-Version: CartPops 1.4.12\n"
+"Project-Id-Version: CartPops 1.4.14\n"
 "Report-Msgid-Bugs-To: https://cartpops.com/contact/\n"
-"POT-Creation-Date: 2021-11-05 10:15:23+00:00\n"
+"POT-Creation-Date: 2021-11-08 17:55:21+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -63,7 +63,7 @@ msgid "Please select atleast one Product"
 msgstr ""
 
 #: admin/class-cartpops-admin-ajax.php:247
-msgid "Free Upsell has been sent successfully"
+msgid "Upsell has been sent successfully"
 msgstr ""
 
 #: admin/class-cartpops-admin-ajax.php:368
@@ -818,37 +818,38 @@ msgid "Drawer Recommendations background color"
 msgstr ""
 
 #: admin/class-cartpops-settings-deprecated.php:753
+#: admin/menu/tabs/color.php:294
 msgid "Drawer Recommendations border color"
 msgstr ""
 
 #: admin/class-cartpops-settings-deprecated.php:758
-#: admin/menu/tabs/color.php:294
+#: admin/menu/tabs/color.php:302
 msgid "Drawer Recommendations text color"
 msgstr ""
 
 #: admin/class-cartpops-settings-deprecated.php:763
-#: admin/menu/tabs/color.php:302
+#: admin/menu/tabs/color.php:310
 msgid "Popup Recommendations background color"
 msgstr ""
 
 #: admin/class-cartpops-settings-deprecated.php:768
-#: admin/menu/tabs/color.php:310
+#: admin/menu/tabs/color.php:318
 msgid "Popup Recommendations text color"
 msgstr ""
 
 #: admin/class-cartpops-settings-deprecated.php:775
 #: admin/class-cartpops-settings-deprecated.php:1641
-#: admin/menu/tabs/color.php:388
+#: admin/menu/tabs/color.php:396
 msgid "Free Shipping Meter color scheme"
 msgstr ""
 
 #: admin/class-cartpops-settings-deprecated.php:779
-#: admin/menu/tabs/color.php:394
+#: admin/menu/tabs/color.php:402
 msgid "Free Shipping Meter background color"
 msgstr ""
 
 #: admin/class-cartpops-settings-deprecated.php:784
-#: admin/menu/tabs/color.php:402
+#: admin/menu/tabs/color.php:410
 msgid "Free Shipping Meter active background color"
 msgstr ""
 
@@ -881,22 +882,22 @@ msgid "Cart Launcher Color Scheme"
 msgstr ""
 
 #: admin/class-cartpops-settings-deprecated.php:821
-#: admin/menu/tabs/color.php:340
+#: admin/menu/tabs/color.php:348
 msgid "Cart Launcher background color"
 msgstr ""
 
 #: admin/class-cartpops-settings-deprecated.php:826
-#: admin/menu/tabs/color.php:348
+#: admin/menu/tabs/color.php:356
 msgid "Cart Launcher text color"
 msgstr ""
 
 #: admin/class-cartpops-settings-deprecated.php:831
-#: admin/menu/tabs/color.php:356
+#: admin/menu/tabs/color.php:364
 msgid "Cart Launcher bubble background"
 msgstr ""
 
 #: admin/class-cartpops-settings-deprecated.php:836
-#: admin/menu/tabs/color.php:364
+#: admin/menu/tabs/color.php:372
 msgid "Cart Launcher bubble text"
 msgstr ""
 
@@ -1232,7 +1233,7 @@ msgid "Floating Cart launcher color scheme"
 msgstr ""
 
 #: admin/class-cartpops-settings-deprecated.php:1631
-#: admin/menu/tabs/color.php:334
+#: admin/menu/tabs/color.php:342
 msgid "Cart launcher color scheme"
 msgstr ""
 
@@ -1431,7 +1432,7 @@ msgid "Hide on certain pages"
 msgstr ""
 
 #: admin/menu/tabs/settings.php:409
-msgid "Proudct Recommendation Engine Settings"
+msgid "Product Recommendation Engine Settings"
 msgstr ""
 
 #: admin/menu/tabs/settings.php:445
@@ -1480,8 +1481,8 @@ msgstr ""
 
 #: admin/menu/tabs/upsells.php:59
 msgid ""
-"Please make sure the products you select as free upsells have been "
-"published and are currently In-stock."
+"Please make sure the products you select as upsells have been published and "
+"are currently In-stock."
 msgstr ""
 
 #: admin/menu/tabs/upsells.php:229
@@ -1530,7 +1531,7 @@ msgid "Please select atleast one product"
 msgstr ""
 
 #: admin/menu/tabs/upsells.php:468 admin/menu/tabs/upsells.php:512
-msgid "Quantity for Selected Free Upsell Product(s)cannot be empty"
+msgid "Quantity for Selected Upsell Product(s)cannot be empty"
 msgstr ""
 
 #: admin/menu/tabs/upsells.php:474
@@ -1564,9 +1565,9 @@ msgstr ""
 #: admin/menu/tabs/upsells.php:533
 #. translators: %s: products
 msgid ""
-"The selected product(s) %s cannot be set as free upsells. Please make sure "
-"the products you select as free upsells have been published and are "
-"currently In-stock."
+"The selected product(s) %s cannot be set as upsells. Please make sure the "
+"products you select as upsells have been published and are currently "
+"In-stock."
 msgstr ""
 
 #: admin/menu/tabs/upsells.php:540
@@ -1586,17 +1587,17 @@ msgid "Minimum Quantity field cannot be empty."
 msgstr ""
 
 #: admin/menu/views/add-new-rule.php:11
-msgid "New Free Upsell Rule"
+msgid "New Upsell Rule"
 msgstr ""
 
 #: admin/menu/views/add-new-rule.php:16 admin/menu/views/edit-rule.php:17
-msgid "Rule Status"
+msgid "Upsell Status"
 msgstr ""
 
 #: admin/menu/views/add-new-rule.php:17 admin/menu/views/edit-rule.php:18
 msgid ""
 "When set to Active, the products from this rule will be listed to the user. "
-"The user can choose their Free Upsell from the available products."
+"The user can choose their Upsell from the available products."
 msgstr ""
 
 #: admin/menu/views/add-new-rule.php:22 admin/menu/views/edit-rule.php:23
@@ -1608,9 +1609,8 @@ msgstr ""
 msgid "In-active"
 msgstr ""
 
-#: admin/menu/views/add-new-rule.php:30 admin/menu/views/edit-rule.php:31
-#: admin/menu/wp-list-table/class-cartpops-rules-list-table.php:170
-msgid "Rule Name"
+#: admin/menu/views/add-new-rule.php:30
+msgid "Upsell Name"
 msgstr ""
 
 #: admin/menu/views/add-new-rule.php:39 admin/menu/views/edit-rule.php:40
@@ -1631,6 +1631,11 @@ msgstr ""
 
 #: admin/menu/views/edit-rule.php:11
 msgid "Edit Rule"
+msgstr ""
+
+#: admin/menu/views/edit-rule.php:31
+#: admin/menu/wp-list-table/class-cartpops-rules-list-table.php:170
+msgid "Rule Name"
 msgstr ""
 
 #: admin/menu/views/edit-rule.php:54
@@ -1781,7 +1786,7 @@ msgid "User Filter"
 msgstr ""
 
 #: admin/menu/views/rule-panel/html-rule-data-filters.php:20
-msgid "The selected users will be eligible for free upsells"
+msgid "The selected users will be eligible for upsells"
 msgstr ""
 
 #: admin/menu/views/rule-panel/html-rule-data-filters.php:25
@@ -1901,7 +1906,7 @@ msgstr ""
 #: admin/menu/views/rule-panel/html-rule-data-filters.php:179
 msgid ""
 "The user must add the number of products mentioned in this option to their "
-"cart in order for them to be eligibile for a Free Upsell."
+"cart in order for them to be eligibile for a Upsell."
 msgstr ""
 
 #: admin/menu/views/rule-panel/html-rule-data-filters.php:190
@@ -1963,7 +1968,7 @@ msgstr ""
 
 #: admin/menu/views/rule-panel/html-rule-data-general.php:71
 #: admin/menu/views/rule-panel/html-rule-data-general.php:273
-msgid "Quantity for Selected Free Upsell Product(s)"
+msgid "Quantity for Selected Upsell Product(s)"
 msgstr ""
 
 #: admin/menu/views/rule-panel/html-rule-data-general.php:80
@@ -1991,9 +1996,9 @@ msgstr ""
 
 #: admin/menu/views/rule-panel/html-rule-data-general.php:95
 msgid ""
-"Products: The user will receive a Free Upsell if they purchase the selected "
-"product. Categories: The user will receive a Free Upsell if they purchase "
-"any one product from the selected category."
+"Products: The user will receive a Upsell if they purchase the selected "
+"product. Categories: The user will receive a Upsell if they purchase any "
+"one product from the selected category."
 msgstr ""
 
 #: admin/menu/views/rule-panel/html-rule-data-general.php:100
@@ -2051,8 +2056,8 @@ msgstr ""
 
 #: admin/menu/views/rule-panel/html-rule-data-general.php:198
 msgid ""
-"When enabled, the user will keep receiving free upsells every time they add "
-"the multiples of the required quantity to the cart."
+"When enabled, the user will keep receiving upsells every time they add the "
+"multiples of the required quantity to the cart."
 msgstr ""
 
 #: admin/menu/views/rule-panel/html-rule-data-general.php:208
@@ -2061,8 +2066,8 @@ msgstr ""
 
 #: admin/menu/views/rule-panel/html-rule-data-general.php:209
 msgid ""
-"Unlimited: No restriction on receiving CartPops. Limited: Free Upsell can "
-"be received till the Repeat Limit is reached."
+"Unlimited: No restriction on receiving CartPops. Limited: Upsell can be "
+"received till the Repeat Limit is reached."
 msgstr ""
 
 #: admin/menu/views/rule-panel/html-rule-data-general.php:214
@@ -2094,13 +2099,13 @@ msgid ""
 msgstr ""
 
 #: admin/menu/views/rule-panel/html-rule-data-notices.php:18
-msgid "Display Free Upsell Eligibility Notice in Cart for this Rule"
+msgid "Upsell Upselll Eligibility Notice in Cart for this Rule"
 msgstr ""
 
 #: admin/menu/views/rule-panel/html-rule-data-notices.php:19
 msgid ""
 "When set to \"Show\", a notice will be displayed to user in cart and "
-"checkout if they are eligible for receiving free upsells."
+"checkout if they are eligible for receiving upsells."
 msgstr ""
 
 #: admin/menu/views/rule-panel/html-rule-data-notices.php:24
@@ -2144,7 +2149,7 @@ msgid ""
 msgstr ""
 
 #: admin/menu/views/rule-panel/html-rule-data-panel.php:13
-msgid "Free Upsell Type"
+msgid "Upsell Type"
 msgstr ""
 
 #: admin/menu/views/rule-panel/html-rule-data-panel.php:14
@@ -2170,7 +2175,7 @@ msgstr ""
 
 #: admin/menu/views/rule-panel/html-rule-data-panel.php:21
 #: includes/functions/cartpops-admin-functions.php:257
-msgid "Coupon based Free Upsell"
+msgid "Coupon based Upsell"
 msgstr ""
 
 #: admin/menu/views/rule-panel/html-rule-data-restrictions.php:17

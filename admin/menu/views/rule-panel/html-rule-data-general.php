@@ -19,7 +19,7 @@ $categories = cartpops_get_wc_categories();
 					<label><?php esc_html_e( 'Upsell Product Selection Type', 'cartpops' ); ?><span class="required">*</span></label>
 				</th>
 				<td>
-					<select name="cartpops_rule[cartpops_upsell_type]" class = "cartpops_upsell_type cartpops_rule_type cartpops_manual_rule_type">
+					<select name="cartpops_rule[cartpops_upsell_type]" class = "cartpops_upsell_type cartpops_rule_type cartpops_manual_rule_type cartpops_automatic_rule_type">
 						<option value="1" <?php selected( $rule_data['cartpops_upsell_type'], '1' ); ?>><?php esc_html_e( 'Selected Product(s)', 'cartpops' ); ?></option>
 						<option value="2" <?php selected( $rule_data['cartpops_upsell_type'], '2' ); ?>><?php esc_html_e( 'Products from Selected Categories', 'cartpops' ); ?></option>
 					</select>
@@ -68,7 +68,7 @@ $categories = cartpops_get_wc_categories();
 
 			<tr>
 				<th scope='row'>
-					<label><?php esc_html_e( 'Quantity for Selected Free Upsell Product(s)', 'cartpops' ); ?><span class="required">*</span></label>
+					<label><?php esc_html_e( 'Quantity for Selected Upsell Product(s)', 'cartpops' ); ?><span class="required">*</span></label>
 				</th>
 				<td>
 					<input type="number" class="cartpops_rule_type cartpops_automatic_rule_type" name="cartpops_rule[cartpops_automatic_product_qty]" min="1" value="<?php echo esc_attr( $rule_data['cartpops_automatic_product_qty'] ); ?>"/>
@@ -92,7 +92,7 @@ $categories = cartpops_get_wc_categories();
 			<tr>
 				<th scope='row'>
 					<label><?php esc_html_e( 'Buy Product Type', 'cartpops' ); ?><span class="required">*</span>
-						<?php cartpops_wc_help_tip( esc_html__( 'Products: The user will receive a Free Upsell if they purchase the selected product. Categories: The user will receive a Free Upsell if they purchase any one product from the selected category.', 'cartpops' ) ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped. ?>
+						<?php cartpops_wc_help_tip( esc_html__( 'Products: The user will receive a Upsell if they purchase the selected product. Categories: The user will receive a Upsell if they purchase any one product from the selected category.', 'cartpops' ) ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped. ?>
 					</label>
 				</th>
 				<td>
@@ -195,7 +195,7 @@ $categories = cartpops_get_wc_categories();
 			<tr>
 				<th scope='row'>
 					<label><?php esc_html_e( 'Repeat Upsell', 'cartpops' ); ?><span class="required">*</span>
-						<?php cartpops_wc_help_tip( esc_html__( 'When enabled, the user will keep receiving free upsells every time they add the multiples of the required quantity to the cart.', 'cartpops' ) ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped. ?>
+						<?php cartpops_wc_help_tip( esc_html__( 'When enabled, the user will keep receiving upsells every time they add the multiples of the required quantity to the cart.', 'cartpops' ) ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped. ?>
 					</label>
 				</th>
 				<td>
@@ -206,7 +206,7 @@ $categories = cartpops_get_wc_categories();
 			<tr>
 				<th scope='row'>
 					<label><?php esc_html_e( 'Repeat Upsell Mode', 'cartpops' ); ?><span class="required">*</span>
-						<?php cartpops_wc_help_tip( esc_html__( 'Unlimited: No restriction on receiving CartPops. Limited: Free Upsell can be received till the Repeat Limit is reached.', 'cartpops' ) ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped. ?>
+						<?php cartpops_wc_help_tip( esc_html__( 'Unlimited: No restriction on receiving CartPops. Limited: Upsell can be received till the Repeat Limit is reached.', 'cartpops' ) ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped. ?>
 					</label>
 				</th>
 				<td>
@@ -270,7 +270,7 @@ $categories = cartpops_get_wc_categories();
 
 			<tr>
 				<th scope='row'>
-					<label><?php esc_html_e( 'Quantity for Selected Free Upsell Product(s)', 'cartpops' ); ?><span class="required">*</span></label>
+					<label><?php esc_html_e( 'Quantity for Selected Upsell Product(s)', 'cartpops' ); ?><span class="required">*</span></label>
 				</th>
 				<td>
 					<input type="number" class="cartpops_rule_type cartpops_coupon_upsell_products_qty" name="cartpops_rule[cartpops_coupon_upsell_products_qty]" min="1" value="<?php echo esc_attr( $rule_data['cartpops_coupon_upsell_products_qty'] ); ?>"/>

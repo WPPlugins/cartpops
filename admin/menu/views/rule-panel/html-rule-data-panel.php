@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="cartpops-rule-data-panel-header">
 
 		<p class="form-field">
-			<label><?php esc_html_e( 'Free Upsell Type', 'cartpops' ); ?><span class="required">* </span>
+			<label><?php esc_html_e( 'Upsell Type', 'cartpops' ); ?><span class="required">* </span>
 				<?php cartpops_wc_help_tip( esc_html__( "When set to Manual Upsells, the users can choose their upsell product(s). When set to Automatic Upsells, the upsell product(s) set in this rule will be automatically added to the user's cart. When set to Buy X Get Y,  the user will get the specified quantities of the product for free if they purchase the specified quantities of the product.", 'cartpops' ) ); // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped. ?>
 			</label>
 
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<option value="1" <?php selected( $rule_data['cartpops_rule_type'], '1' ); ?>><?php esc_html_e( 'Manual Upsells', 'cartpops' ); ?></option>
 				<option value="2" <?php selected( $rule_data['cartpops_rule_type'], '2' ); ?>><?php esc_html_e( 'Automatic Upsells', 'cartpops' ); ?></option>
 				<option value="3" <?php selected( $rule_data['cartpops_rule_type'], '3' ); ?>><?php esc_html_e( 'Buy X Get Y(Buy One Get One)', 'cartpops' ); ?></option>
-				<option value="4" <?php selected( $rule_data['cartpops_rule_type'], '4' ); ?>><?php esc_html_e( 'Coupon based Free Upsell', 'cartpops' ); ?></option>
+				<option value="4" <?php selected( $rule_data['cartpops_rule_type'], '4' ); ?>><?php esc_html_e( 'Coupon based Upsell', 'cartpops' ); ?></option>
 			</select>
 		</p>
 	</div>

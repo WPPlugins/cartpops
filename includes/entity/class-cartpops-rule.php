@@ -81,8 +81,8 @@ if ( ! class_exists( 'CartPops_Rule' ) ) {
 			'cartpops_apply_coupon'                   => array(),
 			'cartpops_coupon_upsell_products'         => array(),
 			'cartpops_coupon_upsell_products_qty'     => '1',
-			'cartpops_rule_valid_from_date'           => '',
-			'cartpops_rule_valid_to_date'             => '',
+			'cartpops_upsell_valid_from_date'         => '',
+			'cartpops_upsell_valid_to_date'           => '',
 			'cartpops_rule_week_days_validation'      => array(),
 			'cartpops_automatic_product_qty'          => '',
 			'cartpops_rule_upsells_count_per_order'   => '',
@@ -310,14 +310,14 @@ if ( ! class_exists( 'CartPops_Rule' ) ) {
 		 * Set rule valid from date
 		 */
 		public function set_rule_valid_from_date( $value ) {
-			$this->set_prop( 'cartpops_rule_valid_from_date', $value );
+			$this->set_prop( 'cartpops_upsell_valid_from_date', $value );
 		}
 
 		/**
 		 * Set rule valid to date.
 		 */
 		public function set_rule_valid_to_date( $value ) {
-			$this->set_prop( 'cartpops_rule_valid_to_date', $value );
+			$this->set_prop( 'cartpops_upsell_valid_to_date', $value );
 		}
 
 		/**
@@ -710,14 +710,14 @@ if ( ! class_exists( 'CartPops_Rule' ) ) {
 		 * Get rule valid from date.
 		 */
 		public function get_rule_valid_from_date() {
-			return $this->get_prop( 'cartpops_rule_valid_from_date' );
+			return $this->get_prop( 'cartpops_upsell_valid_from_date' );
 		}
 
 		/**
 		 * Get rule valid to date.
 		 */
 		public function get_rule_valid_to_date() {
-			return $this->get_prop( 'cartpops_rule_valid_to_date' );
+			return $this->get_prop( 'cartpops_upsell_valid_to_date' );
 		}
 
 		/**

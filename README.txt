@@ -5,7 +5,7 @@ Tags: add to cart popup, added to cart, cart, shop, shopping cart, cart drawer, 
 Requires at least: 5.1
 Tested up to: 5.8
 Requires PHP: 7.0
-Stable tag: 1.4.12
+Stable tag: 1.4.14
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -152,6 +152,11 @@ With this widget, you can easily style the Cart Launcher and show it anywhere yo
 If you have a caching plugin installed, or use any sort of caching in your site (DNS caching, object caching, etc), please clear those caches to make sure your browser loads the updated scripts.
 
 == Changelog ==
+
+#### Version 1.4.14 - 8 Nov 2021
+- **fix**: Free shipping meter not showing up when country has a match.
+- **fix**: Hidden Floating Cart Launcher not showing when adding to cart.
+- **fix**: Recommendations border color not working.
 
 #### Version 1.4.12 - 5 Nov 2021
 - **new**: Add the ability to hide the Floating Cart Launcher on certain pages.

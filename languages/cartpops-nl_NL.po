@@ -97,7 +97,7 @@ msgid "Please select atleast one Product"
 msgstr ""
 
 #: admin/class-cartpops-admin-ajax.php:247
-msgid "Free Upsell has been sent successfully"
+msgid "Upsell has been sent successfully"
 msgstr ""
 
 #: admin/class-cartpops-admin-ajax.php:368
@@ -234,7 +234,7 @@ msgid "Hide on certain pages"
 msgstr ""
 
 #: admin/menu/tabs/settings.php:406
-msgid "Proudct Recommendation Engine Settings"
+msgid "Product Recommendation Engine Settings"
 msgstr ""
 
 #: admin/menu/tabs/settings.php:442
@@ -270,7 +270,7 @@ msgid "When enabled this will force refresh the cart on each page load. Only use
 msgstr ""
 
 #: admin/menu/tabs/upsells.php:59
-msgid "Please make sure the products you select as free upsells have been published and are currently In-stock."
+msgid "Please make sure the products you select as upsells have been published and are currently In-stock."
 msgstr ""
 
 #: admin/menu/tabs/upsells.php:229
@@ -319,7 +319,7 @@ msgid "Please select atleast one product"
 msgstr ""
 
 #: admin/menu/tabs/upsells.php:468 admin/menu/tabs/upsells.php:512
-msgid "Quantity for Selected Free Upsell Product(s)cannot be empty"
+msgid "Quantity for Selected Upsell Product(s)cannot be empty"
 msgstr ""
 
 #: admin/menu/tabs/upsells.php:474
@@ -352,7 +352,7 @@ msgstr ""
 
 #. translators: %s: products
 #: admin/menu/tabs/upsells.php:533
-msgid "The selected product(s) %s cannot be set as free upsells. Please make sure the products you select as free upsells have been published and are currently In-stock."
+msgid "The selected product(s) %s cannot be set as upsells. Please make sure the products you select as upsells have been published and are currently In-stock."
 msgstr ""
 
 #: admin/menu/tabs/upsells.php:540
@@ -372,15 +372,15 @@ msgid "Minimum Quantity field cannot be empty."
 msgstr ""
 
 #: admin/menu/views/add-new-rule.php:11
-msgid "New Free Upsell Rule"
+msgid "New Upsell Rule"
 msgstr ""
 
 #: admin/menu/views/add-new-rule.php:16 admin/menu/views/edit-rule.php:17
-msgid "Rule Status"
+msgid "Upsell Status"
 msgstr ""
 
 #: admin/menu/views/add-new-rule.php:17 admin/menu/views/edit-rule.php:18
-msgid "When set to Active, the products from this rule will be listed to the user. The user can choose their Free Upsell from the available products."
+msgid "When set to Active, the products from this rule will be listed to the user. The user can choose their Upsell from the available products."
 msgstr ""
 
 #: admin/menu/views/add-new-rule.php:22 admin/menu/views/edit-rule.php:23
@@ -535,7 +535,7 @@ msgid "User Filter"
 msgstr ""
 
 #: admin/menu/views/rule-panel/html-rule-data-filters.php:20
-msgid "The selected users will be eligible for free upsells"
+msgid "The selected users will be eligible for upsells"
 msgstr ""
 
 #: admin/menu/views/rule-panel/html-rule-data-filters.php:25
@@ -651,7 +651,7 @@ msgid "Product Count"
 msgstr ""
 
 #: admin/menu/views/rule-panel/html-rule-data-filters.php:179
-msgid "The user must add the number of products mentioned in this option to their cart in order for them to be eligibile for a Free Upsell."
+msgid "The user must add the number of products mentioned in this option to their cart in order for them to be eligibile for a Upsell."
 msgstr ""
 
 #: admin/menu/views/rule-panel/html-rule-data-filters.php:190
@@ -710,7 +710,7 @@ msgstr ""
 
 #: admin/menu/views/rule-panel/html-rule-data-general.php:71
 #: admin/menu/views/rule-panel/html-rule-data-general.php:273
-msgid "Quantity for Selected Free Upsell Product(s)"
+msgid "Quantity for Selected Upsell Product(s)"
 msgstr ""
 
 #: admin/menu/views/rule-panel/html-rule-data-general.php:80
@@ -734,7 +734,7 @@ msgid "Buy Product Type"
 msgstr ""
 
 #: admin/menu/views/rule-panel/html-rule-data-general.php:95
-msgid "Products: The user will receive a Free Upsell if they purchase the selected product. Categories: The user will receive a Free Upsell if they purchase any one product from the selected category."
+msgid "Products: The user will receive a Upsell if they purchase the selected product. Categories: The user will receive a Upsell if they purchase any one product from the selected category."
 msgstr ""
 
 #: admin/menu/views/rule-panel/html-rule-data-general.php:100
@@ -787,7 +787,7 @@ msgid "Repeat Upsell"
 msgstr ""
 
 #: admin/menu/views/rule-panel/html-rule-data-general.php:198
-msgid "When enabled, the user will keep receiving free upsells every time they add the multiples of the required quantity to the cart."
+msgid "When enabled, the user will keep receiving upsells every time they add the multiples of the required quantity to the cart."
 msgstr ""
 
 #: admin/menu/views/rule-panel/html-rule-data-general.php:208
@@ -795,7 +795,7 @@ msgid "Repeat Upsell Mode"
 msgstr ""
 
 #: admin/menu/views/rule-panel/html-rule-data-general.php:209
-msgid "Unlimited: No restriction on receiving CartPops. Limited: Free Upsell can be received till the Repeat Limit is reached."
+msgid "Unlimited: No restriction on receiving CartPops. Limited: Upsell can be received till the Repeat Limit is reached."
 msgstr ""
 
 #: admin/menu/views/rule-panel/html-rule-data-general.php:214
@@ -825,11 +825,11 @@ msgid "The selected Product(s) will be added to the user's cart once the coupon 
 msgstr ""
 
 #: admin/menu/views/rule-panel/html-rule-data-notices.php:18
-msgid "Display Free Upsell Eligibility Notice in Cart for this Rule"
+msgid "Upsell Upselll Eligibility Notice in Cart for this Rule"
 msgstr ""
 
 #: admin/menu/views/rule-panel/html-rule-data-notices.php:19
-msgid "When set to \"Show\", a notice will be displayed to user in cart and checkout if they are eligible for receiving free upsells."
+msgid "When set to \"Show\", a notice will be displayed to user in cart and checkout if they are eligible for receiving upsells."
 msgstr ""
 
 #: admin/menu/views/rule-panel/html-rule-data-notices.php:32
@@ -861,7 +861,7 @@ msgid "The minimum no.of products which has to be purchased to receive free upse
 msgstr ""
 
 #: admin/menu/views/rule-panel/html-rule-data-panel.php:13
-msgid "Free Upsell Type"
+msgid "Upsell Type"
 msgstr ""
 
 #: admin/menu/views/rule-panel/html-rule-data-panel.php:14
@@ -882,7 +882,7 @@ msgstr ""
 
 #: admin/menu/views/rule-panel/html-rule-data-panel.php:21
 #: includes/functions/cartpops-admin-functions.php:257
-msgid "Coupon based Free Upsell"
+msgid "Coupon based Upsell"
 msgstr ""
 
 #: admin/menu/views/rule-panel/html-rule-data-restrictions.php:17
