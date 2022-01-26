@@ -757,7 +757,7 @@ function cartpops_get_emoji_flag( $country_code ) {
  * @param strinig $glue A seperator.
  * @param array   $array An array to be exploded.
  * @param string  $symbol A symbol betweeen the key values.
- * @author Chris Jayden <help@cartpops.com>
+ * @author CartPops <help@cartpops.com>
  */
 function cartpops_mapped_implode( $glue, $array, $symbol = '=' ) {
 	return implode(
@@ -792,6 +792,7 @@ function cartpops_cart_item_price( &$product, &$cart_item, $cart_item_key ) {
 	$quantity              = cartpops_get_quantity_from_cart_item( $cart_item, $cart_item_key );
 	$product_regular_price = get_post_meta( $product->get_id(), '_regular_price', true );
 	$product_sale_price    = get_post_meta( $product->get_id(), '_sale_price', true );
+
 	if ( ! empty( $product_sale_price ) ) {
 		$percentage = ( ( $product_regular_price - $product_sale_price ) * 100 ) / $product_regular_price;
 	}
@@ -799,7 +800,7 @@ function cartpops_cart_item_price( &$product, &$cart_item, $cart_item_key ) {
 	$price .= apply_filters( 'woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal( $product, $cart_item['quantity'] ), $cart_item, $cart_item_key ); // PHPCS: XSS ok.
 
 	if ( $onsale ) {
-		$price .= '<small class="">You save ' . round( $percentage ) . '%</small>';
+		$price .= '<small class="">' . __( 'You save', 'cartpops' ) . ' ' . round( $percentage ) . '%</small>';
 	}
 
 	return $price;
@@ -905,7 +906,7 @@ function cartpops_cart_item_product_name( $cart_item, $cart_item_key ) {
  *
  * @param  object $cart_item     WooCommerce cart item object.
  * @param  string $cart_item_key WooCommerce cart item key.
- * @author Chris Jayden <help@cartpops.com>
+ * @author CartPops <help@cartpops.com>
  */
 function cartpops_after_cart_item_name( &$cart_item, $cart_item_key ) {
 	$collapsible           = '';

@@ -34,7 +34,7 @@ class CartPops_Api {
 	/**
 	 * Let's get it poppin'. Extension time.
 	 *
-	 * @author Chris Jayden <help@cartpops.com>
+	 * @author CartPops <help@cartpops.com>
 	 */
 	public function plugins_loaded() {
 		do_action( 'cartpops_loaded' );

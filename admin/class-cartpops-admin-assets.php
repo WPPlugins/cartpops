@@ -50,7 +50,7 @@ if ( ! class_exists( 'CartPops_Admin_Assets' ) ) {
 		/**
 		 * Enqueue scripts
 		 *
-		 * @author Chris Jayden <help@cartpops.com>
+		 * @author CartPops <help@cartpops.com>
 		 */
 		public static function enqueue_scripts() {
 

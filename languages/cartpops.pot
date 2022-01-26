@@ -1,14 +1,14 @@
-# Copyright (C) 2021 CartPops.com
+# Copyright (C) 2022 CartPops.com
 # This file is distributed under the same license as the CartPops package.
 msgid ""
 msgstr ""
-"Project-Id-Version: CartPops 1.4.14\n"
+"Project-Id-Version: CartPops 1.4.16\n"
 "Report-Msgid-Bugs-To: https://cartpops.com/contact/\n"
-"POT-Creation-Date: 2021-11-08 17:55:21+00:00\n"
+"POT-Creation-Date: 2022-01-26 10:26:30+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
 "Last-Translator: CartPops Translate Team <help@cartpops.com>\n"
 "Language-Team: CartPops Translate <help@cartpops.com>\n"
 "Language: en\n"
@@ -1060,7 +1060,7 @@ msgid "View details text"
 msgstr ""
 
 #: admin/class-cartpops-settings-deprecated.php:962
-#: includes/functions/cartpops-common-functions.php:934
+#: includes/functions/cartpops-common-functions.php:935
 #: public/class-cartpops-cart.php:441 public/class-cartpops-cart.php:483
 msgid "View details"
 msgstr ""
@@ -2483,12 +2483,16 @@ msgstr ""
 msgid "Delete Permanently"
 msgstr ""
 
-#: includes/functions/cartpops-common-functions.php:896
+#: includes/functions/cartpops-common-functions.php:803
+msgid "You save"
+msgstr ""
+
+#: includes/functions/cartpops-common-functions.php:897
 #: public/class-cartpops-cart.php:450
 msgid "Available on backorder"
 msgstr ""
 
-#: includes/functions/cartpops-common-functions.php:931
+#: includes/functions/cartpops-common-functions.php:932
 #: public/class-cartpops-cart.php:443 public/class-cartpops-cart.php:480
 msgid "Product details"
 msgstr ""

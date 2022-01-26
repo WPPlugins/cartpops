@@ -42,7 +42,7 @@ class CartPops_Issues_Tab extends CartPops_Settings_Page
     /**
      * Show error in the admin panel.
      *
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     public function show_error()
     {
@@ -65,7 +65,7 @@ class CartPops_Issues_Tab extends CartPops_Settings_Page
     /**
      * Returns potential issues that may hinder the plugin from working as expected.
      *
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     public function watch_potential_issues()
     {

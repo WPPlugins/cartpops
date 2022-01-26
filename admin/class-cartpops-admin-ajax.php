@@ -374,7 +374,7 @@ if ( ! class_exists( 'CartPops_Admin_Ajax' ) ) {
 		/**
 		 * Delete the issue list transietn.
 		 *
-		 * @author Chris Jayden <help@cartpops.com>
+		 * @author CartPops <help@cartpops.com>
 		 */
 		public function delete_transient() {
 

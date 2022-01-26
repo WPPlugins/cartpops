@@ -20,7 +20,7 @@ use CartPops\Admin\Options;
  * @since      1.0.0
  * @package    CartPops
  * @subpackage CartPops/includes
- * @author     Chris Jayden <help@cartpops.com>
+ * @author     CartPops <help@cartpops.com>
  */
 class CartPops_Deactivator {
 
@@ -38,7 +38,7 @@ class CartPops_Deactivator {
 	/**
 	 * Removes all plugin options.
 	 *
-	 * @author Chris Jayden <help@cartpops.com>
+	 * @author CartPops <help@cartpops.com>
 	 */
 	public static function remove_options() {
 		$delete_options = Options::get( 'plugin_reset' );

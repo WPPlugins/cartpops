@@ -93,7 +93,7 @@ class CartPops_Dashboard_Tab extends CartPops_Settings_Page {
 	/**
 	 * Build changelog markup.
 	 *
-	 * @author Chris Jayden <help@cartpops.com>
+	 * @author CartPops <help@cartpops.com>
 	 */
 	private function changelog() {
 		$readme_file = CARTPOPS_PATH . 'README.txt';

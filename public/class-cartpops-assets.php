@@ -7,7 +7,7 @@ use CartPops\Admin\Options;
  *
  * @package    CartPops
  * @subpackage CartPops/assets
- * @author     Chris Jayden <help@cartpops.com>
+ * @author     CartPops <help@cartpops.com>
  */
 class CartPops_Assets {
 
@@ -122,7 +122,7 @@ class CartPops_Assets {
 	 * Enqueue dynamic CSS.
 	 *
 	 * @since    1.2.7
-	 * @author Chris Jayden <help@cartpops.com>
+	 * @author CartPops <help@cartpops.com>
 	 */
 	public function enqueue_dynamic_styles() {
 

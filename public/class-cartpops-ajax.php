@@ -114,7 +114,7 @@ class CartPops_Frontend_Ajax
      *
      * @param string $notice
      * @param string $type
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     public function set_notification( $notice, $type = 'info' )
     {
@@ -124,7 +124,7 @@ class CartPops_Frontend_Ajax
     /**
      * Get all notifications.
      *
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     public function get_notifications()
     {
@@ -140,7 +140,7 @@ class CartPops_Frontend_Ajax
     /**
      * Refresh the cart.
      *
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     public function refresh_cart()
     {
@@ -153,7 +153,7 @@ class CartPops_Frontend_Ajax
      * AJAX: Add a product to the cart.
      * Ignores archive add to carts as they as AJAX by default.
      *
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     public function add_to_cart()
     {
@@ -187,7 +187,7 @@ class CartPops_Frontend_Ajax
     /**
      * AJAX: Remove a product from the cart.
      *
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     public function remove_product()
     {
@@ -223,7 +223,7 @@ class CartPops_Frontend_Ajax
     /**
      * Restore a product in the cart.
      *
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     public function restore_product()
     {
@@ -247,7 +247,7 @@ class CartPops_Frontend_Ajax
     /**
      * AJAX: Update the cart.
      *
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     public function update_cart()
     {
@@ -343,7 +343,7 @@ class CartPops_Frontend_Ajax
     /**
      * AJAX: Apply coupon in cart.
      *
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     public function apply_coupon()
     {
@@ -389,7 +389,7 @@ class CartPops_Frontend_Ajax
     /**
      * AJAX: Remove coupon in cart.
      *
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     public function remove_coupon()
     {
@@ -414,7 +414,7 @@ class CartPops_Frontend_Ajax
      *
      * @param string $cart_item_key
      * @param object $cart
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     public function removed_cart_item( $cart_item_key, $cart )
     {
@@ -434,7 +434,7 @@ class CartPops_Frontend_Ajax
     /**
      * WErererer
      *
-     * @author Chris Jayden <chris@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     public function update_shipping_method()
     {
@@ -454,7 +454,7 @@ class CartPops_Frontend_Ajax
     /**
      * Refresh WC AJAX fragments
      *
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     public function get_refreshed_fragments()
     {

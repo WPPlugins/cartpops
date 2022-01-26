@@ -324,7 +324,7 @@ class CartPops_Cart
      *
      * @param  object $cart_item     WooCommerce cart item object.
      * @param  string $cart_item_key WooCommerce cart item key.
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     public function cartpops_after_cart_item_name( $cart_item, $cart_item_key )
     {
@@ -483,7 +483,7 @@ class CartPops_Cart
     /**
      * Renders the drawer recommendations partial.
      *
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     public function render_drawer_recommendations()
     {
@@ -514,7 +514,7 @@ class CartPops_Cart
     /**
      * Get an object of products to recommend based on plugin settings.
      *
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      * @return object $products An object of products.
      */
     public function get_recommendations()
@@ -594,7 +594,7 @@ class CartPops_Cart
     /**
      * Get the cart subtotal.
      *
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     private function get_cart_subtotal_order_total_html()
     {
@@ -622,7 +622,7 @@ class CartPops_Cart
     /**
      * Get the cart total without shipping.
      *
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     private function get_cart_totals_order_total_html()
     {
@@ -687,7 +687,7 @@ class CartPops_Cart
     /**
      * Get the cart vat without shipping.
      *
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     private function get_cart_tax_order_total_html()
     {
@@ -727,7 +727,7 @@ class CartPops_Cart
     /**
      * Get the cart discount.
      *
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     private function get_cart_discount_order_total_html()
     {
@@ -756,7 +756,7 @@ class CartPops_Cart
     /**
      * Shipping line item
      *
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     public function get_cart_shipping_total_html()
     {
@@ -802,7 +802,7 @@ class CartPops_Cart
     /**
      * Get shipping information.
      *
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     private function get_shipping_totals()
     {
@@ -819,7 +819,7 @@ class CartPops_Cart
      *
      * @param string $label A html string for the label.
      * @param string $value A html string for the value.
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     private function create_single_line_item_html(
         $label,
@@ -852,7 +852,7 @@ class CartPops_Cart
     /**
      * Renders the powered by partial.
      *
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     public function render_powered_by()
     {
@@ -887,7 +887,7 @@ class CartPops_Cart
      * @param array   $products Array of products.
      * @param integer $count Count of products to get.
      * @param array   $excludes Any products that should be excluded.
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     private function get_random_recommended_products( $products = array(), $count = 4, $excludes = array() )
     {
@@ -917,7 +917,7 @@ class CartPops_Cart
     /**
      * Renders the WooCommerce notices partial.
      *
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     public function render_wc_notices()
     {
@@ -971,7 +971,7 @@ class CartPops_Cart
      * Renders the cart launcher partial.
      *
      * @param array $args An array of possible options.
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     public static function render_cart_launcher( $args = array() )
     {
@@ -1225,7 +1225,7 @@ class CartPops_Cart
      *
      * @param string $body String containing placeholders that need to be replaced.
      * @param array  $vars Array of variables that match placeholders.
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     private function populate_placeholders( $body, array $vars )
     {

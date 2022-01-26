@@ -22,7 +22,7 @@ class CartPops_Public {
 	/**
 	 * Maybe set a session for a customer if none is present yet.
 	 *
-	 * @author Chris Jayden <help@cartpops.com>
+	 * @author CartPops <help@cartpops.com>
 	 */
 	public function maybe_set_session() {
 
@@ -44,7 +44,7 @@ class CartPops_Public {
 	 * @param string $price
 	 * @param object $values
 	 * @param string $cart_item_key
-	 * @author Chris Jayden <help@cartpops.com>
+	 * @author CartPops <help@cartpops.com>
 	 */
 	public function fix_cart_price( $price, $values, $cart_item_key ) {
 		$slashed_price = $values['data']->get_price_html();
@@ -93,7 +93,7 @@ class CartPops_Public {
 	 * Cart launcher shortcoce.
 	 *
 	 * @param array $atts Array of options.
-	 * @author Chris Jayden <help@cartpops.com>
+	 * @author CartPops <help@cartpops.com>
 	 */
 	public function shortcode_cart_launcher( $atts ) {
 
@@ -127,7 +127,7 @@ class CartPops_Public {
 	 *
 	 * @param array $item_output Nav item output.
 	 * @param array $item Nav item.
-	 * @author Chris Jayden <help@cartpops.com>
+	 * @author CartPops <help@cartpops.com>
 	 */
 	public function filter_nav_menu( $item_output, $item ) {
 		if ( ! is_object( $item ) || ! isset( $item->object ) ) {
@@ -173,7 +173,7 @@ class CartPops_Public {
 	 * Update the cart
 	 *
 	 * @param array $cart_item_data
-	 * @author Chris Jayden <help@cartpops.com>
+	 * @author CartPops <help@cartpops.com>
 	 * @since 1.4.2
 	 */
 	public function woocommerce_cart_item_product( $cart_item_data ) {

@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since      1.4.8
  * @package    CartPops
  * @subpackage CartPops/admin
- * @author     Chris Jayden <help@cartpops.com>
+ * @author     CartPops <help@cartpops.com>
  */
 class Options {
 
@@ -54,7 +54,7 @@ class Options {
 	 *
 	 * @param string $name
 	 * @param string $value
-	 * @author Chris Jayden <help@cartpops.com>
+	 * @author CartPops <help@cartpops.com>
 	 */
 	public static function set_default( $name, $value, $prefix = false ) {
 		if ( $prefix ) {
@@ -68,7 +68,7 @@ class Options {
 	 * Get default option from memory.
 	 *
 	 * @param string $name
-	 * @author Chris Jayden <help@cartpops.com>
+	 * @author CartPops <help@cartpops.com>
 	 */
 	public static function get_default( $name ) {
 		return self::default_settings()[ $name ] ?? null;

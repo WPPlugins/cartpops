@@ -5,14 +5,14 @@
  * Description: Beautiful, responsive, and conversion optimized add to cart popup for WooCommerce.
  * Plugin URI: https://cartpops.com
  * Author: CartPops.com
- * Version: 1.4.14
+ * Version: 1.4.16
  * Author URI: https://cartpops.com/?utm_source=wp-plugins&utm_campaign=author-uri&utm_medium=wp-dash
  *
  * Text Domain: cartpops
  * Domain Path: /languages
  *
  * WC requires at least: 3.0
- * WC tested up to: 5.8.0
+ * WC tested up to: 6.1.1
  *
  * CartPops is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@ if ( !defined( 'WPINC' ) ) {
     die;
 }
 if ( !defined( 'CARTPOPS_VERSION' ) ) {
-    define( 'CARTPOPS_VERSION', '1.4.14' );
+    define( 'CARTPOPS_VERSION', '1.4.16' );
 }
 if ( !defined( 'CARTPOPS_PREFIX' ) ) {
     define( 'CARTPOPS_PREFIX', 'cartpops' );
@@ -61,7 +61,7 @@ if ( function_exists( 'fs_cartpops' ) ) {
     /**
      * Will stop plugin from loading if PHP version is below #.
      *
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     function cartpops_cant_activate_msg()
     {

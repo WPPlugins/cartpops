@@ -89,7 +89,7 @@ if ( !class_exists( 'CartPops_Settings' ) ) {
          * Helper function for getting an admin asset from the images folder.
          *
          * @param string $asset Filename like example.png or example.jpg.
-         * @author Chris Jayden <help@cartpops.com>
+         * @author CartPops <help@cartpops.com>
          */
         public static function get_admin_asset( $asset )
         {
@@ -1207,7 +1207,7 @@ if ( !class_exists( 'CartPops_Settings' ) ) {
         /**
          * Get upgrade card.
          *
-         * @author Chris Jayden <help@cartpops.com>
+         * @author CartPops <help@cartpops.com>
          */
         public static function get_upgrade_card()
         {

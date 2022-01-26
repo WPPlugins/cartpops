@@ -25,7 +25,7 @@ use  CartPops\Admin\Options ;
  * @since      1.0.0
  * @package    CartPops
  * @subpackage CartPops/includes
- * @author     Chris Jayden <help@cartpops.com>
+ * @author     CartPops <help@cartpops.com>
  */
 class CartPops
 {
@@ -221,7 +221,7 @@ class CartPops
      * Front-end assets manager
      *
      * @since 1.2.8
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     private function assets_frontend()
     {
@@ -292,7 +292,7 @@ class CartPops
      * Front-end ajax calls to
      *
      * @since 1.2.9
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     private function ajax_frontend()
     {
@@ -338,7 +338,7 @@ class CartPops
      * Check if we can activate CartPops on the front-end.
      *
      * @since 1.3.0
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     private function can_activate_frontend()
     {

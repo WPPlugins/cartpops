@@ -41,7 +41,7 @@ class CartPops_Settings_Deprecated
      *
      * @param  string $plugin_name The name of the plugin.
      * @param  string $version     The version of this plugin.
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     public function __construct( $plugin_name, $version )
     {
@@ -147,7 +147,7 @@ class CartPops_Settings_Deprecated
     /**
      * Enqueue scripts
      *
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     public function enqueue_scripts()
     {
@@ -190,7 +190,7 @@ class CartPops_Settings_Deprecated
     /**
      * Creates an array oof menu itmes for the plugin dashbooard.
      *
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     public function menu_items()
     {
@@ -940,7 +940,7 @@ class CartPops_Settings_Deprecated
     /**
      * Helper function for getting colors.
      *
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     public function get_color_settings()
     {
@@ -959,7 +959,7 @@ class CartPops_Settings_Deprecated
      * Gets all WooCoommerce products.
      *
      * @param string $type WooCommerce product type.
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     public function get_product()
     {
@@ -998,7 +998,7 @@ class CartPops_Settings_Deprecated
     /**
      * Returns potential issues that may hinder the plugin from working as expected.
      *
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     public function watch_potential_issues()
     {
@@ -1041,7 +1041,7 @@ class CartPops_Settings_Deprecated
     /**
      * Delete the issue l;ist transietn.
      *
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     public function delete_issues_transient()
     {
@@ -1759,7 +1759,7 @@ class CartPops_Settings_Deprecated
      * @param string  $title Title of the section.
      * @param string  $icon Any icon to be included.
      * @param boolean $paid Whether it's a paid feature or not.
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     private function render_section_fields(
         $option_group,
@@ -1792,7 +1792,7 @@ class CartPops_Settings_Deprecated
      * Returns the changelog HTML markup from the readme.txt file.
      *
      * @param string $readme_file The file to be looked fr.
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     public function changelog_markup( $readme_file )
     {
@@ -1833,7 +1833,7 @@ class CartPops_Settings_Deprecated
      * Helper function for getting an admin asset from the images folder.
      *
      * @param string $asset Filename like example.png or example.jpg.
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     private function get_admin_asset( $asset )
     {
@@ -1843,7 +1843,7 @@ class CartPops_Settings_Deprecated
     /**
      * Registers a menu menu admin box.
      *
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     public function my_register_menu_metabox()
     {
@@ -1890,7 +1890,7 @@ class CartPops_Settings_Deprecated
     /**
      * Check if we're on the admin screen.
      *
-     * @author Chris Jayden <help@cartpops.com>
+     * @author CartPops <help@cartpops.com>
      */
     private function is_admin()
     {
