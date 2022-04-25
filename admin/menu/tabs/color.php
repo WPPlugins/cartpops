@@ -191,6 +191,46 @@ class CartPops_Color_Tab extends CartPops_Settings_Page {
 		);
 
 		$section_fields[] = array(
+			'title'             => esc_html__( 'Quantity selector button background', 'cartpops' ),
+			'type'              => 'color',
+			'custom_attributes' => '',
+			'desc_tip'          => false,
+			'id'                => $this->get_option_key( 'button_quantity_background' ),
+		);
+
+		$section_fields[] = array(
+			'title'             => esc_html__( 'Quantity selector button text color', 'cartpops' ),
+			'type'              => 'color',
+			'custom_attributes' => '',
+			'desc_tip'          => false,
+			'id'                => $this->get_option_key( 'button_quantity_text' ),
+		);
+
+		$section_fields[] = array(
+			'title'             => esc_html__( 'Quantity selector input background', 'cartpops' ),
+			'type'              => 'color',
+			'custom_attributes' => '',
+			'desc_tip'          => false,
+			'id'                => $this->get_option_key( 'input_quantity_background' ),
+		);
+
+		$section_fields[] = array(
+			'title'             => esc_html__( 'Quantity selector input border', 'cartpops' ),
+			'type'              => 'color',
+			'custom_attributes' => '',
+			'desc_tip'          => false,
+			'id'                => $this->get_option_key( 'input_quantity_border' ),
+		);
+
+		$section_fields[] = array(
+			'title'             => esc_html__( 'Quantity selector input text color', 'cartpops' ),
+			'type'              => 'color',
+			'custom_attributes' => '',
+			'desc_tip'          => false,
+			'id'                => $this->get_option_key( 'input_quantity_text' ),
+		);
+
+		$section_fields[] = array(
 			'type' => 'sectionend',
 			'id'   => 'cartpops_button_colors_options',
 		);

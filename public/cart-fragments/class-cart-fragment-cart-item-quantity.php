@@ -59,8 +59,12 @@ class Fragment_Cart_Item_Quantity extends Fragment {
 				'quantity'      => $this->settings->cart_item['quantity'],
 				'max_value'     => $product->get_max_purchase_quantity(),
 				'min_value'     => $product->get_min_purchase_quantity(),
-				// TODO Refactor this call. It doesn't actually return a product name, but an HTML entity with product details
-				'product_name'  => cartpops_cart_item_product_name( $this->settings->cart_item, $this->settings->cart_item['key'] ),
+				'product_name' => apply_filters(
+					'woocommerce_cart_item_name',
+					$product->get_name(),
+					$this->settings->cart_item,
+					$this->settings->cart_item['key']
+				),
 				'cart_item_key' => $this->settings->cart_item['key'],
 			),
 			$product

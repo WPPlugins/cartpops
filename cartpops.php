@@ -5,7 +5,7 @@
  * Description: Beautiful, responsive, and conversion optimized add to cart popup for WooCommerce.
  * Plugin URI: https://cartpops.com
  * Author: CartPops.com
- * Version: 1.4.17
+ * Version: 1.4.18
  * Author URI: https://cartpops.com/?utm_source=wp-plugins&utm_campaign=author-uri&utm_medium=wp-dash
  *
  * Text Domain: cartpops
@@ -30,7 +30,7 @@ if ( !defined( 'WPINC' ) ) {
     die;
 }
 if ( !defined( 'CARTPOPS_VERSION' ) ) {
-    define( 'CARTPOPS_VERSION', '1.4.17' );
+    define( 'CARTPOPS_VERSION', '1.4.18' );
 }
 if ( !defined( 'CARTPOPS_PREFIX' ) ) {
     define( 'CARTPOPS_PREFIX', 'cartpops' );
@@ -153,7 +153,9 @@ if ( function_exists( 'fs_cartpops' ) ) {
                     ),
                         'has_affiliation' => 'selected',
                         'menu'            => array(
-                        'slug' => 'cartpops_settings',
+                        'slug'    => 'cartpops_settings',
+                        'contact' => false,
+                        'support' => false,
                     ),
                         'is_live'         => true,
                     ) );

@@ -61,7 +61,7 @@ class CartPops_Dashboard_Tab extends CartPops_Settings_Page {
 		);
 
 		$section_fields[] = array(
-			'title' => esc_html__( 'Enable chat support', 'cartpops' ),
+			'title' => esc_html__( 'Enable support widget', 'cartpops' ),
 			'type'  => 'checkbox',
 			'id'    => $this->get_option_key( 'support_chat_enable', false ),
 		);

@@ -42,7 +42,7 @@ class CartPops_Assets {
 		$recommendation_engine = Options::get( 'product_recommendation_engine_enable' );
 		$shipping_calculator   = Options::get( 'drawer_footer_display_shipping_calculator' );
 
-		wp_enqueue_style( 'cartpops-frontend', CARTPOPS_URL . 'public/dist/css/frontend.min.css', array(), $this->version, 'all' );
+		wp_enqueue_style( 'cartpops-frontend', CARTPOPS_URL . 'public/dist/css/frontend.min.css', array('woocommerce-general'), $this->version, 'all' );
 
 		if ( $shipping_calculator ) {
 			wp_enqueue_style( $this->plugin_name . '-select2', CARTPOPS_URL . 'public/dist/vendor/select2-frontend.min.css', array( 'cartpops-frontend' ), $this->version, 'all' );
@@ -71,7 +71,7 @@ class CartPops_Assets {
 		$recommendation_engine = Options::get( 'product_recommendation_engine_enable' );
 		$shipping_calculator   = Options::get( 'drawer_footer_display_shipping_calculator' );
 
-		wp_enqueue_script( 'cartpops-frontend', CARTPOPS_URL . 'public/dist/js/frontend.min.js', array( 'jquery' ), $this->version, true );
+		wp_enqueue_script( 'cartpops-frontend', CARTPOPS_URL . 'public/dist/js/frontend.min.js', array( 'jquery', 'wc-cart-fragments' ), $this->version, true );
 
 		if ( $shipping_calculator ) {
 			wp_enqueue_script( 'wc-country-select' );
@@ -142,6 +142,11 @@ class CartPops_Assets {
 		--color-cpops-button-primary-text: {$settings::get( 'color_button_primary_text' )};
 		--color-cpops-button-secondary-background: {$settings::get( 'color_button_secondary_background' )};
 		--color-cpops-button-secondary-text: {$settings::get( 'color_button_secondary_text' )};
+		--color-cpops-button-quantity-background: {$settings::get( 'color_button_quantity_background' )};
+		--color-cpops-button-quantity-text: {$settings::get( 'color_button_quantity_text' )};
+		--color-cpops-input-quantity-background: {$settings::get( 'color_input_quantity_background' )};
+		--color-cpops-input-quantity-border: {$settings::get( 'color_input_quantity_border' )};
+		--color-cpops-input-quantity-text: {$settings::get( 'color_input_quantity_text' )};
 		--color-cpops-input-field-background: {$settings::get( 'color_input_background' )};
 		--color-cpops-input-field-text: {$settings::get( 'color_input_text' )};
 		--color-cpops-border-color: {$settings::get( 'color_border' )};

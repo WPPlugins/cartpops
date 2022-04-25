@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the CartPops package.
 msgid ""
 msgstr ""
-"Project-Id-Version: CartPops 1.4.17\n"
+"Project-Id-Version: CartPops 1.4.18\n"
 "Report-Msgid-Bugs-To: https://cartpops.com/contact/\n"
-"POT-Creation-Date: 2022-03-28 08:47:27+00:00\n"
+"POT-Creation-Date: 2022-04-25 11:26:48+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -178,7 +178,6 @@ msgid "Pro benefits"
 msgstr ""
 
 #: admin/class-cartpops-settings-deprecated.php:239
-#: admin/menu/tabs/dashboard.php:64
 msgid "Enable chat support"
 msgstr ""
 
@@ -798,58 +797,58 @@ msgstr ""
 
 #: admin/class-cartpops-settings-deprecated.php:734
 #: admin/class-cartpops-settings-deprecated.php:1613
-#: admin/menu/tabs/color.php:264
+#: admin/menu/tabs/color.php:304
 msgid "Recommendations color scheme"
 msgstr ""
 
 #: admin/class-cartpops-settings-deprecated.php:738
-#: admin/menu/tabs/color.php:270
+#: admin/menu/tabs/color.php:310
 msgid "Recommendations button background color"
 msgstr ""
 
 #: admin/class-cartpops-settings-deprecated.php:743
-#: admin/menu/tabs/color.php:278
+#: admin/menu/tabs/color.php:318
 msgid "Recommendations button text color"
 msgstr ""
 
 #: admin/class-cartpops-settings-deprecated.php:748
-#: admin/menu/tabs/color.php:286
+#: admin/menu/tabs/color.php:326
 msgid "Drawer Recommendations background color"
 msgstr ""
 
 #: admin/class-cartpops-settings-deprecated.php:753
-#: admin/menu/tabs/color.php:294
+#: admin/menu/tabs/color.php:334
 msgid "Drawer Recommendations border color"
 msgstr ""
 
 #: admin/class-cartpops-settings-deprecated.php:758
-#: admin/menu/tabs/color.php:302
+#: admin/menu/tabs/color.php:342
 msgid "Drawer Recommendations text color"
 msgstr ""
 
 #: admin/class-cartpops-settings-deprecated.php:763
-#: admin/menu/tabs/color.php:310
+#: admin/menu/tabs/color.php:350
 msgid "Popup Recommendations background color"
 msgstr ""
 
 #: admin/class-cartpops-settings-deprecated.php:768
-#: admin/menu/tabs/color.php:318
+#: admin/menu/tabs/color.php:358
 msgid "Popup Recommendations text color"
 msgstr ""
 
 #: admin/class-cartpops-settings-deprecated.php:775
 #: admin/class-cartpops-settings-deprecated.php:1641
-#: admin/menu/tabs/color.php:396
+#: admin/menu/tabs/color.php:436
 msgid "Free Shipping Meter color scheme"
 msgstr ""
 
 #: admin/class-cartpops-settings-deprecated.php:779
-#: admin/menu/tabs/color.php:402
+#: admin/menu/tabs/color.php:442
 msgid "Free Shipping Meter background color"
 msgstr ""
 
 #: admin/class-cartpops-settings-deprecated.php:784
-#: admin/menu/tabs/color.php:410
+#: admin/menu/tabs/color.php:450
 msgid "Free Shipping Meter active background color"
 msgstr ""
 
@@ -858,22 +857,22 @@ msgid "Floating Cart Launcher Color Scheme"
 msgstr ""
 
 #: admin/class-cartpops-settings-deprecated.php:796
-#: admin/menu/tabs/color.php:216
+#: admin/menu/tabs/color.php:256
 msgid "Floating Cart Launcher background color"
 msgstr ""
 
 #: admin/class-cartpops-settings-deprecated.php:801
-#: admin/menu/tabs/color.php:224
+#: admin/menu/tabs/color.php:264
 msgid "Floating Cart Launcher icon color"
 msgstr ""
 
 #: admin/class-cartpops-settings-deprecated.php:806
-#: admin/menu/tabs/color.php:232
+#: admin/menu/tabs/color.php:272
 msgid "Floating Cart Launcher indicator background"
 msgstr ""
 
 #: admin/class-cartpops-settings-deprecated.php:811
-#: admin/menu/tabs/color.php:240
+#: admin/menu/tabs/color.php:280
 msgid "Floating Cart Launcher indicator text"
 msgstr ""
 
@@ -882,22 +881,22 @@ msgid "Cart Launcher Color Scheme"
 msgstr ""
 
 #: admin/class-cartpops-settings-deprecated.php:821
-#: admin/menu/tabs/color.php:348
+#: admin/menu/tabs/color.php:388
 msgid "Cart Launcher background color"
 msgstr ""
 
 #: admin/class-cartpops-settings-deprecated.php:826
-#: admin/menu/tabs/color.php:356
+#: admin/menu/tabs/color.php:396
 msgid "Cart Launcher text color"
 msgstr ""
 
 #: admin/class-cartpops-settings-deprecated.php:831
-#: admin/menu/tabs/color.php:364
+#: admin/menu/tabs/color.php:404
 msgid "Cart Launcher bubble background"
 msgstr ""
 
 #: admin/class-cartpops-settings-deprecated.php:836
-#: admin/menu/tabs/color.php:372
+#: admin/menu/tabs/color.php:412
 msgid "Cart Launcher bubble text"
 msgstr ""
 
@@ -1228,12 +1227,12 @@ msgid "Buttons color scheme"
 msgstr ""
 
 #: admin/class-cartpops-settings-deprecated.php:1622
-#: admin/menu/tabs/color.php:210
+#: admin/menu/tabs/color.php:250
 msgid "Floating Cart launcher color scheme"
 msgstr ""
 
 #: admin/class-cartpops-settings-deprecated.php:1631
-#: admin/menu/tabs/color.php:342
+#: admin/menu/tabs/color.php:382
 msgid "Cart launcher color scheme"
 msgstr ""
 
@@ -1339,6 +1338,30 @@ msgstr ""
 
 #: admin/menu/tabs/color.php:186
 msgid "Secondary button text color"
+msgstr ""
+
+#: admin/menu/tabs/color.php:194
+msgid "Quantity selector button background"
+msgstr ""
+
+#: admin/menu/tabs/color.php:202
+msgid "Quantity selector button text color"
+msgstr ""
+
+#: admin/menu/tabs/color.php:210
+msgid "Quantity selector input background"
+msgstr ""
+
+#: admin/menu/tabs/color.php:218
+msgid "Quantity selector input border"
+msgstr ""
+
+#: admin/menu/tabs/color.php:226
+msgid "Quantity selector input text color"
+msgstr ""
+
+#: admin/menu/tabs/dashboard.php:64
+msgid "Enable support widget"
 msgstr ""
 
 #: admin/menu/tabs/dashboard.php:70
@@ -1646,19 +1669,19 @@ msgstr ""
 msgid "Default theme"
 msgstr ""
 
-#: admin/menu/views/html-card-color-presets.php:46
+#: admin/menu/views/html-card-color-presets.php:51
 msgid "Blue theme"
 msgstr ""
 
-#: admin/menu/views/html-card-color-presets.php:78
+#: admin/menu/views/html-card-color-presets.php:88
 msgid "Dark theme"
 msgstr ""
 
-#: admin/menu/views/html-card-color-presets.php:110
+#: admin/menu/views/html-card-color-presets.php:125
 msgid "Desert theme"
 msgstr ""
 
-#: admin/menu/views/html-card-color-presets.php:142
+#: admin/menu/views/html-card-color-presets.php:162
 msgid "Orange theme"
 msgstr ""
 
