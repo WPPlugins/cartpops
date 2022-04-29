@@ -42,7 +42,7 @@ class CartPops_Assets {
 		$recommendation_engine = Options::get( 'product_recommendation_engine_enable' );
 		$shipping_calculator   = Options::get( 'drawer_footer_display_shipping_calculator' );
 
-		wp_enqueue_style( 'cartpops-frontend', CARTPOPS_URL . 'public/dist/css/frontend.min.css', array('woocommerce-general'), $this->version, 'all' );
+		wp_enqueue_style( 'cartpops-frontend', CARTPOPS_URL . 'public/dist/css/frontend.min.css', array(), $this->version, 'all' );
 
 		if ( $shipping_calculator ) {
 			wp_enqueue_style( $this->plugin_name . '-select2', CARTPOPS_URL . 'public/dist/vendor/select2-frontend.min.css', array( 'cartpops-frontend' ), $this->version, 'all' );
@@ -71,7 +71,7 @@ class CartPops_Assets {
 		$recommendation_engine = Options::get( 'product_recommendation_engine_enable' );
 		$shipping_calculator   = Options::get( 'drawer_footer_display_shipping_calculator' );
 
-		wp_enqueue_script( 'cartpops-frontend', CARTPOPS_URL . 'public/dist/js/frontend.min.js', array( 'jquery', 'wc-cart-fragments' ), $this->version, true );
+		wp_enqueue_script( 'cartpops-frontend', CARTPOPS_URL . 'public/dist/js/frontend.min.js', array( 'jquery' ), $this->version, true );
 
 		if ( $shipping_calculator ) {
 			wp_enqueue_script( 'wc-country-select' );

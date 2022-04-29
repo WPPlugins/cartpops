@@ -5,7 +5,7 @@ Tags: add to cart popup, added to cart, sidecart, shop, shopping cart, cart draw
 Requires at least: 5.1
 Tested up to: 5.9
 Requires PHP: 7.0
-Stable tag: 1.4.18
+Stable tag: 1.4.19
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -152,6 +152,9 @@ With this widget, you can easily style the Cart Launcher and show it anywhere yo
 If you have a caching plugin installed, or use any sort of caching in your site (DNS caching, object caching, etc), please clear those caches to make sure your browser loads the updated scripts and styles.
 
 == Changelog ==
+
+#### Version 1.4.19
+- **Fix**: Fix occassions were styles were not loading properly.
 
 #### Version 1.4.18
 - **Add**: Add the ability to use custom quantity selector colors.
