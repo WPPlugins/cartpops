@@ -5,7 +5,7 @@ Tags: add to cart popup, added to cart, sidecart, shop, shopping cart, cart draw
 Requires at least: 5.1
 Tested up to: 5.9
 Requires PHP: 7.0
-Stable tag: 1.4.19
+Stable tag: 1.4.20
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -152,6 +152,11 @@ With this widget, you can easily style the Cart Launcher and show it anywhere yo
 If you have a caching plugin installed, or use any sort of caching in your site (DNS caching, object caching, etc), please clear those caches to make sure your browser loads the updated scripts and styles.
 
 == Changelog ==
+
+#### Version 1.4.20
+- **Fix**: Fix ocassions were a fatal error would occur if a deleted product was added to the cart.
+- **Fix**: Fix an issue with Select2 not properely initialising in the settings.
+- **Tweak**: Decrease the overall JS bundle size.
 
 #### Version 1.4.19
 - **Fix**: Fix occassions were styles were not loading properly.

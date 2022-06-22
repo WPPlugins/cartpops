@@ -181,7 +181,7 @@ class CartPops_Cart
                     'quantity'      => $cart_item['quantity'],
                     'max_value'     => $_product->get_max_purchase_quantity(),
                     'min_value'     => $_product->get_min_purchase_quantity(),
-                    'product_name'  => 'blabla',
+                    'product_name'  => $_product->get_name(),
                     'cart_item_key' => $cart_item_key,
                 ), $_product, true ),
                     'delete'             => true,
@@ -276,7 +276,7 @@ class CartPops_Cart
         );
         $cart_item_data = wc_get_formatted_cart_item_data( $cart_item );
         $show_details_collapse = apply_filters( 'cartpops_after_cart_item_name_hook_collapsible', true );
-        $html = '<div class="cpops-cart-item__product--link">';
+        $html = '<div class="cpops-cart-item__product--link" data-id="' . $product_id . '">';
         
         if ( !$product_permalink ) {
             $html .= wp_kses_post( apply_filters(
@@ -542,7 +542,10 @@ class CartPops_Cart
         foreach ( $product_ids as $product_id ) {
             $_product = cartpops_get_product( $product_id );
             $product_cart_ids[] = WC()->cart->generate_cart_id( $product_id );
-            if ( $_product->is_in_stock() ) {
+            if ( !is_a( $_product, 'WC_Product' ) ) {
+                continue;
+            }
+            if ( $_product->exists() && $_product->is_in_stock() && 'publish' === $_product->get_status() ) {
                 $products[] = $_product;
             }
         }

@@ -18,7 +18,7 @@ $args = array(
 
 ?>
 
-<div class="<?php echo esc_html( implode( ' ', array_filter( $classes ) ) ); ?>" data-key="<?php echo esc_attr( $cart_item_key ); ?>">
+<div class="<?php echo esc_html( implode( ' ', array_filter( $classes ) ) ); ?>" data-key="<?php echo esc_attr( $cart_item_key ); ?>" data-id="<?php echo esc_html( $product_id ); ?>">
 
 	<div class="cpops-cart-item__container">
 
@@ -52,7 +52,7 @@ $args = array(
 
 	<div class="cpops-cart-item__actions">
 		<?php if ( $delete ) : ?>
-			<button aria-label="Remove Item From Cart" class="cpops-cart-item__actions--remove" data-key="<?php echo esc_html( $cart_item_key ); ?>">
+			<button aria-label="Remove Item From Cart" class="cpops-cart-item__actions--remove" data-id="<?php echo esc_html( $product_id ); ?>" data-key="<?php echo esc_html( $cart_item_key ); ?>" data-name="<?php echo esc_html( $product->get_name() ); ?>" >
 				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.001 512.001">
 					<defs/>
 					<path d="M512.001 84.853L427.148 0 256.001 171.147 84.853 0 0 84.853 171.148 256 0 427.148l84.853 84.853 171.148-171.147 171.147 171.147 84.853-84.853L340.853 256z"/>

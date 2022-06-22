@@ -83,7 +83,7 @@ class Options {
 				'cartpops_coupon_form_enable'              => 'on',
 				'cartpops_floating_cart_launcher_enable'   => 'on',
 				'cartpops_floating_cart_launcher_position' => 'bottom_right',
-				'cartpops_floating_cart_launcher_hide_empty' => 'on',
+				'cartpops_floating_cart_launcher_hide_empty' => '',
 				'cartpops_floating_cart_launcher_hide_indicator_empty' => '',
 				'cartpops_menu_cart_launcher_icon'         => 'cpops-icon-shopping-bag-line',
 				'cartpops_menu_cart_launcher_indicator'    => 'bubble',

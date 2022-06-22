@@ -866,7 +866,7 @@ function cartpops_cart_item_product_name( $cart_item, $cart_item_key ) {
 	$product_id        = apply_filters( 'woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key );
 	$product_permalink = apply_filters( 'woocommercee_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink( $cart_item ) : '', $cart_item, $cart_item_key );
 
-	$html .= '<div class="cpops-cart-item__product--link">';
+	$html .= '<div class="cpops-cart-item__product--link" data-id="' . $product_id . '">';
 
 	if ( ! $product_permalink ) {
 		$html .= wp_kses_post(

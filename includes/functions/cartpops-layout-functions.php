@@ -32,7 +32,7 @@ if ( ! function_exists( 'cartpops_select2_html' ) ) {
 			)
 		);
 
-		$multiple = $args['multiple'] ? 'multiple="multiple"' : '';
+		$multiple = $args['multiple'] ? 'multiple' : '';
 		$name     = esc_attr( '' !== $args['name'] ? $args['name'] : $args['id'] ) . '[]';
 		$options  = array_filter( cartpops_check_is_array( $args['options'] ) ? $args['options'] : array() );
 
