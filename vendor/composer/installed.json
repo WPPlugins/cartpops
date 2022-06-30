@@ -2,24 +2,26 @@
     "packages": [
         {
             "name": "freemius/wordpress-sdk",
-            "version": "2.13.5",
-            "version_normalized": "2.13.5.0",
+            "version": "2.4.3",
+            "version_normalized": "2.4.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Freemius/wordpress-sdk.git",
+                "reference": "d2c3e1c27792f34123f928ea9fa73be56c337d13"
+            },
             "dist": {
                 "type": "zip",
-                "url": "bin/composer-packages/freemius-wordpress-sdk-2.13.5.zip",
-                "reference": "75327e531559a52f80835a95c3c1684464b55398",
-                "shasum": "75327e531559a52f80835a95c3c1684464b55398"
+                "url": "https://api.github.com/repos/Freemius/wordpress-sdk/zipball/d2c3e1c27792f34123f928ea9fa73be56c337d13",
+                "reference": "d2c3e1c27792f34123f928ea9fa73be56c337d13",
+                "shasum": ""
             },
             "require": {
-                "php": ">=5.6"
+                "php": ">=5.2"
             },
+            "time": "2022-03-03T09:14:17+00:00",
             "type": "library",
             "installation-source": "dist",
-            "autoload": {
-                "files": [
-                    "start.php"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPL-3.0-only"
             ],
@@ -34,6 +36,10 @@
                 "wordpress-plugin",
                 "wordpress-theme"
             ],
+            "support": {
+                "issues": "https://github.com/Freemius/wordpress-sdk/issues",
+                "source": "https://github.com/Freemius/wordpress-sdk/tree/2.4.3"
+            },
             "install-path": "../freemius/wordpress-sdk"
         }
     ],

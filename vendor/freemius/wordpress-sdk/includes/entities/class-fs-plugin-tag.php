@@ -26,10 +26,6 @@
         /**
          * @var string
          */
-        public $requires_programming_language_version;
-        /**
-         * @var string
-         */
         public $tested_up_to_version;
         /**
          * @var bool
@@ -43,10 +39,6 @@
          * @var string One of the following: `pending`, `beta`, `unreleased`.
          */
         public $release_mode;
-        /**
-         * @var string
-         */
-        public $upgrade_notice;
 
 		function __construct( $tag = false ) {
 			parent::__construct( $tag );

@@ -33,6 +33,7 @@
 
 		// Add support as a feature.
 		if ( ! empty( $plan->support_email ) ||
+		     ! empty( $plan->support_skype ) ||
 		     ! empty( $plan->support_phone ) ||
 		     true === $plan->is_success_manager
 		) {
@@ -42,7 +43,7 @@
 				$support_feature->title = fs_text_inline( 'Support', $plugin->slug );
 				$features_plan_map[ $support_feature->id ] = array( 'feature' => $support_feature, 'plans' => array() );
 			} else {
-                $support_feature = $features_plan_map['support']['feature'];
+				$support_feature = $features_plan_map['support'];
 			}
 
 			$features_plan_map[ $support_feature->id ]['plans'][ $plan->id ] = $support_feature;
