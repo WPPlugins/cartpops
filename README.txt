@@ -1,11 +1,11 @@
 === CartPops - High Converting Add To Cart Popup For WooCommerce ===
-Contributors: cartpops
+Contributors: cartpops, freemius
 Donate link: https://cartpops.com
 Tags: add to cart popup, added to cart, sidecart, shop, shopping cart, cart drawer, floating cart, woo-commerce, woocommerce
 Requires at least: 5.1
 Tested up to: 5.9
 Requires PHP: 7.0
-Stable tag: 1.4.21
+Stable tag: 1.4.22
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -152,6 +152,9 @@ With this widget, you can easily style the Cart Launcher and show it anywhere yo
 If you have a caching plugin installed, or use any sort of caching in your site (DNS caching, object caching, etc), please clear those caches to make sure your browser loads the updated scripts and styles.
 
 == Changelog ==
+
+#### Version 1.4.22
+- **Fix**: Fix an issue with AJAX select fields.
 
 #### Version 1.4.21
 - **Fix**: Fix issues with some options saving incorrectly.
