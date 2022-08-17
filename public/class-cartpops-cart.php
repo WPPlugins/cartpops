@@ -106,10 +106,10 @@ class CartPops_Cart
             'classes'      => apply_filters( 'cartpops_floating_cart_launcher_classes', array( 'cpops-toggle-drawer' ) ),
             'item_account' => $cart_count,
         );
-        if ( $hide_if_empty && 0 === $cart_count ) {
+        if ( 'on' === $hide_if_empty && 0 === $cart_count ) {
             $data['classes'][] = 'cpops-floating-cart-empty';
         }
-        if ( $hide_indicator_if_empty && 0 === $cart_count ) {
+        if ( 'on' === $hide_indicator_if_empty && 0 === $cart_count ) {
             $data['classes'][] = 'cpops-floating-cart-hide-indicator';
         }
         return cartpops_get_template( 'components/launcher', $data, false );
@@ -495,9 +495,16 @@ class CartPops_Cart
         if ( 'on' !== $enabled ) {
             return;
         }
+        
         if ( empty($products) ) {
+            // @Chris: We need to return an empty div here to prevent the
+            // recommendations from being hidden on page load and any first event.
+            ?>
+				<div class="cpops-drawer-recommendations-wrapper"></div>
+			<?php 
             return;
         }
+        
         $data = array(
             'classes'              => apply_filters( 'cartpops_drawer_recommendations_classes', array( 'cpops-drawer-recommendations' ) ),
             'title'                => ( !empty($title) ? $title : __( 'You might also like these items!', 'cartpops' ) ),

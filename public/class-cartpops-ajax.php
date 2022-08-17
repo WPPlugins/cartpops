@@ -67,11 +67,11 @@ class CartPops_Frontend_Ajax
             'notice'       => (string) $this->get_notifications(),
         ) );
         $cart_fragments = array(
-            'div.cpops-drawer-notices-wrapper' => 'notices',
-            'div#cpops-floating-cart'          => 'cart_launcher',
-            'div.cpops-cart-total'             => 'cart_totals',
-            'div.cpops-coupon-remove'          => 'coupon_removal',
-            '.cpops-drawer-recommendations'    => 'drawer_recommendations',
+            'div.cpops-drawer-notices-wrapper'         => 'notices',
+            'div#cpops-floating-cart'                  => 'cart_launcher',
+            'div.cpops-cart-total'                     => 'cart_totals',
+            'div.cpops-coupon-remove'                  => 'coupon_removal',
+            'div.cpops-drawer-recommendations-wrapper' => 'drawer_recommendations',
         );
         $fragments = array_merge( $fragments, Cart_Fragment_Manager::render_fragments( $cart_fragments, $fragment_settings ) );
         // Update cart.
