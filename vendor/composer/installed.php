@@ -3,7 +3,7 @@
         'name' => 'cartpops/cartpops',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '482554f0e71d536625a72ec331ae871674948141',
+        'reference' => '727c4c5524da76fb82f7659bc9535abeff6b0d6b',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'cartpops/cartpops' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '482554f0e71d536625a72ec331ae871674948141',
+            'reference' => '727c4c5524da76fb82f7659bc9535abeff6b0d6b',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

@@ -5,13 +5,11 @@ Tags: add to cart popup, added to cart, sidecart, shop, shopping cart, cart draw
 Requires at least: 5.1
 Tested up to: 5.9
 Requires PHP: 7.0
-Stable tag: 1.4.24
+Stable tag: 1.4.26
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 ### 🚀 Your WooCommerce Store Is Only As Good As Your Cart Experience
-
-> Cartpops is being built from the ground up! Sit tight for V2! 🚀
 
 **CartPops is a [WooCommerce Add To Cart Popup](https://cartpops.com/?utm_source=Link&utm_campaign=Readme&utm_medium=WP%20Repo&utm_term=Homepage), that helps every shop owner improve their user experience, increase conversions & maximize profits.**
 
