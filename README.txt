@@ -3,9 +3,9 @@ Contributors: cartpops, freemius
 Donate link: https://cartpops.com
 Tags: add to cart popup, added to cart, sidecart, shop, shopping cart, cart drawer, floating cart, woo-commerce, woocommerce
 Requires at least: 5.1
-Tested up to: 6.2.2
+Tested up to: 6.3.2
 Requires PHP: 7.0
-Stable tag: 1.4.28
+Stable tag: 1.4.29
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 

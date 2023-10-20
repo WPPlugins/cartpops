@@ -1001,7 +1001,6 @@ class CartPops_Cart
         $args = wp_parse_args( $args, $defaults );
         $product_count = WC()->cart->get_cart_contents_count();
         $sub_total = WC()->cart->get_cart_subtotal();
-        $counter_attr = $product_count;
         if ( 'true' === $args['shortcode'] ) {
             $args['classes'][] = 'is-shortcode';
         }
@@ -1045,7 +1044,11 @@ class CartPops_Cart
 					<span class="cpops-sr-only"><?php 
         esc_html_e( 'Cart', 'cartpops' );
         ?></span>
-					<span class="cartpops-cart__container-counter">0</span>
+					<span class="cartpops-cart__container-counter">
+						<?php 
+        echo  esc_attr( $product_count ) ;
+        ?>
+					</span>
 				</span>
 				<span class="cartpops-cart__container-text"><?php 
         echo  wp_kses_post( $sub_total ) ;

@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the CartPops package.
 msgid ""
 msgstr ""
-"Project-Id-Version: CartPops 1.4.28\n"
+"Project-Id-Version: CartPops 1.4.29\n"
 "Report-Msgid-Bugs-To: https://cartpops.com/contact/\n"
-"POT-Creation-Date: 2023-07-24 07:16:34+00:00\n"
+"POT-Creation-Date: 2023-10-20 15:20:37+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -492,7 +492,7 @@ msgstr ""
 #: includes/integrations/elementor/class-cartpops-cart-widget.php:96
 #: includes/integrations/elementor/class-cartpops-cart-widget.php:97
 #: includes/integrations/elementor/class-cartpops-cart-widget.php:98
-#: public/class-cartpops-cart.php:1562
+#: public/class-cartpops-cart.php:1560
 msgid "Cart"
 msgstr ""
 
