@@ -5,13 +5,13 @@
  * Description: Beautiful, responsive, and conversion optimized add to cart popup for WooCommerce.
  * Plugin URI: https://cartpops.com
  * Author: CartPops.com
- * Version: 1.4.29
+ * Version: 1.4.30
  * Author URI: https://cartpops.com/?utm_source=wp-plugins&utm_campaign=author-uri&utm_medium=wp-dash
  *
  * Text Domain: cartpops
  * Domain Path: /languages
  *
- * WC requires at least: 3.0
+ * WC requires at least: 6.0
  * WC tested up to: 6.7.0
  *
  * CartPops is free software: you can redistribute it and/or modify
@@ -30,7 +30,7 @@ if ( !defined( 'WPINC' ) ) {
     die;
 }
 if ( !defined( 'CARTPOPS_VERSION' ) ) {
-    define( 'CARTPOPS_VERSION', '1.4.29' );
+    define( 'CARTPOPS_VERSION', '1.4.30' );
 }
 if ( !defined( 'CARTPOPS_PREFIX' ) ) {
     define( 'CARTPOPS_PREFIX', 'cartpops' );
@@ -54,6 +54,14 @@ if ( !defined( 'CARTPOPS_TEMPLATE_DEBUG_MODE' ) ) {
     define( 'CARTPOPS_TEMPLATE_DEBUG_MODE', false );
 }
 require_once plugin_dir_path( __FILE__ ) . 'vendor/autoload.php';
+/**
+ * Cartpops does not use any `custom_order_tables` features, but we need to declare compatibility.
+ */
+add_action( 'before_woocommerce_init', function () {
+    if ( class_exists( \Automattic\WooCommerce\Utilities\FeaturesUtil::class ) ) {
+        \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+    }
+} );
 
 if ( function_exists( 'fs_cartpops' ) ) {
     fs_cartpops()->set_basename( false, __FILE__ );
