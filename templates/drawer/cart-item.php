@@ -30,7 +30,7 @@ $args = array(
 				<?php if ( $thumbnail ) : ?>
 					<?php echo $thumbnail; ?>
 				<?php else : ?>
-					<?php echo $fallback_thumbnail; ?>
+					<?php echo $thumbnail_fallback; ?>
 				<?php endif; ?>
 
 				<?php if ( $product_permalink ) : ?>

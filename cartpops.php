@@ -5,12 +5,12 @@
  * Description: Beautiful, responsive, and conversion optimized add to cart popup for WooCommerce.
  * Plugin URI: https://cartpops.com
  * Author: CartPops.com
- * Version: 1.4.30
+ * Version: 1.5.33
  * Author URI: https://cartpops.com/?utm_source=wp-plugins&utm_campaign=author-uri&utm_medium=wp-dash
- *
  * Text Domain: cartpops
  * Domain Path: /languages
- *
+ * Requires Plugins: woocommerce
+ * Requires PHP: 7.4
  * WC requires at least: 6.0
  * WC tested up to: 6.7.0
  *
@@ -30,7 +30,7 @@ if ( !defined( 'WPINC' ) ) {
     die;
 }
 if ( !defined( 'CARTPOPS_VERSION' ) ) {
-    define( 'CARTPOPS_VERSION', '1.4.30' );
+    define( 'CARTPOPS_VERSION', '1.5.33' );
 }
 if ( !defined( 'CARTPOPS_PREFIX' ) ) {
     define( 'CARTPOPS_PREFIX', 'cartpops' );
@@ -62,7 +62,6 @@ add_action( 'before_woocommerce_init', function () {
         \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
     }
 } );
-
 if ( function_exists( 'fs_cartpops' ) ) {
     fs_cartpops()->set_basename( false, __FILE__ );
 } else {
@@ -71,16 +70,15 @@ if ( function_exists( 'fs_cartpops' ) ) {
      *
      * @author CartPops <help@cartpops.com>
      */
-    function cartpops_cant_activate_msg()
-    {
+    function cartpops_cant_activate_msg() {
         ?>
 		<div class="notice notice-error is-dismissible checkout-wc">
 			<?php 
-        echo  esc_html__( 'Oh no! WooCommerce is required to use CartPops.', 'cartpops' ) ;
+        echo esc_html__( 'Oh no! WooCommerce is required to use CartPops.', 'cartpops' );
         ?>
 			<p>
 			<?php 
-        echo  esc_html__( 'To prevent fatal errors, we have loaded CartPops into safe mode.', 'cartpops' ) ;
+        echo esc_html__( 'To prevent fatal errors, we have loaded CartPops into safe mode.', 'cartpops' );
         ?>
 				</p>
 				<p class="button-container">
@@ -97,52 +95,42 @@ if ( function_exists( 'fs_cartpops' ) ) {
 		</div>
 		<?php 
     }
-    
+
     /**
      * Check if CartPops can activate. If not, will stop plugin from loading to prevent fatal errors.
      *
      * @return bool
      */
-    function cartpops_can_activate()
-    {
+    function cartpops_can_activate() {
         $can_activate = true;
         if ( !function_exists( 'is_plugin_active_for_network' ) ) {
             require_once ABSPATH . '/wp-admin/includes/plugin.php';
         }
-        
         if ( is_multisite() ) {
             // This plugin is network activated (WooCommerce must be network activated).
-            
             if ( is_plugin_active_for_network( plugin_basename( __FILE__ ) ) ) {
                 $can_activate = ( is_plugin_active_for_network( 'woocommerce/woocommerce.php' ) ? true : false );
                 // Locally activated (WooCommerce can be network or locally activated).
             } else {
                 $can_activate = ( is_plugin_active( 'woocommerce/woocommerce.php' ) ? true : false );
             }
-        
         } else {
             $can_activate = ( is_plugin_active( 'woocommerce/woocommerce.php' ) ? true : false );
         }
-        
-        
         if ( false === $can_activate ) {
             return false;
         } else {
             return true;
         }
-    
     }
-    
-    
+
     if ( cartpops_can_activate() ) {
-        
         if ( !function_exists( 'fs_cartpops' ) ) {
             /**
              * Freemius SDK access function
              */
-            function fs_cartpops()
-            {
-                global  $fs_cartpops ;
+            function fs_cartpops() {
+                global $fs_cartpops;
                 if ( !isset( $fs_cartpops ) ) {
                     // Include Freemius SDK.
                     $fs_cartpops = fs_dynamic_init( array(
@@ -156,47 +144,44 @@ if ( function_exists( 'fs_cartpops' ) ) {
                         'has_addons'      => false,
                         'has_paid_plans'  => true,
                         'trial'           => array(
-                        'days'               => 14,
-                        'is_require_payment' => true,
-                    ),
+                            'days'               => 14,
+                            'is_require_payment' => true,
+                        ),
                         'has_affiliation' => 'selected',
                         'menu'            => array(
-                        'slug'    => 'cartpops_settings',
-                        'contact' => false,
-                        'support' => false,
-                    ),
+                            'slug'    => 'cartpops_settings',
+                            'contact' => false,
+                            'support' => false,
+                        ),
                         'is_live'         => true,
                     ) );
                 }
                 return $fs_cartpops;
             }
-            
+
             // Init Freemius.
             fs_cartpops();
             // Signal that SDK was initiated.
             do_action( 'fs_cartpops_loaded' );
         }
-        
         /**
          * The code that runs during plugin activation.
          * This action is documented in includes/class-cartpops-activator.php
          */
-        function activate_cartpops()
-        {
+        function activate_cartpops() {
             require_once plugin_dir_path( __FILE__ ) . 'includes/class-cartpops-activator.php';
             CartPops_Activator::activate();
         }
-        
+
         /**
          * The code that runs during plugin deactivation.
          * This action is documented in includes/class-cartpops-deactivator.php
          */
-        function deactivate_cartpops()
-        {
+        function deactivate_cartpops() {
             require_once plugin_dir_path( __FILE__ ) . 'includes/class-cartpops-deactivator.php';
             CartPops_Deactivator::deactivate();
         }
-        
+
         register_activation_hook( __FILE__, 'activate_cartpops' );
         register_deactivation_hook( __FILE__, 'deactivate_cartpops' );
         /**
@@ -213,16 +198,14 @@ if ( function_exists( 'fs_cartpops' ) ) {
          *
          * @since    1.0.0
          */
-        function run_cartpops()
-        {
+        function run_cartpops() {
             $plugin = new CartPops();
             $plugin->run();
         }
-        
+
         run_cartpops();
     } else {
         add_action( 'admin_notices', 'cartpops_cant_activate_msg' );
     }
-    
     // cartpops_can_activate()
 }

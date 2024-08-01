@@ -1,6 +1,6 @@
 <?php
 
-use  CartPops\Admin\Options ;
+use CartPops\Admin\Options;
 /**
  * The file that defines the core plugin class
  *
@@ -27,8 +27,7 @@ use  CartPops\Admin\Options ;
  * @subpackage CartPops/includes
  * @author     CartPops <help@cartpops.com>
  */
-class CartPops
-{
+class CartPops {
     /**
      * The loader that's responsible for maintaining and registering all hooks that power
      * the plugin.
@@ -37,7 +36,8 @@ class CartPops
      * @access protected
      * @var    CartPops_Loader    $loader    Maintains and registers all hooks for the plugin.
      */
-    protected  $loader ;
+    protected $loader;
+
     /**
      * The unique identifier of this plugin.
      *
@@ -45,7 +45,8 @@ class CartPops
      * @access protected
      * @var    string    $plugin_name    The string used to uniquely identify this plugin.
      */
-    protected  $plugin_name ;
+    protected $plugin_name;
+
     /**
      * The current version of the plugin.
      *
@@ -53,7 +54,8 @@ class CartPops
      * @access protected
      * @var    string    $version    The current version of the plugin.
      */
-    protected  $version ;
+    protected $version;
+
     /**
      * Sanitizer for cleaning user input
      *
@@ -61,8 +63,10 @@ class CartPops
      * @access private
      * @var    CartPops_Sanitize    $sanitizer    Sanitizes data
      */
-    private  $integrations ;
-    private  $plugin_enabled ;
+    private $integrations;
+
+    private $plugin_enabled;
+
     /**
      * Define the core functionality of the plugin.
      *
@@ -72,29 +76,24 @@ class CartPops
      *
      * @since 1.0.0
      */
-    public function __construct()
-    {
-        
+    public function __construct() {
         if ( defined( 'CARTPOPS_VERSION' ) ) {
             $this->version = CARTPOPS_VERSION;
         } else {
             $this->version = '1.0.0';
         }
-        
         $this->plugin_name = 'cartpops';
         $this->load_dependencies();
         $this->set_locale();
         $this->api();
-        
         if ( $this->can_activate_frontend() ) {
             $this->cart();
             $this->assets_frontend();
             $this->public();
             $this->ajax_frontend();
         }
-    
     }
-    
+
     /**
      * Load the required dependencies for this plugin.
      *
@@ -111,8 +110,7 @@ class CartPops
      * @since  1.0.0
      * @access private
      */
-    private function load_dependencies()
-    {
+    private function load_dependencies() {
         include_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-cartpops-loader.php';
         include_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-cartpops-i18n.php';
         include_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/functions/cartpops-common-functions.php';
@@ -127,31 +125,26 @@ class CartPops
         include_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/entity/class-cartpops-rule.php';
         include_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/entity/class-cartpops-master-log.php';
         // ADMIN.
-        
         if ( is_admin() ) {
             include_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-cartpops-admin-assets.php';
             include_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-cartpops-admin-ajax.php';
             include_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/menu/class-cartpops-menu-management.php';
         }
-        
         // FRONTEND.
-        
         if ( !is_admin() ) {
             include_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-cartpops-cart.php';
             include_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-cartpops-assets.php';
             include_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-cartpops-public.php';
             include_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-cartpops-ajax.php';
         }
-        
         $this->loader = new CartPops_Loader();
     }
-    
-    private function api()
-    {
-        $plugin_api = new CartPops_Api( $this->get_plugin_name(), $this->get_version() );
+
+    private function api() {
+        $plugin_api = new CartPops_Api($this->get_plugin_name(), $this->get_version());
         $this->loader->add_action( 'plugins_loaded', $plugin_api, 'plugins_loaded' );
     }
-    
+
     /**
      * Define the locale for this plugin for internationalization.
      *
@@ -161,21 +154,19 @@ class CartPops
      * @since  1.0.0
      * @access private
      */
-    private function set_locale()
-    {
+    private function set_locale() {
         $plugin_i18n = new CartPops_I18n();
         $this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
     }
-    
+
     /**
      * Construct all the cart templates.
      *
      * @since  1.0.0
      * @access private
      */
-    private function cart()
-    {
-        $plugin_cart = new CartPops_Cart( $this->get_plugin_name(), $this->get_version() );
+    private function cart() {
+        $plugin_cart = new CartPops_Cart($this->get_plugin_name(), $this->get_version());
         $this->loader->add_action(
             'wp_footer',
             $plugin_cart,
@@ -216,16 +207,15 @@ class CartPops
         $this->loader->add_action( 'cartpops_drawer_footer_content', $plugin_cart, 'render_cart_totals' );
         $this->loader->add_action( 'cartpops_drawer_footer_content', $plugin_cart, 'render_powered_by' );
     }
-    
+
     /**
      * Front-end assets manager
      *
      * @since 1.2.8
      * @author CartPops <help@cartpops.com>
      */
-    private function assets_frontend()
-    {
-        $assets_frontend = new CartPops_Assets( $this->get_plugin_name(), $this->get_version() );
+    private function assets_frontend() {
+        $assets_frontend = new CartPops_Assets($this->get_plugin_name(), $this->get_version());
         $this->loader->add_action(
             'wp_enqueue_scripts',
             $assets_frontend,
@@ -245,7 +235,7 @@ class CartPops
             25
         );
     }
-    
+
     /**
      * Register all of the hooks related to the public-facing functionality
      * of the plugin.
@@ -253,10 +243,9 @@ class CartPops
      * @since 1.2.8
      * @access private
      */
-    private function public()
-    {
-        $templates = new CartPops_Cart( $this->get_plugin_name(), $this->get_version() );
-        $plugin_public = new CartPops_Public( $this->get_plugin_name(), $this->get_version(), $templates );
+    private function public() {
+        $templates = new CartPops_Cart($this->get_plugin_name(), $this->get_version());
+        $plugin_public = new CartPops_Public($this->get_plugin_name(), $this->get_version(), $templates);
         $this->loader->add_filter( 'woocommerce_add_to_cart_fragments', $plugin_public, 'menu_cart_fragments' );
         // $this->loader->add_action( 'woocommerce_init', $plugin_public, 'maybe_set_session', 20 );
         $this->loader->add_shortcode(
@@ -287,17 +276,16 @@ class CartPops
             1
         );
     }
-    
+
     /**
      * Front-end ajax calls to
      *
      * @since 1.2.9
      * @author CartPops <help@cartpops.com>
      */
-    private function ajax_frontend()
-    {
-        $templates = new CartPops_Cart( $this->get_plugin_name(), $this->get_version() );
-        $frontend_ajax = new CartPops_Frontend_Ajax( $this->get_plugin_name(), $this->get_version(), $templates );
+    private function ajax_frontend() {
+        $templates = new CartPops_Cart($this->get_plugin_name(), $this->get_version());
+        $frontend_ajax = new CartPops_Frontend_Ajax($this->get_plugin_name(), $this->get_version(), $templates);
         $this->loader->add_filter(
             'woocommerce_add_to_cart_fragments',
             $frontend_ajax,
@@ -333,15 +321,14 @@ class CartPops
             2
         );
     }
-    
+
     /**
      * Check if we can activate CartPops on the front-end.
      *
      * @since 1.3.0
      * @author CartPops <help@cartpops.com>
      */
-    private function can_activate_frontend()
-    {
+    private function can_activate_frontend() {
         $enabled = Options::get( 'plugin_enable' );
         /**
          * Don't run the front-end when in Gutenberg edit mode to prevent errors.
@@ -362,31 +349,29 @@ class CartPops
         }
         return true;
     }
-    
+
     /**
      * Check if the current screen is the Gutenberg block editor.
      *
      * @since 1.4.3
      */
-    private function is_block_editor()
-    {
-        global  $current_screen ;
+    private function is_block_editor() {
+        global $current_screen;
         if ( $current_screen instanceof \WP_Screen && $current_screen->is_block_editor() ) {
             return true;
         }
         return false;
     }
-    
+
     /**
      * Run the loader to execute all of the hooks with WordPress.
      *
      * @since 1.0.0
      */
-    public function run()
-    {
+    public function run() {
         $this->loader->run();
     }
-    
+
     /**
      * The name of the plugin used to uniquely identify it within the context of
      * WordPress and to define internationalization functionality.
@@ -394,30 +379,27 @@ class CartPops
      * @since  1.0.0
      * @return string    The name of the plugin.
      */
-    public function get_plugin_name()
-    {
+    public function get_plugin_name() {
         return $this->plugin_name;
     }
-    
+
     /**
      * The reference to the class that orchestrates the hooks with the plugin.
      *
      * @since  1.0.0
      * @return CartPops_Loader    Orchestrates the hooks of the plugin.
      */
-    public function get_loader()
-    {
+    public function get_loader() {
         return $this->loader;
     }
-    
+
     /**
      * Retrieve the version number of the plugin.
      *
      * @since  1.0.0
      * @return string    The version number of the plugin.
      */
-    public function get_version()
-    {
+    public function get_version() {
         return $this->version;
     }
 

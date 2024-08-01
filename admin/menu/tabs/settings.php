@@ -3,36 +3,31 @@
 /**
  * Settings Tab
  */
-
 if ( !defined( 'ABSPATH' ) ) {
     exit;
     // Exit if accessed directly.
 }
-
 if ( class_exists( 'CartPops_Settings_Tab' ) ) {
     return new CartPops_Settings_Tab();
 }
 /**
  * CartPops_Settings_Tab.
  */
-class CartPops_Settings_Tab extends CartPops_Settings_Page
-{
+class CartPops_Settings_Tab extends CartPops_Settings_Page {
     /**
      * Constructor.
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->id = 'settings';
         $this->label = esc_html__( 'Settings', 'cartpops' );
         $this->icon = CartPops_Settings::get_admin_asset( 'menu-item-settings.svg' );
         parent::__construct();
     }
-    
+
     /**
      * Get sections.
      */
-    public function get_sections()
-    {
+    public function get_sections() {
         $sections = array(
             'general'             => esc_html__( 'General', 'cartpops' ),
             'drawer'              => esc_html__( 'Drawer', 'cartpops' ),
@@ -44,9 +39,8 @@ class CartPops_Settings_Tab extends CartPops_Settings_Page
         );
         return apply_filters( $this->plugin_slug . '_get_sections_' . $this->id, $sections );
     }
-    
-    public function general_section_array()
-    {
+
+    public function general_section_array() {
         $section_fields = array();
         $section_fields[] = array(
             'type'  => 'title',
@@ -61,19 +55,19 @@ class CartPops_Settings_Tab extends CartPops_Settings_Page
             'type'     => 'select',
             'type'     => 'radio',
             'options'  => array(
-            'drawer' => array(
-            'title' => 'Drawer',
-            'pro'   => false,
-        ),
-            'popup'  => array(
-            'title' => 'Popup (BETA)',
-            'pro'   => true,
-        ),
-            'bar'    => array(
-            'title' => 'Bar (BETA)',
-            'pro'   => true,
-        ),
-        ),
+                'drawer' => array(
+                    'title' => 'Drawer',
+                    'pro'   => false,
+                ),
+                'popup'  => array(
+                    'title' => 'Popup (BETA)',
+                    'pro'   => true,
+                ),
+                'bar'    => array(
+                    'title' => 'Bar (BETA)',
+                    'pro'   => true,
+                ),
+            ),
         );
         $section_fields[] = array(
             'id'       => $this->get_option_key( 'support_us_enable', false ),
@@ -96,9 +90,8 @@ class CartPops_Settings_Tab extends CartPops_Settings_Page
         // General Section End
         return $section_fields;
     }
-    
-    public function drawer_section_array()
-    {
+
+    public function drawer_section_array() {
         $section_fields = array();
         // Trobuleshoot Section Start.
         $section_fields[] = array(
@@ -112,9 +105,9 @@ class CartPops_Settings_Tab extends CartPops_Settings_Page
             'title'             => esc_html__( 'Drawer width mobile (In percentage)', 'cartpops' ),
             'type'              => 'number',
             'custom_attributes' => array(
-            'min' => '50',
-            'max' => '100',
-        ),
+                'min' => '50',
+                'max' => '100',
+            ),
             'placeholder'       => '80',
         );
         $section_fields[] = array(
@@ -122,9 +115,9 @@ class CartPops_Settings_Tab extends CartPops_Settings_Page
             'title'             => esc_html__( 'Drawer width desktop (In pixels)', 'cartpops' ),
             'type'              => 'number',
             'custom_attributes' => array(
-            'min' => '50',
-            'max' => '1400',
-        ),
+                'min' => '50',
+                'max' => '1400',
+            ),
             'placeholder'       => '500',
         );
         $section_fields[] = array(
@@ -132,20 +125,20 @@ class CartPops_Settings_Tab extends CartPops_Settings_Page
             'title'   => esc_html__( 'Animation type', 'cartpops' ),
             'type'    => 'select',
             'options' => array(
-            'none'   => __( 'None', 'cartpops' ),
-            'fade'   => __( 'Fade', 'cartpops' ),
-            'simple' => __( 'Slide in right', 'cartpops' ),
-            'slick'  => __( 'Slick', 'cartpops' ),
-        ),
+                'none'   => __( 'None', 'cartpops' ),
+                'fade'   => __( 'Fade', 'cartpops' ),
+                'simple' => __( 'Slide in right', 'cartpops' ),
+                'slick'  => __( 'Slick', 'cartpops' ),
+            ),
         );
         $section_fields[] = array(
             'id'                => $this->get_option_key( 'customize_animation_duration', false ),
             'title'             => esc_html__( 'Animation speed', 'cartpops' ),
             'type'              => 'number',
             'custom_attributes' => array(
-            'min' => '50',
-            'max' => '800',
-        ),
+                'min' => '50',
+                'max' => '800',
+            ),
             'placeholder'       => '300',
         );
         $section_fields[] = array(
@@ -153,9 +146,9 @@ class CartPops_Settings_Tab extends CartPops_Settings_Page
             'title'   => esc_html__( 'Truncate long text', 'cartpops' ),
             'type'    => 'select',
             'options' => array(
-            'nowrap' => __( 'Yes', 'cartpops' ),
-            'break'  => __( 'No', 'cartpops' ),
-        ),
+                'nowrap' => __( 'Yes', 'cartpops' ),
+                'break'  => __( 'No', 'cartpops' ),
+            ),
         );
         $section_fields[] = array(
             'type' => 'sectionend',
@@ -223,11 +216,11 @@ class CartPops_Settings_Tab extends CartPops_Settings_Page
             'title'   => esc_html__( 'Secondary button', 'cartpops' ),
             'type'    => 'select',
             'options' => array(
-            'none'              => __( 'None', 'cartpops' ),
-            'continue_shopping' => __( 'Continue shopping (Pro)', 'cartpops' ),
-            'view_cart'         => __( 'View cart (Pro)', 'cartpops' ),
-            'custom_url'        => __( 'Custom URL (Pro)', 'cartpops' ),
-        ),
+                'none'              => __( 'None', 'cartpops' ),
+                'continue_shopping' => __( 'Continue shopping (Pro)', 'cartpops' ),
+                'view_cart'         => __( 'View cart (Pro)', 'cartpops' ),
+                'custom_url'        => __( 'Custom URL (Pro)', 'cartpops' ),
+            ),
         );
         $section_fields[] = array(
             'type' => 'sectionend',
@@ -236,9 +229,8 @@ class CartPops_Settings_Tab extends CartPops_Settings_Page
         // End: Drawer footer settings.
         return $section_fields;
     }
-    
-    public function cart_launcher_section_array()
-    {
+
+    public function cart_launcher_section_array() {
         $section_fields[] = array(
             'type'  => 'title',
             'title' => esc_html__( 'Floating Cart Launcher settings', 'cartpops' ),
@@ -255,9 +247,9 @@ class CartPops_Settings_Tab extends CartPops_Settings_Page
             'title'   => esc_html__( 'Select a position', 'cartpops' ),
             'type'    => 'select',
             'options' => array(
-            'bottom_right' => __( 'Bottom right', 'cartpops' ),
-            'bottom_left'  => __( 'Bottom left', 'cartpops' ),
-        ),
+                'bottom_right' => __( 'Bottom right', 'cartpops' ),
+                'bottom_left'  => __( 'Bottom left', 'cartpops' ),
+            ),
         );
         $section_fields[] = array(
             'id'        => $this->get_option_key( 'floating_cart_launcher_hide_pages', false ),
@@ -267,9 +259,9 @@ class CartPops_Settings_Tab extends CartPops_Settings_Page
             'list_type' => 'post',
             'type'      => 'ajaxmultiselect',
             'options'   => array(
-            'bottom_right' => __( 'Bottom right', 'cartpops' ),
-            'bottom_left'  => __( 'Bottom left', 'cartpops' ),
-        ),
+                'bottom_right' => __( 'Bottom right', 'cartpops' ),
+                'bottom_left'  => __( 'Bottom left', 'cartpops' ),
+            ),
         );
         $section_fields[] = array(
             'id'    => $this->get_option_key( 'floating_cart_launcher_hide_empty', false ),
@@ -300,20 +292,20 @@ class CartPops_Settings_Tab extends CartPops_Settings_Page
             'desc'    => __( 'Choose an icon to display', 'cartpops' ),
             'type'    => 'select',
             'options' => array(
-            'cpops-icon-shopping-cart-outline' => __( 'Cart', 'cartpops' ) . ' 1',
-            'cpops-icon-shopping-cart-line'    => __( 'Cart', 'cartpops' ) . ' 2',
-            'cpops-icon-shopping-cart-fill'    => __( 'Cart', 'cartpops' ) . ' 3',
-            'cpops-icon-shopping-cart-2-line'  => __( 'Cart', 'cartpops' ) . ' 4',
-            'cpops-icon-shopping-cart-2-fill'  => __( 'Cart', 'cartpops' ) . ' 5',
-            'cpops-icon-shopping-bag-outline'  => __( 'Cart', 'cartpops' ) . ' 6',
-            'cpops-icon-shopping-bag-line'     => __( 'Bag', 'cartpops' ) . ' 2',
-            'cpops-icon-shopping-bag-fill'     => __( 'Bag', 'cartpops' ) . ' 3',
-            'cpops-icon-shopping-bag-2-line'   => __( 'Bag', 'cartpops' ) . ' 4',
-            'cpops-icon-shopping-bag-2-fill'   => __( 'Bag', 'cartpops' ) . ' 5',
-            'cpops-icon-shopping-bag-3-fill'   => __( 'Bag', 'cartpops' ) . ' 6',
-            'cpops-icon-handbag-line'          => __( 'Bag', 'cartpops' ) . ' 7',
-            'cpops-icon-cpops-handbag-fill'    => __( 'Bag', 'cartpops' ) . ' 8',
-        ),
+                'cpops-icon-shopping-cart-outline' => __( 'Cart', 'cartpops' ) . ' 1',
+                'cpops-icon-shopping-cart-line'    => __( 'Cart', 'cartpops' ) . ' 2',
+                'cpops-icon-shopping-cart-fill'    => __( 'Cart', 'cartpops' ) . ' 3',
+                'cpops-icon-shopping-cart-2-line'  => __( 'Cart', 'cartpops' ) . ' 4',
+                'cpops-icon-shopping-cart-2-fill'  => __( 'Cart', 'cartpops' ) . ' 5',
+                'cpops-icon-shopping-bag-outline'  => __( 'Cart', 'cartpops' ) . ' 6',
+                'cpops-icon-shopping-bag-line'     => __( 'Bag', 'cartpops' ) . ' 2',
+                'cpops-icon-shopping-bag-fill'     => __( 'Bag', 'cartpops' ) . ' 3',
+                'cpops-icon-shopping-bag-2-line'   => __( 'Bag', 'cartpops' ) . ' 4',
+                'cpops-icon-shopping-bag-2-fill'   => __( 'Bag', 'cartpops' ) . ' 5',
+                'cpops-icon-shopping-bag-3-fill'   => __( 'Bag', 'cartpops' ) . ' 6',
+                'cpops-icon-handbag-line'          => __( 'Bag', 'cartpops' ) . ' 7',
+                'cpops-icon-cpops-handbag-fill'    => __( 'Bag', 'cartpops' ) . ' 8',
+            ),
         );
         $section_fields[] = array(
             'id'      => $this->get_option_key( 'menu_cart_launcher_indicator', false ),
@@ -321,10 +313,10 @@ class CartPops_Settings_Tab extends CartPops_Settings_Page
             'desc'    => __( 'Choose if you wnat to show an indicator with the item total.', 'cartpops' ),
             'type'    => 'select',
             'options' => array(
-            'none'   => __( 'None', 'cartpops' ),
-            'bubble' => __( 'Bubble', 'cartpops' ),
-            'plain'  => __( 'Plain', 'cartpops' ),
-        ),
+                'none'   => __( 'None', 'cartpops' ),
+                'bubble' => __( 'Bubble', 'cartpops' ),
+                'plain'  => __( 'Plain', 'cartpops' ),
+            ),
         );
         $section_fields[] = array(
             'id'    => $this->get_option_key( 'menu_cart_launcher_indicator_empty', false ),
@@ -344,9 +336,8 @@ class CartPops_Settings_Tab extends CartPops_Settings_Page
         );
         return $section_fields;
     }
-    
-    public function recommendations_section_array()
-    {
+
+    public function recommendations_section_array() {
         $section_fields = array();
         // Trobuleshoot Section Start.
         $section_fields[] = array(
@@ -374,10 +365,10 @@ class CartPops_Settings_Tab extends CartPops_Settings_Page
             'desc'    => __( 'Select a group of products that you want to recommend (only simple products are supported). If a product is already in the cart it will be excluded from the recommendations.', 'cartpops' ),
             'type'    => 'select',
             'options' => array(
-            'upsells'     => __( 'Upsells', 'cartpops' ),
-            'cross_sells' => __( 'Cross-sells', 'cartpops' ),
-            'custom'      => __( 'Custom products (Pro)', 'cartpops' ),
-        ),
+                'upsells'     => __( 'Upsells', 'cartpops' ),
+                'cross_sells' => __( 'Cross-sells', 'cartpops' ),
+                'custom'      => __( 'Custom products (Pro)', 'cartpops' ),
+            ),
         );
         $section_fields[] = array(
             'id'      => $this->get_option_key( 'product_recommendation_engine_fallback', false ),
@@ -385,9 +376,9 @@ class CartPops_Settings_Tab extends CartPops_Settings_Page
             'desc'    => __( 'Select what you want to do in case there are no products to recommend.', 'cartpops' ),
             'type'    => 'select',
             'options' => array(
-            'hide'            => __( 'Hide the Product Recommendation Engine', 'cartpops' ),
-            'random_products' => __( 'Show random products', 'cartpops' ),
-        ),
+                'hide'            => __( 'Hide the Product Recommendation Engine', 'cartpops' ),
+                'random_products' => __( 'Show random products', 'cartpops' ),
+            ),
         );
         $section_fields[] = array(
             'id'      => $this->get_option_key( 'product_recommendation_engine_button_type', false ),
@@ -395,10 +386,10 @@ class CartPops_Settings_Tab extends CartPops_Settings_Page
             'desc'    => __( 'Select what type of button you want to use.', 'cartpops' ),
             'type'    => 'select',
             'options' => array(
-            'icon'      => __( 'Icon', 'cartpops' ),
-            'text'      => __( 'Text (Pro)', 'cartpops' ),
-            'text_icon' => __( 'Text + Icon (Pro)', 'cartpops' ),
-        ),
+                'icon'      => __( 'Icon', 'cartpops' ),
+                'text'      => __( 'Text (Pro)', 'cartpops' ),
+                'text_icon' => __( 'Text + Icon (Pro)', 'cartpops' ),
+            ),
         );
         $section_fields[] = array(
             'id'          => $this->get_option_key( 'product_recommendation_engine_button_text', false ),
@@ -412,9 +403,8 @@ class CartPops_Settings_Tab extends CartPops_Settings_Page
         );
         return $section_fields;
     }
-    
-    public function free_shipping_meter_section_array()
-    {
+
+    public function free_shipping_meter_section_array() {
         $section_fields = array();
         // Trobuleshoot Section Start.
         $section_fields[] = array(
@@ -436,9 +426,8 @@ class CartPops_Settings_Tab extends CartPops_Settings_Page
         );
         return $section_fields;
     }
-    
-    public function custom_code_section_array()
-    {
+
+    public function custom_code_section_array() {
         $section_fields = array();
         // message Section Start
         $section_fields[] = array(
@@ -468,9 +457,8 @@ class CartPops_Settings_Tab extends CartPops_Settings_Page
         // Upsell Product Cart Page Section End.
         return $section_fields;
     }
-    
-    public function misc_section_array()
-    {
+
+    public function misc_section_array() {
         $section_fields = array();
         $section_fields[] = array(
             'type'  => 'title',
@@ -491,11 +479,11 @@ class CartPops_Settings_Tab extends CartPops_Settings_Page
         );
         return $section_fields;
     }
-    
-    public function output_sidebar()
-    {
+
+    public function output_sidebar() {
         CartPops_Settings::get_upgrade_card();
     }
 
 }
+
 return new CartPops_Settings_Tab();
