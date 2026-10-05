@@ -844,12 +844,15 @@ final class Plugin {
 		) {
 			return;
 		}
-		$message = sprintf(
-			/* translators: %s: value-free CartPops diagnostic code. */
-			__( 'CartPops is paused because its required upgrade or build validation did not complete. Original data was preserved. Diagnostic: %s.', 'cartpops' ),
-			$this->boot_diagnostic
-		);
-		echo '<div class="notice notice-error"><p>' . esc_html( $message ) . '</p></div>';
+		$message = 'upgrade_busy' === $this->boot_diagnostic
+			? __( 'CartPops is finishing its update. Reload this page in a moment.', 'cartpops' )
+			: sprintf(
+				/* translators: %s: value-free CartPops diagnostic code. */
+				__( 'CartPops is paused, so the cart drawer is not showing on your store. Your settings are safe. Code: %s.', 'cartpops' ),
+				$this->boot_diagnostic
+			);
+		echo '<div class="notice notice-error"><p>' . esc_html( $message )
+			. Upgrader::docs_link_html( Upgrader::DOCS_STOPPED_AFTER_UPGRADING ) . '</p></div>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- The helper escapes every part.
 	}
 
 	/**

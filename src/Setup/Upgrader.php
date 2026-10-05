@@ -45,6 +45,20 @@ final class Upgrader {
 	/** Site-local, authenticated review of preserved V1 JavaScript. */
 	private const CUSTOM_JS_REVIEW_ACTION = 'cartpops_review_legacy_javascript';
 
+	private const HIDE_WARNINGS_ACTION = 'cartpops_hide_migration_warnings';
+
+	/** Per-user key of the migration result whose warnings notice was hidden. */
+	private const HIDDEN_WARNINGS_META = 'cartpops_hidden_migration_warnings';
+
+	/** Public documentation the upgrade notices link to. */
+	public const DOCS_URL = 'https://docs.cartpops.com';
+
+	/** Documentation for a store that is paused or stopped after upgrading. */
+	public const DOCS_STOPPED_AFTER_UPGRADING = '/troubleshooting/stopped-after-upgrading';
+
+	/** Bytes of preserved custom JavaScript shown in the review notice. */
+	private const MAX_CUSTOM_JS_DISPLAY_BYTES = 20000;
+
 	/** Bound exact version parsing on the request hot path. */
 	private const MAX_DATABASE_VERSION_BYTES = 255;
 
@@ -205,6 +219,7 @@ final class Upgrader {
 		if ( ! $this->notices_registered ) {
 			add_action( 'admin_notices', array( $this, 'render_migration_notice' ) );
 			add_action( 'admin_post_' . self::CUSTOM_JS_REVIEW_ACTION, array( $this, 'review_legacy_javascript' ) );
+			add_action( 'admin_post_' . self::HIDE_WARNINGS_ACTION, array( $this, 'hide_migration_warnings' ) );
 			if ( is_multisite() && is_network_admin() ) {
 				add_action( 'network_admin_notices', array( $this, 'render_migration_notice' ) );
 			}
@@ -1732,7 +1747,8 @@ final class Upgrader {
 		$status = $this->get_migration_status();
 		if ( 'failed' === $status['state'] ) {
 			echo '<div class="notice notice-error"><p>'
-				. esc_html__( 'CartPops could not complete its legacy settings migration. The original settings were preserved; review the migration status before retrying.', 'cartpops' )
+				. esc_html__( 'CartPops could not finish updating your settings from version 1, so it is paused. Your settings are safe. Reload this page to try again, and contact CartPops support if this message stays.', 'cartpops' )
+				. self::docs_link_html( '/upgrading-to-v2#notices-you-may-see' ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- The helper escapes every part.
 				. '</p></div>';
 			$this->render_custom_js_review();
 			return;
@@ -1741,13 +1757,15 @@ final class Upgrader {
 		$rules_retired = in_array( LegacySettingsMigrator::RULES_RETIREMENT_WARNING, $status['warnings'], true );
 		if ( $rules_retired ) {
 			echo '<div class="notice notice-warning"><p>'
-				. esc_html__( 'CartPops preserved legacy automation rule data for recovery, but those rules are retired and do not run in V2.', 'cartpops' )
+				. esc_html__( 'Your automation rules from CartPops 1 are kept, but CartPops 2 no longer runs them.', 'cartpops' )
+				. self::docs_link_html( '/upgrading-to-v2#automation-and-upsell-rules-are-retired-pro' ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- The helper escapes every part.
 				. '</p></div>';
 		}
 
 		if ( 'maintenance_required' === $status['state'] ) {
 			echo '<div class="notice notice-error"><p>'
-				. esc_html__( 'CartPops migration requires compatibility review before it can finish. Original settings remain available for recovery; resolve the reported migration warnings, then retry the migration.', 'cartpops' )
+				. esc_html( $this->paused_for_review_message( $status['warnings'] ) )
+				. self::docs_link_html( '/upgrading-to-v2#notices-you-may-see' ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- The helper escapes every part.
 				. '</p></div>';
 			$this->render_custom_js_review();
 			return;
@@ -1757,9 +1775,17 @@ final class Upgrader {
 			if ( $rules_retired && 1 === count( $status['warnings'] ) ) {
 				return;
 			}
+			$key = self::migration_warnings_key( $status );
+			if ( get_user_meta( get_current_user_id(), self::HIDDEN_WARNINGS_META, true ) === $key ) {
+				return;
+			}
 			echo '<div class="notice notice-warning"><p>'
-				. esc_html__( 'CartPops migrated legacy settings with compatibility warnings. Original settings remain available for recovery.', 'cartpops' )
-				. '</p></div>';
+				. esc_html__( 'CartPops updated your settings from version 1, but some could not be carried over exactly. Your original settings are kept.', 'cartpops' )
+				. self::docs_link_html( '/upgrading-to-v2#settings-that-did-not-carry-over' ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- The helper escapes every part.
+				. '</p>'
+				. $this->migration_warning_details_html( MigrationWarningSummary::summarize( $status['warnings'], $status['unmapped_keys'] ) ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- The helper escapes every part.
+				. '<p><a href="' . esc_url( self::hide_migration_warnings_url( $key ) ) . '">' . esc_html__( 'Hide this notice', 'cartpops' ) . '</a></p>'
+				. '</div>';
 		}
 	}
 
@@ -1801,6 +1827,147 @@ final class Upgrader {
 		$this->finish_custom_js_review( __( 'JavaScript retirement review accepted. Return to this site dashboard to retry migration and review any remaining conditions. The original script is preserved and will not execute in V2.', 'cartpops' ), 200 );
 	}
 
+	/**
+	 * Identify one migration result, so a new result shows its notice again.
+	 *
+	 * @param array{warnings: string[], unmapped_keys: string[], snapshot_checksum: string} $status Value-free status.
+	 */
+	private static function migration_warnings_key( array $status ): string {
+		$warnings = $status['warnings'];
+		$unmapped = $status['unmapped_keys'];
+		sort( $warnings, SORT_STRING );
+		sort( $unmapped, SORT_STRING );
+		return substr( hash( 'sha256', (string) wp_json_encode( array( $status['snapshot_checksum'], $warnings, $unmapped ) ) ), 0, 32 );
+	}
+
+	/**
+	 * A nonce-protected link that hides the warnings notice for the current user.
+	 *
+	 * @param string $key Migration result key.
+	 */
+	private static function hide_migration_warnings_url( string $key ): string {
+		return get_admin_url( get_current_blog_id(), 'admin-post.php' ) . '?' . http_build_query(
+			array(
+				'action'   => self::HIDE_WARNINGS_ACTION,
+				'key'      => $key,
+				'_wpnonce' => wp_create_nonce( self::HIDE_WARNINGS_ACTION . ':' . $key ),
+			),
+			'',
+			'&'
+		);
+	}
+
+	/** Remember, for this user only, that they hid the current warnings notice. */
+	public function hide_migration_warnings(): void {
+		// phpcs:disable WordPress.Security.ValidatedSanitizedInput -- Exact format and nonce checks below reject rather than normalize input.
+		$key   = isset( $_GET['key'] ) && is_string( $_GET['key'] ) ? wp_unslash( $_GET['key'] ) : '';
+		$nonce = isset( $_GET['_wpnonce'] ) && is_string( $_GET['_wpnonce'] ) ? wp_unslash( $_GET['_wpnonce'] ) : '';
+		// phpcs:enable WordPress.Security.ValidatedSanitizedInput
+		if (
+			( ! current_user_can( 'manage_options' ) && ! current_user_can( 'manage_woocommerce' ) )
+			|| 1 !== preg_match( '/\A[a-f0-9]{32}\z/D', $key )
+			|| ! wp_verify_nonce( $nonce, self::HIDE_WARNINGS_ACTION . ':' . $key )
+		) {
+			wp_die( esc_html__( 'This link has expired. Return to the dashboard and try again.', 'cartpops' ), esc_html__( 'CartPops', 'cartpops' ), array( 'response' => 403 ) );
+		}
+		update_user_meta( get_current_user_id(), self::HIDDEN_WARNINGS_META, $key );
+		if ( wp_safe_redirect( get_admin_url( get_current_blog_id(), 'index.php' ), 303 ) ) {
+			exit;
+		}
+	}
+
+	/**
+	 * Say what a paused store waits for, and who can act on it.
+	 *
+	 * @param string[] $warnings Value-free migration status warnings.
+	 */
+	private function paused_for_review_message( array $warnings ): string {
+		if ( in_array( 'legacy_custom_js_requires_review', $warnings, true ) ) {
+			return current_user_can( 'manage_options' )
+				? __( 'CartPops is paused until you review your old custom JavaScript below. Your settings are safe.', 'cartpops' )
+				: __( 'CartPops is paused until a site administrator reviews the old custom JavaScript. Your settings are safe.', 'cartpops' );
+		}
+		return __( 'CartPops is paused until its update can finish. Your settings are safe. If you use CartPops Pro, check that your license is active for this site; otherwise, contact CartPops support.', 'cartpops' );
+	}
+
+	/**
+	 * A "Learn more" link to one documentation page or section.
+	 *
+	 * @param string $path Documentation path, optionally with an #anchor.
+	 */
+	public static function docs_link_html( string $path ): string {
+		return ' <a href="' . esc_url( self::DOCS_URL . $path ) . '" target="_blank" rel="noopener noreferrer">'
+			. esc_html__( 'Learn more', 'cartpops' ) . '</a>';
+	}
+
+	/**
+	 * Name the settings behind the warnings, without any stored values.
+	 *
+	 * @param array{reset: string[], retired: string[], changed: string[], custom_js: bool, pro: bool, other: int} $summary Grouped warnings.
+	 */
+	private function migration_warning_details_html( array $summary ): string {
+		$sections = array(
+			'reset'   => __( 'These settings had a value CartPops 2 could not read, so they now use their default. Check them in the CartPops settings:', 'cartpops' ),
+			'retired' => __( 'These settings no longer exist in CartPops 2:', 'cartpops' ),
+			'changed' => __( 'These settings now work a little differently:', 'cartpops' ),
+		);
+		$html     = '';
+		foreach ( $sections as $group => $intro ) {
+			if ( array() === $summary[ $group ] ) {
+				continue;
+			}
+			$html .= '<p>' . esc_html( $intro ) . '</p><ul style="list-style:disc;margin-left:2em">';
+			foreach ( $summary[ $group ] as $label ) {
+				$html .= '<li>' . esc_html( $label ) . '</li>';
+			}
+			$html .= '</ul>';
+		}
+		if ( $summary['custom_js'] ) {
+			$html .= '<p>' . esc_html__( 'Your custom JavaScript from version 1 is kept but not run.', 'cartpops' ) . '</p>';
+		}
+		if ( $summary['pro'] ) {
+			$html .= '<p>' . esc_html__( 'Some Pro settings from version 1 are kept in your database but not used.', 'cartpops' ) . '</p>';
+		}
+		if ( 0 < $summary['other'] ) {
+			$html .= '<p>' . esc_html(
+				sprintf(
+					/* translators: %d: number of other settings. */
+					_n( '%d other setting could not be carried over.', '%d other settings could not be carried over.', $summary['other'], 'cartpops' ),
+					$summary['other']
+				)
+			) . '</p>';
+		}
+		if ( '' === $html ) {
+			return '';
+		}
+		return '<details style="margin:0 0 .75em"><summary style="cursor:pointer">'
+			. esc_html__( 'See which settings', 'cartpops' ) . '</summary>' . $html . '</details>';
+	}
+
+	/**
+	 * Show the preserved script read-only so it can be copied before acknowledging.
+	 *
+	 * @param string $code Preserved custom JavaScript, never executed.
+	 */
+	private function custom_js_code_html( string $code ): string {
+		// WordPress escaping blanks invalid UTF-8, so drop only the invalid bytes.
+		$code      = wp_check_invalid_utf8( $code, true );
+		$truncated = strlen( $code ) > self::MAX_CUSTOM_JS_DISPLAY_BYTES;
+		if ( $truncated ) {
+			$code = function_exists( 'mb_strcut' )
+				? mb_strcut( $code, 0, self::MAX_CUSTOM_JS_DISPLAY_BYTES, 'UTF-8' )
+				: substr( $code, 0, self::MAX_CUSTOM_JS_DISPLAY_BYTES );
+		}
+		$html = '<details style="margin:0 0 .75em"><summary style="cursor:pointer">'
+			. esc_html__( 'Show your saved custom JavaScript', 'cartpops' ) . '</summary>'
+			. '<p>' . esc_html__( 'Copy it somewhere safe if you want to move it into your theme or a snippets plugin.', 'cartpops' ) . '</p>'
+			. '<textarea readonly rows="8" class="large-text code" spellcheck="false">' . "\n" . esc_textarea( $code ) . '</textarea>';
+		if ( $truncated ) {
+			$html .= '<p>' . esc_html__( 'Only the beginning is shown. The full copy remains saved in your database.', 'cartpops' ) . '</p>';
+		}
+		return $html . '</details>';
+	}
+
 	/** Render no source values, only an opaque binding to the reviewed state. */
 	private function render_custom_js_review(): void {
 		if ( is_network_admin() ) {
@@ -1814,9 +1981,12 @@ final class Upgrader {
 		if ( null === $state || $state['acknowledged'] || get_current_blog_id() !== $state['blog_id'] || get_current_network_id() !== $state['network_id'] ) {
 			return;
 		}
-		echo '<div class="notice notice-warning"><h2>' . esc_html__( 'Review legacy JavaScript', 'cartpops' ) . '</h2><p>'
-			. esc_html__( 'V1 custom JavaScript is preserved for recovery but is not supported or executed in V2. Review your customization and backups before continuing. This acknowledgment does not clear other migration warnings or change paid access.', 'cartpops' )
-			. '</p><form method="post" action="' . esc_url( get_admin_url( $state['blog_id'], 'admin-post.php' ) ) . '">';
+		echo '<div class="notice notice-warning"><h2>' . esc_html__( 'Review your old custom JavaScript', 'cartpops' ) . '</h2><p>'
+			. esc_html__( 'CartPops 2 does not run the custom JavaScript from version 1. It stays saved in your database. Copy it if you still need it, then confirm below to finish the update.', 'cartpops' )
+			. self::docs_link_html( '/upgrading-to-v2#custom-javascript-does-not-run' ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- The helper escapes every part.
+			. '</p>'
+			. $this->custom_js_code_html( $state['code'] ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- The helper escapes every part.
+			. '<form method="post" action="' . esc_url( get_admin_url( $state['blog_id'], 'admin-post.php' ) ) . '">';
 		$fields = array(
 			'action'                      => self::CUSTOM_JS_REVIEW_ACTION,
 			'_wpnonce'                    => wp_create_nonce( $this->custom_js_review_nonce_action( $state ) ),
@@ -1828,9 +1998,9 @@ final class Upgrader {
 			echo '<input type="hidden" name="' . esc_attr( $name ) . '" value="' . esc_attr( $value ) . '">';
 		}
 		echo '<p><label><input type="checkbox" name="cartpops_review_confirm" value="1" required> '
-			. esc_html__( 'I have reviewed this customization and understand that the preserved V1 JavaScript will not execute in V2.', 'cartpops' )
+			. esc_html__( 'I understand this custom JavaScript will not run in CartPops 2.', 'cartpops' )
 			. '</label></p><p><button type="submit" class="button button-primary">'
-			. esc_html__( 'Acknowledge and retry migration', 'cartpops' ) . '</button></p></form></div>';
+			. esc_html__( 'Confirm and finish the update', 'cartpops' ) . '</button></p></form></div>';
 	}
 
 	/**
