@@ -4,7 +4,7 @@ Tags: side cart, cart drawer, floating cart, woocommerce side cart, add to cart 
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 2.0.3
+Stable tag: 2.0.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -108,6 +108,9 @@ Your settings, styling and license carry over. Version 2 is built around the car
 4. Pro Smart Bar rules and Smart Add-ons such as shipping protection and gift wrapping.
 
 == Changelog ==
+
+= 2.0.4 =
+* Improved: The update notices and the "See which settings" list added in 2.0.3 are now translated into all 44 languages.
 
 = 2.0.3 =
 * Improved: After updating from CartPops 1.5, the upgrade notice names any settings that could not be carried over and links to help, and administrators can see and copy their old custom JavaScript before continuing.
