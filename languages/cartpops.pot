@@ -2,14 +2,14 @@
 # This file is distributed under the GPL v3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: CartPops 2.0.4\n"
+"Project-Id-Version: CartPops 2.0.5\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/cartpops/\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-05T07:49:21+00:00\n"
+"POT-Creation-Date: 2026-10-05T10:43:14+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: cartpops\n"
@@ -20,7 +20,7 @@ msgstr ""
 #: src/Admin/AdminPage.php:45
 #: src/Admin/AdminPage.php:46
 #: src/Blocks/CartDrawer/render.php:881
-#: src/Setup/Upgrader.php:1871
+#: src/Setup/Upgrader.php:1901
 #: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:518
 msgid "CartPops"
 msgstr ""
@@ -370,14 +370,22 @@ msgstr ""
 msgid "This CartPops feature is temporarily unavailable while its data is prepared."
 msgstr ""
 
-#: src/Plugin.php:848
+#: src/Plugin.php:859
 msgid "CartPops is finishing its update. Reload this page in a moment."
 msgstr ""
 
 #. translators: %s: value-free CartPops diagnostic code.
-#: src/Plugin.php:851
+#: src/Plugin.php:866
 #, php-format
 msgid "CartPops is paused, so the cart drawer is not showing on your store. Your settings are safe. Code: %s."
+msgstr ""
+
+#: src/Plugin.php:874
+msgid "Troubleshooting details are under"
+msgstr ""
+
+#: src/Plugin.php:875
+msgid "Tools → Site Health → Info → CartPops"
 msgstr ""
 
 #. translators: %s: add-on name.
@@ -628,10 +636,14 @@ msgid "Hide Empty"
 msgstr ""
 
 #: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:821
+#: src/Setup/SiteHealthSection.php:53
+#: src/Setup/SiteHealthSection.php:64
 msgid "Yes"
 msgstr ""
 
 #: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:822
+#: src/Setup/SiteHealthSection.php:53
+#: src/Setup/SiteHealthSection.php:64
 msgid "No"
 msgstr ""
 
@@ -1458,133 +1470,205 @@ msgstr ""
 msgid "Slider active bullet color"
 msgstr ""
 
+#: src/Setup/SiteHealthSection.php:37
+msgid "Version"
+msgstr ""
+
+#: src/Setup/SiteHealthSection.php:38
+msgid "Edition"
+msgstr ""
+
+#: src/Setup/SiteHealthSection.php:40
+msgid "Status"
+msgstr ""
+
+#: src/Setup/SiteHealthSection.php:41
+msgid "Running"
+msgstr ""
+
+#: src/Setup/SiteHealthSection.php:41
+msgid "Paused"
+msgstr ""
+
+#: src/Setup/SiteHealthSection.php:43
+msgid "Notice code"
+msgstr ""
+
+#: src/Setup/SiteHealthSection.php:44
+msgid "Failed update step"
+msgstr ""
+
+#: src/Setup/SiteHealthSection.php:45
+msgid "Recorded plugin version"
+msgstr ""
+
+#: src/Setup/SiteHealthSection.php:46
+msgid "Settings format"
+msgstr ""
+
+#: src/Setup/SiteHealthSection.php:48
+msgid "Update from version 1"
+msgstr ""
+
+#: src/Setup/SiteHealthSection.php:52
+msgid "Update from version 1 completed"
+msgstr ""
+
+#: src/Setup/SiteHealthSection.php:56
+msgid "Version 1 settings found / carried over / kept aside"
+msgstr ""
+
+#: src/Setup/SiteHealthSection.php:59
+msgid "Update warnings"
+msgstr ""
+
+#: src/Setup/SiteHealthSection.php:60
+msgid "Settings not carried over"
+msgstr ""
+
+#: src/Setup/SiteHealthSection.php:61
+msgid "Update paused for"
+msgstr ""
+
+#: src/Setup/SiteHealthSection.php:63
+msgid "Persistent object cache"
+msgstr ""
+
+#: src/Setup/SiteHealthSection.php:69
+msgid "Network update"
+msgstr ""
+
+#: src/Setup/SiteHealthSection.php:76
+msgid "Status of CartPops and its update from version 1. Contains codes and counts only, no settings or customer data."
+msgstr ""
+
 #. translators: %1$d: WordPress multisite blog ID.
-#: src/Setup/Upgrader.php:1738
+#: src/Setup/Upgrader.php:1768
 #, php-format
 msgid "CartPops network migration paused at site %1$d and will retry it without skipping later sites. Original settings were preserved."
 msgstr ""
 
-#: src/Setup/Upgrader.php:1750
+#: src/Setup/Upgrader.php:1780
 msgid "CartPops could not finish updating your settings from version 1, so it is paused. Your settings are safe. Reload this page to try again, and contact CartPops support if this message stays."
 msgstr ""
 
-#: src/Setup/Upgrader.php:1760
+#: src/Setup/Upgrader.php:1790
 msgid "Your automation rules from CartPops 1 are kept, but CartPops 2 no longer runs them."
 msgstr ""
 
-#: src/Setup/Upgrader.php:1783
+#: src/Setup/Upgrader.php:1813
 msgid "CartPops updated your settings from version 1, but some could not be carried over exactly. Your original settings are kept."
 msgstr ""
 
-#: src/Setup/Upgrader.php:1787
+#: src/Setup/Upgrader.php:1817
 msgid "Hide this notice"
 msgstr ""
 
-#: src/Setup/Upgrader.php:1797
+#: src/Setup/Upgrader.php:1827
 msgid "This review requires a site administrator and a submitted review form."
 msgstr ""
 
-#: src/Setup/Upgrader.php:1814
+#: src/Setup/Upgrader.php:1844
 msgid "The review was not accepted. Return to this site dashboard and review the current notice again."
 msgstr ""
 
-#: src/Setup/Upgrader.php:1819
+#: src/Setup/Upgrader.php:1849
 msgid "The saved migration state could not be acknowledged. No review was accepted; return to this site dashboard and try again."
 msgstr ""
 
-#: src/Setup/Upgrader.php:1827
+#: src/Setup/Upgrader.php:1857
 msgid "JavaScript retirement review accepted. Return to this site dashboard to retry migration and review any remaining conditions. The original script is preserved and will not execute in V2."
 msgstr ""
 
-#: src/Setup/Upgrader.php:1871
+#: src/Setup/Upgrader.php:1901
 msgid "This link has expired. Return to the dashboard and try again."
 msgstr ""
 
-#: src/Setup/Upgrader.php:1887
+#: src/Setup/Upgrader.php:1917
 msgid "CartPops is paused until you review your old custom JavaScript below. Your settings are safe."
 msgstr ""
 
-#: src/Setup/Upgrader.php:1888
+#: src/Setup/Upgrader.php:1918
 msgid "CartPops is paused until a site administrator reviews the old custom JavaScript. Your settings are safe."
 msgstr ""
 
-#: src/Setup/Upgrader.php:1890
+#: src/Setup/Upgrader.php:1920
 msgid "CartPops is paused until its update can finish. Your settings are safe. If you use CartPops Pro, check that your license is active for this site; otherwise, contact CartPops support."
 msgstr ""
 
-#: src/Setup/Upgrader.php:1900
+#: src/Setup/Upgrader.php:1930
 msgid "Learn more"
 msgstr ""
 
-#: src/Setup/Upgrader.php:1910
+#: src/Setup/Upgrader.php:1940
 msgid "These settings had a value CartPops 2 could not read, so they now use their default. Check them in the CartPops settings:"
 msgstr ""
 
-#: src/Setup/Upgrader.php:1911
+#: src/Setup/Upgrader.php:1941
 msgid "These settings no longer exist in CartPops 2:"
 msgstr ""
 
-#: src/Setup/Upgrader.php:1912
+#: src/Setup/Upgrader.php:1942
 msgid "These settings now work a little differently:"
 msgstr ""
 
-#: src/Setup/Upgrader.php:1926
+#: src/Setup/Upgrader.php:1956
 msgid "Your custom JavaScript from version 1 is kept but not run."
 msgstr ""
 
-#: src/Setup/Upgrader.php:1929
+#: src/Setup/Upgrader.php:1959
 msgid "Some Pro settings from version 1 are kept in your database but not used."
 msgstr ""
 
 #. translators: %d: number of other settings.
-#: src/Setup/Upgrader.php:1935
+#: src/Setup/Upgrader.php:1965
 #, php-format
 msgid "%d other setting could not be carried over."
 msgid_plural "%d other settings could not be carried over."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/Setup/Upgrader.php:1944
+#: src/Setup/Upgrader.php:1974
 msgid "See which settings"
 msgstr ""
 
-#: src/Setup/Upgrader.php:1962
+#: src/Setup/Upgrader.php:1992
 msgid "Show your saved custom JavaScript"
 msgstr ""
 
-#: src/Setup/Upgrader.php:1963
+#: src/Setup/Upgrader.php:1993
 msgid "Copy it somewhere safe if you want to move it into your theme or a snippets plugin."
 msgstr ""
 
-#: src/Setup/Upgrader.php:1966
+#: src/Setup/Upgrader.php:1996
 msgid "Only the beginning is shown. The full copy remains saved in your database."
 msgstr ""
 
-#: src/Setup/Upgrader.php:1984
+#: src/Setup/Upgrader.php:2014
 msgid "Review your old custom JavaScript"
 msgstr ""
 
-#: src/Setup/Upgrader.php:1985
+#: src/Setup/Upgrader.php:2015
 msgid "CartPops 2 does not run the custom JavaScript from version 1. It stays saved in your database. Copy it if you still need it, then confirm below to finish the update."
 msgstr ""
 
-#: src/Setup/Upgrader.php:2001
+#: src/Setup/Upgrader.php:2031
 msgid "I understand this custom JavaScript will not run in CartPops 2."
 msgstr ""
 
-#: src/Setup/Upgrader.php:2003
+#: src/Setup/Upgrader.php:2033
 msgid "Confirm and finish the update"
 msgstr ""
 
-#: src/Setup/Upgrader.php:2022
+#: src/Setup/Upgrader.php:2052
 msgid "Open this site dashboard to review its migration"
 msgstr ""
 
-#: src/Setup/Upgrader.php:2034
+#: src/Setup/Upgrader.php:2064
 msgid "Return to this site dashboard"
 msgstr ""
 
-#: src/Setup/Upgrader.php:2035
+#: src/Setup/Upgrader.php:2065
 msgid "CartPops migration review"
 msgstr ""
 

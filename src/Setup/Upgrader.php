@@ -50,6 +50,13 @@ final class Upgrader {
 	/** Per-user key of the migration result whose warnings notice was hidden. */
 	private const HIDDEN_WARNINGS_META = 'cartpops_hidden_migration_warnings';
 
+	/**
+	 * Code-defined name of the step that failed the last upgrade, never stored data.
+	 *
+	 * @var string
+	 */
+	private string $failure_step = '';
+
 	/** Public documentation the upgrade notices link to. */
 	public const DOCS_URL = 'https://docs.cartpops.com';
 
@@ -231,6 +238,22 @@ final class Upgrader {
 		}
 	}
 
+	/** Name of the step that failed the last upgrade on this request, or ''. */
+	public function failure_step(): string {
+		return $this->failure_step;
+	}
+
+	/**
+	 * Fail the upgrade and remember which step did, for diagnostics.
+	 *
+	 * @param string $step Code-defined step name.
+	 */
+	private function failed( string $step ): UpgradeOutcome {
+		// An anonymous exception's class name embeds a file path; keep only codes.
+		$this->failure_step = 1 === preg_match( '/\A[a-z0-9_]{1,96}\z/D', $step ) ? $step : 'unexpected_error';
+		return UpgradeOutcome::FAILED;
+	}
+
 	/**
 	 * Run the upgrade routine when the stored version differs from the current one.
 	 */
@@ -249,13 +272,14 @@ final class Upgrader {
 	 * @param bool $verify_runtime Whether schema, cron, and cleanup must be reverified.
 	 */
 	public function upgrade_current_site( bool $verify_runtime = false ): UpgradeOutcome {
+		$this->failure_step = '';
 		try {
 			$context = SiteUpgradeContext::capture();
 			return $context->run(
 				fn(): UpgradeOutcome => $this->converge_current_site( $context, $verify_runtime, true )
 			);
-		} catch ( \Throwable ) {
-			return UpgradeOutcome::FAILED;
+		} catch ( \Throwable $error ) {
+			return $this->failed( 'unexpected_' . strtolower( ( new \ReflectionClass( $error ) )->getShortName() ) );
 		}
 	}
 
@@ -278,7 +302,7 @@ final class Upgrader {
 		$this->option_reader = new UpgradeOptionReader( $context );
 		$upgrade_controls    = $this->option_reader->read_version();
 		if ( ! $upgrade_controls['success'] ) {
-			return UpgradeOutcome::FAILED;
+			return $this->failed( 'version_record_unreadable' );
 		}
 		$version       = $upgrade_controls['row'];
 		$version_state = $this->classify_database_version( $version );
@@ -286,7 +310,7 @@ final class Upgrader {
 			return UpgradeOutcome::FUTURE_VERSION;
 		}
 		if ( 'corrupt' === $version_state ) {
-			return UpgradeOutcome::FAILED;
+			return $this->failed( 'version_record_corrupt' );
 		}
 
 		$extension_plan = null;
@@ -294,15 +318,18 @@ final class Upgrader {
 			try {
 				$preparation = $this->extension->prepare( $context );
 			} catch ( \Throwable ) {
-				return UpgradeOutcome::FAILED;
+				return $this->failed( 'pro_upgrade_preparation_error' );
 			}
 			$preflight = $preparation->terminal_outcome();
-			if ( in_array( $preflight, array( UpgradeOutcome::FUTURE_VERSION, UpgradeOutcome::FAILED ), true ) ) {
+			if ( UpgradeOutcome::FAILED === $preflight ) {
+				return $this->failed( 'pro_upgrade_preflight_failed' );
+			}
+			if ( UpgradeOutcome::FUTURE_VERSION === $preflight ) {
 				return $preflight;
 			}
 			$extension_plan = $preparation->plan();
 			if ( null === $extension_plan && UpgradeOutcome::NOT_APPLICABLE !== $preflight ) {
-				return UpgradeOutcome::FAILED;
+				return $this->failed( 'pro_upgrade_plan_missing' );
 			}
 		}
 
@@ -319,7 +346,7 @@ final class Upgrader {
 			return UpgradeOutcome::MAINTENANCE_REQUIRED;
 		}
 		if ( ! in_array( $migration, array( MigrationOutcome::COMPLETE, MigrationOutcome::NOT_APPLICABLE ), true ) ) {
-			return UpgradeOutcome::FAILED;
+			return $this->failed( 'settings_migration_failed' );
 		}
 		$terminal = MigrationOutcome::NOT_APPLICABLE === $migration
 			? UpgradeOutcome::NOT_APPLICABLE
@@ -332,14 +359,14 @@ final class Upgrader {
 
 		$version = $this->store->read( self::VERSION_OPTION );
 		if ( ! $version['success'] ) {
-			return UpgradeOutcome::FAILED;
+			return $this->failed( 'version_record_unreadable_after_migration' );
 		}
 		$version_state = $this->classify_database_version( $version );
 		if ( 'future' === $version_state ) {
 			return UpgradeOutcome::FUTURE_VERSION;
 		}
 		if ( 'corrupt' === $version_state ) {
-			return UpgradeOutcome::FAILED;
+			return $this->failed( 'version_record_corrupt_after_migration' );
 		}
 
 		if ( null !== $extension_plan && null !== $this->extension ) {
@@ -349,7 +376,10 @@ final class Upgrader {
 			try {
 				$extension_outcome = $this->extension->execute( $extension_plan, $verification, $context );
 			} catch ( \Throwable ) {
-				return UpgradeOutcome::FAILED;
+				return $this->failed( 'pro_upgrade_error' );
+			}
+			if ( UpgradeOutcome::FAILED === $extension_outcome ) {
+				return $this->failed( 'pro_upgrade_incomplete' );
 			}
 			if ( ! in_array( $extension_outcome, array( UpgradeOutcome::COMPLETE, UpgradeOutcome::NOT_APPLICABLE ), true ) ) {
 				return $extension_outcome;
@@ -361,7 +391,7 @@ final class Upgrader {
 				! $this->store->autoload_is( $version['autoload'], false )
 				&& ! $this->store->compare_and_swap( self::VERSION_OPTION, $version['raw_value'], CARTPOPS_VERSION, false )
 			) {
-				return UpgradeOutcome::FAILED;
+				return $this->failed( 'version_autoload_repair' );
 			}
 			if ( ! $verify_runtime ) {
 				return $terminal;
@@ -371,7 +401,7 @@ final class Upgrader {
 		// Record the migrated version last so a fatal mid-upgrade re-runs it.
 		// Stored with autoload disabled — it is only read on admin requests.
 		if ( ! $this->store->persist( self::VERSION_OPTION, CARTPOPS_VERSION, false ) ) {
-			return UpgradeOutcome::FAILED;
+			return $this->failed( 'version_write' );
 		}
 
 		$verified = $this->store->read( self::VERSION_OPTION );
@@ -380,7 +410,7 @@ final class Upgrader {
 			&& CARTPOPS_VERSION === $verified['raw_value']
 			&& $this->store->autoload_is( $verified['autoload'], false )
 			? $terminal
-			: UpgradeOutcome::FAILED;
+			: $this->failed( 'version_verify' );
 	}
 
 	/**
@@ -537,7 +567,7 @@ final class Upgrader {
 	private function normalize_legacy_settings_shapes(): UpgradeOutcome {
 		$normalization_controls = $this->option_reader->read_normalization_and_settings();
 		if ( ! $normalization_controls['success'] ) {
-			return UpgradeOutcome::FAILED;
+			return $this->failed( 'normalization_read' );
 		}
 		$marker       = $normalization_controls['rows'][ self::SETTINGS_NORMALIZATION_OPTION ];
 		$prior_schema = 0;
@@ -547,7 +577,7 @@ final class Upgrader {
 				return UpgradeOutcome::FUTURE_VERSION;
 			}
 			if ( ! in_array( $classified['kind'], array( 'current', 'older' ), true ) ) {
-				return UpgradeOutcome::FAILED;
+				return $this->failed( 'normalization_marker_invalid' );
 			}
 			$prior_schema = (int) $classified['record']['schema_version'];
 			$settings     = $normalization_controls['rows']['cartpops_settings'];
@@ -562,7 +592,7 @@ final class Upgrader {
 						4096
 					)
 				) {
-					return UpgradeOutcome::FAILED;
+					return $this->failed( 'normalization_marker_autoload_repair' );
 				}
 				return UpgradeOutcome::COMPLETE;
 			}
@@ -572,7 +602,7 @@ final class Upgrader {
 			if ( 0 < $attempt ) {
 				$normalization_controls = $this->option_reader->read_normalization_and_settings();
 				if ( ! $normalization_controls['success'] ) {
-					return UpgradeOutcome::FAILED;
+					return $this->failed( 'normalization_reread' );
 				}
 				$marker = $normalization_controls['rows'][ self::SETTINGS_NORMALIZATION_OPTION ];
 				if ( $marker['exists'] ) {
@@ -581,7 +611,7 @@ final class Upgrader {
 						return UpgradeOutcome::FUTURE_VERSION;
 					}
 					if ( ! in_array( $classified['kind'], array( 'current', 'older' ), true ) ) {
-						return UpgradeOutcome::FAILED;
+						return $this->failed( 'normalization_marker_invalid_on_retry' );
 					}
 					$prior_schema = (int) $classified['record']['schema_version'];
 				} else {
@@ -590,20 +620,20 @@ final class Upgrader {
 			}
 			$settings = $normalization_controls['rows']['cartpops_settings'];
 			if ( ! $settings['success'] ) {
-				return UpgradeOutcome::FAILED;
+				return $this->failed( 'settings_unreadable' );
 			}
 			$normalized = $this->normalize_settings_row( $settings, $prior_schema );
 			if ( null === $normalized ) {
-				return UpgradeOutcome::FAILED;
+				return $this->failed( 'settings_normalize' );
 			}
 			$expected_raw   = $settings['raw_value'];
 			$normalized_raw = $this->store->serialize_value( $normalized );
 			if ( strlen( $normalized_raw ) > self::MAX_SETTINGS_NORMALIZATION_BYTES ) {
-				return UpgradeOutcome::FAILED;
+				return $this->failed( 'settings_too_large' );
 			}
 			if ( $settings['exists'] && ! hash_equals( $settings['raw_value'], $normalized_raw ) ) {
 				if ( ! $this->preserve_settings_normalization_recovery( $settings['raw_value'] ) ) {
-					return UpgradeOutcome::FAILED;
+					return $this->failed( 'settings_recovery_copy' );
 				}
 				if ( ! $this->store->compare_and_swap( 'cartpops_settings', $settings['raw_value'], $normalized, true, self::MAX_SETTINGS_NORMALIZATION_BYTES ) ) {
 					continue;
@@ -613,7 +643,7 @@ final class Upgrader {
 
 			$current_controls = $this->option_reader->read_normalization_and_settings();
 			if ( ! $current_controls['success'] ) {
-				return UpgradeOutcome::FAILED;
+				return $this->failed( 'normalization_verify_read' );
 			}
 			$current        = $current_controls['rows']['cartpops_settings'];
 			$current_marker = $current_controls['rows'][ self::SETTINGS_NORMALIZATION_OPTION ];
@@ -627,7 +657,7 @@ final class Upgrader {
 						return UpgradeOutcome::FUTURE_VERSION;
 					}
 					if ( ! in_array( $concurrent['kind'], array( 'current', 'older' ), true ) ) {
-						return UpgradeOutcome::FAILED;
+						return $this->failed( 'normalization_marker_concurrent_invalid' );
 					}
 				}
 				continue;
@@ -642,19 +672,19 @@ final class Upgrader {
 
 			$verified = $this->option_reader->read_normalization_and_settings();
 			if ( ! $verified['success'] ) {
-				return UpgradeOutcome::FAILED;
+				return $this->failed( 'normalization_final_read' );
 			}
 			$verified_marker   = $verified['rows'][ self::SETTINGS_NORMALIZATION_OPTION ];
 			$verified_settings = $verified['rows']['cartpops_settings'];
 			if ( ! $verified_marker['success'] || ! $verified_settings['success'] || ! $verified_marker['exists'] ) {
-				return UpgradeOutcome::FAILED;
+				return $this->failed( 'normalization_final_missing' );
 			}
 			$classified = $this->classify_settings_normalization_marker( $verified_marker['raw_value'] );
 			if ( 'future' === $classified['kind'] ) {
 				return UpgradeOutcome::FUTURE_VERSION;
 			}
 			if ( ! in_array( $classified['kind'], array( 'current', 'older' ), true ) ) {
-				return UpgradeOutcome::FAILED;
+				return $this->failed( 'normalization_final_marker_invalid' );
 			}
 			if (
 				'current' === $classified['kind']

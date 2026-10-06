@@ -4,16 +4,15 @@ Tags: side cart, cart drawer, floating cart, woocommerce side cart, add to cart 
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 2.0.4
+Stable tag: 2.0.5
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 A fast WooCommerce side cart and cart drawer with coupons and upsells. Pro adds a free shipping bar, rewards, bundles and analytics.
 
-Source code: Authored JavaScript, JSX and SCSS are bundled edition-by-edition in this plugin package.
-Build instructions: See BUILDING.md in the plugin root for the exact locked build commands.
-
 == Description ==
+
+**[Try the live demo](https://cartpops.com/demo/)** and add a product to see the cart drawer in action.
 
 CartPops adds a slide-out side cart to your WooCommerce store, so shoppers no longer have to visit the cart page. Shoppers add a product, see their cart slide in, change quantities, apply a coupon and head straight to checkout, all without a page reload.
 
@@ -52,6 +51,9 @@ CartPops is tested with the WooCommerce Cart and Checkout blocks and supports Hi
 = For developers =
 
 CartPops has PHP hooks and filters for its drawer markup, a `cartpops:open` JavaScript event, and a REST API for its settings. See the [developer docs](https://docs.cartpops.com) for the full list.
+
+Source code: Authored JavaScript, JSX and SCSS are bundled edition-by-edition in this plugin package.
+Build instructions: See BUILDING.md in the plugin root for the exact locked build commands.
 
 == Installation ==
 
@@ -108,6 +110,9 @@ Your settings, styling and license carry over. Version 2 is built around the car
 4. Pro Smart Bar rules and Smart Add-ons such as shipping protection and gift wrapping.
 
 == Changelog ==
+
+= 2.0.5 =
+* Improved: When CartPops is paused after an update, the notice now names the step that failed, and Tools → Site Health → Info has a CartPops section with the details support needs, ready to copy.
 
 = 2.0.4 =
 * Improved: The update notices and the "See which settings" list added in 2.0.3 are now translated into all 44 languages.
