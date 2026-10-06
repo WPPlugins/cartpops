@@ -4,7 +4,7 @@ Tags: side cart, cart drawer, floating cart, woocommerce side cart, add to cart 
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 2.0.5
+Stable tag: 2.0.6
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -110,6 +110,11 @@ Your settings, styling and license carry over. Version 2 is built around the car
 4. Pro Smart Bar rules and Smart Add-ons such as shipping protection and gift wrapping.
 
 == Changelog ==
+
+= 2.0.6 =
+* Improved: When CartPops cannot finish updating because the site's database tables use the older MyISAM format, the notice now says so and explains how to convert them, and Tools → Site Health → Info shows the database format and the exact reason for any failed update.
+* Improved: The CartPops details in Tools → Site Health → Info, the paused-notice help line and the new database notices are now translated into all 44 languages.
+* Fix: When the cart drawer only shows "Request failed" because the site's database tables use the older MyISAM format, WordPress admin now shows a notice explaining how to fix it. The update notice now says to convert all tables, not just two.
 
 = 2.0.5 =
 * Improved: When CartPops is paused after an update, the notice now names the step that failed, and Tools → Site Health → Info has a CartPops section with the details support needs, ready to copy.
