@@ -717,7 +717,6 @@ const EVENT_BRIDGE_KEY = Symbol.for( 'cartpops.cartDrawerEventBridge' );
  * @param {Function} [options.onBlocksAdded]
  * @param {Function} [options.onBlocksRemoved]
  * @param {Function} [options.onBlocksCartChanged]
- * @param {Function} [options.onClassicAdding]     Woo's classic add request is starting.
  * @param {Function} [options.onClassicAdded]
  * @param {Function} [options.onClassicRemoved]
  * @param {Function} [options.onClassicRefreshed]
@@ -734,7 +733,6 @@ export function installCartDrawerEventBridge( {
 	onBlocksAdded,
 	onBlocksRemoved,
 	onBlocksCartChanged,
-	onClassicAdding,
 	onClassicAdded,
 	onClassicRemoved,
 	onClassicRefreshed,
@@ -929,7 +927,6 @@ export function installCartDrawerEventBridge( {
 						jqueryBody.off?.( events, handler )
 					);
 				};
-				addJqueryListener( 'adding_to_cart', onClassicAdding );
 				addJqueryListener(
 					'added_to_cart',
 					typeof onClassicAdded === 'function'

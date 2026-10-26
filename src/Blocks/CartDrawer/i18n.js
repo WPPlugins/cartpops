@@ -34,14 +34,6 @@ export function sprintf( str, ...args ) {
 }
 
 /**
- * Untranslated last resort for failure messages, so a page whose server
- * strings are missing never shows a shopper a raw message key.
- */
-const FALLBACK_MESSAGES = Object.freeze( {
-	requestFailed: 'Request failed',
-} );
-
-/**
  * Get a translated string from the i18n state and substitute placeholders.
  *
  * Looks up `key` in the Interactivity state's `i18n` map (falling back to the
@@ -53,10 +45,6 @@ const FALLBACK_MESSAGES = Object.freeze( {
  */
 export function i18n( key, ...args ) {
 	const { state: s } = store( 'cartpops' );
-	const translated = s?.i18n?.[ key ];
-	const str =
-		typeof translated === 'string' && translated !== ''
-			? translated
-			: FALLBACK_MESSAGES[ key ] || key;
+	const str = s.i18n?.[ key ] || key;
 	return args.length ? sprintf( str, ...args ) : str;
 }

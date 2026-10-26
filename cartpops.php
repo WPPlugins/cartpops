@@ -4,7 +4,7 @@
  * Plugin Name: CartPops
  * Plugin URI:  https://cartpops.com
  * Description: The #1 WooCommerce cart drawer plugin. Boost conversions with a beautiful slide-out cart, product recommendations, and free shipping meter.
- * Version:     2.0.18
+ * Version:     2.0.13
  * Requires at least: 6.5
  * Requires PHP: 8.1
  * Requires Plugins: woocommerce
@@ -34,62 +34,10 @@ if ( !function_exists( 'cartpops_editions_are_simultaneously_active' ) ) {
     }
 
 }
-if ( !function_exists( 'cartpops_active_v1_copies' ) ) {
-    /**
-     * Find active CartPops version 1 copies in the other CartPops plugin folder.
-     *
-     * Only the exact other basename counts, and only when its own header proves it is
-     * CartPops (text domain and cartpops.com URI) at a 0.x/1.x version.
-     *
-     * @param string $own_basename Basename of this CartPops 2 copy.
-     * @return array<string, array{version: string, network: bool}> Keyed by basename.
-     */
-    function cartpops_active_v1_copies(  string $own_basename  ) : array {
-        $basenames = array('cartpops/cartpops.php', 'cartpops-pro/cartpops.php');
-        if ( !in_array( $own_basename, $basenames, true ) || !defined( 'WP_PLUGIN_DIR' ) || !function_exists( 'get_file_data' ) ) {
-            return array();
-        }
-        $other = ( 'cartpops/cartpops.php' === $own_basename ? 'cartpops-pro/cartpops.php' : 'cartpops/cartpops.php' );
-        $site_plugins = get_option( 'active_plugins', array() );
-        $network_plugins = ( is_multisite() ? get_site_option( 'active_sitewide_plugins', array() ) : array() );
-        $site_active = is_array( $site_plugins ) && in_array( $other, $site_plugins, true );
-        $network_active = is_array( $network_plugins ) && array_key_exists( $other, $network_plugins );
-        $file = WP_PLUGIN_DIR . '/' . $other;
-        if ( !$site_active && !$network_active || !is_file( $file ) ) {
-            return array();
-        }
-        $header = get_file_data( $file, array(
-            'version'     => 'Version',
-            'text_domain' => 'Text Domain',
-            'uri'         => 'Plugin URI',
-        ) );
-        $version = (string) ($header['version'] ?? '');
-        $host = strtolower( (string) wp_parse_url( (string) ($header['uri'] ?? ''), PHP_URL_HOST ) );
-        if ( 'cartpops' !== ($header['text_domain'] ?? '') || !in_array( $host, array('cartpops.com', 'www.cartpops.com'), true ) || 1 !== preg_match( '/\\A[01](?:\\.[0-9]{1,6}){1,3}\\z/D', $version ) || version_compare( $version, '2.0.0', '>=' ) ) {
-            return array();
-        }
-        return array(
-            $other => array(
-                'version' => $version,
-                'network' => $network_active,
-            ),
-        );
-    }
-
-}
 if ( !function_exists( 'cartpops_render_edition_collision_notice' ) ) {
     /** Render an actionable value-free duplicate-edition notice. */
     function cartpops_render_edition_collision_notice() : void {
         if ( !current_user_can( 'manage_woocommerce' ) && !current_user_can( 'manage_network_plugins' ) ) {
-            return;
-        }
-        $own_basename = (string) ($GLOBALS['cartpops_edition_collision_basename'] ?? '');
-        foreach ( cartpops_active_v1_copies( $own_basename ) as $copy ) {
-            echo '<div class="notice notice-error"><p>' . sprintf( 
-                /* translators: %s: version number of the old CartPops plugin, for example 1.5.45. */
-                esc_html__( 'CartPops 2 is paused because the older CartPops version 1 plugin (%1$s) is still active. Go to Plugins, deactivate that CartPops %1$s plugin and reload this page.', 'cartpops' ),
-                esc_html( $copy['version'] )
-             ) . '</p></div>';
             return;
         }
         echo '<div class="notice notice-error"><p>' . esc_html__( 'CartPops detected both the Free and Pro editions as active. CartPops was paused; deactivate one edition and reload this page.', 'cartpops' ) . '</p></div>';
@@ -114,38 +62,12 @@ if ( !function_exists( 'cartpops_register_edition_collision_notice' ) ) {
 // Loading two CartPops editions in one request would make global constants,
 // lifecycle hooks, and the Freemius product singleton ambiguous. Keep the
 // edition that WordPress loaded first and stop this second bootstrap without
-// touching customer data. Neither plugin is deactivated, except a proven
-// CartPops 1 copy when this copy is being activated (see below).
+// deactivating either plugin or touching customer data.
 if ( defined( 'CARTPOPS_VERSION' ) || defined( 'CARTPOPS_FILE' ) || defined( 'CARTPOPS_PATH' ) || defined( 'CARTPOPS_URL' ) || function_exists( 'fs_cartpops' ) || cartpops_editions_are_simultaneously_active() ) {
-    $GLOBALS['cartpops_edition_collision_basename'] = ( function_exists( 'plugin_basename' ) ? plugin_basename( __FILE__ ) : '' );
     cartpops_register_edition_collision_notice();
-    // Activating this copy while a CartPops 1 copy is active: WordPress loaded the V1
-    // copy first, so this file stops above and its Freemius SDK never runs the usual
-    // "deactivate the other version" step that V1 performed itself. Do that step here
-    // for a proven V1 copy only, silently, because V1's own deactivation hook can
-    // delete every cartpops_* option. A second CartPops 2 edition is never touched.
-    $cartpops_collision_basename = $GLOBALS['cartpops_edition_collision_basename'];
-    if ( function_exists( 'register_activation_hook' ) && array() !== cartpops_active_v1_copies( $cartpops_collision_basename ) ) {
-        register_activation_hook( __FILE__, static function ( $network_wide = false ) use($cartpops_collision_basename) : void {
-            if ( !function_exists( 'deactivate_plugins' ) && defined( 'ABSPATH' ) && is_readable( ABSPATH . 'wp-admin/includes/plugin.php' ) ) {
-                require_once ABSPATH . 'wp-admin/includes/plugin.php';
-            }
-            if ( !function_exists( 'deactivate_plugins' ) ) {
-                return;
-            }
-            foreach ( cartpops_active_v1_copies( $cartpops_collision_basename ) as $basename => $copy ) {
-                // Only in the scope being activated: a site activation never turns
-                // off a network-active V1 copy for every other site.
-                if ( (bool) $network_wide === $copy['network'] ) {
-                    deactivate_plugins( $basename, true, $copy['network'] );
-                }
-            }
-        } );
-    }
-    unset($cartpops_collision_basename);
     return;
 }
-define( 'CARTPOPS_VERSION', '2.0.18' );
+define( 'CARTPOPS_VERSION', '2.0.13' );
 define( 'CARTPOPS_FILE', __FILE__ );
 define( 'CARTPOPS_PATH', plugin_dir_path( __FILE__ ) );
 define( 'CARTPOPS_URL', plugin_dir_url( __FILE__ ) );
@@ -170,12 +92,8 @@ $cartpops_pre_sdk_legacy_install_evidence_ready = false;
 try {
     $cartpops_pre_sdk_legacy_install_evidence = \CartPops\Migration\PreSdkLegacyInstallEvidence::capture();
     $cartpops_pre_sdk_legacy_install_evidence_ready = $cartpops_pre_sdk_legacy_install_evidence->capture_was_available();
-} catch ( \Throwable $cartpops_pre_sdk_failure ) {
+} catch ( \Throwable ) {
     $GLOBALS['cartpops_freemius_bootstrap_error'] = 'pre_sdk_legacy_evidence_unavailable';
-    // Only MigrationReadException messages are a closed, value-free vocabulary. Any other
-    // Throwable may carry paths or database values, so it keeps the generic code.
-    $GLOBALS['cartpops_pre_sdk_failure_reason'] = ( $cartpops_pre_sdk_failure instanceof \CartPops\Migration\MigrationReadException && 1 === preg_match( '/\\A[a-z0-9_]{1,64}\\z/D', $cartpops_pre_sdk_failure->getMessage() ) ? $cartpops_pre_sdk_failure->getMessage() : 'pre_sdk_legacy_evidence_unavailable' );
-    unset($cartpops_pre_sdk_failure);
     if ( class_exists( \CartPops\Migration\PreSdkLegacyInstallEvidence::class, false ) ) {
         try {
             $cartpops_pre_sdk_legacy_install_evidence = \CartPops\Migration\PreSdkLegacyInstallEvidence::unavailable();
@@ -192,19 +110,10 @@ if ( !$cartpops_pre_sdk_legacy_install_evidence_ready ) {
     if ( !function_exists( 'cartpops_pre_sdk_legacy_evidence_notice' ) ) {
         /** Render a value-free pre-SDK failure notice to capable operators. */
         function cartpops_pre_sdk_legacy_evidence_notice() : void {
-            if ( !function_exists( 'current_user_can' ) || !function_exists( 'esc_html__' ) || !function_exists( 'esc_html' ) || !current_user_can( 'manage_woocommerce' ) && !current_user_can( 'manage_network_plugins' ) ) {
+            if ( !function_exists( 'current_user_can' ) || !function_exists( 'esc_html__' ) || !current_user_can( 'manage_woocommerce' ) && !current_user_can( 'manage_network_plugins' ) ) {
                 return;
             }
-            $reason = $GLOBALS['cartpops_pre_sdk_failure_reason'] ?? 'pre_sdk_legacy_evidence_unavailable';
-            $reason = ( is_string( $reason ) && 1 === preg_match( '/\\A[a-z0-9_]{1,64}\\z/D', $reason ) ? $reason : 'pre_sdk_legacy_evidence_unavailable' );
-            // Admin-only on purpose: a paused site must not write a log line per visitor request.
-            error_log( 'CartPops paused before licensing initialization: ' . $reason );
-            // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- Value-free closed reason code for a fail-closed boundary.
-            echo '<div class="notice notice-error"><p>' . esc_html__( 'CartPops could not safely verify upgrade state. CartPops was paused before licensing initialization; reload this page or contact support.', 'cartpops' ) . '</p><p>' . sprintf( 
-                /* translators: %s: short diagnostic code to quote to support. */
-                esc_html__( 'Reason code: %s', 'cartpops' ),
-                esc_html( $reason )
-             ) . '</p></div>';
+            echo '<div class="notice notice-error"><p>' . esc_html__( 'CartPops could not safely verify upgrade state. CartPops was paused before licensing initialization; reload this page or contact support.', 'cartpops' ) . '</p></div>';
         }
 
     }

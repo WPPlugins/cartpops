@@ -205,6 +205,8 @@ final class LegacyPaidStateInspector {
 	 * @throws MigrationMaintenanceException When aggregate retained data exceeds bounds.
 	 */
 	public function inspect_raw_rows( array $rows ): array {
+		$diagnostics = array();
+		$values      = array();
 		$allowed     = array_fill_keys( self::option_names(), true );
 		$total_bytes = 0;
 		foreach ( $rows as $option => $raw ) {
@@ -216,38 +218,6 @@ final class LegacyPaidStateInspector {
 				throw new MigrationMaintenanceException( 'legacy_paid_state_bounds_exceeded' );
 			}
 		}
-		$retained = array_diff_key( $rows, array( self::FREEMIUS_OPTION => true ) );
-		ksort( $retained, SORT_STRING );
-		// V1 settings are never written again after the update; inspect them only when their bytes change.
-		$diagnostics = ExactRowVerdictMemo::decide(
-			'legacy_retained_settings_diagnostics_v1',
-			$retained,
-			fn(): array => $this->retained_settings_diagnostics( $retained )
-		) ?? $this->retained_settings_diagnostics( $retained );
-
-		if ( isset( $rows[ self::FREEMIUS_OPTION ] ) ) {
-			$paid = $this->freemius_paid_identity( $rows[ self::FREEMIUS_OPTION ] );
-			if ( true === $paid ) {
-				$diagnostics[] = 'legacy_paid_entitlement_requires_adapter';
-			} elseif ( null === $paid && str_contains( strtolower( $rows[ self::FREEMIUS_OPTION ] ), 'cartpops' ) ) {
-				$diagnostics[] = 'legacy_paid_state_uncertain';
-			}
-		}
-
-		$diagnostics = array_values( array_unique( $diagnostics ) );
-		sort( $diagnostics, SORT_STRING );
-		return $diagnostics;
-	}
-
-	/**
-	 * Classify retained V1 setting rows, a pure function of their exact bytes.
-	 *
-	 * @param array<string, string> $rows Raw V1 setting bytes keyed by exact name, without the Freemius row.
-	 * @return string[]
-	 */
-	private function retained_settings_diagnostics( array $rows ): array {
-		$diagnostics = array();
-		$values      = array();
 		foreach ( array_merge( self::PREMIUM_OPTIONS, self::BEHAVIOR_OPTIONS ) as $option ) {
 			if ( ! array_key_exists( $option, $rows ) ) {
 				continue;
@@ -271,7 +241,18 @@ final class LegacyPaidStateInspector {
 			$diagnostics[] = 'legacy_custom_js_requires_review';
 		}
 
-		return array_values( array_unique( $diagnostics ) );
+		if ( isset( $rows[ self::FREEMIUS_OPTION ] ) ) {
+			$paid = $this->freemius_paid_identity( $rows[ self::FREEMIUS_OPTION ] );
+			if ( true === $paid ) {
+				$diagnostics[] = 'legacy_paid_entitlement_requires_adapter';
+			} elseif ( null === $paid && str_contains( strtolower( $rows[ self::FREEMIUS_OPTION ] ), 'cartpops' ) ) {
+				$diagnostics[] = 'legacy_paid_state_uncertain';
+			}
+		}
+
+		$diagnostics = array_values( array_unique( $diagnostics ) );
+		sort( $diagnostics, SORT_STRING );
+		return $diagnostics;
 	}
 
 	/**
@@ -630,23 +611,6 @@ final class LegacyPaidStateInspector {
 	 * @return array<string, mixed>|null
 	 */
 	private function extract_freemius_paths( string $raw, array $paths ): ?array {
-		// Every Freemius product on the site shares this row; parse it only when its bytes change.
-		return FreemiusIdentityPathMemo::extract(
-			'legacy_paid_state',
-			$raw,
-			$paths,
-			fn(): ?array => $this->parse_freemius_paths( $raw, $paths )
-		);
-	}
-
-	/**
-	 * Parse the bounded identity paths from JSON or serialized Freemius state.
-	 *
-	 * @param string   $raw   Exact Freemius option bytes.
-	 * @param string[] $paths Closed identity path allowlist.
-	 * @return array<string, mixed>|null
-	 */
-	private function parse_freemius_paths( string $raw, array $paths ): ?array {
 		$trimmed = ltrim( $raw );
 		if ( '' !== $trimmed && in_array( $trimmed[0], array( '{', '[' ), true ) ) {
 			$decoded = ( new SafeJsonReader() )->decode( $trimmed, self::MAX_RAW_BYTES, self::MAX_DEPTH, self::MAX_NODES );

@@ -389,7 +389,6 @@ wp_interactivity_state( 'cartpops', $drawer_state );
 		<?php endif; ?>
 		data-wp-class--cpops-drawer-open="state.isOpen"
 		data-wp-class--cpops-drawer-loading="state.isLoading"
-		data-wp-bind--aria-busy="state.isLoading"
 		data-wp-on--click="actions.handleDrawerClick"
 		data-wp-bind--aria-hidden="state.drawerAriaHidden"
 		data-wp-bind--inert="state.drawerInert"
@@ -424,8 +423,6 @@ wp_interactivity_state( 'cartpops', $drawer_state );
 
 			<?php do_action( 'cartpops_drawer_header_after' ); ?>
 		</header>
-
-		<div class="cpops-drawer__loading cpops-hidden" data-wp-class--cpops-hidden="!state.isLoading" aria-hidden="true"></div>
 
 		<!-- Cart Content -->
 		<div class="cpops-drawer__content cpops-drawer-cart">
@@ -532,7 +529,7 @@ wp_interactivity_state( 'cartpops', $drawer_state );
 			</div>
 
 			<!-- Empty State -->
-			<div class="cpops-drawer__empty cpops-empty-cart" data-wp-class--cpops-hidden="!state.showEmptyMessage">
+			<div class="cpops-drawer__empty cpops-empty-cart" data-wp-class--cpops-hidden="!state.isEmpty">
 				<svg class="cpops-drawer__empty-icon" width="64" height="64" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="1.5">
 					<circle cx="24" cy="56" r="4"></circle>
 					<circle cx="48" cy="56" r="4"></circle>
