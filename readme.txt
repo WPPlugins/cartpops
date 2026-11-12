@@ -4,7 +4,7 @@ Tags: side cart, cart drawer, floating cart, woocommerce side cart, add to cart 
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 2.0.15
+Stable tag: 2.0.16
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -110,6 +110,10 @@ Your settings, styling and license carry over. Version 2 is built around the car
 4. Pro Smart Bar rules and Smart Add-ons such as shipping protection and gift wrapping.
 
 == Changelog ==
+
+= 2.0.16 =
+* Fix: on some stores updated from version 1, CartPops re-checked the finished update on every page that was not served from cache, slowing those pages down.
+* Fix: in Pro, pages no longer slow down on stores with many scheduled background tasks, because CartPops stopped re-checking all of them on every page view.
 
 = 2.0.15 =
 * Fix: on classic themes the cart drawer could show "requestFailed", ignore quantity changes or removals, and fall out of step with the cart, mostly on pages served from a page cache. Failed cart actions now always show a readable message.

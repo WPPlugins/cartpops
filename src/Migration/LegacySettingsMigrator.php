@@ -1725,7 +1725,14 @@ final class LegacySettingsMigrator {
 		// Retain earned completion's independence from later paid authority, but
 		// hold exact customization evidence through its existing completion writes.
 		if ( $rows[ self::JS_REVIEW_OPTION ]['exists'] || $rows[ self::QUARANTINE_OPTION ]['exists'] ) {
-			if ( null === $locked && $rows[ self::JS_REVIEW_OPTION ]['exists'] && $this->converged_completion_needs_no_lock( $rows ) ) {
+			// The fenced decision below writes nothing for a finished site whose review
+			// record still matches, or whose unchanged quarantined script never needed a
+			// review. Proving that without the fence keeps it off every ordinary request.
+			if (
+				null === $locked
+				&& ( $rows[ self::JS_REVIEW_OPTION ]['exists'] || $this->unreviewable_quarantine_is_unchanged( $rows ) )
+				&& $this->converged_completion_needs_no_lock( $rows )
+			) {
 				return MigrationOutcome::COMPLETE;
 			}
 			if ( null === $locked ) {
@@ -1740,13 +1747,7 @@ final class LegacySettingsMigrator {
 					)
 				);
 			}
-			$quarantined     = $rows[ self::QUARANTINE_OPTION ]['value']['raw_value'] ?? '';
-			$requires_review = $rows[ self::JS_REVIEW_OPTION ]['exists'] || in_array(
-				'legacy_custom_js_requires_review',
-				( new LegacyPaidStateInspector( $this->site_context ) )->inspect_raw_rows( array( 'cartpops_custom_js' => $quarantined ) ),
-				true
-			);
-			if ( $requires_review ) {
+			if ( $rows[ self::JS_REVIEW_OPTION ]['exists'] || $this->quarantined_custom_js_requires_review( $rows ) ) {
 				$fingerprint = $this->custom_js_review_fingerprint( $locked, $rows );
 				if ( null === $fingerprint || ! $rows[ self::JS_REVIEW_OPTION ]['exists'] || $this->custom_js_review_record( $fingerprint ) !== $rows[ self::JS_REVIEW_OPTION ]['value'] ) {
 					return MigrationOutcome::MAINTENANCE_REQUIRED;
@@ -1769,6 +1770,34 @@ final class LegacySettingsMigrator {
 		}
 
 		return MigrationOutcome::COMPLETE;
+	}
+
+	/**
+	 * Whether a quarantine that never needed a review still holds the live V1 script.
+	 *
+	 * @param array<string, array{exists: bool, value: mixed, raw_value: string, autoload: string}> $rows Exact control rows.
+	 */
+	private function unreviewable_quarantine_is_unchanged( array $rows ): bool {
+		if ( $rows[ self::JS_REVIEW_OPTION ]['exists'] || ! $rows[ self::QUARANTINE_OPTION ]['exists'] || $this->quarantined_custom_js_requires_review( $rows ) ) {
+			return false;
+		}
+		$source = $this->store->read( 'cartpops_custom_js' );
+		return $source['success'] && $source['exists']
+			&& ( $rows[ self::QUARANTINE_OPTION ]['value']['raw_value'] ?? null ) === $source['raw_value'];
+	}
+
+	/**
+	 * Whether the quarantined V1 script is one that needs a store owner's review.
+	 *
+	 * @param array<string, array{exists: bool, value: mixed, raw_value: string, autoload: string}> $rows Exact control rows.
+	 */
+	private function quarantined_custom_js_requires_review( array $rows ): bool {
+		$quarantined = $rows[ self::QUARANTINE_OPTION ]['value']['raw_value'] ?? '';
+		return in_array(
+			'legacy_custom_js_requires_review',
+			( new LegacyPaidStateInspector( $this->site_context ) )->inspect_raw_rows( array( 'cartpops_custom_js' => $quarantined ) ),
+			true
+		);
 	}
 
 	/**
