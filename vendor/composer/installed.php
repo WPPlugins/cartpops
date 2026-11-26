@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'cartpops/cartpops',
-        'pretty_version' => '1.4.20',
-        'version' => '1.4.20.0',
-        'reference' => '49717f00981c539ec9392f5b5844dfd77e641456',
+        'pretty_version' => '2.0.18',
+        'version' => '2.0.18.0',
+        'reference' => null,
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,18 +11,18 @@
     ),
     'versions' => array(
         'cartpops/cartpops' => array(
-            'pretty_version' => '1.4.20',
-            'version' => '1.4.20.0',
-            'reference' => '49717f00981c539ec9392f5b5844dfd77e641456',
+            'pretty_version' => '2.0.18',
+            'version' => '2.0.18.0',
+            'reference' => null,
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
         'freemius/wordpress-sdk' => array(
-            'pretty_version' => '2.4.3',
-            'version' => '2.4.3.0',
-            'reference' => 'd2c3e1c27792f34123f928ea9fa73be56c337d13',
+            'pretty_version' => '2.13.5',
+            'version' => '2.13.5.0',
+            'reference' => '75327e531559a52f80835a95c3c1684464b55398',
             'type' => 'library',
             'install_path' => __DIR__ . '/../freemius/wordpress-sdk',
             'aliases' => array(),

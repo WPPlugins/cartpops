@@ -1,0 +1,4131 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: CartPops 2.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/cartpops/\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-10-02T11:55:32+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Language: ja\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: cartpops\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: cartpops.php
+#: src/Admin/AdminPage.php:45
+#: src/Admin/AdminPage.php:46
+#: src/Blocks/CartDrawer/render.php:881
+#: src/Setup/Upgrader.php:1909
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:518
+#. Plugin Name of the plugin
+#. Author of the plugin
+msgid "CartPops"
+msgstr "CartPops"
+
+#: cartpops.php
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+msgid "https://cartpops.com"
+msgstr "https://cartpops.com"
+
+#: cartpops.php
+#. Description of the plugin
+msgid ""
+"The #1 WooCommerce cart drawer plugin. Boost conversions with a beautiful "
+"slide-out cart, product recommendations, and free shipping meter."
+msgstr ""
+"No. "
+"1のWooCommerceカートドロワープラグイン。洗練されたスライドアウトカート、おすすめ商品、送料無料メーターでコンバージョン率を向上させます。"
+
+#: cartpops.php:56
+msgid ""
+"CartPops detected both the Free and Pro editions as active. CartPops was "
+"paused; deactivate one edition and reload this page."
+msgstr ""
+"CartPopsの無料版とPro版の両方が有効化されています。CartPopsの動作を一時停止しました。どちらか一方を無効化し、このページを再読み込みし"
+"てください。"
+
+#: cartpops.php:148
+msgid ""
+"CartPops could not safely verify upgrade state. CartPops was paused before "
+"licensing initialization; reload this page or contact support."
+msgstr ""
+"CartPopsのアップグレード状態を安全に確認できませんでした。ライセンスの初期化前にCartPopsの動作を一時停止しました。このページを再読み込み"
+"するか、サポートにお問い合わせください。"
+
+#: cartpops.php:406
+msgid ""
+"CartPops licensing could not initialize. Shared cart features remain "
+"available, but paid features are paused. Reinstall the complete CartPops "
+"package or contact support."
+msgstr ""
+"CartPopsのライセンスを初期化できませんでした。共通のカート機能は引き続き利用できますが、有料機能は一時停止されています。CartPopsの完全な"
+"パッケージを再インストールするか、サポートにお問い合わせください。"
+
+#: src/Admin/SettingsController.php:118
+msgid "No settings provided."
+msgstr "設定が指定されていません。"
+
+#: src/Admin/SettingsController.php:129
+msgid "No valid settings provided."
+msgstr "有効な設定が指定されていません。"
+
+#: src/Admin/SettingsController.php:215
+msgid "Invalid import data. Expected \"settings\" key with object value."
+msgstr "インポートデータが無効です。オブジェクト値を持つ「settings」キーが必要です。"
+
+#: src/Admin/SettingsController.php:249
+msgid "Settings imported successfully."
+msgstr "設定を正常にインポートしました。"
+
+#: src/Admin/SettingsController.php:270
+msgid "Settings could not be saved. Please try again."
+msgstr "設定を保存できませんでした。もう一度お試しください。"
+
+#: src/Admin/SettingsController.php:283
+msgid "Settings contain an invalid nested value."
+msgstr "設定に無効なネストされた値が含まれています。"
+
+#: src/Admin/SettingsController.php:473
+msgid ""
+"Custom product recommendations require an active CartPops Pro entitlement "
+"for this site."
+msgstr "おすすめ商品のカスタマイズには、このサイトで有効なCartPops Proのライセンスが必要です。"
+
+#: src/Admin/SettingsController.php:484
+msgid ""
+"Recommendation button text and presentation require an active CartPops Pro "
+"entitlement for this site."
+msgstr "おすすめボタンのテキストと表示設定には、このサイトで有効なCartPops Proのライセンスが必要です。"
+
+#: src/Admin/SettingsController.php:495
+msgid ""
+"Secondary drawer actions require an active CartPops Pro entitlement for "
+"this site."
+msgstr "ドロワーのセカンダリアクションには、このサイトで有効なCartPops Proのライセンスが必要です。"
+
+#: src/Admin/SettingsController.php:514
+msgid "You are not allowed to change custom CSS."
+msgstr "カスタムCSSを変更する権限がありません。"
+
+#: src/Analytics/AnalyticsDashboard.php:23
+#: src/Analytics/AnalyticsDashboard.php:24
+msgid "CartPops Analytics"
+msgstr "CartPopsアナリティクス"
+
+#: src/Analytics/ConversionTracker.php:544
+#: src/Analytics/ConversionTracker.php:562
+msgid "Event payload too large."
+msgstr "イベントのペイロードが大きすぎます。"
+
+#: src/Analytics/ConversionTracker.php:1100
+msgid "You are not allowed to reset analytics data."
+msgstr "アナリティクスデータをリセットする権限がありません。"
+
+#: src/Blocks/CartDrawer/render.php:33
+#: src/Admin/assets/js/components/DrawerPreview.jsx:145
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:309
+msgid "Your Cart"
+msgstr "カート"
+
+#: src/Blocks/CartDrawer/render.php:36
+#: src/Blocks/CartDrawer/render.php:719
+#: src/Admin/assets/js/components/DrawerPreview.jsx:150
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:345
+msgid "Coupon code"
+msgstr "クーポンコード"
+
+#: src/Blocks/CartDrawer/render.php:37
+#: src/Admin/assets/js/components/DrawerPreview.jsx:154
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:358
+msgid "Apply"
+msgstr "適用"
+
+#: src/Blocks/CartDrawer/render.php:38
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:831
+#: src/Admin/assets/js/components/DrawerPreview.jsx:158
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:374
+msgid "Subtotal"
+msgstr "小計"
+
+#: src/Blocks/CartDrawer/render.php:39
+#: src/Admin/assets/js/components/DrawerPreview.jsx:341
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:384
+msgid "Discount"
+msgstr "割引"
+
+#: src/Blocks/CartDrawer/render.php:40
+#: src/Admin/assets/js/components/DrawerPreview.jsx:160
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:394
+msgid "Total"
+msgstr "合計"
+
+#: src/Blocks/CartDrawer/render.php:41
+#: src/Pro/Blocks/CartDrawer/ProDrawerRenderExtension.php:317
+#: src/Admin/assets/js/components/DrawerPreview.jsx:168
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:424
+#: src/Pro/Admin/assets/js/components/DrawerPreviewEnhancements.jsx:106
+#: src/Pro/Admin/assets/js/components/DrawerPreviewEnhancements.jsx:151
+msgid "Continue shopping"
+msgstr "お買い物を続ける"
+
+#: src/Blocks/CartDrawer/render.php:42
+#: src/Admin/assets/js/components/DrawerPreview.jsx:163
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:404
+msgid "Your cart is empty"
+msgstr "カートは空です"
+
+#: src/Blocks/CartDrawer/render.php:251
+#: src/Blocks/CartDrawer/render.php:288
+#: src/Blocks/CartLauncher/render.php:65
+#: src/Blocks/CartLauncher/render.php:190
+#: src/Admin/assets/js/components/LauncherPreview.jsx:357
+msgid "Open cart"
+msgstr "カートを開く"
+
+#: src/Blocks/CartDrawer/render.php:254
+#: src/Blocks/CartDrawer/render.php:576
+#: src/Admin/assets/js/pages/RecommendationSettings.jsx:165
+msgid "You may also like"
+msgstr "こちらもおすすめ"
+
+#: src/Blocks/CartDrawer/render.php:289
+#: src/Blocks/CartDrawer/render.php:416
+#: src/Blocks/CartLauncher/render.php:77
+msgid "Close cart"
+msgstr "カートを閉じる"
+
+#: src/Blocks/CartDrawer/render.php:290
+#: src/Blocks/CartDrawer/render.php:601
+#: src/Pro/Blocks/CartDrawer/ProDrawerRenderExtension.php:626
+#: src/Recommendations/RecommendationEngine.php:240
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:230
+msgid "Add to cart"
+msgstr "カートに追加"
+
+#: src/Blocks/CartDrawer/render.php:292
+#: src/Recommendations/RecommendationEngine.php:220
+#: src/Admin/assets/js/components/DrawerPreview.jsx:950
+#: src/Pro/Admin/assets/js/components/CustomRecommendationSelection.jsx:117
+#. translators: %s: product name.
+#, php-format,js-format
+msgid "Add %s to cart"
+msgstr "%sをカートに追加"
+
+#: src/Blocks/CartDrawer/render.php:293
+#: src/Blocks/CartDrawer/render.php:614
+#: src/Recommendations/RecommendationEngine.php:239
+msgid "Select options"
+msgstr "オプションを選択"
+
+#: src/Blocks/CartDrawer/render.php:295
+#: src/Recommendations/RecommendationEngine.php:217
+#. translators: %s: product name.
+#, php-format
+msgid "Select options for %s"
+msgstr "%sのオプションを選択"
+
+#: src/Blocks/CartDrawer/render.php:297
+#. translators: %s: cart item name.
+#, php-format
+msgid "\"%s\" removed."
+msgstr "「%s」を削除しました。"
+
+#: src/Blocks/CartDrawer/render.php:299
+#. translators: %s: cart item name.
+#, php-format
+msgid "%s removed from cart."
+msgstr "%sをカートから削除しました。"
+
+#: src/Blocks/CartDrawer/render.php:300
+msgid "Item"
+msgstr "商品"
+
+#: src/Blocks/CartDrawer/render.php:302
+#. translators: %s: cart item name.
+#, php-format
+msgid "%s restored to cart."
+msgstr "%sをカートに戻しました。"
+
+#: src/Blocks/CartDrawer/render.php:304
+#. translators: %s: coupon code.
+#, php-format
+msgid "Coupon \"%s\" applied."
+msgstr "クーポン「%s」を適用しました。"
+
+#: src/Blocks/CartDrawer/render.php:306
+#. translators: %s: coupon code.
+#, php-format
+msgid "Coupon \"%s\" removed."
+msgstr "クーポン「%s」を削除しました。"
+
+#: src/Blocks/CartDrawer/render.php:308
+#. translators: %s: product name.
+#, php-format
+msgid "%s added to cart."
+msgstr "%s をカートに追加しました。"
+
+#: src/Blocks/CartDrawer/render.php:309
+msgid "Your cart has expired."
+msgstr "カートの有効期限が切れました。"
+
+#: src/Blocks/CartDrawer/render.php:310
+#: src/Pro/Blocks/ShippingMeter/ShippingMeterBlock.php:954
+msgid "Request failed"
+msgstr "リクエストに失敗しました"
+
+#: src/Blocks/CartDrawer/render.php:311
+msgid "Your cart is refreshing. Please wait."
+msgstr "カートを更新しています。お待ちください。"
+
+#: src/Blocks/CartDrawer/render.php:312
+msgid "Failed to fetch recommendations"
+msgstr "おすすめ商品の取得に失敗しました"
+
+#: src/Blocks/CartDrawer/render.php:314
+#. translators: 1: tax amount, 2: tax label (e.g. VAT).
+#, php-format
+msgid "Incl. %1$s %2$s"
+msgstr "%1$s %2$s を含む"
+
+#: src/Blocks/CartDrawer/render.php:346
+#: src/Pro/Blocks/CartDrawer/ProDrawerRenderExtension.php:74
+#: src/Pro/Admin/assets/js/components/CustomRecommendationSelection.jsx:17
+#: src/Pro/Admin/assets/js/components/CustomRecommendationSelection.jsx:24
+#: src/Pro/Admin/assets/js/components/CustomRecommendationSelection.jsx:32
+#: src/Pro/Admin/assets/js/components/CustomRecommendationSelection.jsx:72
+#: src/Pro/Admin/assets/js/components/DrawerPreviewEnhancements.jsx:457
+msgid "Add"
+msgstr "追加"
+
+#: src/Blocks/CartDrawer/render.php:399
+msgid "Shopping cart"
+msgstr "ショッピングカート"
+
+#: src/Blocks/CartDrawer/render.php:486
+msgid "Decrease quantity:"
+msgstr "数量を減らす:"
+
+#: src/Blocks/CartDrawer/render.php:499
+msgid "Increase quantity:"
+msgstr "数量を増やす:"
+
+#: src/Blocks/CartDrawer/render.php:515
+msgid "Remove item:"
+msgstr "商品を削除:"
+
+#: src/Blocks/CartDrawer/render.php:564
+msgid "Undo"
+msgstr "元に戻す"
+
+#: src/Blocks/CartDrawer/render.php:622
+msgid "Previous"
+msgstr "前へ"
+
+#: src/Blocks/CartDrawer/render.php:629
+msgid "Next"
+msgstr "次へ"
+
+#: src/Blocks/CartDrawer/render.php:657
+#: src/Blocks/CartDrawer/render.php:795
+#: src/Admin/assets/js/components/DrawerPreview.jsx:356
+msgid "Shipping"
+msgstr "送料"
+
+#: src/Blocks/CartDrawer/render.php:756
+msgid "Remove coupon:"
+msgstr "クーポンを削除:"
+
+#: src/Blocks/CartDrawer/render.php:836
+#: src/Admin/assets/js/components/DrawerPreview.jsx:1133
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:293
+msgid "Proceed to Checkout"
+msgstr "お支払いへ進む"
+
+#: src/Blocks/CartDrawer/render.php:873
+#: src/Admin/assets/js/components/DrawerPreview.jsx:1149
+#: src/Pro/Admin/assets/js/components/DrawerPreviewEnhancements.jsx:228
+msgid "View Cart"
+msgstr "カートを表示"
+
+#: src/Blocks/CartDrawer/render.php:879
+msgid "Powered by"
+msgstr "Powered by"
+
+#: src/Blocks/CartDrawer/render.php:882
+msgid "(opens in a new tab)"
+msgstr "(新しいタブで開く)"
+
+#: src/Cart/CartLineAuthority.php:404
+msgid "Available on backorder"
+msgstr "お取り寄せ可能"
+
+#: src/Cart/CouponSerializer.php:52
+#: src/Pro/ShippingMeter/RewardApplicator.php:262
+msgid "Cart Reward"
+msgstr "カート特典"
+
+#: src/Licensing/GuardedDrawerDataProvider.php:192
+#: src/REST/DrawerDataController.php:149
+msgid "Drawer data is temporarily unavailable."
+msgstr "ドロワーのデータは一時的に利用できません。"
+
+#: src/Licensing/PaidRuntimeGuard.php:159
+msgid "This CartPops feature requires an active Pro entitlement for this site."
+msgstr "この CartPops 機能を使用するには、このサイトで有効な Pro ライセンスが必要です。"
+
+#: src/Licensing/PaidRuntimeGuard.php:166
+msgid "This CartPops feature is temporarily unavailable while its data is prepared."
+msgstr "データの準備中のため、この CartPops 機能は一時的に利用できません。"
+
+#: src/Pro/Blocks/CartDrawer/ProDrawerRenderExtension.php:117
+#. translators: %s: add-on name.
+#, php-format
+msgid "%s added."
+msgstr "%s を追加しました。"
+
+#: src/Pro/Blocks/CartDrawer/ProDrawerRenderExtension.php:119
+#. translators: %s: add-on name.
+#, php-format
+msgid "%s removed."
+msgstr "%s を削除しました。"
+
+#: src/Pro/Blocks/CartDrawer/ProDrawerRenderExtension.php:120
+msgid "Toggle failed"
+msgstr "切り替えに失敗しました"
+
+#: src/Pro/Blocks/CartDrawer/ProDrawerRenderExtension.php:121
+msgid "Failed to add spotlight product"
+msgstr "スポットライト商品の追加に失敗しました"
+
+#: src/Pro/Blocks/CartDrawer/ProDrawerRenderExtension.php:122
+msgid "Adding…"
+msgstr "追加中…"
+
+#: src/Pro/Blocks/CartDrawer/ProDrawerRenderExtension.php:123
+msgid "Added ✓"
+msgstr "追加済み ✓"
+
+#: src/Pro/Blocks/CartDrawer/ProDrawerRenderExtension.php:125
+msgid "bundle discount"
+msgstr "バンドル割引"
+
+#: src/Pro/Blocks/CartDrawer/ProDrawerRenderExtension.php:126
+msgid "Failed to add bundle items"
+msgstr "バンドル商品の追加に失敗しました"
+
+#: src/Pro/Blocks/CartDrawer/ProDrawerRenderExtension.php:127
+#: src/Pro/Blocks/CartDrawer/ProDrawerRenderExtension.php:683
+#: src/Pro/Blocks/CartDrawer/ProDrawerRenderExtension.php:771
+msgid "Calculate shipping"
+msgstr "送料を計算"
+
+#: src/Pro/Blocks/CartDrawer/ProDrawerRenderExtension.php:128
+msgid "Loading shipping options…"
+msgstr "配送オプションを読み込み中…"
+
+#: src/Pro/Blocks/CartDrawer/ProDrawerRenderExtension.php:129
+msgid "Shipping options updated."
+msgstr "配送オプションが更新されました。"
+
+#: src/Pro/Blocks/CartDrawer/ProDrawerRenderExtension.php:130
+msgid "Shipping method updated."
+msgstr "配送方法が更新されました。"
+
+#: src/Pro/Blocks/CartDrawer/ProDrawerRenderExtension.php:131
+msgid "Shipping options could not be updated. Please try again."
+msgstr "配送オプションを更新できませんでした。もう一度お試しください。"
+
+#: src/Pro/Blocks/CartDrawer/ProDrawerRenderExtension.php:132
+msgid "No shipping options are available for this address."
+msgstr "この住所で利用可能な配送方法はありません。"
+
+#: src/Pro/Blocks/CartDrawer/ProDrawerRenderExtension.php:133
+msgid "Enter your destination to calculate shipping."
+msgstr "配送先を入力して送料を計算してください。"
+
+#: src/Pro/Blocks/CartDrawer/ProDrawerRenderExtension.php:134
+msgid "Shipping options"
+msgstr "配送オプション"
+
+#: src/Pro/Blocks/CartDrawer/ProDrawerRenderExtension.php:328
+#: src/Pro/Admin/assets/js/components/DrawerPreviewEnhancements.jsx:122
+#: src/Pro/Admin/assets/js/components/DrawerPreviewEnhancements.jsx:155
+msgid "View cart"
+msgstr "カートを表示"
+
+#: src/Pro/Blocks/CartDrawer/ProDrawerRenderExtension.php:508
+msgid "Dismiss"
+msgstr "閉じる"
+
+#: src/Pro/Blocks/CartDrawer/ProDrawerRenderExtension.php:531
+#: src/Pro/Blocks/ShippingMeter/ShippingMeterBlock.php:1116
+msgid "Shipping and rewards progress"
+msgstr "送料・特典の達成状況"
+
+#: src/Pro/Blocks/CartDrawer/ProDrawerRenderExtension.php:538
+#: src/Pro/Blocks/ShippingMeter/ShippingMeterBlock.php:1125
+msgid "Reward tiers"
+msgstr "特典ランク"
+
+#: src/Pro/Blocks/CartDrawer/ProDrawerRenderExtension.php:599
+#: src/Pro/BundleBuilder/BundleBuilder.php:56
+#: src/Pro/Admin/assets/js/pages/BundleBuilderSettings.jsx:469
+msgid "Frequently bought together"
+msgstr "よく一緒に購入されている商品"
+
+#: src/Pro/Blocks/CartDrawer/ProDrawerRenderExtension.php:605
+#: src/Pro/Blocks/CartDrawer/ProDrawerRenderExtension.php:631
+msgid "Close"
+msgstr "閉じる"
+
+#: src/Pro/Blocks/CartDrawer/ProDrawerRenderExtension.php:616
+msgid "Product info"
+msgstr "商品情報"
+
+#: src/Pro/Blocks/CartDrawer/ProDrawerRenderExtension.php:620
+msgid "Choose…"
+msgstr "選択…"
+
+#: src/Pro/Blocks/CartDrawer/ProDrawerRenderExtension.php:630
+msgid "Product information"
+msgstr "商品情報"
+
+#: src/Pro/Blocks/CartDrawer/ProDrawerRenderExtension.php:634
+msgid "Got it"
+msgstr "了解"
+
+#: src/Pro/Blocks/CartDrawer/ProDrawerRenderExtension.php:700
+msgid "Country / Region"
+msgstr "国 / 地域"
+
+#: src/Pro/Blocks/CartDrawer/ProDrawerRenderExtension.php:710
+msgid "Select a country / region…"
+msgstr "国 / 地域を選択…"
+
+#: src/Pro/Blocks/CartDrawer/ProDrawerRenderExtension.php:718
+msgid "State / County"
+msgstr "都道府県 / 州"
+
+#: src/Pro/Blocks/CartDrawer/ProDrawerRenderExtension.php:735
+msgid "Select a state / region…"
+msgstr "都道府県 / 地域を選択…"
+
+#: src/Pro/Blocks/CartDrawer/ProDrawerRenderExtension.php:761
+msgid "City"
+msgstr "市区町村"
+
+#: src/Pro/Blocks/CartDrawer/ProDrawerRenderExtension.php:766
+msgid "Postcode / ZIP"
+msgstr "郵便番号"
+
+#: src/Pro/Blocks/CartDrawer/ProDrawerRenderExtension.php:830
+msgid "Toggle add-on:"
+msgstr "アドオンを切り替え:"
+
+#: src/Pro/BundleBuilder/BundleBuilderController.php:143
+#: src/Pro/Notifications/DrawerNotificationBarController.php:360
+#: src/Pro/SmartAddons/SmartAddonsController.php:96
+#: src/Recommendations/RecommendationsController.php:94
+#: src/REST/CartStateController.php:120
+#: src/REST/CartStateController.php:199
+#: src/REST/CouponController.php:104
+#: src/REST/CouponController.php:152
+msgid "Cart is unavailable. Please try again."
+msgstr "カートをご利用いただけません。もう一度お試しください。"
+
+#: src/Pro/BundleBuilder/BundleBuilderController.php:314
+#: src/Pro/Notifications/DrawerNotificationBarController.php:442
+#: src/Pro/REST/ProDrawerDataSupplementProvider.php:80
+#: src/Pro/SmartAddons/SmartAddonsController.php:129
+#: src/Recommendations/RecommendationsController.php:148
+#: src/REST/CartStateController.php:330
+#: src/REST/CouponController.php:244
+msgid ""
+"The final cart state could not be confirmed. Refresh your cart before "
+"making another change."
+msgstr "カートの最終状態を確認できませんでした。別の変更を行う前にカートを更新してください。"
+
+#: src/Pro/BundleBuilder/BundleBuilderController.php:322
+#: src/Pro/Notifications/DrawerNotificationBarController.php:450
+#: src/Pro/REST/ProDrawerDataSupplementProvider.php:86
+#: src/Pro/SmartAddons/SmartAddonsController.php:137
+#: src/Recommendations/RecommendationsController.php:156
+#: src/REST/CartStateController.php:319
+#: src/REST/CouponController.php:233
+msgid "Your cart is being updated. Please try again."
+msgstr "カートを更新中です。もう一度お試しください。"
+
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:573
+msgid "CartPops Cart"
+msgstr "CartPops カート"
+
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:775
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:888
+msgid "Menu Icon"
+msgstr "メニューアイコン"
+
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:781
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:1063
+#: src/Pro/Admin/assets/js/components/CustomRecommendationSelection.jsx:56
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:328
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:369
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:514
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:752
+#: src/Pro/Admin/assets/js/pages/SmartAddonsSettings.jsx:223
+msgid "Icon"
+msgstr "アイコン"
+
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:784
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:785
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:786
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:787
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:788
+#: src/Admin/assets/js/pages/IntegrationsSettings.jsx:15
+msgid "Cart"
+msgstr "カート"
+
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:789
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:790
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:791
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:792
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:793
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:794
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:795
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:796
+#: src/Admin/assets/js/pages/IntegrationsSettings.jsx:35
+msgid "Bag"
+msgstr "バッグ"
+
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:805
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:1121
+msgid "Items Indicator"
+msgstr "アイテム数インジケーター"
+
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:808
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:125
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:440
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:295
+#: src/Admin/assets/js/pages/RecommendationSettings.jsx:122
+#: src/Pro/Admin/assets/js/components/DrawerPreviewEnhancements.jsx:149
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:33
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:38
+msgid "None"
+msgstr "なし"
+
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:809
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:299
+msgid "Bubble"
+msgstr "バブル"
+
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:810
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:303
+msgid "Plain"
+msgstr "プレーン"
+
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:819
+msgid "Hide Empty"
+msgstr "空のときは非表示"
+
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:821
+#: src/Setup/SiteHealthSection.php:71
+#: src/Setup/SiteHealthSection.php:84
+msgid "Yes"
+msgstr "はい"
+
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:822
+#: src/Setup/SiteHealthSection.php:71
+#: src/Setup/SiteHealthSection.php:84
+msgid "No"
+msgstr "いいえ"
+
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:833
+msgid "Show"
+msgstr "表示"
+
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:834
+msgid "Hide"
+msgstr "非表示"
+
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:843
+msgid "Alignment"
+msgstr "配置"
+
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:847
+#: src/Admin/assets/js/pages/Dashboard.jsx:159
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:44
+msgid "Left"
+msgstr "左"
+
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:851
+msgid "Center"
+msgstr "中央"
+
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:855
+#: src/Admin/assets/js/pages/Dashboard.jsx:160
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:43
+msgid "Right"
+msgstr "右"
+
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:896
+msgid "Normal"
+msgstr "通常"
+
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:902
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:956
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:1130
+msgid "Text Color"
+msgstr "テキスト色"
+
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:914
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:967
+#: src/Admin/assets/js/pages/IntegrationsSettings.jsx:338
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:17
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:559
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:703
+msgid "Icon Color"
+msgstr "アイコン色"
+
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:926
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:978
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:1142
+msgid "Background Color"
+msgstr "背景色"
+
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:938
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:989
+msgid "Border Color"
+msgstr "枠線の色"
+
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:950
+msgid "Hover"
+msgstr "ホバー"
+
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:1002
+msgid "Border Width"
+msgstr "枠線の太さ"
+
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:1020
+#: src/Admin/assets/js/pages/DesignSettings.jsx:316
+#: src/Pro/Admin/assets/js/pages/BundleBuilderSettings.jsx:519
+msgid "Border Radius"
+msgstr "角丸"
+
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:1071
+msgid "Size"
+msgstr "サイズ"
+
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:1089
+msgid "Spacing"
+msgstr "間隔"
+
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:1108
+msgid "Padding"
+msgstr "パディング"
+
+#: src/Pro/Compatibility/Elementor/ElementorWidgetRegistrar.php:1154
+msgid "Distance"
+msgstr "距離"
+
+#: src/Pro/Notifications/DrawerNotificationBar.php:368
+msgid "Offer quantity: 1"
+msgstr "オファー数量: 1"
+
+#: src/Pro/Notifications/DrawerNotificationBarController.php:275
+#: src/Pro/Admin/assets/js/components/ConditionBuilder.jsx:27
+msgid "≥ is at least"
+msgstr "≥ は以上"
+
+#: src/Pro/Notifications/DrawerNotificationBarController.php:279
+#: src/Pro/Admin/assets/js/components/ConditionBuilder.jsx:28
+msgid "≤ is at most"
+msgstr "≤ は以下"
+
+#: src/Pro/Notifications/DrawerNotificationBarController.php:283
+#: src/Pro/Admin/assets/js/components/ConditionBuilder.jsx:29
+msgid "> is more than"
+msgstr "> はより大きい"
+
+#: src/Pro/Notifications/DrawerNotificationBarController.php:287
+#: src/Pro/Admin/assets/js/components/ConditionBuilder.jsx:30
+msgid "< is less than"
+msgstr "< は未満"
+
+#: src/Pro/Notifications/DrawerNotificationBarController.php:291
+#: src/Pro/Admin/assets/js/components/ConditionBuilder.jsx:31
+msgid "= equals"
+msgstr "= は等しい"
+
+#: src/Pro/Notifications/DrawerNotificationBarController.php:298
+#: src/Pro/Admin/assets/js/components/ConditionBuilder.jsx:35
+msgid "Contains any of"
+msgstr "いずれかを含む"
+
+#: src/Pro/Notifications/DrawerNotificationBarController.php:302
+#: src/Pro/Admin/assets/js/components/ConditionBuilder.jsx:36
+msgid "Contains all of"
+msgstr "すべてを含む"
+
+#: src/Pro/Notifications/DrawerNotificationBarController.php:306
+#: src/Pro/Admin/assets/js/components/ConditionBuilder.jsx:37
+msgid "Contains none of"
+msgstr "いずれも含まない"
+
+#: src/Pro/Notifications/DrawerNotificationBarController.php:313
+#: src/Pro/Admin/assets/js/components/ConditionBuilder.jsx:41
+msgid "Is any of"
+msgstr "いずれかに一致"
+
+#: src/Pro/Notifications/DrawerNotificationBarController.php:317
+#: src/Pro/Admin/assets/js/components/ConditionBuilder.jsx:42
+msgid "Is none of"
+msgstr "いずれにも一致しない"
+
+#: src/Pro/Notifications/DrawerNotificationBarController.php:382
+msgid "Invalid spotlight configuration."
+msgstr "スポットライトの設定が無効です。"
+
+#: src/Pro/Notifications/DrawerNotificationBarController.php:393
+msgid "Spotlight product already in cart."
+msgstr "スポットライト商品はすでにカートに入っています。"
+
+#: src/Pro/Notifications/DrawerNotificationBarController.php:458
+#: src/Pro/Notifications/DrawerNotificationBarController.php:466
+#: src/Recommendations/RecommendationsController.php:164
+msgid "Could not add product to cart."
+msgstr "商品をカートに追加できませんでした。"
+
+#: src/Pro/REST/ProDrawerDataSupplementProvider.php:92
+#: src/REST/CartStateController.php:217
+msgid "The cart could not be refreshed. Please try again."
+msgstr "カートを更新できませんでした。もう一度お試しください。"
+
+#: src/Pro/Rules/Conditions/CartContainsCategoryCondition.php:66
+msgid "Cart Contains Category"
+msgstr "カートにカテゴリーを含む"
+
+#: src/Pro/Rules/Conditions/CartContainsProductCondition.php:62
+msgid "Cart Contains Product"
+msgstr "カートに商品を含む"
+
+#: src/Pro/Rules/Conditions/CartItemCountCondition.php:56
+#: src/Pro/Admin/assets/js/components/ConditionBuilder.jsx:55
+msgid "Cart Item Count"
+msgstr "カートの商品点数"
+
+#: src/Pro/Rules/Conditions/CartTotalCondition.php:56
+#: src/Pro/Admin/assets/js/components/ConditionBuilder.jsx:49
+msgid "Cart Total"
+msgstr "カート合計"
+
+#: src/Pro/Rules/Conditions/UserRoleCondition.php:63
+#: src/Pro/Admin/assets/js/components/ConditionBuilder.jsx:73
+msgid "User Role"
+msgstr "ユーザー権限"
+
+#: src/Pro/Rules/RuleEngine.php:59
+msgid "CartPops Rules"
+msgstr "CartPopsルール"
+
+#: src/Pro/Rules/RuleEngine.php:60
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:274
+msgid "Rule"
+msgstr "ルール"
+
+#: src/Pro/ShippingMeter/RewardApplicator.php:401
+msgid "Gift quantity: 1"
+msgstr "ギフト数量: 1"
+
+#: src/Pro/ShippingMeter/ShippingMeter.php:417
+msgid "reached"
+msgstr "達成"
+
+#: src/Pro/ShippingMeter/ShippingMeter.php:417
+msgid "not reached"
+msgstr "未達成"
+
+#: src/Pro/ShippingMeter/ShippingMeter.php:564
+#: src/Pro/Admin/assets/js/components/DrawerPreviewEnhancements.jsx:544
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:318
+msgid "Free Shipping"
+msgstr "送料無料"
+
+#: src/Pro/ShippingMeter/ShippingMeter.php:565
+#: src/Pro/ShippingMeter/ShippingMeter.php:566
+#: src/Admin/assets/js/pages/Dashboard.jsx:213
+#: src/Pro/Admin/assets/js/components/DrawerPreviewEnhancements.jsx:549
+#: src/Pro/Admin/assets/js/components/DrawerPreviewEnhancements.jsx:556
+msgid "Off"
+msgstr "オフ"
+
+#: src/Pro/ShippingMeter/ShippingMeter.php:758
+#: src/Pro/ShippingMeter/ShippingMeter.php:762
+#: src/Pro/Admin/assets/js/components/DrawerPreviewEnhancements.jsx:558
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:47
+msgid "Free Gift"
+msgstr "無料ギフト"
+
+#: src/Pro/SmartAddons/SmartAddonFeeBatchException.php:20
+msgid "CartPops could not restore cart fees safely."
+msgstr "CartPops はカート手数料を安全に復元できませんでした。"
+
+#: src/Pro/SmartAddons/SmartAddons.php:883
+msgid "CartPops add-on"
+msgstr "CartPops アドオン"
+
+#: src/Pro/SmartAddons/SmartAddonsController.php:145
+msgid "This cart add-on is unavailable."
+msgstr "このカートアドオンは利用できません。"
+
+#: src/Pro/SmartAddons/SmartAddonsController.php:153
+#: src/Recommendations/RecommendationsController.php:180
+#: src/REST/CartStateController.php:178
+#: src/REST/CouponController.php:255
+msgid "The cart could not be updated. Please try again."
+msgstr "カートを更新できませんでした。もう一度お試しください。"
+
+#: src/Recommendations/RecommendationsController.php:114
+msgid "This product is not available."
+msgstr "この商品は現在ご利用いただけません。"
+
+#: src/REST/CartStateController.php:131
+msgid "Select one or more valid cart items."
+msgstr "有効なカート商品を1つ以上選択してください。"
+
+#: src/REST/CartStateController.php:170
+msgid "One or more cart items could not be removed."
+msgstr "カートから1つ以上の商品を削除できませんでした。"
+
+#: src/REST/CouponController.php:95
+#: src/REST/CouponController.php:162
+#: src/REST/CouponController.php:201
+msgid "Cart rewards are managed automatically."
+msgstr "カート特典は自動的に管理されます。"
+
+#: src/REST/CouponController.php:129
+msgid "Invalid coupon."
+msgstr "無効なクーポンです。"
+
+#: src/REST/CouponController.php:209
+msgid "This coupon is managed automatically and could not be removed."
+msgstr "このクーポンは自動的に管理されているため削除できませんでした。"
+
+#: src/REST/CouponController.php:215
+msgid "The coupon could not be removed."
+msgstr "クーポンを削除できませんでした。"
+
+#: src/REST/NamespaceRateLimitMiddleware.php:92
+msgid "Too many requests. Please wait and try again."
+msgstr "リクエストが多すぎます。しばらく待ってからもう一度お試しください。"
+
+#: src/REST/NamespaceRateLimitMiddleware.php:93
+msgid "Request limiting is temporarily unavailable. Please try again."
+msgstr "リクエスト制限は一時的に利用できません。もう一度お試しください。"
+
+#: src/REST/PublicEndpointGuard.php:45
+#: src/REST/PublicEndpointGuard.php:63
+msgid "Your cart session could not be verified. Please refresh and try again."
+msgstr "カートセッションを確認できませんでした。再読み込みしてもう一度お試しください。"
+
+#: src/REST/PublicEndpointGuard.php:52
+#: src/REST/WooSessionBootstrap.php:534
+msgid "Your cart session is unavailable. Please refresh and try again."
+msgstr "カートセッションを利用できません。再読み込みしてもう一度お試しください。"
+
+#: src/REST/PublicEndpointGuard.php:78
+#: src/REST/PublicEndpointGuard.php:88
+msgid "Cookie check failed. Please refresh and try again."
+msgstr "Cookie の確認に失敗しました。再読み込みしてもう一度お試しください。"
+
+#: src/REST/RestCors.php:141
+msgid "REST method overrides are not supported."
+msgstr "REST メソッドのオーバーライドはサポートされていません。"
+
+#: src/REST/RestCors.php:144
+msgid "JSONP is not supported for the CartPops API."
+msgstr "CartPops API では JSONP はサポートされていません。"
+
+#: src/REST/RestCors.php:151
+#: src/REST/RestCors.php:163
+msgid "The request body is too large."
+msgstr "リクエスト本文のサイズが大きすぎます。"
+
+#: src/REST/RestCors.php:159
+#: src/REST/RestCors.php:801
+msgid "No CartPops REST policy permits this request."
+msgstr "このリクエストを許可する CartPops REST ポリシーがありません。"
+
+#: src/REST/RestCors.php:337
+#: src/REST/RestPreDispatchFinalizer.php:102
+msgid "The REST request was rejected."
+msgstr "REST リクエストが拒否されました。"
+
+#: src/REST/RestCors.php:667
+#: src/REST/RestCors.php:674
+msgid "This origin is not allowed to access the CartPops API."
+msgstr "このオリジンからの CartPops API へのアクセスは許可されていません。"
+
+#: src/REST/RestCors.php:677
+msgid "The request origin does not match its referrer."
+msgstr "リクエストのオリジンがリファラーと一致しません。"
+
+#: src/Setup/Upgrader.php:1772
+#. translators: %1$d: WordPress multisite blog ID.
+#, php-format
+msgid ""
+"CartPops network migration paused at site %1$d and will retry it without "
+"skipping later sites. Original settings were preserved."
+msgstr "CartPops ネットワークの移行はサイト %1$d で一時停止しました。以降のサイトをスキップせずに再試行します。元の設定は保持されました。"
+
+#: src/StoreAPI/CartExtension.php:178
+msgid "Exact WooCommerce cart item key."
+msgstr "正確な WooCommerce カートアイテムキー。"
+
+#: src/StoreAPI/CartExtension.php:186
+msgid "Parent product ID (same as id for simple products)."
+msgstr "親商品 ID（シンプル商品の場合は ID と同じ）。"
+
+#: src/StoreAPI/CartExtension.php:203
+msgid "CartPops drawer configuration."
+msgstr "CartPops ドロワー設定。"
+
+#: src/StoreAPI/CartExtension.php:208
+msgid "Cart launcher configuration."
+msgstr "カートランチャー設定。"
+
+#: src/StoreAPI/CartExtension.php:221
+msgid "Safe CartPops coupon presentation and removal authority."
+msgstr "安全な CartPops クーポン表示および削除権限。"
+
+#: src/StoreAPI/CartExtension.php:279
+msgid "Bounded PHP-filtered cart item presentation."
+msgstr "範囲制限された PHP フィルター済みカートアイテムの表示。"
+
+#: src/StoreAPI/CartExtension.php:289
+msgid "Exact cart item keys with an edition-owned locked presentation."
+msgstr "エディション所有のロックされた表示を持つ正確なカートアイテムキー。"
+
+#: src/StoreAPI/CartExtension.php:313
+msgid "Whether WooCommerce permits this line to be shown in a mini-cart."
+msgstr "WooCommerce がこの明細をミニカートに表示することを許可しているかどうか。"
+
+#: src/StoreAPI/CartExtension.php:318
+msgid "Whether CartPops may offer quantity mutation for this line."
+msgstr "CartPops がこの明細の数量変更を提供できるかどうか。"
+
+#: src/StoreAPI/CartExtension.php:323
+msgid "Whether CartPops may offer removal for this line."
+msgstr "CartPops がこの明細の削除を提供できるかどうか。"
+
+#: src/StoreAPI/CartExtension.php:328
+msgid ""
+"WooCommerce quantity minimum, transport maximum, step, and "
+"unlimited-product state."
+msgstr "WooCommerce の最小数量、転送最大値、ステップ、および無制限商品の状態。"
+
+#: src/StoreAPI/CartExtension.php:339
+msgid "Bounded plain-text WooCommerce backorder notice."
+msgstr "範囲制限されたプレーンテキストの WooCommerce バックオーダー通知。"
+
+#: src/Admin/assets/js/App.jsx:170
+msgid "Setup"
+msgstr "セットアップ"
+
+#: src/Admin/assets/js/App.jsx:172
+#: src/Admin/assets/js/pages/Dashboard.jsx:119
+msgid "Dashboard"
+msgstr "ダッシュボード"
+
+#: src/Setup/MigrationWarningSummary.php:155
+#: src/Admin/assets/js/App.jsx:173
+msgid "Drawer"
+msgstr "ドロワー"
+
+#: src/Admin/assets/js/App.jsx:174
+msgid "Launcher"
+msgstr "ランチャー"
+
+#: src/Admin/assets/js/App.jsx:178
+#: src/Admin/assets/js/pages/Dashboard.jsx:185
+msgid "Features"
+msgstr "機能"
+
+#: src/Setup/MigrationWarningSummary.php:163
+#: src/Admin/assets/js/App.jsx:182
+#: src/Admin/assets/js/pages/Dashboard.jsx:88
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:352
+msgid "Recommendations"
+msgstr "おすすめ商品"
+
+#: src/Admin/assets/js/App.jsx:187
+msgid "Smart add-ons"
+msgstr "スマートアドオン"
+
+#: src/Admin/assets/js/App.jsx:192
+#: src/Admin/assets/js/pages/Dashboard.jsx:104
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:657
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:669
+msgid "Smart Bar"
+msgstr "スマートバー"
+
+#: src/Admin/assets/js/App.jsx:197
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:419
+#: src/Pro/Admin/assets/js/pages/BundleBuilderSettings.jsx:444
+msgid "Bundle Builder"
+msgstr "バンドルビルダー"
+
+#: src/Admin/assets/js/App.jsx:203
+msgid "Insights"
+msgstr "インサイト"
+
+#: src/Admin/assets/js/App.jsx:207
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:202
+msgid "Analytics"
+msgstr "アナリティクス"
+
+#: src/Admin/assets/js/App.jsx:213
+msgid "System"
+msgstr "システム"
+
+#: src/Admin/assets/js/App.jsx:214
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:444
+msgid "Advanced"
+msgstr "高度な設定"
+
+#: src/Admin/assets/js/App.jsx:539
+msgid "Settings saved!"
+msgstr "設定を保存しました。"
+
+#: src/Admin/assets/js/App.jsx:545
+msgid "Failed to save."
+msgstr "保存に失敗しました。"
+
+#: src/Admin/assets/js/App.jsx:579
+msgid "Settings reset to defaults."
+msgstr "設定を初期値にリセットしました。"
+
+#: src/Admin/assets/js/App.jsx:590
+msgid "Settings could not be reset. Please try again."
+msgstr "設定をリセットできませんでした。もう一度お試しください。"
+
+#: src/Admin/assets/js/App.jsx:730
+msgid "Unsaved changes"
+msgstr "未保存の変更"
+
+#: src/Admin/assets/js/App.jsx:739
+msgid "Saving…"
+msgstr "保存中…"
+
+#: src/Admin/assets/js/App.jsx:740
+msgid "Save Changes"
+msgstr "変更を保存"
+
+#: src/Admin/assets/js/components/ColorPicker.jsx:111
+msgid "CSS color value"
+msgstr "CSSカラー値"
+
+#: src/Admin/assets/js/components/ColorPicker.jsx:112
+msgid "Hex color value"
+msgstr "HEXカラー値"
+
+#: src/Admin/assets/js/components/DrawerPreview.jsx:359
+msgid "Free"
+msgstr "無料"
+
+#: src/Admin/assets/js/components/DrawerPreview.jsx:377
+msgid "Tax"
+msgstr "税"
+
+#: src/Admin/assets/js/components/DrawerPreview.jsx:399
+#: src/Admin/assets/js/components/LauncherPreview.jsx:136
+msgid "Desktop"
+msgstr "デスクトップ"
+
+#: src/Admin/assets/js/components/DrawerPreview.jsx:421
+#: src/Admin/assets/js/components/LauncherPreview.jsx:158
+msgid "Mobile"
+msgstr "モバイル"
+
+#: src/Admin/assets/js/components/DrawerPreview.jsx:448
+#: src/Admin/assets/js/components/LauncherPreview.jsx:185
+msgid "Items"
+msgstr "商品"
+
+#: src/Admin/assets/js/components/DrawerPreview.jsx:459
+#: src/Admin/assets/js/components/LauncherPreview.jsx:194
+msgid "Empty"
+msgstr "空"
+
+#: src/Admin/assets/js/components/DrawerPreview.jsx:469
+#: src/Admin/assets/js/components/LauncherPreview.jsx:204
+msgid "Toggle dark mode preview"
+msgstr "ダークモードのプレビューを切り替え"
+
+#: src/Admin/assets/js/components/DrawerPreview.jsx:854
+#: src/Pro/Admin/assets/js/components/ConditionBuilder.jsx:453
+#: src/Pro/Admin/assets/js/components/ProductSearch.jsx:720
+#: src/Pro/Admin/assets/js/components/ProductSearch.jsx:748
+msgid "Remove"
+msgstr "削除"
+
+#: src/Admin/assets/js/components/LauncherPreview.jsx:262
+msgid "Store menu"
+msgstr "ストアメニュー"
+
+#: src/Admin/assets/js/components/LauncherPreview.jsx:267
+msgid "Inline navigation cart launcher preview"
+msgstr "インラインナビゲーションカートランチャーのプレビュー"
+
+#: src/Admin/assets/js/components/LauncherPreview.jsx:448
+msgid "Launcher hidden by current settings"
+msgstr "現在の設定によりランチャーは非表示です"
+
+#: src/Admin/assets/js/components/PageExclusionsControl.jsx:365
+msgid "Hide launcher on pages"
+msgstr "特定のページでランチャーを非表示"
+
+#: src/Admin/assets/js/components/PageExclusionsControl.jsx:368
+msgid ""
+"Select pages where the floating cart launcher should not appear. Existing "
+"exclusions stay selected until you remove them."
+msgstr "フローティングカートランチャーを表示しないページを選択してください。既存の除外設定は削除するまで保持されます。"
+
+#: src/Admin/assets/js/components/PageExclusionsControl.jsx:377
+msgid "Pages with the launcher hidden"
+msgstr "ランチャーが非表示のページ"
+
+#: src/Admin/assets/js/components/PageExclusionsControl.jsx:388
+#: src/Admin/assets/js/components/PageExclusionsControl.jsx:491
+#. translators: %d: WordPress page ID.
+#, js-format
+msgid "Page #%d (untitled)"
+msgstr "ページ #%d (無題)"
+
+#: src/Admin/assets/js/components/PageExclusionsControl.jsx:393
+#. translators: %d: WordPress page ID.
+#, js-format
+msgid "Page #%d (unavailable)"
+msgstr "ページ #%d (利用不可)"
+
+#: src/Admin/assets/js/components/PageExclusionsControl.jsx:406
+#. translators: %s: Page title.
+#, js-format
+msgid "Remove %s from hidden pages"
+msgstr "非表示ページから%sを削除"
+
+#: src/Admin/assets/js/components/PageExclusionsControl.jsx:424
+msgid ""
+"Some selected page names could not be loaded. Their exclusions are still "
+"preserved."
+msgstr "選択された一部のページ名を読み込めませんでした。除外設定は保持されています。"
+
+#: src/Admin/assets/js/components/PageExclusionsControl.jsx:436
+msgid "Retry page names"
+msgstr "ページ名の再取得"
+
+#: src/Admin/assets/js/components/PageExclusionsControl.jsx:442
+msgid "Search pages"
+msgstr "ページを検索"
+
+#: src/Admin/assets/js/components/PageExclusionsControl.jsx:443
+msgid "Type at least two characters, then choose a page below."
+msgstr "2文字以上入力し、下からページを選択してください。"
+
+#: src/Admin/assets/js/components/PageExclusionsControl.jsx:456
+msgid "The maximum number of page exclusions has been selected."
+msgstr "除外するページの最大数に達しました。"
+
+#: src/Admin/assets/js/components/PageExclusionsControl.jsx:463
+msgid "Searching pages…"
+msgstr "ページを検索中…"
+
+#: src/Admin/assets/js/components/PageExclusionsControl.jsx:467
+msgid "Pages could not be loaded. Try searching again."
+msgstr "ページを読み込めませんでした。もう一度検索してください。"
+
+#: src/Admin/assets/js/components/PageExclusionsControl.jsx:477
+msgid "No matching pages found."
+msgstr "一致するページが見つかりませんでした。"
+
+#: src/Admin/assets/js/components/PageExclusionsControl.jsx:484
+msgid "Matching pages"
+msgstr "一致するページ"
+
+#: src/Admin/assets/js/components/PageExclusionsControl.jsx:504
+#. translators: %d: WordPress page ID.
+#, js-format
+msgid "Page ID: %d"
+msgstr "ページ ID: %d"
+
+#: src/Admin/assets/js/components/UpgradePage.jsx:25
+#. translators: %s: paid feature name.
+#, js-format
+msgid "%s is available in CartPops Pro"
+msgstr "%s は CartPops Pro でご利用いただけます"
+
+#: src/Admin/assets/js/components/UpgradePage.jsx:30
+msgid ""
+"Upgrade to configure this feature. Your existing CartPops settings remain "
+"unchanged."
+msgstr "この機能を設定するにはアップグレードしてください。既存の CartPops の設定は変更されません。"
+
+#: src/Admin/assets/js/components/UpgradePage.jsx:42
+#: src/Admin/assets/js/pages/RecommendationSettings.jsx:93
+msgid "Upgrade to CartPops Pro"
+msgstr "CartPops Pro にアップグレード"
+
+#: src/Setup/MigrationWarningSummary.php:159
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:18
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:210
+#: src/Admin/assets/js/pages/RecommendationSettings.jsx:44
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:281
+msgid "General"
+msgstr "一般"
+
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:19
+msgid "Integrations"
+msgstr "連携"
+
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:28
+msgid "Powered by CartPops"
+msgstr "Powered by CartPops"
+
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:32
+msgid "Show the CartPops partner link"
+msgstr "CartPops パートナーリンクを表示"
+
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:33
+msgid ""
+"Opt in to show a CartPops referral link in the drawer footer. The link "
+"remains hidden until a valid partner code is saved."
+msgstr "ドロワーフッターに CartPops の紹介リンクを表示します。有効なパートナーコードが保存されるまでリンクは非表示のままです。"
+
+#: src/Setup/MigrationWarningSummary.php:258
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:45
+msgid "Partner code"
+msgstr "パートナーコード"
+
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:46
+msgid ""
+"Enter a positive base-10 integer of up to 20 digits. A valid code is "
+"required for the link to display."
+msgstr "最大20桁の正の整数（10進数）を入力してください。リンクを表示するには有効なコードが必要です。"
+
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:71
+msgid "Refresh cart data on page load"
+msgstr "ページ読み込み時にカートデータを更新"
+
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:72
+msgid ""
+"Requests fresh cart data on every page load. Use only when cached pages "
+"show stale cart contents."
+msgstr "ページの読み込みごとに最新のカートデータをリクエストします。キャッシュされたページに古いカート情報が表示される場合のみ使用してください。"
+
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:139
+msgid "Export failed."
+msgstr "エクスポートに失敗しました。"
+
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:166
+msgid "Settings imported! Reload to see changes."
+msgstr "設定をインポートしました！再読み込みして変更を確認してください。"
+
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:191
+msgid "Import failed."
+msgstr "インポートに失敗しました。"
+
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:197
+msgid "Invalid JSON file."
+msgstr "無効な JSON ファイルです。"
+
+#: src/Setup/MigrationWarningSummary.php:249
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:214
+msgid "Enable CartPops"
+msgstr "CartPops を有効化"
+
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:215
+msgid "Disable to turn off all CartPops frontend functionality."
+msgstr "無効にすると、CartPops のフロントエンド機能がすべてオフになります。"
+
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:226
+msgid "Open drawer on"
+msgstr "ドロワーを開くトリガー"
+
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:234
+msgid "Launcher click only"
+msgstr "ランチャーのクリック時のみ"
+
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:266
+msgid "WooCommerce Mini Cart"
+msgstr "WooCommerce ミニカート"
+
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:270
+msgid "Integration mode"
+msgstr "連携モード"
+
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:271
+msgid "Controls how CartPops interacts with the WooCommerce Mini Cart block."
+msgstr "CartPops と WooCommerce ミニカートブロックの連携方法を制御します。"
+
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:282
+msgid "Replace — CartPops drawer replaces WC Mini Cart"
+msgstr "置き換え — CartPops ドロワーが WC ミニカートを置き換えます"
+
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:289
+msgid "Standalone — Both operate independently"
+msgstr "スタンドアロン — それぞれが独立して動作します"
+
+#: src/Setup/MigrationWarningSummary.php:219
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:304
+msgid "Custom CSS"
+msgstr "カスタム CSS"
+
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:308
+msgid "Additional CSS"
+msgstr "追加 CSS"
+
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:309
+msgid ""
+"Add custom CSS to style the cart drawer. Uses the .cpops- prefix for all "
+"CartPops elements."
+msgstr "カートドロワーのスタイルをカスタマイズする CSS を追加します。CartPops のすべての要素には .cpops- プレフィックスが使用されます。"
+
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:324
+msgid "Performance"
+msgstr "パフォーマンス"
+
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:335
+msgid "Import / Export"
+msgstr "インポート / エクスポート"
+
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:339
+msgid ""
+"Export your CartPops settings to a JSON file for backup, or import settings "
+"from another site."
+msgstr "バックアップ用に CartPops の設定を JSON ファイルにエクスポートするか、他のサイトから設定をインポートします。"
+
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:351
+msgid "Export Settings"
+msgstr "設定のエクスポート"
+
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:358
+msgid "Import Settings"
+msgstr "設定のインポート"
+
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:374
+msgid "Reset"
+msgstr "リセット"
+
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:386
+msgid "Reset all settings to defaults"
+msgstr "すべての設定を初期値にリセット"
+
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:391
+msgid "Are you sure? This will reset all CartPops settings to their default values."
+msgstr "本当によろしいですか？すべてのCartPops設定がデフォルト値にリセットされます。"
+
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:411
+msgid "Yes, reset everything"
+msgstr "はい、すべてリセットします"
+
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:419
+#: src/Pro/Admin/assets/js/components/AnalyticsResetActions.jsx:68
+msgid "Cancel"
+msgstr "キャンセル"
+
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:429
+msgid "Settings update in progress…"
+msgstr "設定を更新中…"
+
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:446
+msgid "Fine-tune CartPops behavior, styling, and integrations."
+msgstr "CartPopsの動作、スタイル、連携を細かく調整します。"
+
+#: src/Admin/assets/js/pages/Dashboard.jsx:71
+msgid "Cart Drawer"
+msgstr "カートドロワー"
+
+#: src/Setup/MigrationWarningSummary.php:152
+#: src/Admin/assets/js/pages/Dashboard.jsx:76
+#: src/Admin/assets/js/pages/Dashboard.jsx:170
+msgid "Cart Launcher"
+msgstr "カートランチャー"
+
+#: src/Admin/assets/js/pages/Dashboard.jsx:81
+msgid "Shipping Meter"
+msgstr "送料メーター"
+
+#: src/Admin/assets/js/pages/Dashboard.jsx:94
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:402
+#: src/Pro/Admin/assets/js/pages/SmartAddonsSettings.jsx:139
+msgid "Smart Add-ons"
+msgstr "スマートアドオン"
+
+#: src/Admin/assets/js/pages/Dashboard.jsx:121
+msgid "Welcome to CartPops. Manage your cart drawer and boost conversions."
+msgstr "CartPopsへようこそ。カートドロワーを管理し、コンバージョン率を向上させましょう。"
+
+#: src/Admin/assets/js/pages/Dashboard.jsx:142
+msgid "Plugin Status"
+msgstr "プラグインのステータス"
+
+#: src/Admin/assets/js/pages/Dashboard.jsx:145
+msgid "Active"
+msgstr "有効"
+
+#: src/Admin/assets/js/pages/Dashboard.jsx:146
+msgid "Inactive"
+msgstr "無効"
+
+#: src/Admin/assets/js/pages/Dashboard.jsx:156
+msgid "Drawer Position"
+msgstr "ドロワーの位置"
+
+#: src/Admin/assets/js/pages/Dashboard.jsx:173
+msgid "Visible"
+msgstr "表示"
+
+#: src/Admin/assets/js/pages/Dashboard.jsx:174
+msgid "Hidden"
+msgstr "非表示"
+
+#: src/Admin/assets/js/pages/Dashboard.jsx:212
+msgid "On"
+msgstr "オン"
+
+#: src/Admin/assets/js/pages/Dashboard.jsx:231
+#: src/Admin/assets/js/pages/IntegrationsSettings.jsx:198
+msgid "Unknown Theme"
+msgstr "不明なテーマ"
+
+#: src/Admin/assets/js/pages/Dashboard.jsx:245
+msgid "Resources"
+msgstr "リソース"
+
+#: src/Admin/assets/js/pages/Dashboard.jsx:260
+msgid "Documentation"
+msgstr "ドキュメント"
+
+#: src/Admin/assets/js/pages/Dashboard.jsx:263
+msgid "Guides and setup instructions"
+msgstr "ガイドと設定手順"
+
+#: src/Admin/assets/js/pages/Dashboard.jsx:282
+msgid "Changelog"
+msgstr "変更履歴"
+
+#: src/Admin/assets/js/pages/Dashboard.jsx:285
+msgid "Latest updates and releases"
+msgstr "最新のアップデートとリリース情報"
+
+#: src/Admin/assets/js/pages/Dashboard.jsx:304
+msgid "Support"
+msgstr "サポート"
+
+#: src/Admin/assets/js/pages/Dashboard.jsx:307
+msgid "Get help from our team"
+msgstr "チームからサポートを受ける"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:11
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:442
+msgid "Default"
+msgstr "デフォルト"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:23
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:450
+msgid "Minimal"
+msgstr "ミニマル"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:35
+msgid "Bold"
+msgstr "ボールド"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:47
+msgid "Ocean"
+msgstr "オーシャン"
+
+#: src/Setup/MigrationWarningSummary.php:161
+#: src/Admin/assets/js/pages/DesignSettings.jsx:61
+msgid "Primary"
+msgstr "プライマリ"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:62
+msgid "Primary Text"
+msgstr "プライマリテキスト"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:63
+#: src/Admin/assets/js/pages/DesignSettings.jsx:127
+#: src/Pro/Admin/assets/js/pages/BundleBuilderSettings.jsx:491
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:489
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:730
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:526
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:664
+msgid "Background"
+msgstr "背景"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:64
+#: src/Admin/assets/js/pages/DesignSettings.jsx:132
+msgid "Surface"
+msgstr "サーフェス"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:65
+#: src/Admin/assets/js/pages/DesignSettings.jsx:137
+#: src/Pro/Admin/assets/js/components/CustomRecommendationSelection.jsx:57
+#: src/Pro/Admin/assets/js/pages/BundleBuilderSettings.jsx:498
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:502
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:742
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:536
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:677
+msgid "Text"
+msgstr "テキスト"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:66
+#: src/Admin/assets/js/pages/DesignSettings.jsx:142
+msgid "Text Secondary"
+msgstr "セカンダリテキスト"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:67
+msgid "Text Tertiary"
+msgstr "ターシャリテキスト"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:68
+#: src/Admin/assets/js/pages/DesignSettings.jsx:147
+#: src/Pro/Admin/assets/js/pages/BundleBuilderSettings.jsx:508
+msgid "Border"
+msgstr "ボーダー"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:69
+#: src/Admin/assets/js/pages/DesignSettings.jsx:152
+msgid "Input Background"
+msgstr "入力欄の背景"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:70
+#: src/Admin/assets/js/pages/DesignSettings.jsx:157
+msgid "Input Border"
+msgstr "入力欄のボーダー"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:71
+msgid "Input Text"
+msgstr "入力欄のテキスト"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:72
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:16
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:542
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:772
+msgid "Button Background"
+msgstr "ボタン背景"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:73
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:558
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:784
+msgid "Button Text"
+msgstr "ボタンテキスト"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:76
+msgid "Secondary Button Background"
+msgstr "セカンダリボタンの背景"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:80
+msgid "Secondary Button Text"
+msgstr "セカンダリボタンのテキスト"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:84
+msgid "Quantity Button Background"
+msgstr "数量ボタンの背景"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:88
+msgid "Quantity Button Text"
+msgstr "数量ボタンのテキスト"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:92
+msgid "Quantity Value Background"
+msgstr "数量値の背景"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:96
+msgid "Quantity Border"
+msgstr "数量のボーダー"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:100
+msgid "Quantity Value Text"
+msgstr "数量値のテキスト"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:104
+msgid "Recommendations Button"
+msgstr "おすすめボタン"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:108
+msgid "Recommendations Button Icon"
+msgstr "おすすめボタンのアイコン"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:112
+msgid "Recommendations Background"
+msgstr "おすすめの背景"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:116
+msgid "Recommendations Border"
+msgstr "おすすめのボーダー"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:118
+msgid "Recommendations Text"
+msgstr "おすすめのテキスト"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:119
+msgid "Sale Price"
+msgstr "セール価格"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:120
+msgid "Success"
+msgstr "成功"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:121
+msgid "Danger"
+msgstr "エラー"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:201
+msgid "Presets"
+msgstr "プリセット"
+
+#: src/Setup/MigrationWarningSummary.php:146
+#: src/Admin/assets/js/pages/DesignSettings.jsx:235
+#: src/Admin/assets/js/pages/IntegrationsSettings.jsx:328
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:470
+msgid "Colors"
+msgstr "色"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:257
+msgid "Dark mode palette"
+msgstr "ダークモードパレット"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:260
+msgid ""
+"Used for forced dark mode and when system dark mode is active. Primary "
+"branding remains shared with the light palette."
+msgstr "強制ダークモード時、またはシステムのダークモードが有効な場合に使用されます。主要なブランドカラーはライトパレットと共有されます。"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:289
+msgid "Background Overlay"
+msgstr "背景オーバーレイ"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:292
+msgid "Color"
+msgstr "色"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:299
+msgid "Opacity"
+msgstr "不透明度"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:313
+msgid "Shape"
+msgstr "形状"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:327
+msgid "Button Border Radius"
+msgstr "ボタンの角丸"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:338
+msgid "Dark Mode"
+msgstr "ダークモード"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:342
+msgid "Auto (follow system)"
+msgstr "自動（システムに連動）"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:346
+msgid "Always light"
+msgstr "常にライト"
+
+#: src/Admin/assets/js/pages/DesignSettings.jsx:350
+msgid "Always dark"
+msgstr "常にダーク"
+
+#: src/Admin/assets/js/pages/DrawerEditor.jsx:17
+#: src/Admin/assets/js/pages/RecommendationSettings.jsx:147
+msgid "Layout"
+msgstr "レイアウト"
+
+#: src/Admin/assets/js/pages/DrawerEditor.jsx:18
+msgid "Design"
+msgstr "デザイン"
+
+#: src/Admin/assets/js/pages/DrawerEditor.jsx:21
+#: src/Admin/assets/js/pages/DrawerEditor.jsx:56
+msgid "Shipping meter"
+msgstr "配送メーター"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:23
+msgid "Optional. Leave blank to use the translated CartPops default."
+msgstr "任意。CartPops のデフォルト設定を使用する場合は空白のままにしてください。"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:27
+msgid "Optional. Leave blank to hide this text."
+msgstr "任意。このテキストを非表示にするには空白のままにしてください。"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:36
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:141
+msgid "Position & Size"
+msgstr "位置とサイズ"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:40
+#: src/Blocks/CartLauncher/index.js:23
+msgid "Position"
+msgstr "位置"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:52
+msgid "Width (Desktop)"
+msgstr "幅 (デスクトップ)"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:63
+msgid "Width (Mobile %)"
+msgstr "幅 (モバイル %)"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:76
+msgid "Secondary action"
+msgstr "セカンダリアクション"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:95
+msgid ""
+"Add a Continue shopping, View cart, or custom customer action below "
+"checkout with CartPops Pro."
+msgstr "CartPops Pro では、お会計ボタンの下に「買い物を続ける」、「カートを表示」、またはカスタムアクションを追加できます。"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:107
+msgid "Explore Pro actions"
+msgstr "Pro のアクションを見る"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:116
+msgid "Animation"
+msgstr "アニメーション"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:120
+msgid "Animation Type"
+msgstr "アニメーションタイプ"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:123
+msgid "Slide"
+msgstr "スライド"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:124
+msgid "Fade"
+msgstr "フェード"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:133
+msgid "Duration (ms)"
+msgstr "所要時間 (ミリ秒)"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:146
+#: src/Admin/assets/js/pages/IntegrationsSettings.jsx:284
+msgid "Behavior"
+msgstr "動作"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:150
+msgid "Show undo after item removal"
+msgstr "商品削除後に「元に戻す」を表示"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:158
+msgid "Show coupon code field"
+msgstr "クーポンコード欄を表示"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:159
+msgid "Allow customers to apply coupon codes from the cart drawer."
+msgstr "カートドロワー内からクーポンコードを適用できるようにします。"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:170
+msgid "Product name display"
+msgstr "商品名の表示"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:171
+msgid "Choose how product names wrap inside drawer cart items."
+msgstr "カートドロワー内の商品名折り返し表示方法を選択します。"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:180
+msgid "Two lines"
+msgstr "2行"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:184
+msgid "Single line"
+msgstr "1行"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:188
+msgid "Full name"
+msgstr "商品名全体"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:198
+msgid "Totals breakdown"
+msgstr "合計の内訳"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:199
+msgid "Where to show subtotal, discounts, shipping, fees, and tax lines."
+msgstr "小計、割引、送料、手数料、税金の明細を表示する場所。"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:206
+msgid "In footer (sticky)"
+msgstr "フッター内 (固定)"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:210
+msgid "Above checkout (scrollable)"
+msgstr "お会計ボタンの上 (スクロール可能)"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:217
+msgid "Hidden (total only)"
+msgstr "非表示 (合計のみ)"
+
+#: src/Setup/MigrationWarningSummary.php:248
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:227
+msgid "Show subtotal"
+msgstr "小計を表示"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:228
+msgid "Display the subtotal in the selected totals area."
+msgstr "選択した合計エリアに小計を表示します。"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:239
+msgid "Show discounts"
+msgstr "割引を表示"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:240
+msgid "Display the discount line when a coupon is applied."
+msgstr "クーポンが適用された際に割引行を表示します。"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:251
+msgid "Show shipping"
+msgstr "送料を表示"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:252
+msgid "Display the shipping line when shipping is calculated."
+msgstr "送料が計算された際に送料行を表示します。"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:263
+msgid "Show taxes"
+msgstr "税金を表示"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:264
+msgid "Display the applicable tax line or included-tax note."
+msgstr "該当する税金の行または内税の注記を表示します。"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:275
+msgid "Show total"
+msgstr "合計を表示"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:276
+msgid "Display the grand total above the checkout button."
+msgstr "お会計ボタンの上に合計金額を表示します。"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:287
+msgid "Checkout Button Text"
+msgstr "お会計ボタンのテキスト"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:288
+msgid "Leave empty to use the default \"Proceed to Checkout\"."
+msgstr "空欄にするとデフォルトの「お支払いへ進む」が使用されます。"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:302
+msgid "Customer messages"
+msgstr "お客様向けメッセージ"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:306
+msgid "Cart title"
+msgstr "カートのタイトル"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:316
+msgid "Added-to-cart announcement"
+msgstr "カート追加時の通知"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:317
+msgid ""
+"Optional generic announcement. Enter complete plain text without a product "
+"placeholder, or leave blank to disable it."
+msgstr "任意の一般的なお知らせ。商品のプレースホルダーを含まない完全なプレーンテキストを入力するか、無効にするには空白のままにします。"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:322
+msgid "Product successfully added to your cart."
+msgstr "商品がカートに追加されました。"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:332
+msgid "Coupon heading"
+msgstr "クーポンの見出し"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:335
+msgid "No heading by default"
+msgstr "デフォルトでは見出しなし"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:342
+msgid "Coupon input placeholder"
+msgstr "クーポン入力欄のプレースホルダー"
+
+#: src/Setup/MigrationWarningSummary.php:263
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:355
+msgid "Coupon button text"
+msgstr "クーポンボタンのテキスト"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:367
+msgid "Totals and empty-cart text"
+msgstr "合計と空のカートのテキスト"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:371
+msgid "Subtotal label"
+msgstr "小計ラベル"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:381
+msgid "Discount label"
+msgstr "割引ラベル"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:391
+msgid "Total label"
+msgstr "合計ラベル"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:401
+msgid "Empty-cart title"
+msgstr "空のカートのタイトル"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:411
+msgid "Empty-cart subtitle"
+msgstr "空のカートのサブタイトル"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:414
+msgid "No subtitle by default"
+msgstr "デフォルトではサブタイトルなし"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:421
+msgid "Empty-cart button text"
+msgstr "空のカートのボタンテキスト"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:433
+msgid "Quantity Selector"
+msgstr "数量セレクター"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:437
+msgid "Style"
+msgstr "スタイル"
+
+#: src/Admin/assets/js/pages/DrawerSettings.jsx:446
+msgid "Rounded"
+msgstr "角丸"
+
+#: src/Admin/assets/js/pages/IntegrationsSettings.jsx:55
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:215
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:278
+msgid "Basket"
+msgstr "バスケット"
+
+#: src/Admin/assets/js/pages/IntegrationsSettings.jsx:77
+msgid "Cart 2"
+msgstr "カート 2"
+
+#: src/Admin/assets/js/pages/IntegrationsSettings.jsx:98
+msgid "Bag 2"
+msgstr "バッグ 2"
+
+#: src/Admin/assets/js/pages/IntegrationsSettings.jsx:117
+msgid "Basket 2"
+msgstr "バスケット 2"
+
+#: src/Admin/assets/js/pages/IntegrationsSettings.jsx:156
+msgid "Theme"
+msgstr "テーマ"
+
+#: src/Admin/assets/js/pages/IntegrationsSettings.jsx:213
+msgid "Integration available"
+msgstr "連携可能"
+
+#: src/Admin/assets/js/pages/IntegrationsSettings.jsx:214
+msgid "No integration available"
+msgstr "利用可能な連携はありません"
+
+#: src/Admin/assets/js/pages/IntegrationsSettings.jsx:225
+msgid "Cart Icon"
+msgstr "カートアイコン"
+
+#: src/Admin/assets/js/pages/IntegrationsSettings.jsx:229
+msgid "Replace header cart icon"
+msgstr "ヘッダーのカートアイコンを置き換える"
+
+#: src/Admin/assets/js/pages/IntegrationsSettings.jsx:233
+msgid "Replace the Blocksy header cart icon with a CartPops icon."
+msgstr "Blocksy のヘッダーカートアイコンを CartPops アイコンに置き換えます。"
+
+#: src/Admin/assets/js/pages/IntegrationsSettings.jsx:249
+msgid "Icon style"
+msgstr "アイコンスタイル"
+
+#: src/Admin/assets/js/pages/IntegrationsSettings.jsx:288
+msgid "Show item count badge"
+msgstr "商品数のバッジを表示"
+
+#: src/Admin/assets/js/pages/IntegrationsSettings.jsx:292
+msgid "Display the number of items in the cart on the icon."
+msgstr "カート内の商品数をアイコン上に表示します。"
+
+#: src/Admin/assets/js/pages/IntegrationsSettings.jsx:306
+msgid "Open CartPops drawer on click"
+msgstr "クリック時に CartPops ドロワーを開く"
+
+#: src/Admin/assets/js/pages/IntegrationsSettings.jsx:310
+msgid ""
+"Click the header cart icon to open the CartPops drawer instead of the "
+"Blocksy cart panel."
+msgstr "ヘッダーのカートアイコンをクリックしたときに、Blocksy のカートパネルではなく CartPops ドロワーを開きます。"
+
+#: src/Admin/assets/js/pages/IntegrationsSettings.jsx:331
+msgid "Leave empty to inherit colors from the theme."
+msgstr "空白のままにするとテーマの色を継承します。"
+
+#: src/Admin/assets/js/pages/IntegrationsSettings.jsx:348
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:18
+msgid "Badge Background"
+msgstr "バッジの背景色"
+
+#: src/Admin/assets/js/pages/IntegrationsSettings.jsx:361
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:19
+msgid "Badge Text"
+msgstr "バッジのテキスト色"
+
+#: src/Admin/assets/js/pages/IntegrationsSettings.jsx:378
+msgid "Preview"
+msgstr "プレビュー"
+
+#: src/Admin/assets/js/pages/IntegrationsSettings.jsx:438
+msgid "Supported Themes"
+msgstr "対応テーマ"
+
+#: src/Admin/assets/js/pages/IntegrationsSettings.jsx:441
+msgid "CartPops can integrate with these themes to replace the header cart icon:"
+msgstr "CartPops はこれらのテーマと連携してヘッダーのカートアイコンを置き換えることができます:"
+
+#: src/Admin/assets/js/pages/IntegrationsSettings.jsx:462
+msgid "More themes coming soon"
+msgstr "対応テーマを近日追加予定"
+
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:32
+msgid "Inline Background"
+msgstr "インライン背景"
+
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:35
+msgid "Inline Text"
+msgstr "インラインテキスト"
+
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:38
+msgid "Inline Badge Background"
+msgstr "インラインバッジの背景"
+
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:40
+msgid "Inline Badge Text"
+msgstr "インラインバッジのテキスト"
+
+#: src/Setup/MigrationWarningSummary.php:156
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:60
+msgid "Floating Cart Launcher"
+msgstr "フローティングカートランチャー"
+
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:62
+msgid "Configure the floating cart button that opens the drawer."
+msgstr "ドロワーを開くフローティングカートボタンを設定します。"
+
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:72
+msgid "Visibility"
+msgstr "表示設定"
+
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:76
+msgid "Show floating cart launcher"
+msgstr "フローティングカートランチャーを表示"
+
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:80
+msgid "Display the floating cart button on the frontend."
+msgstr "フロントエンドにフローティングカートボタンを表示します。"
+
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:91
+#: src/Blocks/CartLauncher/index.js:40
+msgid "Show item count"
+msgstr "商品数を表示"
+
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:99
+msgid "Show cart total"
+msgstr "カートの合計額を表示"
+
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:108
+msgid "Hide zero item count"
+msgstr "商品数が0の場合は非表示"
+
+#: src/Setup/MigrationWarningSummary.php:235
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:120
+msgid "Hide when cart is empty"
+msgstr "カートが空の場合は非表示"
+
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:145
+msgid "Screen Position"
+msgstr "画面上の位置"
+
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:149
+#: src/Blocks/CartLauncher/index.js:27
+msgid "Bottom Right"
+msgstr "右下"
+
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:153
+#: src/Blocks/CartLauncher/index.js:31
+msgid "Bottom Left"
+msgstr "左下"
+
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:163
+msgid "Offset X (px)"
+msgstr "X軸オフセット (px)"
+
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:174
+msgid "Offset Y (px)"
+msgstr "Y軸オフセット (px)"
+
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:185
+msgid "Size (px)"
+msgstr "サイズ (px)"
+
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:199
+msgid "Appearance"
+msgstr "外観"
+
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:203
+msgid "Icon Style"
+msgstr "アイコンスタイル"
+
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:207
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:270
+msgid "Shopping Cart"
+msgstr "ショッピングカート"
+
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:211
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:274
+msgid "Shopping Bag"
+msgstr "ショッピングバッグ"
+
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:253
+msgid "Navigation menu launcher (legacy)"
+msgstr "ナビゲーションメニューランチャー (レガシー)"
+
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:259
+msgid ""
+"These settings affect existing navigation menu items with the "
+"cpops-cart-menu-item CSS class. They do not add a menu item."
+msgstr ""
+"これらの設定は、cpops-cart-menu-item CSS "
+"クラスを持つ既存のナビゲーションメニュー項目に適用されます。メニュー項目は新しく追加されません。"
+
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:266
+msgid "Navigation menu icon"
+msgstr "ナビゲーションメニューのアイコン"
+
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:288
+msgid "Navigation menu item count style"
+msgstr "ナビゲーションメニューのアイテム数スタイル"
+
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:314
+msgid "Hide zero item count in navigation menu"
+msgstr "ナビゲーションメニューで商品数が0の場合は非表示"
+
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:331
+msgid "Show cart total in navigation menu"
+msgstr "ナビゲーションメニューにカートの合計額を表示"
+
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:341
+msgid "Inline launcher appearance"
+msgstr "インラインランチャーの外観"
+
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:343
+msgid ""
+"These colors apply to navigation menu, shortcode, and inline block "
+"launchers. Floating launcher colors remain separate."
+msgstr "これらの色は、ナビゲーションメニュー、ショートコード、インラインブロックランチャーに適用されます。フローティングランチャーの色設定は別になります。"
+
+#: src/Admin/assets/js/pages/LauncherSettings.jsx:374
+msgid "Launcher previews"
+msgstr "ランチャーのプレビュー"
+
+#: src/Admin/assets/js/pages/RecommendationSettings.jsx:33
+msgid "Product Recommendations"
+msgstr "おすすめ商品"
+
+#: src/Admin/assets/js/pages/RecommendationSettings.jsx:35
+msgid ""
+"Show relevant product suggestions in the cart drawer to boost average order "
+"value."
+msgstr "カートドロワーに関連商品を表示して、平均注文額を向上させます。"
+
+#: src/Admin/assets/js/pages/RecommendationSettings.jsx:48
+msgid "Enable Recommendations"
+msgstr "おすすめ商品を有効化"
+
+#: src/Admin/assets/js/pages/RecommendationSettings.jsx:56
+msgid "Strategy"
+msgstr "戦略"
+
+#: src/Admin/assets/js/pages/RecommendationSettings.jsx:57
+msgid "How to select which products to recommend."
+msgstr "おすすめする商品を選択する方法。"
+
+#: src/Admin/assets/js/pages/RecommendationSettings.jsx:64
+#: src/Admin/assets/js/pages/RecommendationSettings.jsx:121
+msgid "Cross-sells"
+msgstr "クロスセル"
+
+#: src/Admin/assets/js/pages/RecommendationSettings.jsx:65
+#: src/Admin/assets/js/pages/RecommendationSettings.jsx:120
+msgid "Upsells"
+msgstr "アップセル"
+
+#: src/Admin/assets/js/pages/RecommendationSettings.jsx:66
+msgid "Custom products (Pro)"
+msgstr "カスタム商品 (Pro)"
+
+#: src/Admin/assets/js/pages/RecommendationSettings.jsx:81
+msgid ""
+"Choose specific recommendation products with CartPops Pro. Cross-sells and "
+"upsells remain available in the Free edition."
+msgstr "CartPops Pro では特定のおすすめ商品を選択できます。クロスセルとアップセルは無料版でも引き続き利用可能です。"
+
+#: src/Admin/assets/js/pages/RecommendationSettings.jsx:112
+msgid "Fallback Strategy"
+msgstr "フォールバック戦略"
+
+#: src/Admin/assets/js/pages/RecommendationSettings.jsx:113
+msgid "Used when the primary strategy returns no results."
+msgstr "プライマリ戦略で結果が得られない場合に使用されます。"
+
+#: src/Admin/assets/js/pages/RecommendationSettings.jsx:119
+msgid "Random products"
+msgstr "ランダムな商品"
+
+#: src/Admin/assets/js/pages/RecommendationSettings.jsx:130
+msgid "Number of products"
+msgstr "商品数"
+
+#: src/Admin/assets/js/pages/RecommendationSettings.jsx:143
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:448
+msgid "Display"
+msgstr "表示"
+
+#: src/Admin/assets/js/pages/RecommendationSettings.jsx:151
+msgid "Horizontal Scroll"
+msgstr "横スクロール"
+
+#: src/Admin/assets/js/pages/RecommendationSettings.jsx:154
+msgid "Grid"
+msgstr "グリッド"
+
+#: src/Admin/assets/js/pages/RecommendationSettings.jsx:155
+msgid "List"
+msgstr "リスト"
+
+#: src/Admin/assets/js/pages/RecommendationSettings.jsx:163
+msgid "Heading"
+msgstr "見出し"
+
+#: src/Admin/assets/js/pages/RecommendationSettings.jsx:179
+msgid ""
+"Recommendation add buttons use the accessible icon presentation. Text and "
+"text-with-icon buttons are available with CartPops Pro."
+msgstr ""
+"おすすめ商品の追加ボタンにはアクセシブルなアイコン表示が使用されます。テキストボタンおよびテキスト＋アイコンボタンは CartPops Pro "
+"で利用可能です。"
+
+#: src/Admin/assets/js/pages/RecommendationSettings.jsx:191
+msgid "Explore Pro button styles"
+msgstr "Pro のボタンスタイルを見る"
+
+#: src/Blocks/CartDrawer/index.js:35
+msgid "CartPops Cart Drawer"
+msgstr "CartPops カートドロワー"
+
+#: src/Blocks/CartDrawer/index.js:44
+msgid "The cart drawer will appear on the frontend when triggered."
+msgstr "トリガーされると、フロントエンドにカートドロワーが表示されます。"
+
+#: src/Blocks/CartLauncher/index.js:21
+msgid "Launcher Settings"
+msgstr "ランチャー設定"
+
+#: src/Pro/Admin/assets/js/components/AnalyticsChart.jsx:21
+#: src/Pro/Admin/assets/js/components/DashboardInsights.jsx:76
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:122
+msgid "Drawer Opens"
+msgstr "ドロワーオープン数"
+
+#: src/Pro/Admin/assets/js/components/AnalyticsChart.jsx:26
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:128
+msgid "Add to Carts"
+msgstr "カート追加数"
+
+#: src/Pro/Admin/assets/js/components/AnalyticsChart.jsx:31
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:500
+msgid "Checkouts"
+msgstr "チェックアウト数"
+
+#: src/Pro/Admin/assets/js/components/AnalyticsChart.jsx:36
+#: src/Pro/Admin/assets/js/components/DashboardInsights.jsx:81
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:140
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:506
+msgid "Conversions"
+msgstr "コンバージョン数"
+
+#: src/Pro/Admin/assets/js/components/AnalyticsChart.jsx:41
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:283
+msgid "CartPops Revenue"
+msgstr "CartPops 売上"
+
+#: src/Pro/Admin/assets/js/components/AnalyticsChart.jsx:114
+msgid "No data available for this period."
+msgstr "この期間のデータはありません。"
+
+#: src/Pro/Admin/assets/js/components/AnalyticsResetActions.jsx:22
+msgid "Analytics data has been reset. New data will be collected from now on."
+msgstr "アナリティクスデータがリセットされました。今後は新しいデータが収集されます。"
+
+#: src/Pro/Admin/assets/js/components/AnalyticsResetActions.jsx:30
+msgid "Failed to reset analytics data."
+msgstr "アナリティクスデータのリセットに失敗しました。"
+
+#: src/Pro/Admin/assets/js/components/AnalyticsResetActions.jsx:45
+msgid "Reset analytics data"
+msgstr "アナリティクスデータをリセット"
+
+#: src/Pro/Admin/assets/js/components/AnalyticsResetActions.jsx:50
+msgid ""
+"Are you sure? This will permanently delete all analytics events, "
+"conversions, and revenue tracking."
+msgstr "本当によろしいですか？これにより、すべてのアナリティクスイベント、コンバージョン、売上トラッキングが完全に削除されます。"
+
+#: src/Pro/Admin/assets/js/components/AnalyticsResetActions.jsx:61
+msgid "Yes, reset analytics"
+msgstr "はい、アナリティクスをリセットします"
+
+#: src/Pro/Admin/assets/js/components/ConditionBuilder.jsx:61
+msgid "Contains Product"
+msgstr "商品を含む"
+
+#: src/Pro/Admin/assets/js/components/ConditionBuilder.jsx:67
+msgid "Contains Category"
+msgstr "カテゴリーを含む"
+
+#: src/Pro/Admin/assets/js/components/ConditionBuilder.jsx:81
+msgid "Customer"
+msgstr "顧客"
+
+#: src/Pro/Admin/assets/js/components/ConditionBuilder.jsx:82
+msgid "Subscriber"
+msgstr "購読者"
+
+#: src/Pro/Admin/assets/js/components/ConditionBuilder.jsx:83
+msgid "Shop Manager"
+msgstr "ショップマネージャー"
+
+#: src/Pro/Admin/assets/js/components/ConditionBuilder.jsx:84
+msgid "Administrator"
+msgstr "管理者"
+
+#: src/Pro/Admin/assets/js/components/ConditionBuilder.jsx:85
+msgid "Guest"
+msgstr "ゲスト"
+
+#: src/Pro/Admin/assets/js/components/ConditionBuilder.jsx:135
+#. translators: %d is a product category ID.
+#, js-format
+msgid "Category #%d"
+msgstr "カテゴリー #%d"
+
+#: src/Pro/Admin/assets/js/components/ConditionBuilder.jsx:465
+msgid "Search categories"
+msgstr "カテゴリーを検索"
+
+#: src/Pro/Admin/assets/js/components/ConditionBuilder.jsx:467
+msgid "Search for a category…"
+msgstr "カテゴリーを検索…"
+
+#: src/Pro/Admin/assets/js/components/ConditionBuilder.jsx:476
+#: src/Pro/Admin/assets/js/components/ProductSearch.jsx:783
+msgid "Searching…"
+msgstr "検索中…"
+
+#: src/Pro/Admin/assets/js/components/ConditionBuilder.jsx:493
+#. translators: %d is the number of products in a category.
+#, js-format
+msgid "%d product"
+msgid_plural "%d products"
+msgstr[0] "%d 件の商品"
+
+#: src/Pro/Admin/assets/js/components/ConditionBuilder.jsx:512
+msgid "No categories found"
+msgstr "カテゴリーが見つかりませんでした"
+
+#: src/Pro/Admin/assets/js/components/ConditionBuilder.jsx:618
+msgid "Remove condition"
+msgstr "条件を削除"
+
+#: src/Pro/Admin/assets/js/components/ConditionBuilder.jsx:694
+msgid "Show conditionally"
+msgstr "条件付きで表示"
+
+#: src/Pro/Admin/assets/js/components/ConditionBuilder.jsx:695
+msgid "Only show when specific conditions are met."
+msgstr "特定の条件を満たした場合にのみ表示します。"
+
+#: src/Pro/Admin/assets/js/components/ConditionBuilder.jsx:709
+msgid "Match:"
+msgstr "一致条件:"
+
+#: src/Pro/Admin/assets/js/components/ConditionBuilder.jsx:719
+msgid "All (AND)"
+msgstr "すべて (AND)"
+
+#: src/Pro/Admin/assets/js/components/ConditionBuilder.jsx:728
+msgid "Any (OR)"
+msgstr "いずれか (OR)"
+
+#: src/Pro/Admin/assets/js/components/ConditionBuilder.jsx:753
+msgid "+ Add Condition"
+msgstr "+ 条件を追加"
+
+#: src/Pro/Admin/assets/js/components/ConversionFunnel.jsx:19
+msgid "Conversion Funnel"
+msgstr "コンバージョンファネル"
+
+#: src/Pro/Admin/assets/js/components/ConversionFunnel.jsx:59
+#. translators: %s is a percentage relative to the previous funnel step.
+#, js-format
+msgid "%s%% from previous"
+msgstr "前回から %s%%"
+
+#: src/Pro/Admin/assets/js/components/CustomRecommendationSelection.jsx:49
+msgid "Add button presentation"
+msgstr "追加ボタンの表示形式"
+
+#: src/Pro/Admin/assets/js/components/CustomRecommendationSelection.jsx:50
+msgid ""
+"Choose whether directly purchasable recommendations use an icon, text, or "
+"both."
+msgstr "直接購入可能なレコメンド商品にアイコン、テキスト、またはその両方を使用するか選択します。"
+
+#: src/Pro/Admin/assets/js/components/CustomRecommendationSelection.jsx:59
+msgid "Text and icon"
+msgstr "テキストとアイコン"
+
+#: src/Pro/Admin/assets/js/components/CustomRecommendationSelection.jsx:70
+msgid "Add button text"
+msgstr "追加ボタンのテキスト"
+
+#: src/Pro/Admin/assets/js/components/CustomRecommendationSelection.jsx:80
+msgid ""
+"Shown on simple products that can be added directly. Products with options "
+"keep their Select options link."
+msgstr "直接追加できるシンプル商品に表示されます。オプションがある商品は「オプションを選択」リンクが維持されます。"
+
+#: src/Pro/Admin/assets/js/components/CustomRecommendationSelection.jsx:111
+#. translators: 1: recommendation button text, 2: product name.
+#, js-format
+msgid "%1$s: %2$s"
+msgstr "%1$s: %2$s"
+
+#: src/Pro/Admin/assets/js/components/CustomRecommendationSelection.jsx:167
+msgid "Custom products"
+msgstr "カスタム商品"
+
+#: src/Pro/Admin/assets/js/components/CustomRecommendationSelection.jsx:171
+msgid ""
+"Select up to four products. Their selection order is used in the cart "
+"drawer."
+msgstr "最大4つの商品を選択できます。選択した順序でカートドロワーに表示されます。"
+
+#: src/Pro/Admin/assets/js/components/DashboardInsights.jsx:54
+msgid "Could not load analytics data."
+msgstr "アナリティクスデータを読み込めませんでした。"
+
+#: src/Pro/Admin/assets/js/components/DashboardInsights.jsx:61
+#: src/Pro/Admin/assets/js/components/ProductSearch.jsx:825
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:251
+#: src/Pro/Admin/assets/js/pages/BundleBuilderSettings.jsx:224
+msgid "Retry"
+msgstr "再試行"
+
+#: src/Pro/Admin/assets/js/components/DashboardInsights.jsx:69
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:232
+msgid "Loading analytics…"
+msgstr "アナリティクスを読み込み中…"
+
+#: src/Pro/Admin/assets/js/components/DashboardInsights.jsx:86
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:146
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:335
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:382
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:411
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:441
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:512
+msgid "Revenue"
+msgstr "売上"
+
+#: src/Pro/Admin/assets/js/components/DashboardInsights.jsx:97
+msgid "Last 7 days"
+msgstr "過去7日間"
+
+#: src/Pro/Admin/assets/js/components/DashboardInsights.jsx:100
+msgid "View analytics"
+msgstr "アナリティクスを表示"
+
+#: src/Pro/Admin/assets/js/components/DrawerPreviewEnhancements.jsx:142
+msgid "Action"
+msgstr "アクション"
+
+#: src/Pro/Admin/assets/js/components/DrawerPreviewEnhancements.jsx:143
+msgid "Choose an optional customer action below the checkout button."
+msgstr "チェックアウトボタンの下に表示する任意の顧客アクションを選択します。"
+
+#: src/Pro/Admin/assets/js/components/DrawerPreviewEnhancements.jsx:159
+#: src/Pro/Admin/assets/js/components/DrawerPreviewEnhancements.jsx:171
+msgid "Custom URL"
+msgstr "カスタムURL"
+
+#: src/Pro/Admin/assets/js/components/DrawerPreviewEnhancements.jsx:172
+msgid ""
+"Use a root-relative path or a complete HTTP(S) URL. Invalid URL and text "
+"pairs fall back to View cart."
+msgstr "ルート相対パスまたは完全な HTTP(S) URL を使用してください。無効なURLとテキストの組み合わせは「カートを表示」にフォールバックします。"
+
+#: src/Pro/Admin/assets/js/components/DrawerPreviewEnhancements.jsx:191
+msgid "Custom text"
+msgstr "カスタムテキスト"
+
+#: src/Pro/Admin/assets/js/components/DrawerPreviewEnhancements.jsx:192
+msgid "Plain text only, up to 80 characters."
+msgstr "プレーンテキストのみ、最大80文字。"
+
+#: src/Pro/Admin/assets/js/components/DrawerPreviewEnhancements.jsx:405
+msgid "Your message here"
+msgstr "ここにメッセージを入力"
+
+#: src/Pro/Admin/assets/js/components/DrawerPreviewEnhancements.jsx:491
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:205
+msgid "Conditional"
+msgstr "条件付き"
+
+#: src/Pro/Admin/assets/js/components/DrawerPreviewEnhancements.jsx:598
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:400
+msgid "You have qualified for free shipping!"
+msgstr "送料無料が適用されました！"
+
+#: src/Pro/Admin/assets/js/components/DrawerPreviewEnhancements.jsx:601
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:385
+msgid "Add {{amount}} more for free shipping"
+msgstr "あと {{amount}} の追加で送料無料"
+
+#: src/Pro/Admin/assets/js/components/DrawerPreviewEnhancements.jsx:911
+msgid "In Progress"
+msgstr "進行中"
+
+#: src/Pro/Admin/assets/js/components/DrawerPreviewEnhancements.jsx:922
+msgid "Qualified"
+msgstr "達成済み"
+
+#: src/Pro/Admin/assets/js/components/DrawerPreviewEnhancements.jsx:936
+msgid "Shipping meter preview progress"
+msgstr "送料無料メーターのプレビュー進行状況"
+
+#: src/Pro/Admin/assets/js/components/DrawerPreviewEnhancements.jsx:1051
+#: src/Pro/Admin/assets/js/pages/SmartAddonsSettings.jsx:172
+msgid "Shipping protection"
+msgstr "配送補償"
+
+#: src/Pro/Admin/assets/js/components/ProductSearch.jsx:118
+#. translators: %d: Product ID.
+#, js-format
+msgid "Product #%d"
+msgstr "商品 #%d"
+
+#: src/Pro/Admin/assets/js/components/ProductSearch.jsx:764
+msgid "Products"
+msgstr "商品"
+
+#: src/Pro/Admin/assets/js/components/ProductSearch.jsx:765
+msgid "Product"
+msgstr "商品"
+
+#: src/Pro/Admin/assets/js/components/ProductSearch.jsx:773
+msgid "Search for a product…"
+msgstr "商品を検索…"
+
+#: src/Pro/Admin/assets/js/components/ProductSearch.jsx:818
+msgid "Product search failed."
+msgstr "商品の検索に失敗しました。"
+
+#: src/Pro/Admin/assets/js/components/ProductSearch.jsx:836
+msgid "No products found"
+msgstr "商品が見つかりませんでした"
+
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:13
+msgid "Today"
+msgstr "今日"
+
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:14
+msgid "7 days"
+msgstr "7日間"
+
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:15
+msgid "30 days"
+msgstr "30日間"
+
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:16
+msgid "90 days"
+msgstr "90日間"
+
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:134
+msgid "Checkout Starts"
+msgstr "チェックアウト開始数"
+
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:204
+msgid "Track drawer engagement, conversions, and revenue."
+msgstr "ドロワーのエンゲージメント、コンバージョン、売上を追跡します。"
+
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:241
+msgid "Could not load analytics data. Please try again."
+msgstr "アナリティクスデータを読み込めませんでした。もう一度お試しください。"
+
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:292
+#. translators: %s is a percentage of total revenue.
+#, js-format
+msgid "%s%% of total revenue via CartPops features"
+msgstr "CartPops機能経由の総売上の%s%%"
+
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:298
+msgid "Revenue generated by CartPops features"
+msgstr "CartPops機能によって生み出された売上"
+
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:312
+msgid "SmartBar"
+msgstr "SmartBar"
+
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:315
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:358
+msgid "Impressions"
+msgstr "表示回数"
+
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:326
+msgid "Spotlight Adds"
+msgstr "スポットライトからの追加"
+
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:342
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:392
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:451
+msgid "Order Rate"
+msgstr "注文率"
+
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:371
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:430
+msgid "Products Added"
+msgstr "追加された商品数"
+
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:405
+msgid "Toggles"
+msgstr "トグル回数"
+
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:422
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:488
+msgid "Opens"
+msgstr "開いた回数"
+
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:477
+msgid "Daily Breakdown"
+msgstr "日別内訳"
+
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:485
+msgid "Date"
+msgstr "日付"
+
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:494
+msgid "Cart+"
+msgstr "Cart+"
+
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:569
+msgid "No daily data available."
+msgstr "日次データはありません。"
+
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:585
+msgid "Conversion Rate"
+msgstr "コンバージョン率"
+
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:593
+msgid "Recommendation Clicks"
+msgstr "おすすめ商品のクリック数"
+
+#: src/Pro/Admin/assets/js/pages/AnalyticsSettings.jsx:604
+msgid "Coupons Applied"
+msgstr "クーポン適用数"
+
+#: src/Pro/Admin/assets/js/pages/BundleBuilderSettings.jsx:101
+msgid "The trigger product cannot also be a companion."
+msgstr "トリガー商品を同時購入商品に設定することはできません。"
+
+#: src/Pro/Admin/assets/js/pages/BundleBuilderSettings.jsx:128
+msgid "The selected trigger was removed from the companion products."
+msgstr "選択したトリガー商品が同時購入商品から削除されました。"
+
+#: src/Pro/Admin/assets/js/pages/BundleBuilderSettings.jsx:174
+msgid "New Bundle"
+msgstr "新規バンドル"
+
+#: src/Pro/Admin/assets/js/pages/BundleBuilderSettings.jsx:181
+#. translators: %d is the number of companion products in a bundle.
+#, js-format
+msgid "%d companion"
+msgid_plural "%d companions"
+msgstr[0] "%d個の同時購入商品"
+
+#: src/Pro/Admin/assets/js/pages/BundleBuilderSettings.jsx:214
+msgid "Could not load product details."
+msgstr "商品の詳細を読み込めませんでした。"
+
+#: src/Pro/Admin/assets/js/pages/BundleBuilderSettings.jsx:231
+msgid "Trigger Product"
+msgstr "トリガー商品"
+
+#: src/Pro/Admin/assets/js/pages/BundleBuilderSettings.jsx:237
+msgid "When this product is in the cart, the upsell flyout becomes available."
+msgstr "この商品がカートに入っているときにアップセルフライアウトが表示されます。"
+
+#: src/Pro/Admin/assets/js/pages/BundleBuilderSettings.jsx:260
+msgid "Companion Products"
+msgstr "同時購入商品"
+
+#: src/Pro/Admin/assets/js/pages/BundleBuilderSettings.jsx:266
+msgid "Products shown in the flyout when the trigger product is in the cart."
+msgstr "トリガー商品がカートに入っているときにフライアウトに表示される商品。"
+
+#: src/Pro/Admin/assets/js/pages/BundleBuilderSettings.jsx:320
+msgid "Remove companion"
+msgstr "同時購入商品を削除"
+
+#: src/Pro/Admin/assets/js/pages/BundleBuilderSettings.jsx:346
+msgid "Add a companion product"
+msgstr "同時購入商品を追加"
+
+#: src/Pro/Admin/assets/js/pages/BundleBuilderSettings.jsx:356
+msgid "Bundle Discount"
+msgstr "バンドル割引"
+
+#: src/Pro/Admin/assets/js/pages/BundleBuilderSettings.jsx:362
+msgid "Optional discount applied to all companion products when added as a bundle."
+msgstr "バンドルとして追加されたときにすべての同時購入商品に適用される任意の割引。"
+
+#: src/Pro/Admin/assets/js/pages/BundleBuilderSettings.jsx:403
+msgid "Remove Bundle"
+msgstr "バンドルを削除"
+
+#: src/Pro/Admin/assets/js/pages/BundleBuilderSettings.jsx:446
+msgid ""
+"Configure \"frequently bought together\" bundles with optional discounts. "
+"When a trigger product is in the cart, customers can add companion products "
+"with a single tap."
+msgstr "任意の割引付きで「よく一緒に購入される商品」のバンドルを設定します。トリガー商品がカートに入っている場合、顧客はワンタップで同時購入商品を追加できます。"
+
+#: src/Pro/Admin/assets/js/pages/BundleBuilderSettings.jsx:455
+msgid "Enable Bundle Builder"
+msgstr "バンドルビルダーを有効化"
+
+#: src/Pro/Admin/assets/js/pages/BundleBuilderSettings.jsx:456
+msgid "Show upsell triggers on product cards in the cart drawer."
+msgstr "カートドロワー内の商品カードにアップセルトリガーを表示します。"
+
+#: src/Pro/Admin/assets/js/pages/BundleBuilderSettings.jsx:467
+msgid "Flyout Heading"
+msgstr "フライアウトの見出し"
+
+#: src/Pro/Admin/assets/js/pages/BundleBuilderSettings.jsx:481
+msgid "Trigger Banner Colors"
+msgstr "トリガーバナーの色"
+
+#: src/Pro/Admin/assets/js/pages/BundleBuilderSettings.jsx:484
+msgid "Customize the appearance of the upsell trigger banner on cart items."
+msgstr "カート内商品のアップセルトリガーバナーの外観をカスタマイズします。"
+
+#: src/Pro/Admin/assets/js/pages/BundleBuilderSettings.jsx:534
+msgid "Upsell Bundles"
+msgstr "アップセルバンドル"
+
+#: src/Pro/Admin/assets/js/pages/BundleBuilderSettings.jsx:542
+msgid "No bundles configured yet. Add your first bundle below."
+msgstr "まだバンドルが設定されていません。以下から最初のバンドルを追加してください。"
+
+#: src/Pro/Admin/assets/js/pages/BundleBuilderSettings.jsx:566
+msgid "+ Add Upsell Bundle"
+msgstr "+ アップセルバンドルを追加"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:22
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:302
+msgid "Cart Expiry Timer"
+msgstr "カート有効期限タイマー"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:23
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:354
+msgid "Custom Message"
+msgstr "カスタムメッセージ"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:24
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:416
+msgid "Product Spotlight"
+msgstr "商品スポットライト"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:28
+msgid "Info"
+msgstr "情報"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:29
+#: src/Pro/Admin/assets/js/pages/SmartAddonsSettings.jsx:20
+msgid "Gift"
+msgstr "ギフト"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:30
+#: src/Pro/Admin/assets/js/pages/SmartAddonsSettings.jsx:23
+msgid "Truck"
+msgstr "トラック"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:31
+msgid "Tag"
+msgstr "タグ"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:32
+#: src/Pro/Admin/assets/js/pages/SmartAddonsSettings.jsx:21
+msgid "Star"
+msgstr "星"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:37
+msgid "Clock"
+msgstr "時計"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:42
+msgid "Clear Cart"
+msgstr "カートを空にする"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:43
+msgid "Redirect to Shop"
+msgstr "ショップへリダイレクト"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:108
+#. translators: %d is a Smart Bar rule's one-based position.
+#, js-format
+msgid "Rule %d"
+msgstr "ルール %d"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:114
+#. translators: 1: merchant-entered rule label, 2: one-based rule position.
+#, js-format
+msgid "%1$s, rule %2$d"
+msgstr "%1$s、ルール %2$d"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:122
+#. translators: %s is the accessible Smart Bar rule name.
+#, js-format
+msgid "Collapse %s"
+msgstr "%s を折りたたむ"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:127
+#. translators: %s is the accessible Smart Bar rule name.
+#, js-format
+msgid "Expand %s"
+msgstr "%s を展開"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:132
+#. translators: %s is the accessible Smart Bar rule name.
+#, js-format
+msgid "Move %s up"
+msgstr "%s を上に移動"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:137
+#. translators: %s is the accessible Smart Bar rule name.
+#, js-format
+msgid "Move %s down"
+msgstr "%s を下に移動"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:206
+msgid "Always"
+msgstr "常に"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:210
+msgid "Blocks rules below"
+msgstr "以下のルールをブロック"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:262
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:672
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:130
+msgid "Enable"
+msgstr "有効化"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:268
+#: src/Pro/Admin/assets/js/pages/SmartAddonsSettings.jsx:170
+msgid "Label"
+msgstr "ラベル"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:269
+msgid "Admin label to identify this rule."
+msgstr "このルールを識別するための管理者用ラベル。"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:282
+msgid "Mode"
+msgstr "モード"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:289
+msgid "Dismissible"
+msgstr "非表示可能"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:290
+msgid "Allow customers to close this bar."
+msgstr "顧客がこのバーを閉じられるようにします。"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:305
+msgid "Duration (minutes)"
+msgstr "期間（分）"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:315
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:357
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:439
+msgid "Message"
+msgstr "メッセージ"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:316
+msgid "Use {{timer}} as a placeholder for the countdown."
+msgstr "カウントダウンのプレースホルダーとして {{timer}} を使用します。"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:336
+msgid "Action on Expiry"
+msgstr "期限切れ時のアクション"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:337
+msgid "What happens when the timer reaches zero."
+msgstr "タイマーがゼロになった時の動作。"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:359
+msgid "Free shipping this weekend!"
+msgstr "今週末は送料無料！"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:377
+msgid "Link Text"
+msgstr "リンクテキスト"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:379
+msgid "Shop now"
+msgstr "今すぐ購入"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:386
+msgid "Link URL"
+msgstr "リンクURL"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:396
+msgid "Show when cart is empty"
+msgstr "カートが空のときに表示"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:400
+msgid "Also display this message when the cart has no items."
+msgstr "カートに商品が入っていない場合もこのメッセージを表示します。"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:425
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:63
+msgid "Discount %"
+msgstr "割引率 (%)"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:426
+msgid "Percentage discount applied when the customer adds this product."
+msgstr "お客様がこの商品を追加した際に適用される割引率。"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:440
+msgid "Use {{product}} and {{discount}} as placeholders."
+msgstr "プレースホルダーとして {{product}} と {{discount}} を使用できます。"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:457
+msgid "Display Conditions"
+msgstr "表示条件"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:473
+msgid "Use custom colors"
+msgstr "カスタムカラーを使用"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:474
+msgid "Override the shared smart bar colors for this rule."
+msgstr "このルールでは共通スマートバーの色設定を上書きします。"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:526
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:762
+msgid "Accent"
+msgstr "アクセント"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:586
+msgid "Remove Rule"
+msgstr "ルールを削除"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:659
+msgid ""
+"Create smart bar rules for your cart drawer. Rules are evaluated "
+"top-to-bottom — the first enabled match is shown."
+msgstr "カートドロワーのスマートバーのルールを作成します。ルールは上から順に評価され、最初に一致した有効なものが表示されます。"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:673
+msgid "Show a smart bar at the top of the cart drawer."
+msgstr "カートドロワーの上部にスマートバーを表示します。"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:712
+msgid "+ Add Smart Bar Rule"
+msgstr "+ スマートバールールを追加"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:719
+msgid "Default Colors"
+msgstr "デフォルト色"
+
+#: src/Pro/Admin/assets/js/pages/NotificationSettings.jsx:722
+msgid "Shared colors used by all smart bar rules unless overridden per-rule."
+msgstr "ルールごとに上書きされない限り、すべてのスマートバールールで使用される共通カラー。"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:43
+msgid "Percentage Discount"
+msgstr "定率割引"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:46
+msgid "Fixed Discount"
+msgstr "定額割引"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:65
+msgid "Discount Amount"
+msgstr "割引額"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:67
+msgid "Value"
+msgstr "値"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:114
+msgid "Tier"
+msgstr "ティア"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:136
+msgid "Threshold"
+msgstr "しきい値"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:137
+msgid "Cart subtotal required to unlock this reward."
+msgstr "この特典を獲得するために必要なカートの小計。"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:149
+msgid "Reward Type"
+msgstr "特典タイプ"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:162
+msgid "Free Gift Product"
+msgstr "無料ギフト商品"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:163
+msgid ""
+"Search simple products by name. To select a specific variation, enter its "
+"exact variation ID."
+msgstr "個別商品を名前で検索します。特定のバリエーションを選択するには、正確なバリエーションIDを入力してください。"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:200
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:364
+msgid "Show Celebration"
+msgstr "お祝いアニメーションを表示"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:201
+msgid "Display confetti animation when this tier is reached."
+msgstr "このティアに達したときに紙吹雪のアニメーションを表示します。"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:212
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:379
+msgid "Progress Message"
+msgstr "進捗メッセージ"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:213
+msgid "Use {{amount}} and {{reward}} as placeholders."
+msgstr "プレースホルダーとして {{amount}} と {{reward}} を使用できます。"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:224
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:398
+msgid "Qualified Message"
+msgstr "達成時メッセージ"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:225
+msgid "Use {{reward}} as a placeholder."
+msgstr "プレースホルダーとして {{reward}} を使用できます。"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:241
+msgid "Remove Tier"
+msgstr "ティアを削除"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:285
+msgid "Enable Shipping Meter"
+msgstr "配送メーターを有効化"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:286
+msgid "Display a progress bar toward reward thresholds."
+msgstr "特典の達成しきい値に向けたプログレスバーを表示します。"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:300
+msgid "Reward Tiers"
+msgstr "特典ティア"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:316
+msgid "Tier 1"
+msgstr "ティア 1"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:365
+msgid "Display confetti animation when free shipping is reached."
+msgstr "送料無料に達したときに紙吹雪のアニメーションを表示します。"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:380
+msgid "Use {{amount}} as a placeholder for the remaining amount."
+msgstr "残りの金額のプレースホルダーとして {{amount}} を使用します。"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:440
+msgid "+ Add Tier"
+msgstr "+ ティアを追加"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:452
+msgid "Show in drawer"
+msgstr "ドロワーに表示"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:460
+msgid "Enable shipping calculator"
+msgstr "送料計算を有効化"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:461
+msgid ""
+"Let customers calculate shipping and choose an available rate from the cart "
+"drawer."
+msgstr "お客様がカートドロワーから送料を計算し、利用可能な料金を選択できるようにします。"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:472
+msgid "Show icon"
+msgstr "アイコンを表示"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:473
+msgid "Display truck/checkmark icon before the message."
+msgstr "メッセージの前にトラック/チェックマークアイコンを表示します。"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:485
+msgid "Show truck indicator"
+msgstr "トラックインジケーターを表示"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:486
+msgid ""
+"Display the moving truck on the progress bar. Hidden when reward tiers are "
+"active."
+msgstr "プログレスバー上に動くトラックを表示します。リワードティアが有効な場合は非表示になります。"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:501
+msgid "Progress Colors"
+msgstr "プログレスカラー"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:506
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:638
+msgid "Bar Start"
+msgstr "バーの開始色"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:516
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:651
+msgid "Bar End"
+msgstr "バーの終了色"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:546
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:690
+msgid "Icon Background"
+msgstr "アイコンの背景"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:571
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:718
+msgid "Truck Background"
+msgstr "トラックの背景"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:584
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:731
+msgid "Truck Icon"
+msgstr "トラックアイコン"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:601
+msgid "Tier Reached"
+msgstr "ティア達成"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:614
+msgid "Tier Icon"
+msgstr "ティアアイコン"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:633
+msgid "Qualified Colors"
+msgstr "達成時のカラー"
+
+#: src/Pro/Admin/assets/js/pages/SmartAddonsSettings.jsx:19
+msgid "Shield (Protection)"
+msgstr "シールド (保護)"
+
+#: src/Pro/Admin/assets/js/pages/SmartAddonsSettings.jsx:22
+msgid "Heart"
+msgstr "ハート"
+
+#: src/Pro/Admin/assets/js/pages/SmartAddonsSettings.jsx:24
+msgid "Sparkles"
+msgstr "スパークル"
+
+#: src/Pro/Admin/assets/js/pages/SmartAddonsSettings.jsx:77
+msgid "Use whole currency units."
+msgstr "整数の通貨単位を使用してください。"
+
+#: src/Pro/Admin/assets/js/pages/SmartAddonsSettings.jsx:80
+#. translators: %d: store currency decimal places.
+#, js-format
+msgid "Use no more than %d decimal place."
+msgid_plural "Use no more than %d decimal places."
+msgstr[0] "小数点以下は %d 桁以内で入力してください。"
+
+#: src/Pro/Admin/assets/js/pages/SmartAddonsSettings.jsx:90
+#. translators: %s: smallest charge in the store currency.
+#, js-format
+msgid "Enter a positive charge of at least %s."
+msgstr "%s 以上の正の金額を入力してください。"
+
+#: src/Pro/Admin/assets/js/pages/SmartAddonsSettings.jsx:95
+msgid "This draft will not be saved until corrected."
+msgstr "修正されるまでこの下書きは保存されません。"
+
+#: src/Pro/Admin/assets/js/pages/SmartAddonsSettings.jsx:141
+msgid "Configure add-on options that customers can toggle in the cart drawer."
+msgstr "お客様がカートドロワーで切り替えられるアドオンオプションを設定します。"
+
+#: src/Pro/Admin/assets/js/pages/SmartAddonsSettings.jsx:151
+msgid "Shipping Protection"
+msgstr "配送補償"
+
+#: src/Pro/Admin/assets/js/pages/SmartAddonsSettings.jsx:155
+msgid "Enable Shipping Protection"
+msgstr "配送補償を有効化"
+
+#: src/Pro/Admin/assets/js/pages/SmartAddonsSettings.jsx:156
+msgid "Allow customers to add shipping protection to their order."
+msgstr "お客様が注文に配送補償を追加できるようにします。"
+
+#: src/Pro/Admin/assets/js/pages/SmartAddonsSettings.jsx:182
+msgid "Description"
+msgstr "説明"
+
+#: src/Pro/Admin/assets/js/pages/SmartAddonsSettings.jsx:184
+msgid "Protect your order from damage or loss"
+msgstr "破損や紛失からご注文を保護します"
+
+#: src/Pro/Admin/assets/js/pages/SmartAddonsSettings.jsx:197
+msgid "Price"
+msgstr "価格"
+
+#: src/Pro/Admin/assets/js/pages/SmartAddonsSettings.jsx:208
+msgid "Show Icon"
+msgstr "アイコンを表示"
+
+#: src/Pro/Admin/assets/js/pages/SmartAddonsSettings.jsx:209
+msgid "Display an icon next to the add-on in the cart drawer."
+msgstr "カートドロワー内のアドオンの横にアイコンを表示します。"
+
+#: src/Pro/Admin/assets/js/pages/SmartAddonsSettings.jsx:235
+msgid "Default State"
+msgstr "デフォルトの状態"
+
+#: src/Pro/Admin/assets/js/pages/SmartAddonsSettings.jsx:236
+msgid "Whether the add-on is toggled on or off by default for new visitors."
+msgstr "新規訪問者に対してアドオンをデフォルトでオンにするかオフにするかを設定します。"
+
+#: src/Pro/Admin/assets/js/pages/SmartAddonsSettings.jsx:243
+msgid "Off (customer opts in)"
+msgstr "オフ (顧客がオプトイン)"
+
+#: src/Pro/Admin/assets/js/pages/SmartAddonsSettings.jsx:247
+msgid "On (customer opts out)"
+msgstr "オン (顧客がオプトアウト)"
+
+#: src/Pro/Blocks/ShippingMeter/index.js:19
+msgid "CartPops Shipping & Rewards Meter"
+msgstr "CartPops 配送＆リワードメーター"
+
+#: src/Pro/Blocks/ShippingMeter/index.js:22
+msgid ""
+"Frontend appearance, icons, truck, tiers, and celebration use your CartPops "
+"Pro Shipping Meter settings."
+msgstr "フロントエンドの外観、アイコン、トラック、ティア、セレブレーションには CartPops Pro 配送メーターの設定が使用されます。"
+
+#: src/Blocks/CartDrawer/render.php:316
+#: src/Cart/CartStateBuilder.php:525
+#: src/Admin/assets/js/components/DrawerPreview.jsx:740
+#. translators: %s: price of a single unit, shown under a cart line's total.
+#, php-format,js-format
+msgid "%s each"
+msgstr "%s 個"
+
+#: src/Blocks/CartDrawer/render.php:711
+msgid "Have a coupon?"
+msgstr "クーポンをお持ちですか？"
+
+#: src/Plugin.php:860
+msgid "CartPops is finishing its update. Reload this page in a moment."
+msgstr "CartPops はアップデートを完了しています。このページを再度読み込んでください。"
+
+#: src/Plugin.php:867
+#. translators: %s: value-free CartPops diagnostic code.
+#, php-format
+msgid ""
+"CartPops is paused, so the cart drawer is not showing on your store. Your "
+"settings are safe. Code: %s."
+msgstr "CartPops は一時停止中のため、カート引き出しはストアに表示されていません。設定は保存されています。コード: %s。"
+
+#: src/Setup/MigrationWarningSummary.php:78
+msgid "Colors → Cart launcher: menu launcher colors"
+msgstr "色 → カートランチャー: メニューランチャーの色"
+
+#: src/Setup/MigrationWarningSummary.php:145
+msgid "Settings"
+msgstr "設定"
+
+#: src/Setup/MigrationWarningSummary.php:149
+msgid "Texts (older versions)"
+msgstr "テキスト（旧バージョン）"
+
+#: src/Setup/MigrationWarningSummary.php:150
+msgid "Primary (older versions)"
+msgstr "プライマリ（旧バージョン）"
+
+#: src/Setup/MigrationWarningSummary.php:151
+msgid "Buttons"
+msgstr "ボタン"
+
+#: src/Setup/MigrationWarningSummary.php:153
+msgid "Cart launcher"
+msgstr "カートランチャー"
+
+#: src/Setup/MigrationWarningSummary.php:154
+msgid "Custom code"
+msgstr "カスタムコード"
+
+#: src/Setup/MigrationWarningSummary.php:157
+msgid "Free Shipping Meter"
+msgstr "送料無料メーター"
+
+#: src/Setup/MigrationWarningSummary.php:158
+msgid "Free Shipping Meter settings"
+msgstr "送料無料メーター設定"
+
+#: src/Setup/MigrationWarningSummary.php:160
+msgid "Miscellaneous & Experimental"
+msgstr "その他と実験的機能"
+
+#: src/Setup/MigrationWarningSummary.php:162
+msgid "Product Recommendation Engine"
+msgstr "商品推奨エンジン"
+
+#: src/Setup/MigrationWarningSummary.php:175
+msgid "Select an add to cart trigger"
+msgstr "カートに追加トリガーを選択"
+
+#: src/Setup/MigrationWarningSummary.php:176
+msgid "Animation type"
+msgstr "アニメーションタイプ"
+
+#: src/Setup/MigrationWarningSummary.php:177
+msgid "Rounded corners"
+msgstr "角の丸み"
+
+#: src/Setup/MigrationWarningSummary.php:178
+msgid "Checkout button text"
+msgstr "チェックアウトボタンテキスト"
+
+#: src/Setup/MigrationWarningSummary.php:179
+msgid "Accent color (older versions)"
+msgstr "アクセントカラー（旧バージョン）"
+
+#: src/Setup/MigrationWarningSummary.php:180
+msgid "Primary background color"
+msgstr "プライマリ背景色"
+
+#: src/Setup/MigrationWarningSummary.php:181
+msgid "Secondary background color"
+msgstr "セカンダリ背景色"
+
+#: src/Setup/MigrationWarningSummary.php:182
+msgid "Accent color"
+msgstr "アクセントカラー"
+
+#: src/Setup/MigrationWarningSummary.php:183
+msgid "Primary button background color"
+msgstr "プライマリボタン背景色"
+
+#: src/Setup/MigrationWarningSummary.php:184
+msgid "Primary button text color"
+msgstr "プライマリボタンテキスト色"
+
+#: src/Setup/MigrationWarningSummary.php:185
+msgid "Quantity selector button background"
+msgstr "数量セレクターボタン背景"
+
+#: src/Setup/MigrationWarningSummary.php:186
+msgid "Quantity selector button text color"
+msgstr "数量セレクターボタンテキスト色"
+
+#: src/Setup/MigrationWarningSummary.php:187
+msgid "Secondary button background"
+msgstr "セカンダリボタン背景"
+
+#: src/Setup/MigrationWarningSummary.php:188
+msgid "Secondary button text color"
+msgstr "セカンダリボタンテキスト色"
+
+#: src/Setup/MigrationWarningSummary.php:189
+msgid "Cart Launcher background color"
+msgstr "カートランチャー背景色"
+
+#: src/Setup/MigrationWarningSummary.php:190
+msgid "Cart Launcher bubble background"
+msgstr "カートランチャーバブル背景"
+
+#: src/Setup/MigrationWarningSummary.php:191
+msgid "Cart Launcher bubble text"
+msgstr "カートランチャーバブルテキスト"
+
+#: src/Setup/MigrationWarningSummary.php:192
+msgid "Cart Launcher text color"
+msgstr "カートランチャーテキスト色"
+
+#: src/Setup/MigrationWarningSummary.php:193
+msgid "Floating Cart Launcher background color"
+msgstr "フローティングカートランチャー背景色"
+
+#: src/Setup/MigrationWarningSummary.php:194
+msgid "Floating Cart Launcher icon color"
+msgstr "フローティングカートランチャーアイコン色"
+
+#: src/Setup/MigrationWarningSummary.php:195
+msgid "Floating Cart Launcher indicator background"
+msgstr "フローティングカートランチャーインジケーター背景"
+
+#: src/Setup/MigrationWarningSummary.php:196
+msgid "Floating Cart Launcher indicator text"
+msgstr "フローティングカートランチャーインジケーターテキスト"
+
+#: src/Setup/MigrationWarningSummary.php:197
+msgid "Free Shipping Meter background color"
+msgstr "送料無料メーター背景色"
+
+#: src/Setup/MigrationWarningSummary.php:198
+msgid "Free Shipping Meter active background color"
+msgstr "送料無料メーターアクティブ背景色"
+
+#: src/Setup/MigrationWarningSummary.php:199
+msgid "Input field background color"
+msgstr "入力フィールド背景色"
+
+#: src/Setup/MigrationWarningSummary.php:200
+msgid "Quantity selector input background"
+msgstr "数量セレクター入力背景"
+
+#: src/Setup/MigrationWarningSummary.php:201
+msgid "Quantity selector input border"
+msgstr "数量セレクター入力枠線"
+
+#: src/Setup/MigrationWarningSummary.php:202
+msgid "Quantity selector input text color"
+msgstr "数量セレクター入力テキスト色"
+
+#: src/Setup/MigrationWarningSummary.php:203
+msgid "Input field text color"
+msgstr "入力フィールドテキスト色"
+
+#: src/Setup/MigrationWarningSummary.php:204
+msgid "Overlay color"
+msgstr "オーバーレイ色"
+
+#: src/Setup/MigrationWarningSummary.php:205
+msgid "Recommendations button background color"
+msgstr "推奨商品ボタン背景色"
+
+#: src/Setup/MigrationWarningSummary.php:206
+msgid "Recommendations button text color"
+msgstr "推奨商品ボタンテキスト色"
+
+#: src/Setup/MigrationWarningSummary.php:207
+msgid "Drawer Recommendations background color"
+msgstr "ドロワー推奨商品背景色"
+
+#: src/Setup/MigrationWarningSummary.php:208
+msgid "Drawer Recommendations border color"
+msgstr "ドロワー推奨商品枠線色"
+
+#: src/Setup/MigrationWarningSummary.php:209
+msgid "Drawer Recommendations text color"
+msgstr "ドロワー推奨商品テキスト色"
+
+#: src/Setup/MigrationWarningSummary.php:210
+msgid "Popup Recommendations background color"
+msgstr "ポップアップ推奨商品背景色"
+
+#: src/Setup/MigrationWarningSummary.php:211
+msgid "Popup Recommendations text color"
+msgstr "ポップアップ推奨商品テキスト色"
+
+#: src/Setup/MigrationWarningSummary.php:212
+msgid "Danger color"
+msgstr "危険色"
+
+#: src/Setup/MigrationWarningSummary.php:213
+msgid "Success color"
+msgstr "成功色"
+
+#: src/Setup/MigrationWarningSummary.php:214
+msgid "Warning color"
+msgstr "警告色"
+
+#: src/Setup/MigrationWarningSummary.php:215
+msgid "Primary text color"
+msgstr "プライマリテキスト色"
+
+#: src/Setup/MigrationWarningSummary.php:216
+msgid "Secondary text color"
+msgstr "セカンダリテキスト色"
+
+#: src/Setup/MigrationWarningSummary.php:217
+msgid "Tertiary text color"
+msgstr "ターシャリテキスト色"
+
+#: src/Setup/MigrationWarningSummary.php:218
+msgid "Enable coupon form"
+msgstr "クーポンフォームを有効にする"
+
+#: src/Setup/MigrationWarningSummary.php:220
+msgid "Custom JS"
+msgstr "カスタムJS"
+
+#: src/Setup/MigrationWarningSummary.php:221
+msgid "Animation speed"
+msgstr "アニメーション速度"
+
+#: src/Setup/MigrationWarningSummary.php:222
+msgid "Truncate long text"
+msgstr "長いテキストを切り詰める"
+
+#: src/Setup/MigrationWarningSummary.php:223
+msgid "Drawer width desktop (In pixels)"
+msgstr "ドロワー幅デスクトップ（ピクセル単位）"
+
+#: src/Setup/MigrationWarningSummary.php:224
+msgid "Drawer width mobile (In percentage)"
+msgstr "ドロワー幅モバイル（パーセンテージ）"
+
+#: src/Setup/MigrationWarningSummary.php:225
+msgid "Show discount line item"
+msgstr "割引行項目を表示"
+
+#: src/Setup/MigrationWarningSummary.php:226
+msgid "Show shipping line item"
+msgstr "配送行項目を表示"
+
+#: src/Setup/MigrationWarningSummary.php:227
+msgid "Show shipping calculator"
+msgstr "配送計算機を表示"
+
+#: src/Setup/MigrationWarningSummary.php:228
+msgid "Show subtotal line item"
+msgstr "小計行項目を表示"
+
+#: src/Setup/MigrationWarningSummary.php:229
+msgid "Show tax line item"
+msgstr "税金行項目を表示"
+
+#: src/Setup/MigrationWarningSummary.php:230
+msgid "Show total line item"
+msgstr "合計行項目を表示"
+
+#: src/Setup/MigrationWarningSummary.php:231
+msgid "Secondary button"
+msgstr "セカンダリボタン"
+
+#: src/Setup/MigrationWarningSummary.php:232
+msgid "Secondary button custom text"
+msgstr "セカンダリボタンカスタムテキスト"
+
+#: src/Setup/MigrationWarningSummary.php:233
+msgid "Secondary button custom URL"
+msgstr "セカンダリボタンカスタムURL"
+
+#: src/Setup/MigrationWarningSummary.php:234
+msgid "Enable Floating Cart Launcher"
+msgstr "フローティングカートランチャーを有効にする"
+
+#: src/Setup/MigrationWarningSummary.php:236
+msgid "Floating launcher: hide indicator when cart is empty"
+msgstr "フローティングランチャー：カートが空の場合はインジケーターを非表示"
+
+#: src/Setup/MigrationWarningSummary.php:237
+msgid "Hide on certain pages"
+msgstr "特定のページで非表示"
+
+#: src/Setup/MigrationWarningSummary.php:238
+msgid "Select a position"
+msgstr "位置を選択"
+
+#: src/Setup/MigrationWarningSummary.php:239
+msgid "Force refresh on page load?"
+msgstr "ページ読み込み時に強制更新しますか？"
+
+#: src/Setup/MigrationWarningSummary.php:240
+msgid "Free shipping amount"
+msgstr "送料無料金額"
+
+#: src/Setup/MigrationWarningSummary.php:241
+msgid "Enable Free Shipping Meter"
+msgstr "送料無料メーターを有効にする"
+
+#: src/Setup/MigrationWarningSummary.php:242
+msgid "Free Shipping Meter achieved text"
+msgstr "送料無料達成時のテキスト"
+
+#: src/Setup/MigrationWarningSummary.php:243
+msgid "Free Shipping Meter Text"
+msgstr "送料無料メーターのテキスト"
+
+#: src/Setup/MigrationWarningSummary.php:244
+msgid "Free Shipping Meter type"
+msgstr "送料無料メーターのタイプ"
+
+#: src/Setup/MigrationWarningSummary.php:245
+msgid "Menu Cart Launcher icon"
+msgstr "メニューカート起動アイコン"
+
+#: src/Setup/MigrationWarningSummary.php:246
+msgid "Menu Cart Launcher Indicator"
+msgstr "メニューカート起動インジケーター"
+
+#: src/Setup/MigrationWarningSummary.php:247
+msgid "Menu launcher: hide indicator when cart is empty"
+msgstr "カートが空の場合はインジケーターを非表示"
+
+#: src/Setup/MigrationWarningSummary.php:250
+msgid "Button text"
+msgstr "ボタンテキスト"
+
+#: src/Setup/MigrationWarningSummary.php:251
+msgid "Button type"
+msgstr "ボタンタイプ"
+
+#: src/Setup/MigrationWarningSummary.php:252
+msgid "Select custom products"
+msgstr "カスタム商品を選択"
+
+#: src/Setup/MigrationWarningSummary.php:253
+msgid "Enable Product Recommendation Engine"
+msgstr "商品推奨エンジンを有効化"
+
+#: src/Setup/MigrationWarningSummary.php:254
+msgid "Select a fallback"
+msgstr "フォールバックを選択"
+
+#: src/Setup/MigrationWarningSummary.php:255
+msgid "Recommendations title"
+msgstr "推奨タイトル"
+
+#: src/Setup/MigrationWarningSummary.php:256
+msgid "Select a Recommendation type"
+msgstr "推奨タイプを選択"
+
+#: src/Setup/MigrationWarningSummary.php:257
+msgid "Display Powered by CartPops"
+msgstr "CartPops提供表示"
+
+#: src/Setup/MigrationWarningSummary.php:259
+msgid "Drawer cart title"
+msgstr "ドロワーカートタイトル"
+
+#: src/Setup/MigrationWarningSummary.php:260
+msgid "Generic added to cart message"
+msgstr "一般的なカート追加メッセージ"
+
+#: src/Setup/MigrationWarningSummary.php:261
+msgid "Coupon title"
+msgstr "クーポンタイトル"
+
+#: src/Setup/MigrationWarningSummary.php:262
+msgid "Coupon input field placeholder text"
+msgstr "クーポン入力フィールドのプレースホルダーテキスト"
+
+#: src/Setup/MigrationWarningSummary.php:264
+msgid "Line item: Subtotal"
+msgstr "行アイテム：小計"
+
+#: src/Setup/MigrationWarningSummary.php:265
+msgid "Line item: Discount"
+msgstr "行アイテム：割引"
+
+#: src/Setup/MigrationWarningSummary.php:266
+msgid "Line item: Total"
+msgstr "行アイテム：合計"
+
+#: src/Setup/MigrationWarningSummary.php:267
+msgid "Empty checkout button"
+msgstr "空のチェックアウトボタン"
+
+#: src/Setup/MigrationWarningSummary.php:268
+msgid "Drawer empty state title"
+msgstr "ドロワー空状態タイトル"
+
+#: src/Setup/MigrationWarningSummary.php:269
+msgid "Drawer empty state subtitle"
+msgstr "ドロワー空状態サブタイトル"
+
+#: src/Setup/MigrationWarningSummary.php:270
+msgid "Enable chat support"
+msgstr "チャットサポートを有効化"
+
+#: src/Setup/MigrationWarningSummary.php:271
+msgid "Close icon color"
+msgstr "閉じるアイコンの色"
+
+#: src/Setup/MigrationWarningSummary.php:272
+msgid "Remove icon color"
+msgstr "削除アイコンの色"
+
+#: src/Setup/MigrationWarningSummary.php:273
+msgid "Slider bullet color"
+msgstr "スライダーバレットの色"
+
+#: src/Setup/MigrationWarningSummary.php:274
+msgid "Slider active bullet color"
+msgstr "スライダーアクティブバレットの色"
+
+#: src/Setup/Upgrader.php:1788
+msgid ""
+"CartPops could not finish updating your settings from version 1, so it is "
+"paused. Your settings are safe. Reload this page to try again, and contact "
+"CartPops support if this message stays."
+msgstr ""
+"CartPopsはバージョン1"
+"から設定の更新を完了できなかったため、一時停止しています。設定は安全です。このページを再度読み込んで再度お試しいただき、このメッセージが表示され続ける場"
+"合はCartPopsサポートにお問い合わせください。"
+
+#: src/Setup/Upgrader.php:1798
+msgid ""
+"Your automation rules from CartPops 1 are kept, but CartPops 2 no longer "
+"runs them."
+msgstr "CartPops 1のオートメーションルールは保持されていますが、CartPops 2はそれらを実行しなくなりました。"
+
+#: src/Setup/Upgrader.php:1821
+msgid ""
+"CartPops updated your settings from version 1, but some could not be "
+"carried over exactly. Your original settings are kept."
+msgstr "CartPopsはバージョン1から設定を更新しましたが、一部は正確に引き継ぐことができませんでした。元の設定は保持されています。"
+
+#: src/Setup/Upgrader.php:1825
+msgid "Hide this notice"
+msgstr "このお知らせを非表示"
+
+#: src/Setup/Upgrader.php:1835
+msgid "This review requires a site administrator and a submitted review form."
+msgstr "このレビューにはサイト管理者と送信されたレビューフォームが必要です。"
+
+#: src/Setup/Upgrader.php:1852
+msgid ""
+"The review was not accepted. Return to this site dashboard and review the "
+"current notice again."
+msgstr "レビューが受け入れられませんでした。このサイトダッシュボードに戻り、現在のお知らせを再度確認してください。"
+
+#: src/Setup/Upgrader.php:1857
+msgid ""
+"The saved migration state could not be acknowledged. No review was "
+"accepted; return to this site dashboard and try again."
+msgstr "保存された移行状態を確認できませんでした。レビューは受け入れられませんでした。このサイトダッシュボードに戻り、もう一度お試しください。"
+
+#: src/Setup/Upgrader.php:1865
+msgid ""
+"JavaScript retirement review accepted. Return to this site dashboard to "
+"retry migration and review any remaining conditions. The original script is "
+"preserved and will not execute in V2."
+msgstr ""
+"JavaScriptリタイアメントレビューが受け入れられました。このサイトダッシュボードに戻り、移行を再試行し、残りの条件を確認してください。元のスクリ"
+"プトは保持され、V2では実行されません。"
+
+#: src/Setup/Upgrader.php:1909
+msgid "This link has expired. Return to the dashboard and try again."
+msgstr "このリンクは期限切れです。ダッシュボードに戻り、もう一度お試しください。"
+
+#: src/Setup/Upgrader.php:1925
+msgid ""
+"CartPops is paused until you review your old custom JavaScript below. Your "
+"settings are safe."
+msgstr "CartPopsは、以下の古いカスタムJavaScriptを確認するまで一時停止しています。設定は安全です。"
+
+#: src/Setup/Upgrader.php:1926
+msgid ""
+"CartPops is paused until a site administrator reviews the old custom "
+"JavaScript. Your settings are safe."
+msgstr "CartPopsは、サイト管理者が古いカスタムJavaScriptを確認するまで一時停止しています。設定は安全です。"
+
+#: src/Setup/Upgrader.php:1928
+msgid ""
+"CartPops is paused until its update can finish. Your settings are safe. If "
+"you use CartPops Pro, check that your license is active for this site; "
+"otherwise, contact CartPops support."
+msgstr ""
+"CartPopsは更新が完了するまで一時停止中です。設定は安全です。CartPops "
+"Proを使用している場合は、このサイトのライセンスがアクティブであることを確認してください。そうでない場合は、CartPopsサポートにお問い合わせくだ"
+"さい。"
+
+#: src/Setup/Upgrader.php:1938
+msgid "Learn more"
+msgstr "詳細を見る"
+
+#: src/Setup/Upgrader.php:1948
+msgid ""
+"These settings had a value CartPops 2 could not read, so they now use their "
+"default. Check them in the CartPops settings:"
+msgstr "これらの設定にはCartPops 2が読み込めない値がありました。現在はデフォルト値を使用しています。CartPops設定で確認してください："
+
+#: src/Setup/Upgrader.php:1949
+msgid "These settings no longer exist in CartPops 2:"
+msgstr "これらの設定はCartPops 2に存在しなくなりました："
+
+#: src/Setup/Upgrader.php:1950
+msgid "These settings now work a little differently:"
+msgstr "これらの設定は動作が少し異なります："
+
+#: src/Setup/Upgrader.php:1964
+msgid "Your custom JavaScript from version 1 is kept but not run."
+msgstr "バージョン1のカスタムJavaScriptは保持されていますが、実行されません。"
+
+#: src/Setup/Upgrader.php:1967
+msgid "Some Pro settings from version 1 are kept in your database but not used."
+msgstr "バージョン1のPro設定の一部はデータベースに保持されていますが、使用されていません。"
+
+#: src/Setup/Upgrader.php:1973
+#. translators: %d: number of other settings.
+#, php-format
+msgid "%d other setting could not be carried over."
+msgid_plural "%d other settings could not be carried over."
+msgstr[0] "%d個の他の設定を引き継ぐことができませんでした。"
+
+#: src/Setup/Upgrader.php:1982
+msgid "See which settings"
+msgstr "どの設定か確認する"
+
+#: src/Setup/Upgrader.php:2000
+msgid "Show your saved custom JavaScript"
+msgstr "保存されたカスタムJavaScriptを表示"
+
+#: src/Setup/Upgrader.php:2001
+msgid ""
+"Copy it somewhere safe if you want to move it into your theme or a snippets "
+"plugin."
+msgstr "テーマまたはスニペットプラグインに移動する場合は、安全な場所にコピーしてください。"
+
+#: src/Setup/Upgrader.php:2004
+msgid "Only the beginning is shown. The full copy remains saved in your database."
+msgstr "最初の部分のみが表示されます。完全なコピーはデータベースに保存されたままです。"
+
+#: src/Setup/Upgrader.php:2022
+msgid "Review your old custom JavaScript"
+msgstr "古いカスタムJavaScriptを確認"
+
+#: src/Setup/Upgrader.php:2023
+msgid ""
+"CartPops 2 does not run the custom JavaScript from version 1. It stays "
+"saved in your database. Copy it if you still need it, then confirm below to "
+"finish the update."
+msgstr ""
+"CartPops "
+"2はバージョン1"
+"のカスタムJavaScriptを実行しません。データベースに保存されたままです。必要に応じてコピーしてから、下記で確認して更新を完了してください。"
+
+#: src/Setup/Upgrader.php:2039
+msgid "I understand this custom JavaScript will not run in CartPops 2."
+msgstr "このカスタムJavaScriptはCartPops 2で実行されないことを理解しています。"
+
+#: src/Setup/Upgrader.php:2041
+msgid "Confirm and finish the update"
+msgstr "確認して更新を完了"
+
+#: src/Setup/Upgrader.php:2060
+msgid "Open this site dashboard to review its migration"
+msgstr "このサイトダッシュボードを開いて移行を確認"
+
+#: src/Setup/Upgrader.php:2072
+msgid "Return to this site dashboard"
+msgstr "このサイトダッシュボードに戻る"
+
+#: src/Setup/Upgrader.php:2073
+msgid "CartPops migration review"
+msgstr "CartPops移行確認"
+
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:244
+msgid "Add to cart on product pages without reloading"
+msgstr "商品ページでページを再読み込みせずにカートに追加"
+
+#: src/Admin/assets/js/pages/AdvancedSettings.jsx:248
+msgid ""
+"Adds the product in the background so shoppers stay on the page. The drawer "
+"then opens if “Open drawer on” is set to Add to cart. Turn this off if your "
+"theme or another plugin already handles product-page add to cart."
+msgstr ""
+"背景で商品を追加するため、ショッパーはページに留まります。「開く条件」が「カートに追加」に設定されている場合、ドロワーが開きます。テーマまたは別のプラグ"
+"インが既に商品ページのカートに追加を処理している場合は、これをオフにしてください。"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:325
+msgid "WooCommerce minimum"
+msgstr "WooCommerceの最小値"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:337
+msgid ""
+"Free shipping comes from WooCommerce, not from this meter. Add a Free "
+"shipping method with a minimum order amount to your shipping zones in "
+"WooCommerce → Settings → Shipping. The meter only shows when the shopper’s "
+"zone has one."
+msgstr ""
+"送料無料はこのメーターではなくWooCommerceから提供されます。WooCommerce → 設定 → "
+"配送で、配送ゾーンに最小注文金額を設定した「送料無料」配送方法を追加してください。メーターはショッパーのゾーンに送料無料方法がある場合にのみ表示されます"
+"。"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:345
+msgid "Higher free shipping goal (optional)"
+msgstr "送料無料の目標金額を上げる（オプション）"
+
+#: src/Pro/Admin/assets/js/pages/ShippingMeterSettings.jsx:349
+msgid ""
+"Leave at 0 to use the minimum order amount from WooCommerce. A higher "
+"amount only raises the goal shown in the meter. It does not give free "
+"shipping by itself, and amounts below the WooCommerce minimum are ignored."
+msgstr ""
+"0のままにするとWooCommerceの最小注文金額を使用します。より高い金額はメーターに表示される目標を上げるだけです。送料無料を提供するわけではなく"
+"、WooCommerceの最小値より低い金額は無視されます。"
+
+#: src/Plugin.php:880
+msgid "Troubleshooting details are under"
+msgstr "トラブルシューティングの詳細は以下にあります"
+
+#: src/Plugin.php:881
+msgid "Tools → Site Health → Info → CartPops"
+msgstr "ツール → サイトヘルス → 情報 → CartPops"
+
+#: src/Setup/SiteHealthSection.php:55
+msgid "Version"
+msgstr "バージョン"
+
+#: src/Setup/SiteHealthSection.php:56
+msgid "Edition"
+msgstr "エディション"
+
+#: src/Setup/SiteHealthSection.php:58
+msgid "Status"
+msgstr "ステータス"
+
+#: src/Setup/SiteHealthSection.php:59
+msgid "Running"
+msgstr "実行中"
+
+#: src/Setup/SiteHealthSection.php:59
+msgid "Paused"
+msgstr "一時停止中"
+
+#: src/Setup/SiteHealthSection.php:61
+msgid "Notice code"
+msgstr "通知コード"
+
+#: src/Setup/SiteHealthSection.php:62
+msgid "Failed update step"
+msgstr "更新ステップが失敗"
+
+#: src/Setup/SiteHealthSection.php:63
+msgid "Recorded plugin version"
+msgstr "記録されたプラグインバージョン"
+
+#: src/Setup/SiteHealthSection.php:64
+msgid "Settings format"
+msgstr "設定フォーマット"
+
+#: src/Setup/SiteHealthSection.php:66
+msgid "Update from version 1"
+msgstr "バージョン 1 から更新"
+
+#: src/Setup/SiteHealthSection.php:70
+msgid "Update from version 1 completed"
+msgstr "バージョン 1 からの更新が完了"
+
+#: src/Setup/SiteHealthSection.php:74
+msgid "Version 1 settings found / carried over / kept aside"
+msgstr "バージョン 1 の設定が見つかりました / 引き継がれました / 保留中"
+
+#: src/Setup/SiteHealthSection.php:77
+msgid "Update warnings"
+msgstr "更新警告"
+
+#: src/Setup/SiteHealthSection.php:78
+msgid "Settings not carried over"
+msgstr "設定が引き継がれませんでした"
+
+#: src/Setup/SiteHealthSection.php:79
+msgid "Update paused for"
+msgstr "更新が一時停止中"
+
+#: src/Setup/SiteHealthSection.php:83
+msgid "Persistent object cache"
+msgstr "永続オブジェクトキャッシュ"
+
+#: src/Setup/SiteHealthSection.php:89
+msgid "Network update"
+msgstr "ネットワーク更新"
+
+#: src/Setup/SiteHealthSection.php:96
+msgid ""
+"Status of CartPops and its update from version 1. Contains codes and counts "
+"only, no settings or customer data."
+msgstr "CartPops とバージョン 1 からの更新のステータス。コードとカウントのみを含み、設定または顧客データは含みません。"
+
+#: src/Plugin.php:874
+msgid ""
+"Your database tables use an older storage format (MyISAM) that cannot "
+"finish this update. Back up your database, convert all its tables to "
+"InnoDB, then reload this page. CartPops finishes the update by itself."
+msgstr ""
+"データベーステーブルが古いストレージ形式（MyISAM）を使用しているため、このアップデートを完了できません。データベースをバックアップしてから、すべて"
+"のテーブルをInnoDB に変換し、このページを再度読み込んでください。CartPops がアップデートを自動的に完了します。"
+
+#: src/Plugin.php:892
+msgid ""
+"CartPops cannot load the cart on your store, so shoppers see “Request "
+"failed” in the cart drawer. Some of your database tables use an older "
+"storage format (MyISAM). Back up your database, then convert all its tables "
+"to InnoDB."
+msgstr ""
+"CartPops "
+"がストアのカートを読み込めないため、ショッパーにはカートドロワーに「リクエスト失敗」と表示されます。データベーステーブルの一部が古いストレージ形式（My"
+"ISAM）を使用しています。データベースをバックアップしてから、すべてのテーブルをInnoDB に変換してください。"
+
+#: src/Setup/SiteHealthSection.php:80
+msgid "Update records present"
+msgstr "アップデートレコードが存在します"
+
+#: src/Setup/SiteHealthSection.php:81
+msgid "Database engine (options / posts / cart sessions / user meta)"
+msgstr "データベースエンジン（オプション / 投稿 / カートセッション / ユーザーメタ）"
+
+#: src/Blocks/CartDrawer/block.json
+msgctxt "block title"
+msgid "CartPops Cart Drawer"
+msgstr "CartPops カートドロワー"
+
+#: src/Blocks/CartLauncher/block.json
+msgctxt "block title"
+msgid "CartPops Cart Launcher"
+msgstr "CartPops カートランチャー"
+
+#: src/Pro/Blocks/ShippingMeter/block.json
+msgctxt "block title"
+msgid "CartPops Shipping & Rewards Meter"
+msgstr "CartPops 送料＆リワードメーター"
+
+#: src/Blocks/CartDrawer/block.json
+msgctxt "block description"
+msgid "A beautiful slide-out cart drawer for WooCommerce."
+msgstr "WooCommerce 向けの美しいスライド式カートドロワー。"
+
+#: src/Blocks/CartLauncher/block.json
+msgctxt "block description"
+msgid "A floating cart button that opens the CartPops drawer."
+msgstr "CartPops ドロワーを開くフローティングカートボタン。"
+
+#: src/Pro/Blocks/ShippingMeter/block.json
+msgctxt "block description"
+msgid "Visual progress bar showing how close the customer is to free shipping."
+msgstr "送料無料までの進捗状況を視覚的に表示するプログレスバー。"

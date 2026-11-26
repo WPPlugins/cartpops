@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wpml-config>
+  <admin-texts>
+    <key name="cartpops_settings">
+      <key name="drawer">
+        <key name="checkout_button_text" />
+      </key>
+      <key name="shipping_meter">
+        <key name="message_remaining" />
+        <key name="message_qualified" />
+      </key>
+      <key name="recommendations">
+        <key name="heading" />
+      </key>
+      <key name="smart_addons">
+        <key name="addons">
+          <key name="shipping_protection">
+            <key name="label" />
+            <key name="description" />
+          </key>
+        </key>
+      </key>
+      <key name="bundle_builder">
+        <key name="heading" />
+      </key>
+    </key>
+  </admin-texts>
+</wpml-config>
