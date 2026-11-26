@@ -199,6 +199,62 @@ export function parseProductPageNotices( html, documentScope ) {
 	}
 }
 
+const INTERACTIVITY_DATA_IDS = [
+	// WordPress 6.7 and later.
+	'wp-script-module-data-@wordpress/interactivity',
+	// WordPress 6.5 and 6.6.
+	'wp-interactivity-data',
+];
+const PROVISIONAL_CART_FIELDS = [
+	'cartItems',
+	'cartCount',
+	'cartTotal',
+	'cartSubtotal',
+];
+
+/**
+ * Read the cart CartPops rendered into the page that answered the shopper's
+ * own add POST. It is only a provisional display: the caller must still
+ * accept WooCommerce's fragments (or a CartPops read) as the cart's authority.
+ *
+ * @param {string}   html          Response page HTML.
+ * @param {Document} documentScope Current document (for its DOMParser).
+ * @return {Object|null} The rendered cart fields, or null.
+ */
+export function parseProductPageCart( html, documentScope ) {
+	try {
+		const Parser = documentScope?.defaultView?.DOMParser ?? DOMParser;
+		const page = new Parser().parseFromString(
+			String( html ?? '' ),
+			'text/html'
+		);
+		for ( const id of INTERACTIVITY_DATA_IDS ) {
+			const script = page.getElementById( id );
+			if ( script?.getAttribute( 'type' ) !== 'application/json' ) {
+				continue;
+			}
+			const cartpops = JSON.parse( script.textContent )?.state?.cartpops;
+			if (
+				! cartpops ||
+				! Array.isArray( cartpops.cartItems ) ||
+				! Number.isSafeInteger( cartpops.cartCount )
+			) {
+				return null;
+			}
+			const cart = {};
+			for ( const field of PROVISIONAL_CART_FIELDS ) {
+				if ( cartpops[ field ] !== undefined ) {
+					cart[ field ] = cartpops[ field ];
+				}
+			}
+			return cart;
+		}
+	} catch {
+		// Unreadable markup only costs the early display.
+	}
+	return null;
+}
+
 /**
  * Replace the page's WooCommerce notices with those from the response.
  *
@@ -413,6 +469,11 @@ function addOrigin( form, submitter ) {
  * @param {Function} options.willOpenDrawer      Whether an add from this origin opens the drawer.
  * @param {Function} options.onAdded             Receives (fragments|null, cartHash, origin) when the
  *                                               drawer bridge cannot hear jQuery's `added_to_cart`.
+ * @param {Function} [options.onAddStarted]      Receives the add's origin just before the request.
+ * @param {Function} [options.onAddFailed]       Called before an add's error notices are shown.
+ * @param {Function} [options.onProvisionalCart] Receives the cart rendered into the add POST's own
+ *                                               response, before WooCommerce's fragments arrive.
+ *                                               Display only; never cart authority.
  * @param {boolean}  [options.bridgeHearsJquery] Whether the drawer bridge listens to jQuery events.
  * @param {Function} [options.fetchImpl]         Fetch implementation.
  * @param {Function} [options.navigate]          Navigates the page by GET.
@@ -424,6 +485,9 @@ export function installProductFormAddInterceptor( {
 	getConfig,
 	willOpenDrawer,
 	onAdded,
+	onAddStarted,
+	onAddFailed,
+	onProvisionalCart,
 	bridgeHearsJquery = true,
 	fetchImpl = globalScope?.fetch?.bind( globalScope ),
 	navigate = ( url ) => globalScope.location.assign( url ),
@@ -500,6 +564,11 @@ export function installProductFormAddInterceptor( {
 	const submit = async ( { form, submitter, url, data } ) => {
 		pendingForms.add( form );
 		submitter?.classList?.add( PENDING_CLASS );
+		try {
+			onAddStarted?.( addOrigin( form, submitter ) );
+		} catch {
+			// The drawer's early feedback is optional; the add itself goes on.
+		}
 		const hashBefore = readCartHash();
 		let response = null;
 		let html = '';
@@ -555,6 +624,18 @@ export function installProductFormAddInterceptor( {
 			documentScope
 		);
 		if ( cartChanged ) {
+			// Only the direct answer to this shopper's own POST: a redirect
+			// means the page came from a GET that a cache could have served.
+			if ( response.redirected !== true ) {
+				const provisional = parseProductPageCart( html, documentScope );
+				if ( provisional ) {
+					try {
+						onProvisionalCart?.( provisional );
+					} catch {
+						// The early display is optional; the add is confirmed.
+					}
+				}
+			}
 			await announceAdd( form, addOrigin( form, submitter ), notices );
 			return;
 		}
@@ -572,11 +653,16 @@ export function installProductFormAddInterceptor( {
 				return;
 			}
 		}
-		if (
-			hasError &&
-			showProductPageNotices( notices, form, documentScope )
-		) {
-			return;
+		if ( hasError ) {
+			try {
+				// Close the drawer first so focus can reach the page notice.
+				onAddFailed?.();
+			} catch {
+				// Showing the notice matters more than the drawer's state.
+			}
+			if ( showProductPageNotices( notices, form, documentScope ) ) {
+				return;
+			}
 		}
 
 		// Nothing proves an add or explains why not. Reload by GET, never by

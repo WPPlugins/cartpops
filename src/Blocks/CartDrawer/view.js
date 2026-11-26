@@ -89,6 +89,16 @@ let addedToCartAnnouncementGeneration = 0;
 const removalUndoTimers = new Map();
 let focusTrapCleanup = null;
 let focusActivationFrame = null;
+/**
+ * Cart count published before a provisional display replaced it, so the
+ * authoritative cart that follows still announces the change.
+ */
+let cartCountBeforeProvisionalDisplay = null;
+
+/** Timer that ends an early-opened drawer's wait for a classic add. */
+let pendingClassicAddTimerId = null;
+const PENDING_CLASSIC_ADD_MAX_MS = 30000;
+
 /** Flag set before openDrawer() when cart data is already processed. */
 let skipNextFetch = false;
 /** Debounce map for quantity updates — exact identity is its generation token. */
@@ -269,6 +279,9 @@ function initializeSharedCartDrawerState( currentState ) {
 		}
 	}
 
+	if ( ! Number.isSafeInteger( currentState.cartPublicationRevision ) ) {
+		currentState.cartPublicationRevision = 0;
+	}
 	if ( ! Object.prototype.hasOwnProperty.call( currentState, 'undoItem' ) ) {
 		currentState.undoItem = null;
 	}
@@ -1743,7 +1756,7 @@ function applyLightCartProjection(
 		source = 'cartpops-rest-mutation',
 	} = {}
 ) {
-	const previousCartCount = state.cartCount;
+	const previousCartCount = takeCartCountBeforeProvisionalDisplay();
 	if ( supersedeFetch ) {
 		supersedeActiveCartFetch();
 	}
@@ -1883,7 +1896,6 @@ function processCartResponse(
 	{ rejectInvalid = true, suppressUnchangedCount = false } = {}
 ) {
 	const reject = () => ( rejectInvalid ? rejectCartResponse() : false );
-	const previousCartCount = state.cartCount;
 	let safeCoupons;
 	let cartForExtensions;
 	let currentCart;
@@ -1976,6 +1988,7 @@ function processCartResponse(
 	// because its rejection can leak through the Interactivity API proxy chain.
 	supersedeActiveCartFetch();
 
+	const previousCartCount = takeCartCountBeforeProvisionalDisplay();
 	state.cartItems = cloneMutableCartPresentation( currentCart.items );
 	state.cartCount = currentCart.count;
 	const removalSettlement = commitRemovalReconciliation(
@@ -2156,8 +2169,36 @@ function completeOwnedCartMutation( accepted, { completeState = true } = {} ) {
 		return false;
 	}
 
+	if ( completeState !== true && classicFragmentsRefreshAvailable() ) {
+		// Start the follow-up read now instead of after Woo's fragment refresh;
+		// both are independent reads, and each costs a slow store a full page
+		// load. The refresh is then marked as CartPops' own so it does not
+		// trigger the same read again. Removal intents, undo state and the
+		// fetch generation guard apply to this read exactly as before.
+		requestExternalCartRefresh();
+		scheduleWooCartSurfaceSync( { completeState: true } );
+		return true;
+	}
+
 	scheduleWooCartSurfaceSync( { completeState } );
 	return true;
+}
+
+/**
+ * Whether Woo's classic cart-fragments script will answer a fragment refresh,
+ * which is what would otherwise trigger the follow-up cart read.
+ *
+ * @return {boolean} Whether classic fragments are active on this page.
+ */
+function classicFragmentsRefreshAvailable() {
+	try {
+		return Boolean(
+			globalThis.wc_cart_fragments_params &&
+				typeof globalThis.jQuery === 'function'
+		);
+	} catch {
+		return false;
+	}
 }
 
 /** Cancel one not-yet-started supplementary read. */
@@ -2958,6 +2999,16 @@ const { state } = store( 'cartpops', {
 		},
 
 		/**
+		 * Whether to show the empty-cart message. While the drawer is loading,
+		 * for example while an add is on its way, the cart may not be empty.
+		 *
+		 * @return {boolean} Whether the empty-cart message is shown.
+		 */
+		get showEmptyMessage() {
+			return state.isEmpty && ! state.isLoading;
+		},
+
+		/**
 		 * Whether the launcher should treat the cart as empty.
 		 *
 		 * Unlike `isEmpty`, this keeps the server-rendered count while an
@@ -2973,6 +3024,9 @@ const { state } = store( 'cartpops', {
 		},
 
 		get renderCartItems() {
+			// The retained publication is module state; this reactive revision
+			// re-renders the lines when it changes while trust does not.
+			void state.cartPublicationRevision;
 			const items = isCartHydrationTrusted( state )
 				? trustedCartItems()
 				: retainedCartPublication;
@@ -3039,7 +3093,7 @@ const { state } = store( 'cartpops', {
 			store( 'cartpops' ).actions.closeDrawer();
 		},
 
-		openDrawer( source, { forceFetch = false } = {} ) {
+		openDrawer( source, { forceFetch = false, deferFetch = false } = {} ) {
 			// If already open, refresh data and return.
 			if ( state.isOpen ) {
 				if ( skipNextFetch ) {
@@ -3062,8 +3116,11 @@ const { state } = store( 'cartpops', {
 			hydrationAccessibility?.update?.();
 			runOptionalExtension( 'drawer-opened', { source: initiator } );
 
-			// Fetch fresh cart data unless pre-populated (e.g. from wp.data or fragments).
-			if ( skipNextFetch ) {
+			// Fetch fresh cart data unless pre-populated (e.g. from wp.data or
+			// fragments) or an add in flight is about to deliver it.
+			if ( deferFetch ) {
+				// The add's own response fills the drawer and runs the follow-up.
+			} else if ( skipNextFetch ) {
 				skipNextFetch = false;
 				runSupplementaryFetches( 'drawer-open' );
 			} else {
@@ -4071,6 +4128,135 @@ function acceptClassicCartFragments( fragments ) {
 	return Boolean( data && acceptExternalCart( data, 'cartpops-rest' ) );
 }
 
+/**
+ * Open the drawer in its loading state the moment a classic add starts, so
+ * a slow store shows progress instead of nothing. No request is made here:
+ * the add's own response fills the drawer through the classic add path.
+ *
+ * @param {*} classicEvent  Optional classic jQuery event.
+ * @param {*} classicButton Classic button, jQuery button or form origin.
+ * @return {boolean} Whether the drawer is waiting for this add.
+ */
+function beginPendingClassicAdd( classicEvent, classicButton ) {
+	// WooCommerce leaves for the cart page after the add; don't flash the drawer.
+	if ( state.config?.cartRedirectAfterAdd ) {
+		return false;
+	}
+	const policy = resolveCartAddPolicy( {
+		trigger: state.config?.trigger,
+		cartProcessed: true,
+		classicEvent,
+		classicButton,
+	} );
+	if ( ! policy.shouldOpenDrawer ) {
+		return false;
+	}
+
+	if ( ! state.isOpen ) {
+		// Woo passes a jQuery-wrapped button; the form path passes the element.
+		const origin =
+			Array.isArray( classicButton ) || classicButton?.jquery
+				? classicButton[ 0 ]
+				: classicButton;
+		store( 'cartpops' ).actions.openDrawer(
+			origin?.nodeType === 1 ? origin : undefined,
+			{ deferFetch: true }
+		);
+	}
+	if ( ! state.isOpen ) {
+		return false;
+	}
+
+	state.isLoading = true;
+	if ( pendingClassicAddTimerId !== null ) {
+		clearTimeout( pendingClassicAddTimerId );
+	}
+	// Woo redirects on a refused add; a lost request must not leave the
+	// drawer unusable.
+	pendingClassicAddTimerId = setTimeout( () => {
+		pendingClassicAddTimerId = null;
+		if ( ! fetchController ) {
+			state.isLoading = false;
+		}
+	}, PENDING_CLASSIC_ADD_MAX_MS );
+	return true;
+}
+
+/**
+ * End the waiting state started by beginPendingClassicAdd.
+ *
+ * @param {Object}  [options]
+ * @param {boolean} [options.failed=false] Whether the add was refused.
+ */
+function settlePendingClassicAdd( { failed = false } = {} ) {
+	if ( pendingClassicAddTimerId === null ) {
+		return;
+	}
+	clearTimeout( pendingClassicAddTimerId );
+	pendingClassicAddTimerId = null;
+	if ( ! fetchController ) {
+		state.isLoading = false;
+	}
+	if ( failed && state.isOpen ) {
+		store( 'cartpops' ).actions.closeDrawer();
+	}
+}
+
+/**
+ * Return and clear the count an authoritative apply compares against.
+ *
+ * @return {number} Cart count last published by an authoritative cart.
+ */
+function takeCartCountBeforeProvisionalDisplay() {
+	const count = cartCountBeforeProvisionalDisplay ?? state.cartCount;
+	cartCountBeforeProvisionalDisplay = null;
+	return count;
+}
+
+/**
+ * Show the cart rendered into the shopper's own add POST response while
+ * WooCommerce's fragments, the cart CartPops trusts, are still on their way.
+ *
+ * Display only: the cart stays untrusted, so no line can be changed, and the
+ * drawer keeps loading until an authoritative cart replaces it under the
+ * usual generation guard.
+ *
+ * @param {*} data Rendered cart fields from the add response.
+ * @return {boolean} Whether the provisional cart is shown.
+ */
+function showProvisionalCart( data ) {
+	if ( pendingClassicAddTimerId === null || ! state.isOpen ) {
+		return false;
+	}
+	const current = validateCurrentCart( data?.cartItems, data?.cartCount );
+	if ( ! current ) {
+		return false;
+	}
+
+	if ( isCartHydrationTrusted( state ) ) {
+		rememberTrustedCartPresentation();
+	}
+	markCartHydrationPending( state );
+	retainedCartPublication = cloneMutableCartPresentation( current.items );
+	state.cartPublicationRevision += 1;
+	if ( cartCountBeforeProvisionalDisplay === null ) {
+		cartCountBeforeProvisionalDisplay = state.cartCount;
+	}
+	state.cartCount = current.count;
+	for ( const field of [ 'cartTotal', 'cartSubtotal' ] ) {
+		const text = boundedLightCartText(
+			data[ field ],
+			LIGHT_CART_PRESENTATION_MAX_BYTES,
+			{ allowEmpty: current.count === 0 }
+		);
+		if ( typeof text === 'string' ) {
+			state[ field ] = text;
+		}
+	}
+	hydrationAccessibility?.update();
+	return true;
+}
+
 // Also listen for classic WC add-to-cart.
 // Fragments avoid a separate cart projection read; the cookie authority still
 // needs the coordinated Store/nonce probes before the next cart request.
@@ -4079,6 +4265,9 @@ function handleClassicAddedToCart( event, fragments, _cartHash, button ) {
 	runOptionalExtension( 'cart-add-detected' );
 	const cartProcessed = acceptClassicCartFragments( fragments );
 	completeAddedToCart( cartProcessed, event, button );
+	// After any follow-up cart read has started, so the drawer keeps loading
+	// until that read answers.
+	settlePendingClassicAdd();
 }
 
 /**
@@ -4170,6 +4359,7 @@ installCartDrawerEventBridge( {
 	onBlocksAdded: handleBlocksAddedToCart,
 	onBlocksRemoved: handleBlocksRemovedFromCart,
 	onBlocksCartChanged: handleBlocksCartChanged,
+	onClassicAdding: beginPendingClassicAdd,
 	onClassicAdded: handleClassicAddedToCart,
 	onClassicRemoved: handleClassicRemovedFromCart,
 	onClassicRefreshed: handleClassicCartRefreshed,
@@ -4195,5 +4385,8 @@ installProductFormAddInterceptor( {
 		} ).shouldOpenDrawer,
 	onAdded: ( fragments, cartHash, origin ) =>
 		handleClassicAddedToCart( undefined, fragments, cartHash, origin ),
+	onAddStarted: ( origin ) => beginPendingClassicAdd( undefined, origin ),
+	onAddFailed: () => settlePendingClassicAdd( { failed: true } ),
+	onProvisionalCart: showProvisionalCart,
 	bridgeHearsJquery,
 } );

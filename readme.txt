@@ -4,7 +4,7 @@ Tags: side cart, cart drawer, floating cart, woocommerce side cart, add to cart 
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 2.0.17
+Stable tag: 2.0.18
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -110,6 +110,14 @@ Your settings, styling and license carry over. Version 2 is built around the car
 4. Pro Smart Bar rules and Smart Add-ons such as shipping protection and gift wrapping.
 
 == Changelog ==
+
+= 2.0.18 =
+* Improved: when a shopper adds a product from a shop page or a product page, the cart drawer now opens straight away with a loading bar and fills in once the product is added, instead of staying closed until the store answers.
+* Fix: in Pro, adding to the cart is quicker on slow hosting when the free shipping bar, add-ons, notification bar and bundles are all switched off.
+* Improved: after adding to cart on a product page, the cart drawer shows the product as soon as the store confirms the add, which is several seconds sooner on slow hosting.
+* Improved: removing a product from the cart drawer finishes updating sooner on slow hosting.
+* Fix: on WordPress 6.5, CartPops → Settings no longer shows a blank page, and the CartPops blocks show up in the editor again.
+* Fix: Activating CartPops 2 while an older CartPops 1 plugin was still active left the store paused. CartPops 2 now turns off the old copy for you, and otherwise tells you exactly which plugin to deactivate.
 
 = 2.0.17 =
 * Fix: CartPops Pro no longer stays paused with "upgrade_failed (pro_upgrade_incomplete)" after an update on stores with an older MySQL database.

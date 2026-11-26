@@ -21,6 +21,7 @@ use CartPops\I18n\Translator;
 use CartPops\Compatibility\BlocksyIntegration;
 use CartPops\Compatibility\MiniCartIntegration;
 use CartPops\Compatibility\PageCacheExclusion;
+use CartPops\Compatibility\ReactJsxRuntimeFallback;
 use CartPops\Licensing\EditionAuthority;
 use CartPops\Licensing\PaidRuntimeGuard;
 use CartPops\Edition\PhysicalEditionAuthority;
@@ -665,6 +666,9 @@ final class Plugin {
 
 		// Register blocks.
 		add_action( 'init', array( $this, 'register_blocks' ) );
+
+		// WordPress 6.5 lacks the JSX runtime handle the admin and editor bundles need.
+		add_action( 'wp_loaded', array( ReactJsxRuntimeFallback::class, 'register' ) );
 
 		// Admin.
 		if ( is_admin() ) {
