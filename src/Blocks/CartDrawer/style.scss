@@ -263,9 +263,14 @@
 		visibility: visible;
 	}
 
-	// Loading state – only disable interaction, no opacity flash.
+	// Loading state – disable cart controls, no opacity flash. Closing the
+	// drawer stays possible while a slow store answers.
 	&.cpops-drawer-loading {
 		pointer-events: none;
+
+		.cpops-drawer__close {
+			pointer-events: auto;
+		}
 	}
 
 }
@@ -1808,5 +1813,49 @@
 	.cpops-quantity__btn,
 	.cpops-coupon__input {
 		transition: none !important;
+	}
+}
+
+// ─── Loading indicator ─────────────────────────────────────
+// A thin bar under the header while the cart is on its way.
+.cpops-drawer__loading {
+	position: relative;
+	flex-shrink: 0;
+	height: 3px;
+	overflow: hidden;
+	background: color-mix(in srgb, currentcolor 10%, transparent);
+
+	&.cpops-hidden {
+		display: none;
+	}
+
+	&::after {
+		content: "";
+		position: absolute;
+		inset: 0 auto 0 0;
+		width: 40%;
+		background: currentcolor;
+		opacity: 0.6;
+		animation: cpops-drawer-loading 1.1s ease-in-out infinite;
+	}
+}
+
+@keyframes cpops-drawer-loading {
+
+	from {
+		transform: translateX(-100%);
+	}
+
+	to {
+		transform: translateX(250%);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	.cpops-drawer__loading::after {
+		width: 100%;
+		animation: none;
+		opacity: 0.3;
 	}
 }

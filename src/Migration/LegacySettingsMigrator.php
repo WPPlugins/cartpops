@@ -61,6 +61,7 @@ final class LegacySettingsMigrator {
 		self::NORMALIZATION_RECOVERY_OPTION,
 	);
 	private const MAX_RAW_BYTES                 = 1048576;
+	private const MAX_DUPLICATE_NETWORK_ROWS    = 8;
 	private const MAX_VALUE_DEPTH               = 64;
 	private const MAX_VALUE_NODES               = 10000;
 	private const MAX_SOURCE_RECORDS            = 500;
@@ -94,6 +95,19 @@ final class LegacySettingsMigrator {
 		'cartpops_color_cart_laucher_bubble_background' => 'badge_bg',
 		'cartpops_color_cart_laucher_bubble_text'       => 'badge_text',
 	);
+
+	/**
+	 * Large write-once records whose validity is a pure function of their exact
+	 * bytes and site. A proven-valid row is not decoded on later requests until
+	 * its bytes, the site or the plugin version change.
+	 */
+	private const PROVABLE_CONTROL_OPTIONS = array(
+		self::SNAPSHOT_OPTION,
+		self::RECOVERY_OPTION,
+		self::NORMALIZATION_RECOVERY_OPTION,
+	);
+	private const PROVEN_ROW_PURPOSE       = 'legacy_migration_control_row_valid_v1';
+
 	/**
 	 * Decoded values from the immutable pre-migration snapshot.
 	 *
@@ -219,6 +233,13 @@ final class LegacySettingsMigrator {
 	 * @var string|null
 	 */
 	private ?string $durable_pre_sdk_basename = null;
+
+	/**
+	 * Exact raw bytes of boot control rows proven valid without decoding them.
+	 *
+	 * @var array<string, string>
+	 */
+	private array $proven_control_rows = array();
 
 	/**
 	 * Optional premium-only entitlement capability issuer.
@@ -364,18 +385,47 @@ final class LegacySettingsMigrator {
 		$snapshot   = $controls[ self::SNAPSHOT_OPTION ];
 		$quarantine = $controls[ self::QUARANTINE_OPTION ];
 		if ( null === $source || ! $snapshot['exists'] || ! $quarantine['exists']
-			|| ! $this->snapshot_is_valid( $snapshot['value'] ) || ! $this->quarantine_record_is_valid( $quarantine['value'] )
+			|| ! $this->snapshot_quarantines_custom_js( $snapshot, $source ) || ! $this->quarantine_record_is_valid( $quarantine['value'] )
 			|| ! $this->store->autoload_is( $snapshot['autoload'], false ) || ! $this->store->autoload_is( $quarantine['autoload'], false )
-			|| ( $snapshot['value']['options']['cartpops_custom_js'] ?? null ) !== $source
 			|| $source['raw_value'] !== $quarantine['value']['raw_value']
-			|| array(
-				'status'  => 'quarantined',
-				'targets' => array( self::QUARANTINE_OPTION ),
-			) !== ( $snapshot['value']['dispositions']['cartpops_custom_js'] ?? null )
 			|| ! in_array( 'legacy_custom_js_requires_review', ( new LegacyPaidStateInspector( $this->site_context ) )->inspect_raw_rows( array( 'cartpops_custom_js' => $source['raw_value'] ) ), true ) ) {
 			return null;
 		}
 		return hash( 'sha256', $this->store->serialize_value( array( 1, $this->site_context->blog_id(), $this->site_context->network_id(), $source, $snapshot['raw_value'], $quarantine['raw_value'] ) ) );
+	}
+
+	/**
+	 * Whether a valid snapshot recorded exactly this V1 script as quarantined.
+	 *
+	 * For a snapshot already proven valid, the answer is remembered against the
+	 * exact snapshot and script bytes, so a finished, reviewed store does not
+	 * decode its whole snapshot on every request.
+	 *
+	 * @param array{exists: bool, value: mixed, raw_value: string, autoload: string} $snapshot Exact snapshot row.
+	 * @param array{raw_value: string, autoload: string}                             $source   Exact live V1 script row.
+	 */
+	private function snapshot_quarantines_custom_js( array $snapshot, array $source ): bool {
+		$check = fn( mixed $value ): bool => $this->snapshot_is_valid( $value )
+			&& ( $value['options']['cartpops_custom_js'] ?? null ) === $source
+			&& array(
+				'status'  => 'quarantined',
+				'targets' => array( self::QUARANTINE_OPTION ),
+			) === ( $value['dispositions']['cartpops_custom_js'] ?? null );
+		if ( ! $this->control_row_is_proven( self::SNAPSHOT_OPTION, $snapshot ) ) {
+			return $check( $snapshot['value'] );
+		}
+		return array( 'quarantined' ) === ExactRowVerdictMemo::decide(
+			'legacy_snapshot_quarantines_custom_js_v1',
+			array(
+				'schema'          => (string) self::SCHEMA_VERSION,
+				'blog'            => (string) $this->site_context->blog_id(),
+				'network'         => (string) $this->site_context->network_id(),
+				'snapshot'        => $snapshot['raw_value'],
+				'source'          => $source['raw_value'],
+				'source_autoload' => $source['autoload'],
+			),
+			fn(): ?array => $check( $this->decode_internal_raw( $snapshot['raw_value'] ) ) ? array( 'quarantined' ) : null
+		);
 	}
 
 	/**
@@ -398,6 +448,91 @@ final class LegacySettingsMigrator {
 			return false;
 		}
 		return true;
+	}
+
+	/** Whether this request could not read the current blog's licence at all, as opposed to a definite "not licensed". */
+	private function paid_licence_is_unreadable(): bool {
+		return null !== $this->paid_entitlement_bridge
+			&& $this->paid_entitlement_bridge->licence_is_unreadable( $this->site_context->blog_id() );
+	}
+
+	/**
+	 * Whether the Freemius account row still has the exact bytes the licence was confirmed against.
+	 *
+	 * @param array{diagnostics: string[], raw_rows: array<string, string>} $paid_state Exact inspector result.
+	 */
+	private function paid_entitlement_row_is_unchanged( array $paid_state ): bool {
+		if ( ! isset( $paid_state['raw_rows']['fs_accounts'] ) ) {
+			return false;
+		}
+		try {
+			$fresh = ( new LegacyPaidStateInspector( $this->site_context ) )->read();
+		} catch ( MigrationReadException ) {
+			return false;
+		}
+		return isset( $fresh['raw_rows']['fs_accounts'] )
+			&& $paid_state['raw_rows']['fs_accounts'] === $fresh['raw_rows']['fs_accounts'];
+	}
+
+	/**
+	 * Whether a finished site's controls prove completion with no write to make.
+	 *
+	 * A custom-JS review record, when present, must still match the current script.
+	 *
+	 * The locked decision for such a site only re-reads the same rows. Reading them
+	 * without the migration lock or the row-locking fence keeps concurrent requests
+	 * from returning BUSY or failing on a lock wait. Anything else that needs a
+	 * write or a fresh decision returns false and takes the locked path.
+	 *
+	 * @param array<string, array{exists: bool, value: mixed, raw_value: string, autoload: string}> $rows Exact control rows.
+	 */
+	private function converged_completion_needs_no_lock( array $rows ): bool {
+		$completion = $rows[ self::COMPLETION_OPTION ];
+		$review     = $rows[ self::JS_REVIEW_OPTION ];
+		if (
+			! $this->completion_is_current( $completion )
+			|| ! $this->store->autoload_is( $completion['autoload'], false )
+			|| $rows[ self::PROVENANCE_OPTION ]['exists']
+			|| $rows[ self::COMPATIBILITY_OPTION ]['exists']
+			|| $rows[ self::MAINTENANCE_OPTION ]['exists']
+			|| $rows[ self::PRE_SDK_EVIDENCE_OPTION ]['exists']
+		) {
+			return false;
+		}
+		if ( ! $review['exists'] ) {
+			return true;
+		}
+		if (
+			! $this->store->autoload_is( $review['autoload'], false )
+			|| ! $this->custom_js_review_record_is_valid( $review['value'] )
+		) {
+			return false;
+		}
+
+		$source = $this->store->read( 'cartpops_custom_js' );
+		if ( ! $source['success'] || ! $source['exists'] ) {
+			return false;
+		}
+		$unlocked = array(
+			'cartpops_custom_js' => array(
+				'raw_value' => $source['raw_value'],
+				'autoload'  => $source['autoload'],
+			),
+		);
+		foreach ( array( self::SNAPSHOT_OPTION, self::QUARANTINE_OPTION, self::JS_REVIEW_OPTION ) as $option ) {
+			if ( ! $rows[ $option ]['exists'] ) {
+				return false;
+			}
+			$unlocked[ $option ] = array(
+				'raw_value' => $rows[ $option ]['raw_value'],
+				'autoload'  => $rows[ $option ]['autoload'],
+			);
+		}
+
+		$fingerprint = $this->custom_js_review_fingerprint( $unlocked, $rows );
+		return null !== $fingerprint
+			&& $this->custom_js_review_record( $fingerprint ) === $review['value']
+			&& $this->custom_js_review_rows_unchanged( $unlocked, $review['value'] );
 	}
 
 	/**
@@ -502,7 +637,8 @@ final class LegacySettingsMigrator {
 			$effective_diagnostics                     = $this->blocking_diagnostics(
 				null === $paid_entitlement_plan
 					? $paid_state['diagnostics']
-					: $this->without_paid_entitlement_adapter( $paid_state['diagnostics'] )
+					: $this->without_paid_entitlement_adapter( $paid_state['diagnostics'] ),
+				$this->freemius_row_is_uncertain( $paid_state['raw_rows'] )
 			);
 			$terminal_exists                           = $control['rows'][ self::COMPLETION_OPTION ]['exists'] || $control['rows'][ self::PROVENANCE_OPTION ]['exists'];
 			$preflight_diagnostics                     = $terminal_exists
@@ -520,6 +656,36 @@ final class LegacySettingsMigrator {
 			$terminal_retirement_needs_autoload_repair = $terminal_exists
 				&& $rules_retirement_valid
 				&& ! $this->store->autoload_is( $rules_retirement['autoload'], false );
+			// A request that could not read the licence at all (licensing not loaded, no
+			// usable answer) is not a store whose licence is gone. It keeps the earned
+			// completion untouched; paid code still stays off because only a confirmed
+			// licence lets it boot. A definite "not licensed" answer takes the locked path.
+			$licence_unreadable = null === $paid_entitlement_plan
+				&& in_array( 'legacy_paid_entitlement_requires_adapter', $effective_diagnostics, true )
+				&& $this->paid_licence_is_unreadable();
+			$reviewed           = $control['rows'][ self::JS_REVIEW_OPTION ]['exists'];
+			$settled            = array_merge(
+				$reviewed ? array( 'legacy_custom_js_requires_review' ) : array(),
+				$licence_unreadable ? array( 'legacy_paid_entitlement_requires_adapter' ) : array()
+			);
+			if (
+				$terminal_exists
+				&& ( $reviewed || $licence_unreadable )
+				&& ( null === $paid_entitlement_plan || $this->paid_entitlement_row_is_unchanged( $paid_state ) )
+				&& array() === array_diff( $effective_diagnostics, $settled )
+				&& (
+					( ! $control['has_legacy_rules'] && ! $rules_retirement['exists'] )
+					|| ( $rules_retirement['exists'] && $this->rules_retirement_record() === $rules_retirement['value'] && $this->store->autoload_is( $rules_retirement['autoload'], false ) )
+				)
+				&& $this->converged_completion_needs_no_lock( $control['rows'] )
+			) {
+				// Every later request on a finished, reviewed site lands here. Taking the
+				// lock for a decision that writes nothing made concurrent requests BUSY.
+				// A prepared plan already confirmed the licence on this request; the
+				// locked path only proves the account row it was confirmed against is
+				// unchanged, which the fresh read above does without a lock.
+				return MigrationOutcome::COMPLETE;
+			}
 			if ( $control['rows'][ self::JS_REVIEW_OPTION ]['exists'] || $rules_retirement_needs_locked_decision || $terminal_rules_need_record || $terminal_retirement_needs_autoload_repair || array() !== $preflight_diagnostics || $legacy_disposition || $compatibility_disposition['exists'] ) {
 				$lock = $this->acquire_lock();
 				if ( MigrationOutcome::COMPLETE !== $lock ) {
@@ -544,7 +710,7 @@ final class LegacySettingsMigrator {
 
 			$journal     = $control['rows'][ self::JOURNAL_OPTION ];
 			$maintenance = $control['rows'][ self::MAINTENANCE_OPTION ];
-			$snapshot    = $control['rows'][ self::SNAPSHOT_OPTION ];
+			$snapshot    = $this->decoded_control_row( self::SNAPSHOT_OPTION, $control['rows'][ self::SNAPSHOT_OPTION ] );
 
 			$journal_schema     = $journal['exists'] ? $this->durable_record_schema( $journal['value'] ) : self::SCHEMA_VERSION;
 			$maintenance_schema = $maintenance['exists'] ? $this->durable_record_schema( $maintenance['value'] ) : self::SCHEMA_VERSION;
@@ -720,6 +886,7 @@ final class LegacySettingsMigrator {
 			if ( ! is_array( $snapshot ) || ! $this->snapshot_is_valid( $snapshot ) ) {
 				return $this->fail_without_journal( 'snapshot_checksum_mismatch' );
 			}
+			$this->remember_valid_control_row( self::SNAPSHOT_OPTION, $snapshot_row['raw_value'] );
 			if ( ! $this->write_journal( 'snapshot', $snapshot ) ) {
 				return $this->fail_without_journal( 'journal_snapshot_write_failed' );
 			}
@@ -729,6 +896,7 @@ final class LegacySettingsMigrator {
 			if ( ! is_array( $snapshot ) || ! $this->snapshot_is_valid( $snapshot ) ) {
 				return $this->fail_without_journal( 'snapshot_checksum_mismatch' );
 			}
+			$this->remember_valid_control_row( self::SNAPSHOT_OPTION, $snapshot_row['raw_value'] );
 			if (
 				! $this->store->autoload_is( $snapshot_row['autoload'], false )
 				&& ! $this->store->compare_and_swap( self::SNAPSHOT_OPTION, $snapshot_row['raw_value'], $snapshot, false )
@@ -1207,7 +1375,10 @@ final class LegacySettingsMigrator {
 					$diagnostics = $this->without_paid_entitlement_adapter( $diagnostics );
 					$diagnostics = $this->without_paid_entitlement_drift( $diagnostics );
 				}
-				$diagnostics = $this->blocking_diagnostics( array_values( array_unique( $diagnostics ) ) );
+				$diagnostics = $this->blocking_diagnostics(
+					array_values( array_unique( $diagnostics ) ),
+					$this->freemius_row_is_uncertain( $paid_rows )
+				);
 				sort( $diagnostics, SORT_STRING );
 				if ( $stored['exists'] && array() === $diagnostics ) {
 					// Every stored blocker was released, so the record may be removed.
@@ -1342,7 +1513,8 @@ final class LegacySettingsMigrator {
 			? $fresh_state['diagnostics']
 			: $this->without_paid_entitlement_adapter( $fresh_state['diagnostics'] );
 		$hard_diagnostics  = $this->blocking_diagnostics(
-			array_values( array_filter( $fresh_diagnostics, array( LegacyPaidStateInspector::class, 'is_hard_diagnostic' ) ) )
+			array_values( array_filter( $fresh_diagnostics, array( LegacyPaidStateInspector::class, 'is_hard_diagnostic' ) ) ),
+			$this->freemius_row_is_uncertain( $fresh_state['raw_rows'] )
 		);
 		return array() === $hard_diagnostics
 			? $this->migrate_while_locked( $fresh_plan )
@@ -1357,16 +1529,24 @@ final class LegacySettingsMigrator {
 	 * entitlement through its bridge. Every other diagnostic keeps V2 defaults for
 	 * the affected values, while the originals stay in the recovery snapshot.
 	 *
-	 * @param string[] $diagnostics Candidate diagnostics.
+	 * `legacy_paid_state_uncertain` also covers paid option values this version
+	 * cannot map, which no licence can ever settle. A Pro build therefore waits on it
+	 * only while the Freemius row itself is the uncertain part; the licence wait for
+	 * a V1 paid row is enforced separately by the entitlement-adapter diagnostic.
+	 *
+	 * @param string[] $diagnostics         Candidate diagnostics.
+	 * @param bool     $freemius_row_uncertain Whether the Freemius row itself is the uncertain part.
 	 * @return string[]
 	 */
-	private function blocking_diagnostics( array $diagnostics ): array {
+	private function blocking_diagnostics( array $diagnostics, bool $freemius_row_uncertain = false ): array {
 		$resolvable = array( 'legacy_custom_js_requires_review' );
 		if ( null !== $this->paid_entitlement_bridge ) {
 			// Completing first would leave a later licensed Freemius row unadmitted.
 			$resolvable[] = 'legacy_paid_entitlement_requires_adapter';
-			$resolvable[] = 'legacy_paid_state_uncertain';
 			$resolvable[] = self::ENTITLEMENT_DRIFT_DIAGNOSTIC;
+			if ( $freemius_row_uncertain ) {
+				$resolvable[] = 'legacy_paid_state_uncertain';
+			}
 		}
 		$blocking = array_values( array_intersect( $diagnostics, $resolvable ) );
 		$released = array_diff( $diagnostics, $blocking );
@@ -1374,6 +1554,27 @@ final class LegacySettingsMigrator {
 			$this->warnings = array_values( array_unique( array_merge( $this->warnings, $released ) ) );
 		}
 		return $blocking;
+	}
+
+	/**
+	 * Whether the Freemius row, not a paid option value, is the uncertain part of the paid state.
+	 *
+	 * Only a later licence or a readable row can settle that, so a Pro build keeps
+	 * waiting on it. A V1 Pro identity whose row is missing counts as uncertain too.
+	 *
+	 * @param array<string, string> $raw_rows Exact paid-state option bytes keyed by option name.
+	 */
+	private function freemius_row_is_uncertain( array $raw_rows ): bool {
+		$accounts = $raw_rows['fs_accounts'] ?? '';
+		if ( '' === $accounts ) {
+			return 'cartpops-pro/cartpops.php' === $this->historical_pre_sdk_basename();
+		}
+		try {
+			$own = ( new LegacyPaidStateInspector( $this->site_context ) )->inspect_raw_rows( array( 'fs_accounts' => $accounts ) );
+		} catch ( MigrationMaintenanceException | MigrationReadException ) {
+			return true;
+		}
+		return in_array( 'legacy_paid_state_uncertain', $own, true );
 	}
 
 	/**
@@ -1575,6 +1776,16 @@ final class LegacySettingsMigrator {
 		// Retain earned completion's independence from later paid authority, but
 		// hold exact customization evidence through its existing completion writes.
 		if ( $rows[ self::JS_REVIEW_OPTION ]['exists'] || $rows[ self::QUARANTINE_OPTION ]['exists'] ) {
+			// The fenced decision below writes nothing for a finished site whose review
+			// record still matches, or whose unchanged quarantined script never needed a
+			// review. Proving that without the fence keeps it off every ordinary request.
+			if (
+				null === $locked
+				&& ( $rows[ self::JS_REVIEW_OPTION ]['exists'] || $this->unreviewable_quarantine_is_unchanged( $rows ) )
+				&& $this->converged_completion_needs_no_lock( $rows )
+			) {
+				return MigrationOutcome::COMPLETE;
+			}
 			if ( null === $locked ) {
 				return $this->with_fence_reason(
 					( new LegacyCompatibilityTerminalFence( $this->site_context ) )->run(
@@ -1587,13 +1798,7 @@ final class LegacySettingsMigrator {
 					)
 				);
 			}
-			$quarantined     = $rows[ self::QUARANTINE_OPTION ]['value']['raw_value'] ?? '';
-			$requires_review = $rows[ self::JS_REVIEW_OPTION ]['exists'] || in_array(
-				'legacy_custom_js_requires_review',
-				( new LegacyPaidStateInspector( $this->site_context ) )->inspect_raw_rows( array( 'cartpops_custom_js' => $quarantined ) ),
-				true
-			);
-			if ( $requires_review ) {
+			if ( $rows[ self::JS_REVIEW_OPTION ]['exists'] || $this->quarantined_custom_js_requires_review( $rows ) ) {
 				$fingerprint = $this->custom_js_review_fingerprint( $locked, $rows );
 				if ( null === $fingerprint || ! $rows[ self::JS_REVIEW_OPTION ]['exists'] || $this->custom_js_review_record( $fingerprint ) !== $rows[ self::JS_REVIEW_OPTION ]['value'] ) {
 					return MigrationOutcome::MAINTENANCE_REQUIRED;
@@ -1616,6 +1821,34 @@ final class LegacySettingsMigrator {
 		}
 
 		return MigrationOutcome::COMPLETE;
+	}
+
+	/**
+	 * Whether a quarantine that never needed a review still holds the live V1 script.
+	 *
+	 * @param array<string, array{exists: bool, value: mixed, raw_value: string, autoload: string}> $rows Exact control rows.
+	 */
+	private function unreviewable_quarantine_is_unchanged( array $rows ): bool {
+		if ( $rows[ self::JS_REVIEW_OPTION ]['exists'] || ! $rows[ self::QUARANTINE_OPTION ]['exists'] || $this->quarantined_custom_js_requires_review( $rows ) ) {
+			return false;
+		}
+		$source = $this->store->read( 'cartpops_custom_js' );
+		return $source['success'] && $source['exists']
+			&& ( $rows[ self::QUARANTINE_OPTION ]['value']['raw_value'] ?? null ) === $source['raw_value'];
+	}
+
+	/**
+	 * Whether the quarantined V1 script is one that needs a store owner's review.
+	 *
+	 * @param array<string, array{exists: bool, value: mixed, raw_value: string, autoload: string}> $rows Exact control rows.
+	 */
+	private function quarantined_custom_js_requires_review( array $rows ): bool {
+		$quarantined = $rows[ self::QUARANTINE_OPTION ]['value']['raw_value'] ?? '';
+		return in_array(
+			'legacy_custom_js_requires_review',
+			( new LegacyPaidStateInspector( $this->site_context ) )->inspect_raw_rows( array( 'cartpops_custom_js' => $quarantined ) ),
+			true
+		);
 	}
 
 	/**
@@ -1904,6 +2137,96 @@ final class LegacySettingsMigrator {
 		);
 
 		return $decoded['safe'] ? $decoded['value'] : null;
+	}
+
+	/**
+	 * Decode one boot control row, skipping a large record already proven valid.
+	 *
+	 * A finished store from version 1 keeps its write-once snapshot (and any
+	 * recovery records) forever. Their validity depends only on their exact
+	 * bytes and this site, so a remembered proof answers instead of a full parse
+	 * on every request. A row that is not proven is decoded exactly as before.
+	 *
+	 * @param string $option Boot control option name.
+	 * @param string $raw    Exact stored bytes.
+	 */
+	private function decode_boot_control_raw( string $option, string $raw ): mixed {
+		if ( ! in_array( $option, self::PROVABLE_CONTROL_OPTIONS, true ) ) {
+			return $this->decode_internal_raw( $raw );
+		}
+		$decoded = false;
+		$value   = null;
+		$verdict = ExactRowVerdictMemo::decide(
+			self::PROVEN_ROW_PURPOSE,
+			$this->control_row_proof_inputs( $option, $raw ),
+			function () use ( $option, $raw, &$decoded, &$value ): ?array {
+				$decoded = true;
+				$value   = $this->decode_internal_raw( $raw );
+				return $this->site_control_value_is_valid( $option, $value ) ? array( 'valid' ) : null;
+			}
+		);
+		if ( $decoded ) {
+			return $value;
+		}
+		if ( array( 'valid' ) !== $verdict ) {
+			return $this->decode_internal_raw( $raw );
+		}
+		$this->proven_control_rows[ $option ] = $raw;
+		return null;
+	}
+
+	/**
+	 * Bind a control row proof to its exact bytes, schema and site.
+	 *
+	 * @param string $option Boot control option name.
+	 * @param string $raw    Exact stored bytes.
+	 * @return array<string, string>
+	 */
+	private function control_row_proof_inputs( string $option, string $raw ): array {
+		return array(
+			'schema'  => (string) self::SCHEMA_VERSION,
+			'blog'    => (string) $this->site_context->blog_id(),
+			'network' => (string) $this->site_context->network_id(),
+			'option'  => $option,
+			'raw'     => $raw,
+		);
+	}
+
+	/**
+	 * Remember a control row the migration has just validated, so later requests skip its parse.
+	 *
+	 * @param string $option Boot control option name.
+	 * @param string $raw    Exact stored bytes that passed validation.
+	 */
+	private function remember_valid_control_row( string $option, string $raw ): void {
+		ExactRowVerdictMemo::decide( self::PROVEN_ROW_PURPOSE, $this->control_row_proof_inputs( $option, $raw ), static fn(): array => array( 'valid' ) );
+	}
+
+	/**
+	 * Whether a boot control row was proven valid and left undecoded.
+	 *
+	 * @param string                                                                 $option Boot control option name.
+	 * @param array{exists: bool, value: mixed, raw_value: string, autoload: string} $row    Exact control row.
+	 */
+	private function control_row_is_proven( string $option, array $row ): bool {
+		return $row['exists']
+			&& null === $row['value']
+			&& isset( $this->proven_control_rows[ $option ] )
+			&& $this->proven_control_rows[ $option ] === $row['raw_value'];
+	}
+
+	/**
+	 * Return a control row with its value decoded, for callers that read its contents.
+	 *
+	 * @param string                                                                 $option Boot control option name.
+	 * @param array{exists: bool, value: mixed, raw_value: string, autoload: string} $row    Exact control row.
+	 * @return array{exists: bool, value: mixed, raw_value: string, autoload: string}
+	 */
+	private function decoded_control_row( string $option, array $row ): array {
+		if ( $this->control_row_is_proven( $option, $row ) ) {
+			$row['value'] = $this->decode_internal_raw( $row['raw_value'] );
+		}
+		return $row;
 	}
 
 	/**
@@ -2284,6 +2607,9 @@ final class LegacySettingsMigrator {
 				}
 				continue;
 			}
+			if ( $this->control_row_is_proven( $option, $row ) ) {
+				continue;
+			}
 			if ( ! $this->site_control_value_is_valid( $option, $row['value'] ) ) {
 				if ( self::RULES_RETIREMENT_OPTION === $option && self::SCHEMA_VERSION === $this->durable_record_schema( $row['value'] ) ) {
 					continue;
@@ -2367,9 +2693,10 @@ final class LegacySettingsMigrator {
 			throw new MigrationReadException( 'database_read_failed_boot_controls' );
 		}
 
-		$rows  = array_fill_keys( self::BOOT_CONTROL_OPTIONS, $this->missing_internal_option() );
-		$seen  = array();
-		$probe = null;
+		$rows                      = array_fill_keys( self::BOOT_CONTROL_OPTIONS, $this->missing_internal_option() );
+		$seen                      = array();
+		$probe                     = null;
+		$this->proven_control_rows = array();
 		foreach ( $results as $result ) {
 			if (
 				! is_array( $result )
@@ -2401,7 +2728,7 @@ final class LegacySettingsMigrator {
 			$raw_value     = (string) $result['option_value'];
 			$rows[ $name ] = array(
 				'exists'    => true,
-				'value'     => $this->decode_internal_raw( $raw_value ),
+				'value'     => $this->decode_boot_control_raw( $name, $raw_value ),
 				'raw_value' => $raw_value,
 				'autoload'  => $result['autoload'],
 			);
@@ -2805,6 +3132,8 @@ final class LegacySettingsMigrator {
 				self::PRE_SDK_EVIDENCE_OPTION,
 				self::COMPATIBILITY_OPTION,
 				self::RULES_RETIREMENT_OPTION,
+				FreemiusIdentityPathMemo::OPTION,
+				ExactRowVerdictMemo::OPTION,
 			)
 		);
 
@@ -3487,14 +3816,24 @@ final class LegacySettingsMigrator {
 		// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching -- Cohort proof must distinguish a missing network row from database failure.
 		$rows = $wpdb->get_results(
 			$wpdb->prepare(
-				"SELECT meta_value FROM {$wpdb->sitemeta} WHERE site_id = %d AND meta_key = %s LIMIT 2",
+				"SELECT meta_value FROM {$wpdb->sitemeta} WHERE site_id = %d AND meta_key = %s LIMIT %d",
 				get_current_network_id(),
-				$option
+				$option,
+				self::MAX_DUPLICATE_NETWORK_ROWS + 1
 			),
 			ARRAY_A
 		);
-		if ( '' !== MigrationDatabaseState::last_error( $wpdb ) || ! is_array( $rows ) || count( $rows ) > 1 ) {
+		if ( '' !== MigrationDatabaseState::last_error( $wpdb ) || ! is_array( $rows ) || count( $rows ) > self::MAX_DUPLICATE_NETWORK_ROWS ) {
 			throw new MigrationReadException( 'database_read_failed_network_option' );
+		}
+		// wp_sitemeta has no unique (site_id, meta_key) key, so concurrent add_site_option() calls
+		// can leave several copies. Byte-identical copies carry the evidence of one row; any
+		// difference means there is no single winner and the read fails closed.
+		$first = reset( $rows );
+		foreach ( $rows as $duplicate ) {
+			if ( $duplicate !== $first ) {
+				throw new MigrationReadException( 'database_read_failed_network_option' );
+			}
 		}
 		if ( array() === $rows ) {
 			return array(

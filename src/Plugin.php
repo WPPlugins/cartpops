@@ -21,6 +21,7 @@ use CartPops\I18n\Translator;
 use CartPops\Compatibility\BlocksyIntegration;
 use CartPops\Compatibility\MiniCartIntegration;
 use CartPops\Compatibility\PageCacheExclusion;
+use CartPops\Compatibility\ReactJsxRuntimeFallback;
 use CartPops\Licensing\EditionAuthority;
 use CartPops\Licensing\PaidRuntimeGuard;
 use CartPops\Edition\PhysicalEditionAuthority;
@@ -41,6 +42,15 @@ use CartPops\StoreAPI\CartExtension;
 final class Plugin {
 	private const DRAWER_STYLE_HANDLE     = 'cartpops-cart-drawer-style';
 	private const CUSTOM_CSS_STYLE_HANDLE = 'cartpops-drawer-custom-css';
+
+	private const UPGRADE_RETRY_INIT_PRIORITY    = 0;
+	private const UPGRADE_BUSY_POLL_MICROSECONDS = 100000;
+
+	/** First request on this site whose licence was confirmed too late for Pro to boot. */
+	private const PAID_ACTIVATION_MISS_OPTION = 'cartpops_paid_activation_miss_v1';
+
+	/** How long late confirmations must persist before the store owner is told. */
+	private const PAID_ACTIVATION_MISS_NOTICE_AFTER_SECONDS = 600;
 
 	/**
 	 * The singleton instance.
@@ -76,6 +86,13 @@ final class Plugin {
 	 * @var bool
 	 */
 	private bool $upgrade_retry_scheduled = false;
+
+	/**
+	 * How long the single BUSY retry may wait for the request that holds the upgrade lock.
+	 *
+	 * @var int Microseconds.
+	 */
+	private int $upgrade_busy_wait_microseconds = 2000000;
 
 	/**
 	 * Value-free diagnostic code for a fail-closed boot or missing build.
@@ -428,8 +445,7 @@ final class Plugin {
 			return false;
 		}
 		if ( $this->paid_activation_lifecycle_was_missed() ) {
-			$this->boot_diagnostic = 'paid_activation_lifecycle_missed';
-			$this->register_boot_notice();
+			$this->report_paid_activation_miss();
 			return false;
 		}
 
@@ -596,7 +612,15 @@ final class Plugin {
 		if ( $this->services_booted ) {
 			return;
 		}
-		$this->handle_upgrade_outcome( $this->upgrader->maybe_upgrade(), false );
+		$outcome = $this->upgrader->maybe_upgrade();
+		$waited  = 0;
+		while ( UpgradeOutcome::BUSY === $outcome && $waited < $this->upgrade_busy_wait_microseconds ) {
+			// The request holding the upgrade lock normally finishes within milliseconds.
+			usleep( self::UPGRADE_BUSY_POLL_MICROSECONDS );
+			$waited += self::UPGRADE_BUSY_POLL_MICROSECONDS;
+			$outcome = $this->upgrader->maybe_upgrade();
+		}
+		$this->handle_upgrade_outcome( $outcome, false );
 	}
 
 	/**
@@ -617,7 +641,10 @@ final class Plugin {
 		if ( UpgradeOutcome::BUSY === $outcome && $allow_retry && ! $this->upgrade_retry_scheduled ) {
 			$this->upgrade_retry_scheduled = true;
 			$this->boot_diagnostic         = 'upgrade_busy';
-			add_action( 'init', array( $this, 'retry_upgrade_and_boot' ), 20 );
+			// Before the default-priority init hooks that booting registers: WordPress never
+			// runs a hook added at a priority init has already passed, which would leave the
+			// launcher shortcode and blocks unregistered on a retry that boots late.
+			add_action( 'init', array( $this, 'retry_upgrade_and_boot' ), self::UPGRADE_RETRY_INIT_PRIORITY );
 		} else {
 			$this->boot_diagnostic   = 'upgrade_' . $outcome->value;
 			$this->boot_failure_step = UpgradeOutcome::FAILED === $outcome ? $this->upgrader->failure_step() : '';
@@ -639,6 +666,9 @@ final class Plugin {
 
 		// Register blocks.
 		add_action( 'init', array( $this, 'register_blocks' ) );
+
+		// WordPress 6.5 lacks the JSX runtime handle the admin and editor bundles need.
+		add_action( 'wp_loaded', array( ReactJsxRuntimeFallback::class, 'register' ) );
 
 		// Admin.
 		if ( is_admin() ) {
@@ -674,11 +704,15 @@ final class Plugin {
 		// WooCommerce Store API extension.
 		add_action( 'woocommerce_blocks_loaded', array( $this, 'register_store_api' ) );
 
-		// Classic theme support.
+		// Classic theme support. Render before core prints the Interactivity
+		// state at wp_footer priority 10: a boot retried on init registers after
+		// core, and a same-priority render would leave the drawer without state.
 		$classic_compat = $this->container->get( ClassicThemeCompat::class );
-		add_action( 'wp_footer', array( $classic_compat, 'render_drawer' ), 10 );
-		add_action( 'wp_footer', array( $classic_compat, 'render_launcher' ), 10 );
+		add_action( 'wp_footer', array( $classic_compat, 'render_drawer' ), 9 );
+		add_action( 'wp_footer', array( $classic_compat, 'render_launcher' ), 9 );
 		add_action( 'wp_enqueue_scripts', array( $classic_compat, 'enqueue_assets' ), 20 );
+		add_action( 'template_redirect', array( $classic_compat, 'order_import_map' ) );
+		add_action( 'wp_head', array( $classic_compat, 'print_cart_presence_hint' ), 1 );
 		add_action( 'init', array( $classic_compat, 'register_shortcode' ) );
 
 		// User-defined custom CSS (advanced settings). Hooked after
@@ -712,8 +746,7 @@ final class Plugin {
 			return false;
 		}
 		if ( $this->paid_activation_lifecycle_was_missed() ) {
-			$this->boot_diagnostic = 'paid_activation_lifecycle_missed';
-			$this->register_boot_notice();
+			$this->report_paid_activation_miss();
 			return false;
 		}
 
@@ -744,7 +777,54 @@ final class Plugin {
 			$this->register_boot_notice();
 			return false;
 		}
+		$this->clear_paid_activation_miss();
 		return true;
+	}
+
+	/**
+	 * Keep Pro off for this request, and tell the owner only once misses persist.
+	 *
+	 * Paid code never boots after init, so this request stays without Pro either
+	 * way. A licence confirmed late on one busy request is not a store whose Pro
+	 * stopped: the notice waits until misses have lasted ten minutes with no
+	 * request booting Pro in between. Later misses never move the first time.
+	 */
+	private function report_paid_activation_miss(): void {
+		$this->boot_diagnostic = 'paid_activation_lifecycle_missed';
+		if ( function_exists( 'ms_is_switched' ) && ms_is_switched() ) {
+			// Another site's context inside this request: keep the immediate notice.
+			$this->register_boot_notice();
+			return;
+		}
+		$now   = time();
+		$since = get_option( self::PAID_ACTIVATION_MISS_OPTION, null );
+		if ( ! is_int( $since ) && ! ( is_string( $since ) && 1 === preg_match( '/^[1-9][0-9]{0,18}$/D', $since ) ) ) {
+			$since = null;
+		}
+		$since = null === $since ? null : (int) $since;
+		if ( null === $since || $since > $now ) {
+			// A missing, unreadable or future time restarts at this miss, never later.
+			delete_option( self::PAID_ACTIVATION_MISS_OPTION );
+			add_option( self::PAID_ACTIVATION_MISS_OPTION, $now, '', true );
+			$since = $now;
+		}
+		if ( $now - $since >= self::PAID_ACTIVATION_MISS_NOTICE_AFTER_SECONDS ) {
+			$this->register_boot_notice();
+		}
+	}
+
+	/** A request that booted Pro ends any run of late licence confirmations. */
+	private function clear_paid_activation_miss(): void {
+		if ( function_exists( 'ms_is_switched' ) && ms_is_switched() ) {
+			return;
+		}
+		// The record is always autoloaded, so its absence costs no query here.
+		if ( function_exists( 'wp_load_alloptions' ) && ! array_key_exists( self::PAID_ACTIVATION_MISS_OPTION, wp_load_alloptions() ) ) {
+			return;
+		}
+		if ( false !== get_option( self::PAID_ACTIVATION_MISS_OPTION, false ) ) {
+			delete_option( self::PAID_ACTIVATION_MISS_OPTION );
+		}
 	}
 
 	/** Reverify idempotent schema/cron prerequisites when entitlement becomes usable. */

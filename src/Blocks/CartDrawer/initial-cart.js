@@ -449,9 +449,30 @@ export function markCartHydrationPending( state ) {
  * @param {Object} state CartPops Interactivity API state proxy.
  */
 export function markCartHydrationTrusted( state ) {
+	const wasPending = state._cartHydrationPending === true;
 	state._cartHydrationTrusted = true;
 	state._cartHydrationPending = false;
 	state.isLoading = false;
+	if ( wasPending ) {
+		releaseUnconfirmedCartHint();
+	}
+}
+
+/**
+ * Document class set before paint when WooCommerce's cookie says the cart has
+ * items, so a launcher rendered empty by a full page cache stays neutral.
+ */
+export const UNCONFIRMED_CART_CLASS = 'cpops-cart-unconfirmed';
+
+/**
+ * End the cached-page neutral launcher state once the cart count is known.
+ *
+ * @param {Document} [documentScope] Document carrying the class.
+ */
+export function releaseUnconfirmedCartHint(
+	documentScope = globalThis.document
+) {
+	documentScope?.documentElement?.classList?.remove( UNCONFIRMED_CART_CLASS );
 }
 
 /**
@@ -565,6 +586,12 @@ function initialSynchronizationRegistry() {
  * `woocommerce_items_in_cart=1` presence hint for an item count. A populated
  * cart is identified only by its exact bounded cart hash.
  *
+ * WooCommerce removes both cart cookies when a cart is emptied and never sets
+ * them for a visitor who has not had one, so their joint absence reports an
+ * empty cart. A WooCommerce session cookie withdraws that claim: the cart
+ * cookies are session cookies, while the session and its cart survive a
+ * browser restart.
+ *
  * @param {string} cookieHeader `document.cookie` value.
  * @return {{status: 'populated'|'empty'|'unknown', cartHash: string|null}} Parsed cookie identity.
  */
@@ -582,6 +609,14 @@ export function readWooCartCookie( cookieHeader ) {
 			.map( ( part ) => part.slice( part.indexOf( '=' ) + 1 ) );
 	const itemHints = valuesFor( 'woocommerce_items_in_cart' );
 	const cartHashes = valuesFor( 'woocommerce_cart_hash' );
+
+	if (
+		itemHints.length === 0 &&
+		cartHashes.length === 0 &&
+		! parts.some( ( part ) => part.startsWith( 'wp_woocommerce_session_' ) )
+	) {
+		return { status: 'empty', cartHash: null };
+	}
 
 	if ( itemHints.length !== 1 || cartHashes.length > 1 ) {
 		return { status: 'unknown', cartHash: null };
@@ -636,6 +671,7 @@ export function synchronizeInitialCart( {
 				cookie.cartHash === state.cartHash.toLowerCase() ) );
 
 	if ( cookieMatches && forceRefresh !== true ) {
+		releaseUnconfirmedCartHint();
 		markFresh();
 		initialSynchronization.set( state, 'current' );
 		return 'current';

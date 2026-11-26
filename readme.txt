@@ -4,7 +4,7 @@ Tags: side cart, cart drawer, floating cart, woocommerce side cart, add to cart 
 Requires at least: 6.5
 Tested up to: 7.1
 Requires PHP: 8.1
-Stable tag: 2.0.12
+Stable tag: 2.0.18
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -110,6 +110,42 @@ Your settings, styling and license carry over. Version 2 is built around the car
 4. Pro Smart Bar rules and Smart Add-ons such as shipping protection and gift wrapping.
 
 == Changelog ==
+
+= 2.0.18 =
+* Improved: when a shopper adds a product from a shop page or a product page, the cart drawer now opens straight away with a loading bar and fills in once the product is added, instead of staying closed until the store answers.
+* Fix: in Pro, adding to the cart is quicker on slow hosting when the free shipping bar, add-ons, notification bar and bundles are all switched off.
+* Improved: after adding to cart on a product page, the cart drawer shows the product as soon as the store confirms the add, which is several seconds sooner on slow hosting.
+* Improved: removing a product from the cart drawer finishes updating sooner on slow hosting.
+* Fix: on WordPress 6.5, CartPops → Settings no longer shows a blank page, and the CartPops blocks show up in the editor again.
+* Fix: Activating CartPops 2 while an older CartPops 1 plugin was still active left the store paused. CartPops 2 now turns off the old copy for you, and otherwise tells you exactly which plugin to deactivate.
+
+= 2.0.17 =
+* Fix: CartPops Pro no longer stays paused with "upgrade_failed (pro_upgrade_incomplete)" after an update on stores with an older MySQL database.
+* Fix: Stores updated from CartPops 1 no longer slow down every page view by re-checking their saved CartPops 1 settings.
+
+= 2.0.16 =
+* Fix: on some stores updated from version 1, CartPops re-checked the finished update on every page that was not served from cache, slowing those pages down.
+* Fix: in Pro, pages no longer slow down on stores with many scheduled background tasks, because CartPops stopped re-checking all of them on every page view.
+
+= 2.0.15 =
+* Fix: on classic themes the cart drawer could show "requestFailed", ignore quantity changes or removals, and fall out of step with the cart, mostly on pages served from a page cache. Failed cart actions now always show a readable message.
+* Fix: Pages no longer load slowly on stores updated from CartPops 1, especially stores with many other plugins installed.
+* Fix: In Firefox, the cart drawer and cart buttons work again on classic themes when the page also has an embed like a newsletter form or captcha that loads before the cart.
+* Fix: on an empty cart the cart button no longer flashes a "0" while the page loads. With "Hide when cart is empty" on, the button now stays hidden on cached pages until the shopper's cart has been read.
+* Fix: on pages served from a full page cache, a shopper with items in the cart no longer sees a "0" on the cart button while their cart loads. The button shows without a count until the real count is known.
+* Fix: on busy stores updated from version 1 with reviewed custom JavaScript, the cart drawer could be missing on some pages and a "CartPops is paused" notice could come and go. In Pro, features such as analytics could also stop on those pages.
+* Fix: in Pro, a brief moment when your licence could not be checked no longer pauses CartPops on stores updated from version 1. If Pro keeps failing to start for 10 minutes, the "CartPops is paused" notice still appears.
+
+= 2.0.14 =
+* Fix: On multisite networks, CartPops no longer pauses every site when WordPress has saved duplicate copies of the same network setting. When CartPops does pause, the admin notice now shows a reason code to send to support.
+* Fix: The cart drawer no longer shows an empty cart when another plugin or custom code loads the cart very early on the page. It now shows the items in the cart, or an error message if the cart cannot be read.
+* Fix: CartPops no longer stays paused after updating on stores whose database tables have no prefix, so the cart drawer shows again.
+* Fix: CartPops Pro no longer stays paused after you update from version 1 when a CartPops Pro setting from version 1 could not be carried over exactly. Once your Pro license is active, the update finishes by itself and your original settings are kept.
+* Fix: the cart and checkout no longer show a critical error in CartPops Pro when another plugin changes how product quantities are displayed.
+
+= 2.0.13 =
+* Fix: when several visitors loaded the site at the same moment right after an update, some pages could show the cart launcher as plain text like `[cartpops_cart_launcher]` and miss the cart drawer.
+* Fix: on sites with page caching, the cart drawer no longer sends two extra requests on every page view for visitors with an empty cart, and no longer loads recommendations while they are switched off. This reduces the load on busy stores.
 
 = 2.0.12 =
 * Fix: The cart drawer no longer shows "Request failed" with an empty item list when another plugin loads the cart early, such as delivery-slot plugins.
